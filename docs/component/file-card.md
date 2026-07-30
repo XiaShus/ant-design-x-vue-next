@@ -1,20 +1,55 @@
 # FileCard 文件卡片
 
-> 状态：**规划中**（对齐 [`@ant-design/x` FileCard](https://x.ant.design/components/file-card-cn)）
-
-用于展示单个文件信息（名称、类型、大小、预览等）。
+用卡片的形式展示文件。
 
 ## 何时使用
 
-- 在对话附件、资料列表中展示文件摘要。
+- 用于在对话或输入时展示文件。
 
-## 计划 API（对齐 React）
+## 代码演示
+
+### 基本
+
+:::demo 基础用法。
+
+file-card/basic
+
+:::
+
+### 列表
+
+:::demo 文件列表。
+
+file-card/list
+
+:::
+
+## API
+
+### FileCardProps
 
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| name | 文件名 | `string` | - |
-| type | 文件类型 | `string` | - |
-| size | 文件大小 | `number \| string` | - |
-| src | 预览地址 | `string` | - |
+| name | 文件名称 | string | - |
+| byte | 文件大小（字节） | number | - |
+| size | 卡片大小 | `'small' \| 'default'` | `'default'` |
+| description | 文件描述 | VNode \| string \| function | - |
+| loading | 是否加载中 | boolean | false |
+| type | 文件类型 | `'file' \| 'image' \| 'audio' \| 'video'` | - |
+| src | 资源地址 | string | - |
+| icon | 自定义图标 | VNode \| PresetIcons | - |
+| onClick | 点击回调 | `(info, event) => void` | - |
 
-组件实现后将补充完整示例与类型定义。
+### FileCard.List
+
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| items | 文件列表 | FileCardProps[] | - |
+| size | 卡片大小 | `'small' \| 'default'` | - |
+| removable | 是否可移除 | boolean \| function | - |
+| onRemove | 移除回调 | `(item) => void` | - |
+| overflow | 超出样式 | `'scrollX' \| 'scrollY' \| 'wrap'` | - |
+
+## 贡献者
+
+<doc-contributors component-name="file-card" :max-count="50" :show-view-all="true" />

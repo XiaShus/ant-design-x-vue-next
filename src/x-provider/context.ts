@@ -11,6 +11,7 @@ import type { SuggestionProps } from 'ant-design-x-vue/suggestion';
 import type { ThoughtChainProps } from 'ant-design-x-vue/thought-chain';
 import type { ThinkProps } from 'ant-design-x-vue/think';
 import type { SourcesProps } from 'ant-design-x-vue/sources';
+import type { FileCardProps } from 'ant-design-x-vue/file-card';
 import type { WelcomeProps } from 'ant-design-x-vue/welcome';
 
 // refer from the ConfigProviderProps of ant-design-vue
@@ -64,6 +65,7 @@ export interface XComponentsConfig {
   thoughtChain?: ComponentStyleConfig<ThoughtChainProps>;
   think?: ComponentStyleConfig<ThinkProps>;
   sources?: ComponentStyleConfig<SourcesProps>;
+  fileCard?: ComponentStyleConfig<FileCardProps>;
   attachments?: ComponentStyleConfig<AttachmentsProps>;
   welcome?: ComponentStyleConfig<WelcomeProps>;
 }

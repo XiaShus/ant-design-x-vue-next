@@ -10,3 +10,4 @@ export * from './thought-chain';
 export * from './actions';
 export * from './think';
 export * from './sources';
+export * from './file-card';

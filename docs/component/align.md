@@ -15,7 +15,7 @@
 | 表达 | Attachments | ✅ | ✅ | [文档](/component/attachments) |
 | 表达 | Suggestion | ✅ | ✅ | [文档](/component/suggestion) |
 | 反馈 | Sources | ✅ | ✅ | [文档](/component/sources) |
-| 表达 | FileCard | ✅ | ⏳ 规划中 | [占位](/component/file-card) |
+| 反馈 | FileCard | ✅ | ✅ | [文档](/component/file-card) |
 | 表达 | Folder | ✅ | ⏳ 规划中 | [占位](/component/folder) |
 | 表达 | CodeHighlighter | ✅ | ⏳ 规划中 | [占位](/component/code-highlighter) |
 | 表达 | Mermaid | ✅ | ⏳ 规划中 | [占位](/component/mermaid) |
