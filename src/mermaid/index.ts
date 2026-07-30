@@ -9,6 +9,8 @@ export type {
   MermaidRenderType,
   MermaidActionsConfig,
 } from './interface';
+/** Re-export mermaid package config type used by `MermaidProps.config`. */
+export type { MermaidConfig } from 'mermaid';
 
 // @ts-ignore
 Mermaid.install = function (app: App) {

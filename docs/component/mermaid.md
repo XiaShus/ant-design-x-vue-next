@@ -37,16 +37,18 @@ mermaid/header-actions
 
 ### MermaidProps
 
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| children | 图表代码内容（也可通过默认插槽传入） | `string` | - |
-| header | 顶部内容；为 `null` 时不显示头部 | `VNode \| string \| (() => VNode \| string \| null) \| null` | - |
-| highlightProps | 透传给代码视图中 `CodeHighlighter` 的配置 | `object` | - |
-| config | Mermaid 配置项 | `MermaidConfig` | - |
-| actions | 操作栏配置 | `{ enableZoom?: boolean; enableDownload?: boolean; enableCopy?: boolean; customActions?: ActionItem[] }` | `{ enableZoom: true, enableDownload: true, enableCopy: true }` |
-| onRenderTypeChange | 渲染类型切换回调 | `(value: 'image' \| 'code') => void` | - |
+| 属性 | 说明 | 类型 | 默认值 | 版本 |
+| --- | --- | --- | --- | --- |
+| children | 图表代码内容（也可通过默认插槽传入） | `string` | - | - |
+| header | 顶部内容；为 `null` 时不显示头部 | `VNode \| string \| (() => VNode \| string \| null) \| null` | - | - |
+| highlightProps | 透传给代码视图中 `CodeHighlighter` 的配置 | `object` | - | - |
+| config | Mermaid 配置项 | MermaidConfig | - | 1.110.0（类型重导出） |
+| actions | 操作栏配置 | `{ enableZoom?: boolean; enableDownload?: boolean; enableCopy?: boolean; customActions?: ActionItem[] }` | `{ enableZoom: true, enableDownload: true, enableCopy: true }` | - |
+| onRenderTypeChange | 渲染类型切换回调 | `(value: 'image' \| 'code') => void` | - | - |
 | classNames | 语义化结构 className（键类型亦导出为 `MermaidType`，对齐 React） | Record<'root' \| 'header' \| 'graph' \| 'code', string> | - | 1.89.0（`MermaidType` 导出） |
-| styles | 语义化结构 style | Record<'root' \| 'header' \| 'graph' \| 'code', CSSProperties> | - |
+| styles | 语义化结构 style | Record<'root' \| 'header' \| 'graph' \| 'code', CSSProperties> | - | - |
+
+自 `1.110.0` 起可从包入口 `import type { MermaidConfig }`（重导出自 `mermaid`，无需再从 `mermaid` 单独 import 类型）。
 
 ### MermaidSlots
 
