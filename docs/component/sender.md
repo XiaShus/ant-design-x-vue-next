@@ -215,7 +215,7 @@ sender/focus
 | slotConfig     | 词槽配置，设置后启用结构化 SlotTextArea（contentEditable）输入                | `SlotConfigType[]`                                                     | -                       | 1.22.0 |
 | skill          | 技能芯片，显示在词槽输入起始位置                                              | `SkillType`                                                            | -                       | 1.22.0 |
 | onSubmit       | 点击发送按钮的回调                                                          | (message: string, slotConfig?: SlotConfigType[], skill?: SkillType) => void | -                  | -    |
-| onChange       | 输入框值改变的回调                                                          | (value: string, event?: ChangeEvent, slotConfig?: SlotConfigType[], skill?: SkillType) => void | - | -    |
+| onChange       | 输入框值改变的回调；词槽模式下 `slotConfig` 项含当前 `value`（`SlotConfigWithValue`） | (value: string, event?: ChangeEvent, slotConfig?: SlotConfigWithValue[], skill?: SkillType) => void | - | 1.108.0（`SlotConfigWithValue` 导出） |
 | onCancel       | 点击取消按钮的回调                                                          | () => void                                                             | -                       | -    |
 | onPasteFile    | 黏贴文件的回调                                                              | (firstFile: File, files: FileList) => void                             | -                       | -    |
 | autoSize       | 自适应内容高度，可设置为 true \| false 或对象：\{ minRows: 2, maxRows: 6 \} | boolean \| \{ minRows?: number; maxRows?: number \}                    | \{ maxRows: 8 \}        | -    |
@@ -247,6 +247,7 @@ type FooterRender = (info: { components: ActionsComponents }) => VNode;
 ```
 
 自 `1.104.0` 起可从包入口 `import type { SlotConfigTextType, SlotConfigInputType, SlotConfigSelectType, SlotConfigTagType, SlotConfigCustomType, SlotConfigContentType }`（`SlotConfigType` 联合成员）。
+自 `1.108.0` 起可从包入口 `import type { SlotConfigBaseType, SlotConfigWithValue }`。
 
 ```typescript | pure
 type SlotConfigType =
@@ -256,6 +257,8 @@ type SlotConfigType =
   | SlotConfigTagType
   | SlotConfigCustomType
   | SlotConfigContentType;
+
+type SlotConfigWithValue = SlotConfigType & { value?: string };
 
 type SkillType = {
   title?: VNode;
@@ -283,7 +286,7 @@ type SkillType = {
 | inputElement  | 输入元素（纯文本为 textarea；词槽模式为 SlotTextArea 根节点） | `HTMLElement \| null` | - | 1.52.0 |
 | focus         | 获取焦点 | (option?: { preventScroll?: boolean, cursor?: 'start' \| 'end' \| 'all' \| 'slot', key?: string }) | - | - |
 | blur          | 取消焦点 | () => void                                                                 | -      | -    |
-| getValue      | 获取词槽合成值（slot 模式） | () => \{ value: string; slotConfig: SlotConfigType[]; skill?: SkillType \} | - | 1.22.0 |
+| getValue      | 获取词槽合成值（slot 模式） | () => \{ value: string; slotConfig: SlotConfigWithValue[]; skill?: SkillType \} | - | 1.22.0；1.108.0（`SlotConfigWithValue`） |
 | insert        | 插入文本或词槽；`position: 'cursor'` 按选区插入，`replaceCharacters` 可删除光标前触发符（如 `/`） | `((value: string) => void) & ((slotConfig: SlotConfigType[], position?: 'start' \| 'end' \| 'cursor', replaceCharacters?: string, preventScroll?: boolean) => void)` | - | 1.41.0（字符串）；1.42.0（cursor / replaceCharacters） |
 | clear         | 清空输入（slot 模式重置插入项） | () => void | - | 1.22.0 |
 
