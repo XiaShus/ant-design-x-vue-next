@@ -2,6 +2,16 @@
 
 > Vue Next 文档站时间线版见 [更新日志](https://ant-design-x-vue-next-524.netlify.app/development/changelog.html)。
 
+## 1.78.0
+
+`2026-07-31`
+
+### ant-design-x-vue-next
+
+- 🆕 导出 `BubbleRef` / `ListSemanticType` / `RolesType` / `RoleType`（对齐 React 包入口）
+- 📖 FileCard.List：补齐 `classNames` / `styles`（root/card）文档与单测
+- 🛠 发布 npm `ant-design-x-vue-next@1.78.0`
+
 ## 1.77.0
 
 `2026-07-31`

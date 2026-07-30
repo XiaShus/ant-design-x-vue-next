@@ -235,6 +235,14 @@ type MessageStatus = 'local' | 'loading' | 'updating' | 'success' | 'error' | 'a
 type InfoType = { key?: string | number; status?: MessageStatus; extraInfo?: object };
 ```
 
+### Bubble Ref
+
+可通过模板 `ref` 获取（类型 `BubbleRef`，自 `1.78.0` 从包入口导出）：
+
+| 名称 | 说明 | 类型 | 版本 |
+| --- | --- | --- | --- |
+| nativeElement | 气泡根节点 DOM | HTMLElement | - |
+
 ### Bubble.System
 
 | 属性 | 说明 | 类型 | 默认值 | 版本 |

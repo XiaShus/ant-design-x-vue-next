@@ -6,14 +6,18 @@ import BubbleSystem from './BubbleSystem.vue';
 
 export type {
   BubbleProps,
+  BubbleRef,
   BubbleListProps,
   BubbleListRef,
   BubbleSemanticType,
+  ListSemanticType,
   EditableBubbleOption,
   SystemBubbleProps,
   DividerBubbleProps,
   InfoType,
   BubbleDataType,
+  RolesType,
+  RoleType,
 } from './interface';
 // MessageStatus lives in use-x-chat — re-export would clash at package root
 

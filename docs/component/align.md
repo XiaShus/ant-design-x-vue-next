@@ -6,7 +6,7 @@
 
 | 分组 | 组件 | React `@ant-design/x` | Vue Next | 文档 |
 | --- | --- | --- | --- | --- |
-| 通用 | Bubble | ✅ | ✅（含 System / Divider `nativeElement` ref；List `role`/`roles` 别名+语义；Bubble 语义 `root`/`body`；`scrollBoxNativeElement`+`scrollTo.top` / `contentRender`+`InfoType` / `extra` / avatar BubbleSlot / streaming / typing） | [文档](/component/bubble) |
+| 通用 | Bubble | ✅ | ✅（含导出 `BubbleRef` / `ListSemanticType` / `RolesType`；System / Divider `nativeElement` ref；List `role`/`roles` 别名+语义；Bubble 语义 `root`/`body`；`scrollBoxNativeElement`+`scrollTo.top` / `contentRender`+`InfoType` / `extra` / avatar BubbleSlot / streaming / typing） | [文档](/component/bubble) |
 | 通用 | Conversations | ✅ | ✅（含 `creation` / `Conversations.Creation`、`shortcutKeys`、`groupable.collapsible` + 折叠动效、`onActiveChange(key, item)`、divider、`classNames/styles` root/group；移动端菜单常显；`nativeElement` ref） | [文档](/component/conversations) |
 | 通用 | Notification | ✅ | ✅ | [文档](/component/notification) |
 | 唤醒 | Welcome | ✅ | ✅（含 `classNames/styles` root/title/description/icon/extra、`nativeElement` ref） | [文档](/component/welcome) |
@@ -15,7 +15,7 @@
 | 表达 | Attachments | ✅ | ✅（含 `select` / `fileNativeElement`、默认插槽触发、`#upload` + `maxCount` 隐藏、java/js/python 预设图标） | [文档](/component/attachments) |
 | 表达 | Suggestion | ✅ | ✅（含 `icon`/`extra` 渲染、`onSelect` 第二参、`open` children prop、`classNames/styles` root/content/popup、`getPopupContainer`、Cascader `otherProps` 透传） | [文档](/component/suggestion) |
 | 反馈 | Sources | ✅ | ✅（含 `classNames/styles` root/title/content、`nativeElement` ref） | [文档](/component/sources) |
-| 反馈 | FileCard | ✅ | ✅（含 java / javascript / python 预设图标、`spinProps`、List `item.key`） | [文档](/component/file-card) |
+| 反馈 | FileCard | ✅ | ✅（含 java / javascript / python 预设图标、`spinProps`、List `item.key`、List `classNames`/`styles` root/card） | [文档](/component/file-card) |
 | 表达 | Folder | ✅ | ✅ | [文档](/component/folder) |
 | 表达 | CodeHighlighter | ✅ | ✅ | [文档](/component/code-highlighter) |
 | 表达 | Mermaid | ✅ | ✅ | [文档](/component/mermaid) |

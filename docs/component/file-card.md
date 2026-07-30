@@ -51,6 +51,8 @@ file-card/list
 | removable | 是否可移除 | boolean \| function | - | - |
 | onRemove | 移除回调 | `(item) => void` | - | - |
 | overflow | 超出样式 | `'scrollX' \| 'scrollY' \| 'wrap'` | - | - |
+| classNames | 语义化 class（`root` 列表根；`card` 透传到每张 FileCard；其余透传 FileCard 语义） | Record<'root' \| 'card' \| …, string> | - | 1.78.0（文档/单测） |
+| styles | 语义化 style（同上） | Record<'root' \| 'card' \| …, CSSProperties> | - | 1.78.0（文档/单测） |
 
 ## 贡献者
 
