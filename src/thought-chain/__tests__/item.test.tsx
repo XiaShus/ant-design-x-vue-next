@@ -142,4 +142,13 @@ describe('ThoughtChain.Item', () => {
     expect(wrapper.attributes('data-testid')).toBe('custom-testid');
     expect(wrapper.attributes('aria-label')).toBe('test-label');
   });
+
+  it('exposes nativeElement root', () => {
+    const wrapper = mount(ThoughtChain.Item, {
+      props: { title: 'Test' },
+    });
+    const api = wrapper.vm as unknown as { nativeElement: HTMLElement };
+    expect(api.nativeElement).toBeInstanceOf(HTMLDivElement);
+    expect(api.nativeElement.className).toContain('ant-thought-chain-item');
+  });
 });

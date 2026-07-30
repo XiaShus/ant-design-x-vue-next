@@ -12,6 +12,7 @@ export type {
 export type { Collapsible, CollapsibleOptions } from './hooks/useCollapsible';
 export type {
   ThoughtChainItemProps,
+  ThoughtChainItemRef,
   ThoughtChainItemVariant,
   ThoughtChainItemStatus,
   ThoughtChainItemSemanticType,

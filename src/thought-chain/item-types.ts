@@ -94,3 +94,8 @@ export interface ThoughtChainItemProps {
    */
   onClick?: (e: MouseEvent) => void;
 }
+
+/** Align React ThoughtChain.Item ref. */
+export interface ThoughtChainItemRef {
+  nativeElement: HTMLElement;
+}

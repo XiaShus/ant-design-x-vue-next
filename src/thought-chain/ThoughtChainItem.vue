@@ -1,6 +1,6 @@
 <script setup lang="tsx">
 import classnames from 'classnames';
-import { computed, useAttrs, useId } from 'vue';
+import { computed, ref, useAttrs, useId } from 'vue';
 import pickAttrs from '../_util/pick-attrs';
 import { useXProviderContext } from '../x-provider';
 import type { ThoughtChainItemProps } from './item-types';
@@ -20,6 +20,7 @@ const props = withDefaults(defineProps<ThoughtChainItemProps>(), {
 
 const attrs = useAttrs();
 const id = useId();
+const itemRef = ref<HTMLDivElement>();
 
 const { getPrefixCls, direction } = useXProviderContext();
 const prefixCls = computed(() => getPrefixCls('thought-chain', props.prefixCls));
@@ -68,6 +69,10 @@ const handleClick = (e: MouseEvent) => {
   onClick?.(e);
 };
 
+defineExpose({
+  nativeElement: itemRef,
+});
+
 defineRender(() => {
   const { class: _c, style: attrStyle, onClick: _onClick, ...restDom } = {
     ...domProps.value,
@@ -77,6 +82,7 @@ defineRender(() => {
   return wrapCSSVar(
     <div
       {...restDom}
+      ref={itemRef}
       key={id}
       onClick={props.disabled ? undefined : handleClick}
       style={{

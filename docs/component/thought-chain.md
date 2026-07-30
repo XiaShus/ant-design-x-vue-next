@@ -149,6 +149,12 @@ thought-chain/simple
 | styles | 语义化样式 | Record<'root' \| 'icon' \| 'title' \| 'description', CSSProperties> | - | 1.24.0 |
 | rootClassName | 根元素样式类名 | string | - | 1.24.0 |
 
+#### ThoughtChain.Item Ref
+
+| 名称 | 说明 | 类型 | 默认值 | 版本 |
+| --- | --- | --- | --- | --- |
+| nativeElement | 根节点 DOM | HTMLElement | - | 1.71.0 |
+
 ### CollapsibleOptions
 
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
