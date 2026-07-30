@@ -19,6 +19,16 @@ customClass: changelog-page
 
 ---
 
+## 1.43.0
+
+`2026-07-31`
+
+### ant-design-x-vue-next
+
+- 🆕 Bubble `avatar` 对齐 BubbleSlot：`(content, info) => VNode`；`#avatar` 插槽同样接收 `content` / `info`。
+- 🆕 `typing.step` 支持 `[min, max]` 随机步长（对齐 React）。
+- 🛠 发布 npm 包 [`ant-design-x-vue-next@1.43.0`](https://www.npmjs.com/package/ant-design-x-vue-next)。
+
 ## 1.42.0
 
 `2026-07-31`

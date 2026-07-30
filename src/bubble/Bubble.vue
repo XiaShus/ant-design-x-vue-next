@@ -48,7 +48,10 @@ const {
 } = props;
 
 const slots = defineSlots<{
-  avatar?(): VNode;
+  avatar?(props: {
+    content: T;
+    info: InfoType;
+  }): VNode | string;
   header?(props: {
     content: T;
     info: InfoType;
@@ -178,14 +181,16 @@ const isVNodeArray = (val: any) => Array.isArray(val) && val.every(isVNode);
 
 // ============================ Avatar ============================
 const avatarNode = computed(() => {
+  const info = renderInfo.value;
+  const rawContent = content.value as T;
   if (slots.avatar) {
-    return slots.avatar();
+    return slots.avatar({ content: rawContent, info });
   }
-  return typeof avatar === 'function'
-    ? avatar()
-    : (isVNode(avatar) || isVNodeArray(avatar))
-      ? avatar
-      : <Avatar {...avatar} />;
+  if (typeof avatar === 'function') {
+    // BubbleSlot (content, info) — zero-arg () => VNode still works (extra args ignored)
+    return (avatar as (c: T, i: InfoType) => VNode | string)(rawContent, info);
+  }
+  return isVNode(avatar) || isVNodeArray(avatar) ? avatar : <Avatar {...avatar} />;
 });
 
 const isEditing = computed(() => {

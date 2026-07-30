@@ -16,9 +16,10 @@ export type FooterPlacement = 'outer-start' | 'outer-end' | 'inner-start' | 'inn
 
 export interface TypingOption {
   /**
+   * 每次前进字符数；数组表示闭区间内随机步长
    * @default 1
    */
-  step?: number;
+  step?: number | [number, number];
   /**
    * @default 50
    */
@@ -62,7 +63,16 @@ export interface BubbleProps<ContentType extends BubbleContentType = string> ext
   rootClassName?: string;
   styles?: Partial<Record<SemanticType, CSSProperties>>;
   classNames?: Partial<Record<SemanticType, string>>;
-  avatar?: Partial<_AvatarProps> | VNode | (() => VNode);
+  /**
+   * Avatar — props object, VNode, or BubbleSlot `(content, info) => VNode`.
+   * Zero-arg `() => VNode` remains supported.
+   */
+  avatar?: AvoidValidation<
+    | Partial<_AvatarProps>
+    | VNode
+    | ((content: ContentType, info: InfoType) => VNode | string)
+    | (() => VNode)
+  >;
   placement?: 'start' | 'end';
   loading?: boolean;
   typing?: AvoidValidation<

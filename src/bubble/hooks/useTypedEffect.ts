@@ -24,10 +24,19 @@ function findCommonPrefix(str1: string, str2: string): number {
  * Return typed content and typing status when typing is enabled.
  * Or return content directly.
  */
+function resolveTypingStep(step: number | [number, number]): number {
+  if (Array.isArray(step)) {
+    const lo = Math.min(step[0], step[1]);
+    const hi = Math.max(step[0], step[1]);
+    return lo + Math.floor(Math.random() * (hi - lo + 1));
+  }
+  return step;
+}
+
 const useTypedEffect = (
   content: Ref<BubbleContentType>,
   typingEnabled: Ref<boolean>,
-  typingStep: Ref<number>,
+  typingStep: Ref<number | [number, number]>,
   typingInterval: Ref<number>,
   keepPrefix: Ref<boolean> = computed(() => true),
 ): [typedContent: Ref<BubbleContentType>, isTyping: Ref<boolean>] => {
@@ -91,7 +100,7 @@ const useTypedEffect = (
         unref(typingIndex) < content.value.length
       ) {
         const id = setTimeout(() => {
-          setTypingIndex(unref(typingIndex) + typingStep.value);
+          setTypingIndex(unref(typingIndex) + resolveTypingStep(typingStep.value));
         }, typingInterval.value);
 
         onWatcherCleanup(() => {

@@ -202,7 +202,7 @@ bubble/gpt-vis
 
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
-| avatar | 展示头像 | VNode | - |  |
+| avatar | 展示头像（支持 BubbleSlot） | `AvatarProps \| VNode \| (content, info: InfoType) => VNode` | - | 1.43.0（函数 BubbleSlot） |
 | classNames | 语义化结构 class | [Record<SemanticDOM, string>](#semantic-dom) | - |  |
 | content | 聊天内容 | ContentType | - |  |
 | footer | 底部内容 | VNode \| (content: ContentType, info: { key?: string \| number }) => VNode | - |  |
@@ -227,6 +227,7 @@ bubble/gpt-vis
 | streaming | 流式传输中；为 true 时不触发 `onTypingComplete` | boolean | `false` | 1.20.0 |
 | footerPlacement | footer 位置 | `outer-start` \| `outer-end` \| `inner-start` \| `inner-end` | 随 placement | 1.20.0 |
 | typing.effect | 打字效果 | `typing` \| `fade-in` | `typing` | 1.20.0 |
+| typing.step | 每次前进字符数；数组为闭区间随机步长 | `number \| [number, number]` | `1` | 1.43.0（区间） |
 | typing.keepPrefix | 内容变化时是否保留公共前缀续打（流式场景） | boolean | `true` | 1.29.0 |
 
 ```ts
@@ -253,7 +254,7 @@ type InfoType = { key?: string | number; status?: MessageStatus; extraInfo?: obj
 
 | 插槽名 | 说明 | 类型 |
 | --- | --- | --- |
-| avatar | 头像 | - |
+| avatar | 头像 | `{ content, info: InfoType }` |
 | header | 头部面板 | \{ content: ContentType, info: InfoType \} |
 | footer | 底部内容 | \{ content: ContentType, info: InfoType \} |
 | extra | 旁侧内容 | \{ content: ContentType, info: InfoType \} |
