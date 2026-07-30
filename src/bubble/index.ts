@@ -15,6 +15,8 @@ export type {
   SystemBubbleProps,
   DividerBubbleProps,
   InfoType,
+  SlotInfoType,
+  BubbleContentType,
   BubbleDataType,
   BubbleItemType,
   RolesType,

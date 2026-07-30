@@ -6,7 +6,7 @@
 
 | 分组 | 组件 | React `@ant-design/x` | Vue Next | 文档 |
 | --- | --- | --- | --- | --- |
-| 通用 | Bubble | ✅ | ✅（含导出 `TypingOption` / `BubbleTypingEffect` / `FooterPlacement` / `BubbleRef` / `BubbleItemType` / `ListSemanticType` / `RolesType`；System / Divider `nativeElement` ref；List `role`/`roles` 别名+语义；Bubble 语义 `root`/`body`；`scrollBoxNativeElement`+`scrollTo.top` / `contentRender`+`InfoType` / `extra` / avatar BubbleSlot / streaming / typing） | [文档](/component/bubble) |
+| 通用 | Bubble | ✅ | ✅（含导出 `BubbleContentType` / `SlotInfoType` / `TypingOption` / `BubbleTypingEffect` / `FooterPlacement` / `BubbleRef` / `BubbleItemType` / `ListSemanticType` / `RolesType`；System / Divider `nativeElement` ref；List `role`/`roles` 别名+语义；Bubble 语义 `root`/`body`；`scrollBoxNativeElement`+`scrollTo.top` / `contentRender`+`InfoType` / `extra` / avatar BubbleSlot / streaming / typing） | [文档](/component/bubble) |
 | 通用 | Conversations | ✅ | ✅（含导出 `GroupableProps`；`creation` / `Conversations.Creation`、`shortcutKeys`、`groupable.collapsible` + 折叠动效、`onActiveChange(key, item)`、divider、`classNames/styles` root/group；移动端菜单常显；`nativeElement` ref） | [文档](/component/conversations) |
 | 通用 | Notification | ✅ | ✅（含导出 `useNotificationType`） | [文档](/component/notification) |
 | 唤醒 | Welcome | ✅ | ✅（含 `classNames/styles` root/title/description/icon/extra、`nativeElement` ref） | [文档](/component/welcome) |

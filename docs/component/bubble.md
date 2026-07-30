@@ -231,10 +231,13 @@ bubble/gpt-vis
 | typing.keepPrefix | 内容变化时是否保留公共前缀续打（流式场景） | boolean | `true` | 1.29.0 |
 
 自 `1.99.0` 起可从包入口 `import type { TypingOption, BubbleTypingEffect, FooterPlacement }`。
+自 `1.103.0` 起可从包入口 `import type { BubbleContentType, SlotInfoType }`（`SlotInfoType` 为 `InfoType` 别名）。
 
 ```ts
 type MessageStatus = 'local' | 'loading' | 'updating' | 'success' | 'error' | 'abort';
 type InfoType = { key?: string | number; status?: MessageStatus; extraInfo?: object };
+type SlotInfoType = InfoType;
+type BubbleContentType = VNode | string | AnyObject | number;
 type FooterPlacement = 'outer-start' | 'outer-end' | 'inner-start' | 'inner-end';
 type BubbleTypingEffect = 'typing' | 'fade-in';
 type TypingOption = {
@@ -288,10 +291,12 @@ type TypingOption = {
 
 #### ContentType
 
-默认类型
+默认类型（包入口导出名为 `BubbleContentType`，自 `1.103.0`）：
 
 ```typescript
-type ContentType = Vue.VNode | AnyObject | string | number;
+type BubbleContentType = VNode | AnyObject | string | number;
+// 文档中的 ContentType 即 BubbleContentType
+type ContentType = BubbleContentType;
 ```
 
 自定义类型使用
