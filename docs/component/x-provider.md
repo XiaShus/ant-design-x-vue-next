@@ -59,14 +59,26 @@ import antdZhCN from 'ant-design-vue/es/locale/zh_CN';
 
 ### 组件配置
 
+通过 `XProvider` 传入下列键，可为对应组件提供默认的 `classNames` / `styles` / `className` / `style`（已由运行时 `XComponentsConfig` 支持；`1.90.0` 补齐文档）。
+
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
-| bubble | 气泡组件的全局配置 | 'classNames' \| 'styles' \| 'className' \| 'style' | - |  |
-| conversations | 会话组件的全局配置 | 'classNames' \| 'styles' \| 'className' \| 'style' | - |  |
-| prompts | 提示集组件的全局配置 | 'classNames' \| 'styles' \| 'className' \| 'style' | - |  |
-| sender | 输入框组件的全局配置 | 'classNames' \| 'styles' \| 'className' \| 'style' | - |  |
-| suggestion | 建议组件的全局配置 | 'className' \| 'style' | - |  |
-| thoughtChain | 思维链组件的全局配置 | 'classNames' \| 'styles' \| 'className' \| 'style' | - |  |
+| bubble | 气泡组件的全局配置 | `'classNames' \| 'styles' \| 'className' \| 'style'` | - |  |
+| conversations | 会话组件的全局配置 | `'classNames' \| 'styles' \| 'className' \| 'style'` | - |  |
+| prompts | 提示集组件的全局配置 | `'classNames' \| 'styles' \| 'className' \| 'style'` | - |  |
+| sender | 输入框组件的全局配置 | `'classNames' \| 'styles' \| 'className' \| 'style'` | - |  |
+| suggestion | 建议组件的全局配置 | `'classNames' \| 'styles' \| 'className' \| 'style'` | - |  |
+| thoughtChain | 思维链组件的全局配置 | `'classNames' \| 'styles' \| 'className' \| 'style'` | - |  |
+| actions | 操作列表组件的全局配置 | `'classNames' \| 'styles' \| 'className' \| 'style'` | - | 1.90.0（文档） |
+| welcome | 欢迎组件的全局配置 | `'classNames' \| 'styles' \| 'className' \| 'style'` | - | 1.90.0（文档） |
+| attachments | 附件组件的全局配置 | `'classNames' \| 'styles' \| 'className' \| 'style'` | - | 1.90.0（文档） |
+| think | 思考组件的全局配置 | `'classNames' \| 'styles' \| 'className' \| 'style'` | - | 1.90.0（文档） |
+| sources | 引用来源组件的全局配置 | `'classNames' \| 'styles' \| 'className' \| 'style'` | - | 1.90.0（文档） |
+| fileCard | 文件卡片组件的全局配置 | `'classNames' \| 'styles' \| 'className' \| 'style'` | - | 1.90.0（文档） |
+| folder | 文件夹组件的全局配置 | `'classNames' \| 'styles' \| 'className' \| 'style'` | - | 1.90.0（文档） |
+| codeHighlighter | 代码高亮组件的全局配置 | `'classNames' \| 'styles' \| 'className' \| 'style'` | - | 1.90.0（文档） |
+| mermaid | Mermaid 组件的全局配置 | `'classNames' \| 'styles' \| 'className' \| 'style'` | - | 1.90.0（文档） |
+
 ## 贡献者
 
 <doc-contributors component-name="x-provider" :max-count="50" :show-view-all="true" />

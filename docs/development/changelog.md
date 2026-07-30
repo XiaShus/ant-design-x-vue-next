@@ -19,6 +19,15 @@ customClass: changelog-page
 
 ---
 
+## 1.90.0
+
+`2026-07-31`
+
+### ant-design-x-vue-next
+
+- 📖 XProvider：补齐组件配置文档（`actions` / `welcome` / `attachments` / `think` / `sources` / `fileCard` / `folder` / `codeHighlighter` / `mermaid`）。
+- 🛠 发布 npm 包 [`ant-design-x-vue-next@1.90.0`](https://www.npmjs.com/package/ant-design-x-vue-next)。
+
 ## 1.89.0
 
 `2026-07-31`
