@@ -33,6 +33,9 @@ export type {
   InputFocusOptions,
   SlotFocusOptions,
 } from './slot-types';
+export type { AllowSpeech, ControlledSpeechConfig } from './useSpeech';
+/** Docs alias for `ControlledSpeechConfig` (align React speech config naming in demos). */
+export type { ControlledSpeechConfig as SpeechConfig } from './useSpeech';
 
 const Sender = Object.assign(SenderComponent, {
   Header: SenderHeader,

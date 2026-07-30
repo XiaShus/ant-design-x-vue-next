@@ -198,7 +198,7 @@ sender/focus
 | -------------- | --------------------------------------------------------------------------- | ---------------------------------------------------------------------- | ----------------------- | ---- |
 | suffix         | 自定义操作区（React 2.x 主 API），设为 `false` 可隐藏                        | VNode \| (oriNode, info: \{ components: ActionsComponents \}) => VNode \| false | - | 1.33.0 |
 | actions        | 同 `suffix`（兼容旧名，已弃用）                                             | VNode \| (oriNode, info: \{ components: ActionsComponents \}) => VNode \| false | - | - |
-| allowSpeech    | 是否允许语音输入                                                            | boolean \| SpeechConfig                                                | false                   | -    |
+| allowSpeech    | 是否允许语音输入                                                            | AllowSpeech                                                            | false                   | 1.109.0（类型导出） |
 | classNames     | 样式类名                                                                    | [见下](#semantic-dom)                                                  | -                       | -    |
 | components     | 自定义组件，input默认为[Input.TextArea](https://www.antdv.com/components/input-cn#api)，确保在自定义输入组件时，按照 `Input.TextArea` 实现所有必要的 props，以避免功能不全。| Record<'input', ComponentType> | -   | -    |
 | defaultValue   | 输入框默认值                                                                | string                                                                 | -                       | -    |
@@ -220,8 +220,10 @@ sender/focus
 | onPasteFile    | 黏贴文件的回调                                                              | (firstFile: File, files: FileList) => void                             | -                       | -    |
 | autoSize       | 自适应内容高度，可设置为 true \| false 或对象：\{ minRows: 2, maxRows: 6 \} | boolean \| \{ minRows?: number; maxRows?: number \}                    | \{ maxRows: 8 \}        | -    |
 
+自 `1.109.0` 起可从包入口 `import type { AllowSpeech, ControlledSpeechConfig, SpeechConfig }`（`SpeechConfig` 为 `ControlledSpeechConfig` 别名）。
+
 ```typescript | pure
-type SpeechConfig = {
+type ControlledSpeechConfig = {
   // 当设置 `recording` 时，内置的语音输入功能将会被禁用。
   // 交由开发者实现三方语音输入的功能。
   recording?: boolean;
@@ -230,6 +232,8 @@ type SpeechConfig = {
   audioDisabledIcon?: ButtonProps['icon'] | VNode;
   audioRecordingIcon?: ButtonProps['icon'] | VNode;
 };
+type SpeechConfig = ControlledSpeechConfig;
+type AllowSpeech = boolean | ControlledSpeechConfig;
 ```
 
 自 `1.83.0` 起可从包入口 `import type { SenderComponents, ActionsComponents }`（对齐 React Sender 模块导出）。
