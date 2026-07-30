@@ -73,8 +73,11 @@ type useXChat<
 | messages | 当前管理的内容 | AgentMessages[] |  |
 | parsedMessages | 经过 `parser` 转译过的内容 | ParsedMessages[] |  |
 | onRequest | 添加一条 Message，并且触发请求，若无`key`为`message`的数据则会将整个数据做为消息处理 | (requestParams: AgentMessage \| RequestParams) => void |  |
+| onReload | 按 id 原地重新生成（不重复追加用户消息）；省略第二参时复用上一条 `local` 用户消息 | `(id, requestParams?) => void` |  |
 | abort | 中止当前进行中的请求；已流式输出的内容会保留，状态置为 `abort` | () => void |  |
 | setMessages | 直接修改 messages，不会触发请求 | (messages: { message, status }[]) => void |  |
+| setMessage | 按 id 合并更新单条消息（编辑内容 / 状态等） | `(id, patch) => boolean` |  |
+| removeMessage | 按 id 删除单条消息 | `(id) => boolean` |  |
 | isRequesting | 当前会话是否正在请求 | `ComputedRef<boolean>` |  |
 | conversationKey | 当前会话 key | `Ref<string \| symbol>` |  |
 
