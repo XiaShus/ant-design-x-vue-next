@@ -12,43 +12,42 @@ import ThoughtChainNode from './item.vue';
 
 defineOptions({ name: 'AXThoughtChain' });
 
-const {
-  prefixCls: customizePrefixCls,
-  rootClassName,
-  class: className,
-  items,
-  collapsible,
-  styles = {},
-  style,
-  classNames = {},
-  size = 'middle',
-  ...restProps
-} = defineProps<ThoughtChainProps>();
+const props = withDefaults(defineProps<ThoughtChainProps>(), {
+  styles: () => ({}),
+  classNames: () => ({}),
+  size: 'middle',
+  line: true,
+});
 
-const domProps = computed(() => pickAttrs(restProps, {
-  attr: true,
-  aria: true,
-  data: true,
-}));
+const domProps = computed(() => {
+  const attrs = pickAttrs(props as Record<string, unknown>, {
+    attr: true,
+    aria: true,
+    data: true,
+  }) as Record<string, unknown>;
+  // Avoid leaking component props that collide with native attr names
+  const { class: _class, style: _style, size: _size, title: _title, ...rest } = attrs;
+  return rest;
+});
 
 // ============================ Prefix ============================
 const { getPrefixCls, direction } = useXProviderContext();
 
 const rootPrefixCls = computed(() => getPrefixCls());
 
-const prefixCls = computed(() => getPrefixCls('thought-chain', customizePrefixCls));
+const prefixCls = computed(() => getPrefixCls('thought-chain', props.prefixCls));
 
 // ===================== Component Config =========================
 const contextConfig = useXComponentConfig('thoughtChain');
 
 // ============================ UseCollapsible ============================
-const [
-  enableCollapse,
-  expandedKeys,
-  onItemExpand,
-  // collapseMotion
-] = useCollapsible(
-  () => collapsible,
+const [enableCollapse, expandedKeys, onItemExpand] = useCollapsible(
+  () => ({
+    collapsible: props.collapsible,
+    defaultExpandedKeys: props.defaultExpandedKeys,
+    expandedKeys: props.expandedKeys,
+    onExpand: props.onExpand,
+  }),
   prefixCls.value,
   rootPrefixCls.value,
 );
@@ -56,18 +55,30 @@ const [
 // ============================ Style ============================
 const [wrapCSSVar, hashId, cssVarCls] = useStyle(prefixCls);
 
-const mergedCls = computed(() => classnames(
-  className,
-  rootClassName,
-  prefixCls.value,
-  contextConfig.value.className,
-  hashId.value,
-  cssVarCls,
-  {
-    [`${prefixCls.value}-rtl`]: direction.value === 'rtl',
-  },
-  `${prefixCls.value}-${size}`,
-));
+const lineModifier = computed(() => {
+  const { line } = props;
+  if (line === false) return `${prefixCls.value}-line-false`;
+  if (line === 'dashed') return `${prefixCls.value}-line-dashed`;
+  if (line === 'dotted') return `${prefixCls.value}-line-dotted`;
+  return undefined;
+});
+
+const mergedCls = computed(() =>
+  classnames(
+    props.class,
+    (props as { className?: string }).className,
+    props.rootClassName,
+    prefixCls.value,
+    contextConfig.value.className,
+    hashId.value,
+    cssVarCls,
+    lineModifier.value,
+    {
+      [`${prefixCls.value}-rtl`]: direction.value === 'rtl',
+    },
+    `${prefixCls.value}-${props.size}`,
+  ),
+);
 
 defineRender(() => {
   return wrapCSSVar(
@@ -76,43 +87,62 @@ defineRender(() => {
       class={mergedCls.value}
       style={{
         ...(typeof contextConfig.value.style === 'object' ? contextConfig.value.style : {}),
-        ...(typeof style === 'object' ? style : {})
+        ...(typeof props.style === 'object' ? props.style : {}),
       }}
     >
       <ThoughtChainNodeContextProvider
         value={{
           prefixCls: prefixCls.value,
           enableCollapse: enableCollapse.value,
-          // collapseMotion,
           expandedKeys: expandedKeys.value,
           direction: direction.value,
+          line: props.line,
           classNames: {
-            itemHeader: classnames(contextConfig.value.classNames.itemHeader, classNames.itemHeader),
-            itemContent: classnames(contextConfig.value.classNames.itemContent, classNames.itemContent),
-            itemFooter: classnames(contextConfig.value.classNames.itemFooter, classNames.itemFooter),
+            itemHeader: classnames(
+              contextConfig.value.classNames.itemHeader,
+              props.classNames.itemHeader,
+            ),
+            itemContent: classnames(
+              contextConfig.value.classNames.itemContent,
+              props.classNames.itemContent,
+            ),
+            itemFooter: classnames(
+              contextConfig.value.classNames.itemFooter,
+              props.classNames.itemFooter,
+            ),
           },
           styles: {
-            itemHeader: { ...contextConfig.value.styles.itemHeader, ...styles.itemHeader },
-            itemContent: { ...contextConfig.value.styles.itemContent, ...styles.itemContent },
-            itemFooter: { ...contextConfig.value.styles.itemFooter, ...styles.itemFooter },
+            itemHeader: {
+              ...contextConfig.value.styles.itemHeader,
+              ...props.styles.itemHeader,
+            },
+            itemContent: {
+              ...contextConfig.value.styles.itemContent,
+              ...props.styles.itemContent,
+            },
+            itemFooter: {
+              ...contextConfig.value.styles.itemFooter,
+              ...props.styles.itemFooter,
+            },
           },
         }}
       >
-        {items?.map((item, index) => (
+        {props.items?.map((item, index) => (
           <ThoughtChainNode
             key={item.key || `key_${index}`}
-            class={classnames(contextConfig.value.classNames.item, classNames.item)}
-            style={{ ...contextConfig.value.styles.item, ...styles.item }}
+            class={classnames(contextConfig.value.classNames.item, props.classNames.item)}
+            style={{ ...contextConfig.value.styles.item, ...props.styles.item }}
+            line={props.line}
             info={{
               ...item,
               icon: item.icon || index + 1,
             }}
             onClick={onItemExpand}
-            nextStatus={items[index + 1]?.status || item.status}
+            nextStatus={props.items![index + 1]?.status || item.status}
           />
         ))}
       </ThoughtChainNodeContextProvider>
-    </div>
-  )
+    </div>,
+  );
 });
 </script>

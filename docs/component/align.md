@@ -20,7 +20,7 @@
 | 表达 | CodeHighlighter | ✅ | ✅ | [文档](/component/code-highlighter) |
 | 表达 | Mermaid | ✅ | ✅ | [文档](/component/mermaid) |
 | 确认 | Think | ✅ | ✅ | [文档](/component/think) |
-| 确认 | ThoughtChain | ✅ | ✅（含 `ThoughtChain.Item`；链级 `line` / `destroyOnHidden` / `expandedKeys` 等仍有差异） | [文档](/component/thought-chain) |
+| 确认 | ThoughtChain | ✅ | ✅（含 `ThoughtChain.Item`；链级 `line` / `defaultExpandedKeys` / `expandedKeys` / `onExpand` / item `blink`·`collapsible`·`destroyOnHidden`） | [文档](/component/thought-chain) |
 | 反馈 | Actions | ✅ | ✅（含 Copy / Feedback / Item / Audio 预设 + `actionRender`） | [文档](/component/actions) |
 | 工具 | XProvider | ✅ | ✅（含 X locale pack / `useLocale`） | [文档](/component/x-provider) |
 

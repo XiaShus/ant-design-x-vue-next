@@ -10,18 +10,23 @@ import { TransitionCollapse } from '../transition-collapse';
 
 defineOptions({ name: 'AXThoughtChainNode' });
 
-const { info = {}, nextStatus, onClick, ...restProps } = defineProps<ThoughtChainNodeProps>();
+const props = withDefaults(defineProps<ThoughtChainNodeProps>(), {
+  info: () => ({}),
+});
 
-const domProps = computed(() => pickAttrs(restProps, {
-  attr: true,
-  aria: true,
-  data: true,
-}));
+const domProps = computed(() => {
+  const attrs = pickAttrs(props as Record<string, unknown>, {
+    attr: true,
+    aria: true,
+    data: true,
+  }) as Record<string, unknown>;
+  const { class: _class, style: _style, onClick: _onClick, ...rest } = attrs;
+  return rest;
+});
 
 // ================= ThoughtChainNodeContext ====================
 const thoughtChainNodeContext = useThoughtChainNodeContextInject();
 const prefixCls = computed(() => thoughtChainNodeContext.value.prefixCls);
-// const collapseMotion = computed(() => thoughtChainNodeContext.value.collapseMotion);
 const enableCollapse = computed(() => thoughtChainNodeContext.value.enableCollapse);
 const expandedKeys = computed(() => thoughtChainNodeContext.value.expandedKeys);
 const direction = computed(() => thoughtChainNodeContext.value.direction);
@@ -30,17 +35,29 @@ const styles = computed(() => thoughtChainNodeContext.value.styles);
 
 // ============================ Info ============================
 const id = useId();
+const info = computed(() => props.info || {});
 
-const key = computed(() => info.key ?? id);
-const icon = computed(() => info.icon);
-const title = computed(() => info.title);
-const extra = computed(() => info.extra);
-const content = computed(() => info.content);
-const footer = computed(() => info.footer);
-const status = computed(() => info.status);
-const description = computed(() => info.description);
+const key = computed(() => info.value.key ?? id);
+const icon = computed(() => info.value.icon);
+const title = computed(() => info.value.title);
+const extra = computed(() => info.value.extra);
+const content = computed(() => info.value.content);
+const footer = computed(() => info.value.footer);
+const status = computed(() => info.value.status);
+const description = computed(() => info.value.description);
+const blink = computed(() => !!info.value.blink);
+const destroyOnHidden = computed(() => info.value.destroyOnHidden !== false);
+
+/** Per-item collapsible, falling back to chain-level `collapsible` compat */
+const itemCollapsible = computed(() => {
+  if (info.value.collapsible !== undefined) {
+    return !!info.value.collapsible;
+  }
+  return !!enableCollapse.value;
+});
+
 const tooltip = computed(() => {
-  const tooltipConfig = info.tooltip ?? true;
+  const tooltipConfig = info.value.tooltip ?? true;
   const placement = direction.value === 'rtl' ? 'topRight' : 'topLeft';
   const titleConfig: TooltipProps = {
     title: title.value,
@@ -62,23 +79,31 @@ const tooltip = computed(() => {
     },
     descriptionConfig: {
       ...descriptionConfig,
-      ...(tooltipConfig.descriptionConfig
-        ? tooltipConfig.descriptionConfig
-        : {}),
+      ...(tooltipConfig.descriptionConfig ? tooltipConfig.descriptionConfig : {}),
     },
   };
 });
-const hideTooltip = computed(() => !info.tooltip);
+const hideTooltip = computed(() => !info.value.tooltip);
 
 // ============================ Style ============================
 const itemCls = computed(() => `${prefixCls.value}-item`);
 
 // ============================ Event ============================
-const onThoughtChainNodeClick = () => onClick?.(key.value);
+const onThoughtChainNodeClick = () => {
+  if (!itemCollapsible.value || !content.value) return;
+  props.onClick?.(key.value);
+};
 
 // ============================ Content Open ============================
-const contentOpen = computed(() => expandedKeys.value?.includes(key.value));
-const contentVisible = computed(() => enableCollapse.value ? contentOpen.value : true);
+const contentOpen = computed(() => expandedKeys.value?.includes(key.value) ?? false);
+const contentShown = computed(() => (itemCollapsible.value ? contentOpen.value : true));
+/** Mount content: destroy when collapsed if destroyOnHidden (default true) */
+const contentMounted = computed(() => {
+  if (!content.value) return false;
+  if (!itemCollapsible.value) return true;
+  if (contentShown.value) return true;
+  return !destroyOnHidden.value;
+});
 
 defineRender(() => {
   return (
@@ -87,16 +112,17 @@ defineRender(() => {
       class={classnames(
         itemCls.value,
         {
-          [`${itemCls.value}-${status.value}${nextStatus ? `-${nextStatus}` : ''}`]: status.value,
+          [`${itemCls.value}-${status.value}${props.nextStatus ? `-${props.nextStatus}` : ''}`]:
+            status.value,
         },
-        restProps.class,
+        props.class,
       )}
-      style={restProps.style}
+      style={props.style}
     >
       {/* Header */}
       <div
-        class={classnames(`${itemCls.value}-header`, classNames.value.itemHeader)}
-        style={styles.value.itemHeader}
+        class={classnames(`${itemCls.value}-header`, classNames.value?.itemHeader)}
+        style={styles.value?.itemHeader}
         onClick={onThoughtChainNodeClick}
       >
         {/* Avatar */}
@@ -104,16 +130,18 @@ defineRender(() => {
         {/* Header */}
         <div
           class={classnames(`${itemCls.value}-header-box`, {
-            [`${itemCls.value}-collapsible`]: enableCollapse.value && content.value,
+            [`${itemCls.value}-collapsible`]: itemCollapsible.value && content.value,
           })}
         >
           {/* Title */}
           <Typography.Text
             strong
             // @ts-expect-error
-            class={`${itemCls.value}-title`}
+            class={classnames(`${itemCls.value}-title`, {
+              [`${prefixCls.value}-motion-blink`]: blink.value,
+            })}
           >
-            {enableCollapse.value &&
+            {itemCollapsible.value &&
               content.value &&
               (direction.value === 'rtl' ? (
                 <LeftOutlined
@@ -142,9 +170,7 @@ defineRender(() => {
               {hideTooltip.value ? (
                 description.value
               ) : (
-                <Tooltip {...tooltip.value.descriptionConfig}>
-                  {description.value}
-                </Tooltip>
+                <Tooltip {...tooltip.value.descriptionConfig}>{description.value}</Tooltip>
               )}
             </Typography.Text>
           )}
@@ -155,26 +181,27 @@ defineRender(() => {
       {/* Content */}
 
       <TransitionCollapse prefixCls={prefixCls.value}>
-        {content.value && (
+        {contentMounted.value ? (
           <div
-            v-show={contentVisible.value}
+            v-show={contentShown.value}
+            key={`content-${key.value}`}
             class={classnames(`${itemCls.value}-content`)}
           >
             <div
-              class={classnames(`${itemCls.value}-content-box`, classNames.value.itemContent)}
-              style={styles.value.itemContent}
+              class={classnames(`${itemCls.value}-content-box`, classNames.value?.itemContent)}
+              style={styles.value?.itemContent}
             >
               {content.value}
             </div>
           </div>
-        )}
+        ) : null}
       </TransitionCollapse>
 
       {/* Footer */}
       {footer.value && (
         <div
-          class={classnames(`${itemCls.value}-footer`, classNames.value.itemFooter)}
-          style={styles.value.itemFooter}
+          class={classnames(`${itemCls.value}-footer`, classNames.value?.itemFooter)}
+          style={styles.value?.itemFooter}
         >
           {footer.value}
         </div>

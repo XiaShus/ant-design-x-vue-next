@@ -2,7 +2,12 @@ import type { App } from 'vue';
 import ThoughtChainComponent from './ThoughtChain.vue';
 import ThoughtChainItemComponent from './ThoughtChainItem.vue';
 
-export type { ThoughtChainProps, ThoughtChainItem } from './interface';
+export type {
+  ThoughtChainProps,
+  ThoughtChainItem,
+  ThoughtChainLine,
+} from './interface';
+export type { Collapsible, CollapsibleOptions } from './hooks/useCollapsible';
 export type {
   ThoughtChainItemProps,
   ThoughtChainItemVariant,

@@ -19,6 +19,17 @@ customClass: changelog-page
 
 ---
 
+## 1.25.0
+
+`2026-07-30`
+
+### ant-design-x-vue-next
+
+- 🆕 ThoughtChain 链级 React 2.x API：`line`（solid/dashed/dotted/false）、顶层 `defaultExpandedKeys` / `expandedKeys` / `onExpand`；保留 `collapsible` 对象作为兼容层并与顶层 expand 合并。
+- 🆕 `items[]` 节点支持 `blink` / `collapsible` / `destroyOnHidden`（默认 `true`，折叠时卸载内容）。
+- 📖 ThoughtChain 新增「折叠时销毁内容」演示；对齐进度更新。
+- 🛠 发布 npm 包 [`ant-design-x-vue-next@1.25.0`](https://www.npmjs.com/package/ant-design-x-vue-next)。
+
 ## 1.24.0
 
 `2026-07-30`

@@ -58,8 +58,8 @@ const items: ThoughtChainProps['items'] = [
 defineRender(() => {
   return (
     <Card style={{ width: '500px' }}>
-      <ThoughtChain items={items} />
+      <ThoughtChain items={items} line="dashed" />
     </Card>
-  )
-})
+  );
+});
 </script>

@@ -36,7 +36,7 @@ thought-chain/status
 
 ### 可折叠的
 
-:::demo 配置 `collapsible` 可开启对思维链节点内容区域的折叠功能
+:::demo 节点配置 `collapsible`，并用 `defaultExpandedKeys` 控制初始展开
 
 thought-chain/collapsible
 
@@ -44,15 +44,23 @@ thought-chain/collapsible
 
 ### 受控模式
 
-:::demo `collapsible` 支持传入对象，开启受控模式
+:::demo 使用顶层 `expandedKeys` / `onExpand` 开启受控模式（旧版 `collapsible` 对象仍可用）
 
 thought-chain/controlled
 
 :::
 
+### 折叠时销毁内容
+
+:::demo 节点 `destroyOnHidden`（默认 `true`）控制折叠时是否从 DOM 卸载内容
+
+thought-chain/destroy-on-hidden
+
+:::
+
 ### 客制化
 
-:::demo `items` 属性支持灵活的客制化配置，详情参考 `ThoughtChainItem` 定义
+:::demo `items` 属性支持灵活的客制化配置；`line` 可设置连接线样式
 
 thought-chain/customization
 
@@ -90,9 +98,13 @@ thought-chain/simple
 
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
-| collapsible | 是否可折叠 | boolean \| CollapsibleOptions | - | - |
-| classNames | 语义化结构的类名 | Record<'item' \| 'itemHeader' \| 'itemContent' \| 'itemFooter', string> | - | - |
 | items | 思维节点集合 | ThoughtChainItem[] | - | - |
+| defaultExpandedKeys | 初始化展开的节点 | string[] | - | 1.25.0 |
+| expandedKeys | 当前展开的节点 | string[] | - | 1.25.0 |
+| onExpand | 展开节点变化回调 | (expandedKeys: string[]) => void | - | 1.25.0 |
+| collapsible | 是否可折叠（兼容旧 API，可与顶层 expand 合并） | boolean \| CollapsibleOptions | - | - |
+| line | 线条样式，为 `false` 时不展示线条 | boolean \| 'solid' \| 'dashed' \| 'dotted' | `true` | 1.25.0 |
+| classNames | 语义化结构的类名 | Record<'item' \| 'itemHeader' \| 'itemContent' \| 'itemFooter', string> | - | - |
 | prefixCls | 自定义前缀 | string | - | - |
 | rootClassName | 自定义根类名 | string | - | - |
 | size | 尺寸 | 'large' \| 'middle' \| 'small' | 'middle' | - |
@@ -100,17 +112,20 @@ thought-chain/simple
 
 ### ThoughtChainItem（items[] 节点）
 
-| 属性        | 说明               | 类型                              | 默认值 | 版本 |
-| ----------- | ------------------ | --------------------------------- | ------ | ---- |
-| content     | 思维节点内容       | VNode \| string         | -      | -    |
-| description | 思维节点描述       | VNode \| string         | -      | -    |
-| extra       | 思维节点额外内容   | VNode \| string          | -      | -    |
-| footer      | 思维节点脚注       | VNode \| string          | -      | -    |
-| icon        | 思维节点图标       | VNode                   | -      | -    |
-| key         | 思维节点唯一标识符 | string                            | -      | -    |
-| status      | 思维节点状态       | 'pending' \| 'success' \| 'error' | -      | -    |
-| title       | 思维节点标题       | VNode \| string          | -      | -    |
-| tooltip     | 思维节点 tooltip   | boolean \| TooltipConfig | -      | -    |
+| 属性 | 说明 | 类型 | 默认值 | 版本 |
+| --- | --- | --- | --- | --- |
+| key | 思维节点唯一标识符 | string | - | - |
+| title | 思维节点标题 | VNode \| string | - | - |
+| description | 思维节点描述 | VNode \| string | - | - |
+| content | 思维节点内容 | VNode \| string | - | - |
+| extra | 思维节点额外内容 | VNode \| string | - | - |
+| footer | 思维节点脚注 | VNode \| string | - | - |
+| icon | 思维节点图标 | VNode \| string \| number | - | - |
+| status | 思维节点状态 | 'pending' \| 'success' \| 'error' | - | - |
+| collapsible | 是否可折叠 | boolean | - | 1.25.0 |
+| blink | 闪动效果 | boolean | - | 1.25.0 |
+| destroyOnHidden | 隐藏时是否销毁内容节点 | boolean | `true` | 1.25.0 |
+| tooltip | 思维节点 tooltip | boolean \| TooltipConfig | - | - |
 
 ### ThoughtChain.Item
 
@@ -130,10 +145,11 @@ thought-chain/simple
 
 ### CollapsibleOptions
 
-| 属性         | 说明                   | 类型                             | 默认值 | 版本 |
-| ------------ | ---------------------- | -------------------------------- | ------ | ---- |
-| expandedKeys | 当前展开的节点         | string[]                         | -      | -    |
-| onExpand     | 展开节点变化的回调函数 | (expandedKeys: string[]) => void | -      | -    |
+| 属性 | 说明 | 类型 | 默认值 | 版本 |
+| --- | --- | --- | --- | --- |
+| defaultExpandedKeys | 初始化展开的节点 | string[] | - | 1.25.0 |
+| expandedKeys | 当前展开的节点 | string[] | - | - |
+| onExpand | 展开节点变化的回调函数 | (expandedKeys: string[]) => void | - | - |
 
 ### TooltipConfig
 

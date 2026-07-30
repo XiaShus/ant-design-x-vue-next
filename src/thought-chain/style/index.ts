@@ -383,6 +383,48 @@ const genThoughtChainSizeStyle = (
   };
 };
 
+const genThoughtChainLineStyle: GenerateThoughtChainItemStyle = (token) => {
+  const { calc, componentCls } = token;
+  const itemCls = `${componentCls}-item`;
+  const lineWidth = calc(token.lineWidth).mul(2).equal();
+
+  const linePseudoReset: CSSObject = {
+    width: 0,
+    backgroundColor: 'transparent !important',
+    backgroundImage: 'none !important',
+  };
+
+  return {
+    [`&${componentCls}-line-false`]: {
+      [`& > ${itemCls}`]: {
+        [`& ${itemCls}-header, & ${itemCls}-content, & ${itemCls}-footer`]: {
+          '&::before': {
+            display: 'none !important',
+          },
+        },
+      },
+    },
+    [`&${componentCls}-line-dashed`]: {
+      [`& > ${itemCls}`]: {
+        [`& ${itemCls}-header::before, & ${itemCls}-content::before, & ${itemCls}-footer::before`]:
+          {
+            ...linePseudoReset,
+            borderInlineStart: `${unit(lineWidth)} dashed ${token.colorTextPlaceholder}`,
+          },
+      },
+    },
+    [`&${componentCls}-line-dotted`]: {
+      [`& > ${itemCls}`]: {
+        [`& ${itemCls}-header::before, & ${itemCls}-content::before, & ${itemCls}-footer::before`]:
+          {
+            ...linePseudoReset,
+            borderInlineStart: `${unit(lineWidth)} dotted ${token.colorTextPlaceholder}`,
+          },
+      },
+    },
+  };
+};
+
 const genThoughtChainStyle: GenerateStyle<ThoughtChainToken> = (token) => {
   const { componentCls } = token;
 
@@ -395,6 +437,7 @@ const genThoughtChainStyle: GenerateStyle<ThoughtChainToken> = (token) => {
       ...genThoughtChainSizeStyle(token),
       ...genThoughtChainSizeStyle(token, 'large'),
       ...genThoughtChainSizeStyle(token, 'small'),
+      ...genThoughtChainLineStyle(token),
 
       [`${componentCls}-motion-blink`]: {
         backgroundClip: 'text',

@@ -2,6 +2,17 @@
 
 > Vue Next 文档站时间线版见 [更新日志](https://ant-design-x-vue-next-524.netlify.app/development/changelog.html)。
 
+## 1.25.0
+
+`2026-07-30`
+
+### ant-design-x-vue-next
+
+- 🆕 ThoughtChain 链级 API：`line` / `defaultExpandedKeys` / `expandedKeys` / `onExpand`
+- 🆕 ThoughtChain items[]：`blink` / `collapsible` / `destroyOnHidden`（默认卸载折叠内容）
+- 📖 ThoughtChain 折叠销毁演示与对齐进度
+- 🛠 发布 npm `ant-design-x-vue-next@1.25.0`
+
 ## 1.24.0
 
 `2026-07-30`

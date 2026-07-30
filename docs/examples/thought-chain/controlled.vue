@@ -37,12 +37,14 @@ const items: ThoughtChainProps['items'] = [
     key: '1',
     title: 'Click me to expand the content',
     description: 'Collapsible',
+    collapsible: true,
     content: cloneVNode(mockContent),
   },
   {
     key: '2',
     title: 'Click me to expand the content',
     description: 'Collapsible',
+    collapsible: true,
     content: cloneVNode(mockContent),
   },
 ];
@@ -55,15 +57,13 @@ defineRender(() => {
           v-model:value={expandedKeys.value}
           options={items.map((item) => ({
             label: `item ${item.key}`,
-            value: item.key
+            value: item.key,
           }))}
         />
         <ThoughtChain
           items={items}
-          collapsible={{
-            expandedKeys: expandedKeys.value,
-            onExpand,
-          }}
+          expandedKeys={expandedKeys.value}
+          onExpand={onExpand}
         />
       </Space>
     </Card>

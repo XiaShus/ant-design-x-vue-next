@@ -60,6 +60,9 @@ const items: ThoughtChainProps['items'] = [
 </script>
 <template>
   <Card :style="{ width: '500px' }">
-    <ThoughtChain :items="items" />
+    <ThoughtChain
+      :items="items"
+      line="dashed"
+    />
   </Card>
 </template>

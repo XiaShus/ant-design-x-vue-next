@@ -40,19 +40,21 @@ const items: ThoughtChainProps['items'] = [
     key: '1',
     title: 'Click me to expand the content',
     description: 'Collapsible',
+    collapsible: true,
     content: cloneVNode(mockContent),
   },
   {
     key: '2',
     title: 'Click me to expand the content',
     description: 'Collapsible',
+    collapsible: true,
     content: cloneVNode(mockContent),
   },
 ];
 </script>
 
 <template>
-  <Card style="width: '500px'">
+  <Card style="width: 500px">
     <Space
       direction="vertical"
       size="large"
@@ -68,7 +70,8 @@ const items: ThoughtChainProps['items'] = [
       />
       <ThoughtChain
         :items="items"
-        :collapsible="{ expandedKeys, onExpand }"
+        :expanded-keys="expandedKeys"
+        :on-expand="onExpand"
       />
     </Space>
   </Card>

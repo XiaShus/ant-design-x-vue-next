@@ -28,13 +28,17 @@ const mockContent = (
 
 const items: ThoughtChainProps['items'] = [
   {
+    key: 'item-1',
     title: 'Click me to expand the content',
     description: 'Collapsible',
+    collapsible: true,
     content: cloneVNode(mockContent),
   },
   {
+    key: 'item-2',
     title: 'Click me to expand the content',
     description: 'Collapsible',
+    collapsible: true,
     content: cloneVNode(mockContent),
   },
 ];
@@ -42,8 +46,8 @@ const items: ThoughtChainProps['items'] = [
 defineRender(() => {
   return (
     <Card style={{ width: '500px' }}>
-      <ThoughtChain items={items} collapsible />
+      <ThoughtChain items={items} defaultExpandedKeys={['item-1']} />
     </Card>
-  )
+  );
 });
 </script>

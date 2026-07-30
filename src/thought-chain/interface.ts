@@ -1,6 +1,6 @@
-import type { CSSProperties, HTMLAttributes, VNode } from "vue";
-import type { Collapsible } from "./hooks/useCollapsible";
-import type { ConfigProviderProps, TooltipProps } from "ant-design-vue";
+import type { CSSProperties, HTMLAttributes, VNode } from 'vue';
+import type { Collapsible } from './hooks/useCollapsible';
+import type { ConfigProviderProps, TooltipProps } from 'ant-design-vue';
 
 export enum THOUGHT_CHAIN_ITEM_STATUS {
   /**
@@ -30,6 +30,8 @@ export interface TooltipConfig {
    */
   descriptionConfig?: TooltipProps;
 }
+
+export type ThoughtChainLine = boolean | 'solid' | 'dashed' | 'dotted';
 
 export interface ThoughtChainItem {
   /**
@@ -80,6 +82,25 @@ export interface ThoughtChainItem {
    */
   status?: `${THOUGHT_CHAIN_ITEM_STATUS}`;
 
+  /**
+   * @desc 是否可折叠
+   * @descEN Whether collapsible
+   */
+  collapsible?: boolean;
+
+  /**
+   * @desc 闪烁
+   * @descEN blink
+   */
+  blink?: boolean;
+
+  /**
+   * @desc 隐藏时是否销毁内容节点
+   * @descEN Whether to destroy content node when hidden
+   * @default true
+   */
+  destroyOnHidden?: boolean;
+
   tooltip?: boolean | TooltipConfig;
 }
 
@@ -93,10 +114,35 @@ export interface ThoughtChainProps extends Omit<HTMLAttributes, 'title'> {
   items?: ThoughtChainItem[];
 
   /**
-   * @desc 是否可折叠
-   * @descEN Whether collapsible
+   * @desc 是否可折叠（兼容旧 API；亦可使用顶层 expandedKeys / onExpand）
+   * @descEN Whether collapsible (compat shim; prefer top-level expand props)
    */
   collapsible?: Collapsible;
+
+  /**
+   * @desc 初始化展开的节点
+   * @descEN default expanded keys
+   */
+  defaultExpandedKeys?: string[];
+
+  /**
+   * @desc 当前展开的节点
+   * @descEN current expanded keys
+   */
+  expandedKeys?: string[];
+
+  /**
+   * @desc 展开节点变化回调
+   * @descEN callback when expanded keys change
+   */
+  onExpand?: (expandedKeys: string[]) => void;
+
+  /**
+   * @desc 线条样式，为 `false` 时不展示线条
+   * @descEN Line style; no line when `false`
+   * @default true
+   */
+  line?: ThoughtChainLine;
 
   /**
    * @desc 组件大小
@@ -132,15 +178,18 @@ export interface ThoughtChainProps extends Omit<HTMLAttributes, 'title'> {
 export interface ThoughtChainNodeContextProps {
   prefixCls?: string;
   // collapseMotion?: CSSMotionProps;
+  /** Chain-level force collapse for all items (Vue `collapsible` compat) */
   enableCollapse?: boolean;
   expandedKeys?: string[];
   direction?: ConfigProviderProps['direction'];
   styles?: ThoughtChainProps['styles'];
   classNames?: ThoughtChainProps['classNames'];
+  line?: ThoughtChainLine;
 }
 
 export interface ThoughtChainNodeProps extends Omit<HTMLAttributes, 'onClick'> {
   info?: ThoughtChainItem;
   nextStatus?: ThoughtChainItem['status'];
   onClick?: (key: string) => void;
+  line?: ThoughtChainLine;
 }
