@@ -5,6 +5,7 @@ import classnames from 'classnames';
 import { computed } from 'vue';
 import { useXProviderContext } from '../x-provider';
 import { useActionsContextInject } from './context';
+import { getItemChildren } from './getItemChildren';
 import type { ActionItem, ItemType } from './interface';
 
 defineOptions({ name: 'AXActionMenu' });
@@ -31,8 +32,9 @@ const findItem = (keyPath: string[], items: ActionItem[]): ActionItem | null => 
     if (item.key === keyToFind) {
       if (keyPath.length === 1) return item;
 
-      if ('children' in item && item.children) {
-        return findItem(keyPath.slice(1), item.children);
+      const nested = getItemChildren(item);
+      if (nested?.length) {
+        return findItem(keyPath.slice(1), nested);
       }
     }
   }
@@ -45,7 +47,7 @@ const prefixCls = getPrefixCls('actions', props.prefixCls);
 const actionsContext = useActionsContextInject();
 
 const icon = computed(() => props.item?.icon ?? <EllipsisOutlined />);
-const children = computed(() => props.item.children || []);
+const children = computed(() => getItemChildren(props.item) || []);
 const triggerSubMenuAction = computed(() => props.item.triggerSubMenuAction || 'hover');
 const dropdownProps = computed(() => props.dropdownProps || {});
 

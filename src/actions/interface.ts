@@ -65,6 +65,11 @@ export interface ItemType extends DataAttributes {
    */
   children?: ActionItem[];
   /**
+   * @desc 子操作项（对齐 React `subItems`；与 `children` 同时传入时优先 `children`）
+   * @descEN Nested items (React-aligned alias of `children`; `children` wins if both set).
+   */
+  subItems?: ActionItem[];
+  /**
    * @desc 触发子菜单的操作方式
    * @descEN Action to trigger the sub-menu.
    */

@@ -19,6 +19,15 @@ customClass: changelog-page
 
 ---
 
+## 1.92.0
+
+`2026-07-31`
+
+### ant-design-x-vue-next
+
+- 🆕 Actions：`items[].subItems` 作为 `children` 的 React 对齐别名（同时传入时优先 `children`）。
+- 🛠 发布 npm 包 [`ant-design-x-vue-next@1.92.0`](https://www.npmjs.com/package/ant-design-x-vue-next)。
+
 ## 1.91.0
 
 `2026-07-31`

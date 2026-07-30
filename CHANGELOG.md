@@ -2,6 +2,15 @@
 
 > Vue Next 文档站时间线版见 [更新日志](https://ant-design-x-vue-next-524.netlify.app/development/changelog.html)。
 
+## 1.92.0
+
+`2026-07-31`
+
+### ant-design-x-vue-next
+
+- 🆕 Actions：`items[].subItems` 作为 `children` 的 React 对齐别名（同时传入时优先 `children`）
+- 🛠 发布 npm `ant-design-x-vue-next@1.92.0`
+
 ## 1.91.0
 
 `2026-07-31`

@@ -85,6 +85,7 @@ actions/fade-in
 | icon | 自定义操作的图标 | VNode | - | - |
 | disabled | 是否禁用 | boolean | `false` | - |
 | children | 子操作项 | ActionItem[] | - | - |
+| subItems | 子操作项（对齐 React；与 `children` 同时传入时优先 `children`） | ActionItem[] | - | 1.92.0 |
 | triggerSubMenuAction | 触发子菜单的操作 | `'hover' \| 'click'` | 'hover' | - |
 | onItemClick | 点击自定义操作按钮时的回调函数 | (info: ActionItem) => void | - | - |
 | actionRender | 自定义渲染操作项（可挂载预设组件） | `((item) => VNodeChild) \| VNodeChild` | - | 1.17.0 |

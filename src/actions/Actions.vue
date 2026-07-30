@@ -8,6 +8,7 @@ import useXComponentConfig from '../_util/hooks/use-x-component-config';
 import { useXProviderContext } from '../x-provider';
 import ActionMenu from './ActionMenu.vue';
 import { ActionsContextProvider } from './context';
+import { getItemChildren } from './getItemChildren';
 import type { ActionsProps, ActionItem, SubItemType } from './interface';
 
 import useStyle from './style';
@@ -202,7 +203,7 @@ defineRender(() => {
                 ? item.actionRender(item)
                 : item.actionRender;
             }
-            if ('children' in item && item.children) {
+            if (getItemChildren(item)?.length) {
               return (
                 <ActionMenu
                   key={item.key}
