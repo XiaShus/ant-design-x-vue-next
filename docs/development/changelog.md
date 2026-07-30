@@ -19,6 +19,15 @@ customClass: changelog-page
 
 ---
 
+## 1.61.0
+
+`2026-07-31`
+
+### ant-design-x-vue-next
+
+- 🆕 Actions Ref：暴露 `nativeElement`（对齐 React）。
+- 🛠 发布 npm 包 [`ant-design-x-vue-next@1.61.0`](https://www.npmjs.com/package/ant-design-x-vue-next)。
+
 ## 1.60.0
 
 `2026-07-31`

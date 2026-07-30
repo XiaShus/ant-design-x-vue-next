@@ -70,6 +70,12 @@ actions/fade-in
 | fadeInLeft | 挂载时从左淡入（与 `fadeIn` 同时设置时优先） | boolean | `false` | 1.35.0 |
 | dropdownProps | 透传给子菜单 Dropdown | `DropdownProps` | - | 1.35.0 |
 
+### Actions Ref
+
+| 属性 | 说明 | 类型 | 版本 |
+| --- | --- | --- | --- |
+| nativeElement | 根节点 DOM | HTMLDivElement | 1.61.0 |
+
 ### ItemType
 
 | 属性 | 说明 | 类型 | 默认值 | 版本 |

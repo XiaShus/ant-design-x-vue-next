@@ -11,6 +11,7 @@ export type {
   ItemType,
   SubItemType,
   ActionsSemanticType,
+  ActionsRef,
 } from './interface';
 export type {
   ActionsCopyProps,

@@ -21,7 +21,7 @@
 | 表达 | Mermaid | ✅ | ✅ | [文档](/component/mermaid) |
 | 确认 | Think | ✅ | ✅ | [文档](/component/think) |
 | 确认 | ThoughtChain | ✅ | ✅（含 `ThoughtChain.Item`；链级 `line` / expand；items `status`：`loading`/`abort`；`blink`·`collapsible`·`destroyOnHidden`；`classNames/styles` root/item/itemHeader/itemIcon/itemContent/itemFooter；`nativeElement` ref） | [文档](/component/thought-chain) |
-| 反馈 | Actions | ✅ | ✅（含 Copy / Feedback / Item / Audio、`fadeIn`/`fadeInLeft`、`dropdownProps`、`outlined`/`filled`、`classNames/styles` root/item/itemDropdown） | [文档](/component/actions) |
+| 反馈 | Actions | ✅ | ✅（含 Copy / Feedback / Item / Audio、`fadeIn`/`fadeInLeft`、`dropdownProps`、`outlined`/`filled`、`classNames/styles` root/item/itemDropdown、`nativeElement` ref） | [文档](/component/actions) |
 | 工具 | XProvider | ✅ | ✅（含 X locale pack / `useLocale`） | [文档](/component/x-provider) |
 | 工具 | useMobile | ✅ | ✅ | [文档](/component/use-mobile) |
 

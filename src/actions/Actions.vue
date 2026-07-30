@@ -2,7 +2,7 @@
 import { Tooltip, type TooltipProps } from 'ant-design-vue';
 import classnames from 'classnames';
 import pickAttrs from '../_util/pick-attrs';
-import { computed, Transition } from 'vue';
+import { computed, ref, Transition } from 'vue';
 
 import useXComponentConfig from '../_util/hooks/use-x-component-config';
 import { useXProviderContext } from '../x-provider';
@@ -24,6 +24,8 @@ const props = withDefaults(defineProps<ActionsProps>(), {
   classNames: () => ({}),
   styles: () => ({}),
 });
+
+const containerRef = ref<HTMLDivElement | null>(null);
 
 const emit = defineEmits<{
   click: [menuInfo: {
@@ -181,7 +183,12 @@ const domProps = computed(() => pickAttrs(props, {
 defineRender(() => {
   const rootNode = (
     <ActionsContextProvider value={actionsContextValue.value}>
-      <div class={mergedCls.value} {...domProps.value} style={mergedStyle.value}>
+      <div
+        ref={containerRef}
+        class={mergedCls.value}
+        {...domProps.value}
+        style={mergedStyle.value}
+      >
         <div
           class={classnames(
             `${prefixCls}-list`,
@@ -231,5 +238,9 @@ defineRender(() => {
   );
 
   return wrapCSSVar(content);
+});
+
+defineExpose({
+  nativeElement: containerRef,
 });
 </script>

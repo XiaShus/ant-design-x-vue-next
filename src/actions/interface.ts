@@ -86,6 +86,10 @@ export type ActionItem = SubItemType | ItemType;
 /** Align React Actions SemanticType. */
 export type ActionsSemanticType = 'root' | 'item' | 'itemDropdown';
 
+export interface ActionsRef {
+  nativeElement: HTMLDivElement;
+}
+
 export interface ActionsProps extends Omit<HTMLAttributes, 'onClick'> {
   /**
    * @desc 包含多个操作项的列表
