@@ -19,6 +19,15 @@ customClass: changelog-page
 
 ---
 
+## 1.101.0
+
+`2026-07-31`
+
+### ant-design-x-vue-next
+
+- 🆕 导出 Attachments `PlaceholderConfig`（`PlaceholderType` 对象形态）。
+- 🛠 发布 npm 包 [`ant-design-x-vue-next@1.101.0`](https://www.npmjs.com/package/ant-design-x-vue-next)。
+
 ## 1.100.0
 
 `2026-07-31`

@@ -9,6 +9,7 @@ export type {
   AttachmentsSelectOptions,
   AttachmentsSemanticType,
   PlaceholderType,
+  PlaceholderConfig,
 } from './interface';
 
 const Attachments = Object.assign(AttachmentsComponent, {

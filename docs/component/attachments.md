@@ -117,18 +117,18 @@ attachments/files-custom
 | maxCount         | 限制附件数量；达到上限后隐藏 FileList 继续上传入口（对齐 React）         | number                                                             | -      | 1.46.0 |
 
 自 `1.97.0` 起可从包入口 `import type { AttachmentsSemanticType, PlaceholderType }`（对齐 React）。
+自 `1.101.0` 起可从包入口 `import type { PlaceholderConfig }`（`PlaceholderType` 的对象形态）。
 
 ```tsx | pure
 type AttachmentsSemanticType = 'list' | 'item' | 'placeholder' | 'upload';
 
-type PlaceholderType =
-  | {
-      icon?: VNode;
-      title?: VNode | string;
-      description?: VNode | string;
-    }
-  | VNode
-  | string;
+interface PlaceholderConfig {
+  icon?: VNode;
+  title?: VNode | string;
+  description?: VNode | string;
+}
+
+type PlaceholderType = PlaceholderConfig | VNode | string;
 
 type Attachment = UploadFile & {
   description?: VNode | string;
