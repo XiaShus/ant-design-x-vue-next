@@ -2,7 +2,7 @@
 import { markRaw, provide, reactive, watch, type Component } from 'vue';
 import { loadCatalog } from './catalog';
 import { boxContextKey, type BoxContextValue } from './context';
-import type { A2UICommand_v0_9, ActionPayload, BoxProps, Catalog } from './types';
+import type { A2UICommand, ActionPayload, BoxProps, Catalog } from './types';
 
 defineOptions({ name: 'AXXCardBox' });
 
@@ -58,7 +58,7 @@ watch(
 watch(
   () => props.commands,
   (commands) => {
-    const list = (commands || []) as A2UICommand_v0_9[];
+    const list = (commands || []) as A2UICommand[];
     ctx.commandQueue = list;
 
     if (!list.length) {

@@ -19,6 +19,17 @@ customClass: changelog-page
 
 ---
 
+## 1.13.0
+
+`2026-07-30`
+
+### ant-design-x-vue-next
+
+- 🆕 `XCard` 兼容 A2UI **v0.8**（`surfaceUpdate` / `dataModelUpdate` / `beginRendering` / `literalString` / action.context 数组）。
+- 🛠 npm `files` 显式包含 `README.md` / `README.en.md` / `LICENSE`，修复包页 README 展示问题。
+- 📖 XCard 文档补充 v0.8 演示与协议对照。
+- 🛠 发布 npm 包 [`ant-design-x-vue-next@1.13.0`](https://www.npmjs.com/package/ant-design-x-vue-next)。
+
 ## 1.12.0
 
 `2026-07-30`

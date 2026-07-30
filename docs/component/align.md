@@ -32,7 +32,7 @@ React 2.x 已拆出独立包，Vue Next 尚未拆分：
 | --- | --- | --- |
 | `@ant-design/x-sdk`（含 XRequest / XStream / Chat 能力） | ✅ | 内置：timeout/retry/abort + `AbstractChatProvider` / `DefaultChatProvider` / OpenAI / DeepSeek + `useXConversations` + conversationKey + `XMCPClient`（未拆独立包；不含 React 式 AbstractXRequestClass 驱动） |
 | `@ant-design/x-markdown` | ✅ | ✅ 内置（安全清洗 + 流式缓存 + LaTeX + AnimationText + DebugPanel） |
-| `@ant-design/x-card` | ✅ | ✅ MVP（A2UI v0.9 + catalog 白名单） |
+| `@ant-design/x-card` | ✅ | ✅ A2UI v0.9 + v0.8 兼容 + catalog 白名单 |
 | `@ant-design/x-skill` | ✅ | ⏳（非运行时 UI） |
 
 本仓库工具类文档：
@@ -54,6 +54,6 @@ React 2.x 已拆出独立包，Vue Next 尚未拆分：
 5. ~~Mermaid~~ ✅
 6. ~~XMarkdown MVP + 安全加固 + 流式 token 缓存 + LaTeX + DebugPanel~~ ✅（继续对齐独立包）
 7. ~~SDK：AbstractChatProvider + Default/OpenAI/DeepSeek + useXConversations + XMCPClient~~ ✅（继续对齐独立包拆分 / AbstractXRequestClass）
-8. ~~`x-card`（A2UI v0.9）~~ ✅（继续对齐 v0.8 / 完整 catalog）
+8. ~~`x-card`（A2UI v0.9 + v0.8）~~ ✅（继续对齐完整 catalog / 更多内置组件）
 
 参考源码：[`ant-design/x`](https://github.com/ant-design/x)

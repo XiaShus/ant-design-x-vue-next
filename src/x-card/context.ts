@@ -1,9 +1,9 @@
 import type { InjectionKey } from 'vue';
-import type { A2UICommand_v0_9, ActionPayload, BoxProps, Catalog } from './types';
+import type { A2UICommand, ActionPayload, BoxProps, Catalog } from './types';
 
 export interface BoxContextValue {
   components: NonNullable<BoxProps['components']>;
-  commandQueue: A2UICommand_v0_9[];
+  commandQueue: A2UICommand[];
   onAction?: (payload: ActionPayload) => void;
   allowedCatalogIds?: string[];
   catalogMap: Map<string, Catalog>;

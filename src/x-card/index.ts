@@ -3,11 +3,17 @@ import Box from './Box.vue';
 import Card from './Card.vue';
 
 export type {
+  A2UICommand,
+  A2UICommand_v0_8,
   A2UICommand_v0_9,
   ActionPayload,
   BoxProps,
   Catalog,
   CatalogComponent,
+  ComponentWrapper_v0_8,
+  LiteralStringValue,
+  PathValue,
+  XAgentCommand_v0_8,
   XAgentCommand_v0_9,
 } from './types';
 
