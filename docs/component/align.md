@@ -21,7 +21,7 @@
 | 表达 | Mermaid | ✅ | ✅（含导出 `MermaidType`） | [文档](/component/mermaid) |
 | 确认 | Think | ✅ | ✅（含 `blink` / `destroyOnHidden`、`classNames/styles`、`nativeElement` ref） | [文档](/component/think) |
 | 确认 | ThoughtChain | ✅ | ✅（含导出 `ThoughtChainItemType`；`ThoughtChain.Item`（含 `nativeElement` ref）；链级 `line` / expand；items `status`：`loading`/`abort`；`blink`·`collapsible`·`destroyOnHidden`；`classNames/styles` root/item/itemHeader/itemIcon/itemContent/itemFooter；链级 `nativeElement` ref） | [文档](/component/thought-chain) |
-| 反馈 | Actions | ✅ | ✅（含顶层 `ItemType.danger`、`items[].subItems`→`children` 别名；Copy / Feedback / Item / Audio 预设 API 文档；`fadeIn`/`fadeInLeft`、`dropdownProps`、`outlined`/`filled`、`classNames/styles` root/item/itemDropdown、`nativeElement` ref） | [文档](/component/actions) |
+| 反馈 | Actions | ✅ | ✅（含导出预设语义类型 `Actions*SemanticType`、顶层 `ItemType.danger`、`items[].subItems`→`children` 别名；Copy / Feedback / Item / Audio 预设 API 文档；`fadeIn`/`fadeInLeft`、`dropdownProps`、`outlined`/`filled`、`classNames/styles` root/item/itemDropdown、`nativeElement` ref） | [文档](/component/actions) |
 | 工具 | XProvider | ✅ | ✅（含组件配置 docs：actions/welcome/attachments/think/sources/fileCard/folder/codeHighlighter/mermaid；X locale pack / `useLocale`） | [文档](/component/x-provider) |
 | 工具 | useMobile | ✅ | ✅ | [文档](/component/use-mobile) |
 

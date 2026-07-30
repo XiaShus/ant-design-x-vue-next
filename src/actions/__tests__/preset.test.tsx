@@ -6,9 +6,26 @@ import Actions, {
   ActionsFeedback,
   ActionsItem,
 } from '../index';
+import type {
+  ActionsAudioSemanticType,
+  ActionsCopySemanticType,
+  ActionsFeedbackSemanticType,
+  ActionsItemSemanticType,
+} from '../index';
 import { ACTIONS_ITEM_STATUS } from '../constants';
 
 describe('Actions presets', () => {
+  it('exports preset semantic types from package entry', () => {
+    const copyRoot = 'root' satisfies ActionsCopySemanticType;
+    const feedbackLike = 'like' satisfies ActionsFeedbackSemanticType;
+    const itemRunning = 'running' satisfies ActionsItemSemanticType;
+    const audioError = 'error' satisfies ActionsAudioSemanticType;
+    expect(copyRoot).toBe('root');
+    expect(feedbackLike).toBe('like');
+    expect(itemRunning).toBe('running');
+    expect(audioError).toBe('error');
+  });
+
   it('actionRender mounts custom content', () => {
     const wrapper = mount(Actions, {
       props: {

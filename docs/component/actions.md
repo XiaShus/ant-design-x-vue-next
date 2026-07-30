@@ -113,6 +113,7 @@ actions/fade-in
 | `Actions.Audio` | 音频播放状态按钮 | 1.17.0 |
 
 自 `1.84.0` 起可从包入口 `import type { ActionsFeedbackProps, ActionsItemProps, ActionsCopyProps, ActionsAudioProps }`（对齐 React 导出习惯）。
+自 `1.96.0` 起可从包入口 `import type { ActionsFeedbackSemanticType, ActionsCopySemanticType, ActionsItemSemanticType, ActionsAudioSemanticType }`。
 
 ### Actions.Feedback
 
@@ -120,8 +121,8 @@ actions/fade-in
 | --- | --- | --- | --- | --- |
 | value | 反馈状态值 | `'like' \| 'dislike' \| 'default'` | `default` | 1.17.0 |
 | onChange / `@change` | 反馈状态变化回调 | `(value: 'like' \| 'dislike' \| 'default') => void` | - | 1.17.0 |
-| classNames | 语义化 class | Record<'root' \| …, string> | - | - |
-| styles | 语义化 style | Record<'root' \| …, CSSProperties> | - | - |
+| classNames | 语义化 class | Record<'root' \| 'like' \| 'liked' \| 'dislike' \| 'disliked', string> | - | 1.96.0 |
+| styles | 语义化 style | Record<'root' \| 'like' \| 'liked' \| 'dislike' \| 'disliked', CSSProperties> | - | 1.96.0 |
 
 ### Actions.Copy
 
@@ -129,16 +130,16 @@ actions/fade-in
 | --- | --- | --- | --- | --- |
 | text | 复制的文本 | string | `''` | 1.17.0 |
 | icon | 复制按钮图标；可为 `[default, copied]` 二元组 | VNode \| [VNode, VNode] | - | 1.17.0 |
-| classNames | 语义化 class | Record<'root' \| …, string> | - | - |
-| styles | 语义化 style | Record<'root' \| …, CSSProperties> | - | - |
+| classNames | 语义化 class | Record<'root', string> | - | 1.96.0 |
+| styles | 语义化 style | Record<'root', CSSProperties> | - | 1.96.0 |
 
 ### Actions.Audio
 
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
 | status | 播放状态 | `'loading' \| 'error' \| 'running' \| 'default'` | `default` | 1.17.0 |
-| classNames | 语义化 class | Record<'root' \| …, string> | - | - |
-| styles | 语义化 style | Record<'root' \| …, CSSProperties> | - | - |
+| classNames | 语义化 class | Record<'root' \| 'default' \| 'running' \| 'error' \| 'loading', string> | - | 1.96.0 |
+| styles | 语义化 style | Record<'root' \| 'default' \| 'running' \| 'error' \| 'loading', CSSProperties> | - | 1.96.0 |
 
 ### Actions.Item
 
@@ -148,8 +149,8 @@ actions/fade-in
 | label | 自定义操作的显示标签 | string | - | 1.17.0 |
 | defaultIcon | 默认状态图标 | VNode | - | 1.17.0 |
 | runningIcon | 执行状态图标 | VNode | - | 1.17.0 |
-| classNames | 语义化 class | Record<'root' \| …, string> | - | - |
-| styles | 语义化 style | Record<'root' \| …, CSSProperties> | - | - |
+| classNames | 语义化 class | Record<'root' \| 'default' \| 'running' \| 'error' \| 'loading', string> | - | 1.96.0 |
+| styles | 语义化 style | Record<'root' \| 'default' \| 'running' \| 'error' \| 'loading', CSSProperties> | - | 1.96.0 |
 
 ### ActionItem
 

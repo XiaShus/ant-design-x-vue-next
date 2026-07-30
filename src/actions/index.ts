@@ -19,6 +19,12 @@ export type {
   ActionsItemProps,
   ActionsAudioProps,
 } from './preset-types';
+export type {
+  ActionsCopySemanticType,
+  ActionsFeedbackSemanticType,
+  ActionsItemSemanticType,
+  ActionsAudioSemanticType,
+} from './constants';
 export { FEEDBACK_VALUE, ACTIONS_ITEM_STATUS } from './constants';
 
 type CompoundedActions = typeof Actions & {
