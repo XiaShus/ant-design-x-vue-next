@@ -9,10 +9,12 @@ import { computed, ref, toRef, watch } from 'vue';
 import useMergedState from '../_util/hooks/useMergedState';
 import { useXProviderContext } from '../x-provider';
 import useGroupable from './hooks/useGroupable';
+import useCollapsible from './hooks/useCollapsible';
 import useXComponentConfig from '../_util/hooks/use-x-component-config';
 import useShortcutKeys from '../_util/hooks/use-shortcut-keys';
 import useStyle from './style';
 import GroupTitleContextProvider from './context';
+import type { GroupLabel } from './interface';
 
 defineOptions({ name: 'AXConversations' });
 
@@ -58,6 +60,26 @@ watch(() => activeKeyProp, () => {
 
 // ============================ Groupable ============================
 const groupSate = useGroupable(() => groupable, () => items);
+
+const { enableCollapse, expandedKeys, onItemExpand } = useCollapsible(
+  () => groupSate.value.hasCollapsible,
+  () => groupSate.value.collapsibleOptions,
+);
+
+const renderGroupLabel = (groupInfo: (typeof groupSate.value.groupList)[number]) => {
+  const name = groupInfo.name || '';
+  if (groupInfo.title) {
+    return groupInfo.title(name, { components: { GroupTitle } });
+  }
+  const label = groupInfo.label as GroupLabel;
+  if (typeof label === 'function') {
+    return label(name, { groupInfo: { name: groupInfo.name, data: groupInfo.data } });
+  }
+  if (label !== undefined && label !== null && label !== '') {
+    return label;
+  }
+  return name;
+};
 
 // ============================ Prefix ============================
 const { getPrefixCls, direction } = useXProviderContext();
@@ -176,14 +198,35 @@ defineRender(() => {
 
         // With group to show the title
         if (groupSate.value.enableGroup) {
+          const groupKey = groupInfo.name || `key-${groupIndex}`;
+          const groupCollapsible = !!(enableCollapse.value && groupInfo.collapsible && groupInfo.name);
+          const groupOpen = !groupCollapsible || expandedKeys.value.includes(groupInfo.name!);
+          const labelNode = renderGroupLabel(groupInfo);
+
           return (
-            <li key={groupInfo.name || `key-${groupIndex}`}>
+            <li key={groupKey}>
               <GroupTitleContextProvider value={{ prefixCls: prefixCls.value }}>
-                {groupInfo.title?.(groupInfo.name!, { components: { GroupTitle } }) || (
-                  <GroupTitle key={groupInfo.name}>{groupInfo.name}</GroupTitle>
-                )}
+                <GroupTitle
+                  collapsible={groupCollapsible}
+                  expanded={groupOpen}
+                  onToggle={() => {
+                    if (groupInfo.name) {
+                      onItemExpand(groupInfo.name);
+                    }
+                  }}
+                >
+                  {labelNode}
+                </GroupTitle>
               </GroupTitleContextProvider>
-              <ul class={`${prefixCls.value}-list`}>{convItems}</ul>
+              {groupOpen && (
+                <ul
+                  class={classnames(`${prefixCls.value}-list`, {
+                    [`${prefixCls.value}-group-collapsible-list`]: groupCollapsible,
+                  })}
+                >
+                  {convItems}
+                </ul>
+              )}
             </li>
           );
         }

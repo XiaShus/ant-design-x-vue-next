@@ -163,13 +163,40 @@ const genConversationsStyle: GenerateStyle<ConversationsToken> = (token) => {
         opacity: 0,
         fontSize: token.fontSizeXL,
       },
-      // 会话图标
+      // 分组标题
       [`& ${componentCls}-group-title`]: {
         display: 'flex',
         alignItems: 'center',
+        color: token.colorTextDescription,
         height: token.controlHeightLG,
         minHeight: token.controlHeightLG,
         padding: `0 ${unit(token.paddingXS)}`,
+      },
+      [`& ${componentCls}-group-title-collapsible`]: {
+        justifyContent: 'space-between',
+        cursor: 'pointer',
+        color: token.colorText,
+        borderRadius: token.borderRadiusLG,
+        transition: `all ${token.motionDurationMid} ${token.motionEaseInOut}`,
+        touchAction: 'manipulation',
+        '&:hover': {
+          backgroundColor: token.colorBgTextHover,
+        },
+      },
+      [`& ${componentCls}-group-label`]: {
+        flex: 1,
+        minWidth: 0,
+      },
+      [`& ${componentCls}-group-collapse-trigger`]: {
+        transition: `all ${token.motionDurationMid} ${token.motionEaseInOut}`,
+        transform: 'rotate(0deg)',
+        transformOrigin: 'center center',
+      },
+      [`& ${componentCls}-group-collapse-trigger-open`]: {
+        transform: 'rotate(90deg)',
+      },
+      [`& ${componentCls}-group-collapse-trigger-close`]: {
+        transform: 'rotate(0deg)',
       },
     },
   };

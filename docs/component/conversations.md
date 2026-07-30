@@ -70,6 +70,14 @@ conversations/group
 
 :::
 
+### 分组折叠
+
+:::demo `groupable.collapsible` 支持折叠分组；可用 `expandedKeys` / `onExpand` 受控。
+
+conversations/collapsible
+
+:::
+
 ### 分组排序
 
 :::demo 通过 `groupable.sort` 属性对分组排序, 通过 `groupable.title` 自定义渲染分组
@@ -127,7 +135,12 @@ conversations/group-sort
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
 | `sort` | 分组排序函数 | (a: string, b: string) => number | - | - |
-| `title` | 自定义渲染组件 | ((group: string, info: { components: { GroupTitle: typeof GroupTitle } }) => VNode) | - | - |
+| `title` | 自定义渲染分组标题（历史 API） | ((group: string, info: { components: { GroupTitle: typeof GroupTitle } }) => VNode) | - | - |
+| `label` | 分组标题（对齐 React） | VNode \| string \| ((group: string, info: { components: { GroupTitle: typeof GroupTitle } }) => VNode) | - | 1.45.0 |
+| `collapsible` | 是否可折叠；可为按分组函数 | boolean \| ((group: string) => boolean) | - | 1.45.0 |
+| `defaultExpandedKeys` | 默认展开的分组 | string[] | `[]` | 1.45.0 |
+| `expandedKeys` | 受控展开分组 | string[] | - | 1.45.0 |
+| `onExpand` | 展开/收起回调 | (expandedKeys: string[]) => void | - | 1.45.0 |
 
 ### MenuProps
 

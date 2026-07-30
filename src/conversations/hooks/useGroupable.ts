@@ -1,18 +1,28 @@
 import { computed, MaybeRefOrGetter, toValue } from 'vue';
-import type { Conversation, Groupable, ConversationsProps } from '../interface';
+import type { Conversation, Groupable, ConversationsProps, GroupCollapsible } from '../interface';
 
 /**
  * 🔥 Only for handling ungrouped data. Do not use it for any other purpose! 🔥
  */
 const __UNGROUPED = '__ungrouped';
 
-type GroupList = {
+type GroupListItem = {
   data: Conversation[];
   name?: string;
   title?: Groupable['title'];
-}[];
+  label?: Groupable['label'];
+  collapsible?: boolean;
+};
 
 type GroupMap = Record<string, Conversation[]>;
+
+const resolveCollapsible = (
+  handle: GroupCollapsible | undefined,
+  groupName: string | undefined,
+): boolean => {
+  if (!handle || !groupName) return false;
+  return typeof handle === 'function' ? !!handle(groupName) : !!handle;
+};
 
 const useGroupable = (
   groupable?: MaybeRefOrGetter<ConversationsProps['groupable']>,
@@ -22,69 +32,94 @@ const useGroupable = (
     if (!toValue(groupable)) {
       return {
         enableGroup: false,
-        sort: undefined,
-        title: undefined,
-      }
+        sort: undefined as Groupable['sort'],
+        title: undefined as Groupable['title'],
+        label: undefined as Groupable['label'],
+        collapsibleHandle: undefined as GroupCollapsible | undefined,
+        collapsibleOptions: {
+          defaultExpandedKeys: undefined as string[] | undefined,
+          expandedKeys: undefined as string[] | undefined,
+          onExpand: undefined as Groupable['onExpand'],
+        },
+      };
     }
-    let baseConfig: Groupable = {
-      sort: undefined,
-      title: undefined,
-    };
+    let baseConfig: Groupable = {};
 
     if (typeof toValue(groupable) === 'object') {
-      baseConfig = { ...baseConfig, ...toValue(groupable as object) };
+      baseConfig = { ...toValue(groupable as object) };
     }
+    const {
+      collapsible,
+      defaultExpandedKeys,
+      expandedKeys,
+      onExpand,
+      ...other
+    } = baseConfig;
+
     return {
       enableGroup: true,
-      sort: baseConfig.sort,
-      title: baseConfig.title,
-    }
+      sort: other.sort,
+      title: other.title,
+      label: other.label,
+      collapsibleHandle: collapsible,
+      collapsibleOptions: {
+        defaultExpandedKeys,
+        expandedKeys,
+        onExpand,
+      },
+    };
   });
 
   return computed(() => {
-    // 未开启分组模式直接返回
     if (!state.value.enableGroup) {
-      const groupList: GroupList = [
+      const groupList: GroupListItem[] = [
         {
           name: __UNGROUPED,
           data: toValue(items),
-          title: undefined as Groupable['title'],
+          title: undefined,
+          label: undefined,
+          collapsible: false,
         },
       ];
 
       return {
         groupList,
-        enableGroup: state.value.enableGroup
-      }
+        enableGroup: false,
+        collapsibleOptions: state.value.collapsibleOptions,
+        hasCollapsible: false,
+      };
     }
 
-    // 1. 将 data 做数据分组，填充 groupMap
     const groupMap = toValue(items).reduce<GroupMap>((acc, item) => {
       const group = item.group || __UNGROUPED;
-
       if (!acc[group]) {
         acc[group] = [];
       }
-
       acc[group].push(item);
-
       return acc;
     }, {});
 
-    // 2. 存在 sort 时对 groupKeys 排序
-    const groupKeys = state.value.sort ? Object.keys(groupMap).sort(state.value.sort) : Object.keys(groupMap);
+    const groupKeys = state.value.sort
+      ? Object.keys(groupMap).sort(state.value.sort)
+      : Object.keys(groupMap);
 
-    // 3. groupMap 转 groupList
-    const groupList = groupKeys.map((group) => ({
-      name: group === __UNGROUPED ? undefined : group,
-      title: state.value.title,
-      data: groupMap[group],
-    }));
+    const groupList: GroupListItem[] = groupKeys.map((group) => {
+      const name = group === __UNGROUPED ? undefined : group;
+      return {
+        name,
+        title: state.value.title,
+        label: state.value.label,
+        data: groupMap[group],
+        collapsible: resolveCollapsible(state.value.collapsibleHandle, name),
+      };
+    });
 
     return {
       groupList,
-      enableGroup: state.value.enableGroup
-    }
+      enableGroup: true,
+      collapsibleOptions: state.value.collapsibleOptions,
+      hasCollapsible: !!state.value.collapsibleHandle,
+    };
   });
 };
 

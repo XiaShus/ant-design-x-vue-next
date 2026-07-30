@@ -162,6 +162,14 @@ export type GroupTitleRender =
   | ((group: GroupType, info: GroupTitleRenderComponents) => VNode)
   | undefined;
 
+export type GroupCollapsible = boolean | ((group: string) => boolean);
+
+export type GroupLabel =
+  | VNode
+  | string
+  | ((group: string, info: { groupInfo: { name?: string; data: Conversation[] } }) => VNode | string)
+  | undefined;
+
 export interface Groupable {
   /**
    * @desc 分组排序函数
@@ -169,10 +177,35 @@ export interface Groupable {
    */
   sort?: GroupSorter;
   /**
-   * @desc 自定义分组标签渲染
-   * @descEN Semantic custom rendering
+   * @desc 自定义分组标签渲染（历史 API）
+   * @descEN Semantic custom rendering (legacy)
    */
   title?: GroupTitleRender;
+  /**
+   * @desc 分组标题（对齐 React `label`）
+   * @descEN Group label (React-aligned)
+   */
+  label?: GroupLabel;
+  /**
+   * @desc 是否可折叠；可为按分组函数
+   * @descEN Whether groups are collapsible
+   */
+  collapsible?: GroupCollapsible;
+  /**
+   * @desc 默认展开的分组 key
+   * @descEN Default expanded group keys
+   */
+  defaultExpandedKeys?: string[];
+  /**
+   * @desc 受控展开分组 key
+   * @descEN Controlled expanded group keys
+   */
+  expandedKeys?: string[];
+  /**
+   * @desc 展开/收起回调
+   * @descEN Expand/collapse callback
+   */
+  onExpand?: (expandedKeys: string[]) => void;
 }
 
 export interface GroupTitleContextProps {
