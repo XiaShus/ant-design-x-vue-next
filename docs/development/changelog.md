@@ -19,13 +19,22 @@ customClass: changelog-page
 
 ---
 
+## 1.26.1
+
+`2026-07-30`
+
+### ant-design-x-vue-next
+
+- 🛠 修复 `1.26.0` 发布产物未包含 `items[]` status 对齐的问题；正式带上 `loading` / `abort`（`pending` → `loading`）。
+- 🛠 发布 npm 包 [`ant-design-x-vue-next@1.26.1`](https://www.npmjs.com/package/ant-design-x-vue-next)。
+
 ## 1.26.0
 
 `2026-07-30`
 
 ### ant-design-x-vue-next
 
-- 🆕 ThoughtChain `items[]` status 对齐 React：`loading` / `success` / `error` / `abort`；`pending` 作为兼容别名映射为 `loading`。
+- 🆕 ThoughtChain `items[]` status 对齐 React：`loading` / `success` / `error` / `abort`；`pending` 作为兼容别名映射为 `loading`。（该版本 npm 产物不完整，请使用 1.26.1）
 - 📖 ThoughtChain 节点状态演示更新；对齐进度更新。
 - 🛠 发布 npm 包 [`ant-design-x-vue-next@1.26.0`](https://www.npmjs.com/package/ant-design-x-vue-next)。
 

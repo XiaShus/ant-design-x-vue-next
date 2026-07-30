@@ -46,7 +46,7 @@ const mergedCls = computed(() =>
     hashId.value,
     cssVarCls,
     props.className,
-    props.class,
+    attrs.class as string,
     props.rootClassName,
     props.classNames?.root,
     itemCls.value,

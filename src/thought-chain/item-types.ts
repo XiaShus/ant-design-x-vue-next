@@ -1,4 +1,4 @@
-import type { CSSProperties, HTMLAttributes, VNode } from 'vue';
+import type { CSSProperties, VNode } from 'vue';
 
 export type ThoughtChainItemVariant = 'solid' | 'outlined' | 'text';
 
@@ -6,8 +6,7 @@ export type ThoughtChainItemStatus = 'loading' | 'success' | 'error' | 'abort';
 
 export type ThoughtChainItemSemanticType = 'root' | 'icon' | 'title' | 'description';
 
-export interface ThoughtChainItemProps
-  extends Omit<HTMLAttributes, 'title' | 'key'> {
+export interface ThoughtChainItemProps {
   /**
    * @desc 自定义前缀
    * @descEN Prefix
@@ -61,6 +60,9 @@ export interface ThoughtChainItemProps
    * @descEN Custom CSS class name
    */
   className?: string;
+
+  /** Native class attribute passthrough */
+  class?: string;
 
   /**
    * @desc 语义化样式类名配置

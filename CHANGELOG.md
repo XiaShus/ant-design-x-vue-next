@@ -2,13 +2,22 @@
 
 > Vue Next 文档站时间线版见 [更新日志](https://ant-design-x-vue-next-524.netlify.app/development/changelog.html)。
 
+## 1.26.1
+
+`2026-07-30`
+
+### ant-design-x-vue-next
+
+- 🛠 修复 1.26.0 不完整产物；正式包含 items[] `loading` / `abort`
+- 🛠 发布 npm `ant-design-x-vue-next@1.26.1`
+
 ## 1.26.0
 
 `2026-07-30`
 
 ### ant-design-x-vue-next
 
-- 🆕 ThoughtChain items[] status：`loading` / `abort`（`pending` → loading 兼容）
+- 🆕 ThoughtChain items[] status：`loading` / `abort`（产物不完整，请用 1.26.1）
 - 📖 ThoughtChain 状态演示更新
 - 🛠 发布 npm `ant-design-x-vue-next@1.26.0`
 
