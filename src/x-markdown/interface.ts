@@ -1,8 +1,19 @@
 import type { Config as DOMPurifyConfig } from 'dompurify';
 import type { MarkedExtension } from 'marked';
-import type { Component, CSSProperties, HTMLAttributes, VNode } from 'vue';
+import type { Component, CSSProperties, HTMLAttributes } from 'vue';
 
 export type StreamStatus = 'loading' | 'done';
+
+export enum StreamCacheTokenType {
+  Text = 'text',
+  Link = 'link',
+  Image = 'image',
+  Html = 'html',
+  Emphasis = 'emphasis',
+  List = 'list',
+  Table = 'table',
+  InlineCode = 'inline-code',
+}
 
 export type DefaultStyleTag =
   | 'p'
@@ -42,17 +53,24 @@ export type XMarkdownComponents = Record<
 
 export type StreamingOption = {
   /**
-   * @desc 是否还有后续内容块
-   * @descEN Whether more content chunks are expected
+   * @desc 是否还有后续内容块；为 true 时启用增量 token 缓存
+   * @descEN Whether more content chunks are expected; enables incremental token cache when true
    * @default false
    */
   hasNextChunk?: boolean;
   /**
-   * @desc 尾部光标；`true` 使用默认 `▍`，或传入自定义内容
-   * @descEN Tail cursor; `true` for default `▍`, or custom content
+   * @desc 尾部光标；`true` 使用默认 `|`，或传入自定义内容
+   * @descEN Tail cursor; `true` for default `|`, or custom content
    * @default false
    */
   tail?: boolean | { content?: string };
+  /**
+   * @desc 未完成 Markdown 语法映射到自定义加载组件名
+   * @descEN Map incomplete markdown tokens to custom loading component names
+   */
+  incompleteMarkdownComponentMap?: Partial<
+    Record<Exclude<StreamCacheTokenType, StreamCacheTokenType.Text>, string>
+  >;
 };
 
 export interface XMarkdownProps {

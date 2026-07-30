@@ -9,6 +9,7 @@ export type {
   StreamStatus,
   DefaultStyleTag,
 } from './interface';
+export { StreamCacheTokenType } from './interface';
 
 // @ts-ignore
 XMarkdown.install = function (app: App) {
@@ -22,3 +23,5 @@ export { XMarkdown };
 export { parseMarkdown } from './parser';
 export { sanitizeMarkdownHtml } from './sanitize';
 export { escapeHtml } from './escapeHtml';
+export { useStreaming } from './composables/useStreaming';
+export { processStreamingText, getInitialCache } from './streamCache';

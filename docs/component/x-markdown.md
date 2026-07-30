@@ -35,7 +35,7 @@ x-markdown/streaming
 | content | Markdown 内容 | `string` | - |
 | children | Markdown 内容（content 别名 / 默认插槽） | `string` | - |
 | components | 自定义标签组件映射 | `Record<string, Component>` | 默认 `code` → CodeHighlighter/Mermaid |
-| streaming | 流式配置 | `{ hasNextChunk?: boolean; tail?: boolean \| { content?: string } }` | - |
+| streaming | 流式配置（`hasNextChunk: true` 启用增量 token 缓存） | `{ hasNextChunk?: boolean; tail?: boolean \| { content?: string }; incompleteMarkdownComponentMap?: object }` | - |
 | config | Marked.js 扩展配置 | `MarkedExtension` | - |
 | openLinksInNewTab | 链接新标签打开 | `boolean` | `false` |
 | escapeRawHtml | 转义 Markdown 中的原始 HTML（**不信任模型输出时请开启**） | `boolean` | `false` |
@@ -52,7 +52,8 @@ x-markdown/streaming
 
 - 解析引擎：[`marked`](https://github.com/markedjs/marked)（与官方一致）。
 - 安全清洗：[`dompurify`](https://github.com/cure53/DOMPurify)（含 happy-dom 兼容补丁，失败时 fail-closed，绝不回退原始 HTML）。
-- 已覆盖常用渲染、链接、代码块组件映射与流式尾标；增量 token 缓存 / LaTeX / DebugPanel 仍在对齐中。
+- 已覆盖常用渲染、链接、代码块组件映射、流式尾标与 **增量 token 缓存**（流式时暂挂未闭合的链接/强调等，避免闪烁）。
+- 仍在对齐：LaTeX 插件、AnimationText、DebugPanel。
 
 ## 贡献者
 

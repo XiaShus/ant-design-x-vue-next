@@ -3,6 +3,7 @@ import classnames from 'classnames';
 import { computed, defineComponent } from 'vue';
 import { CodeHighlighter } from '../code-highlighter';
 import { Mermaid } from '../mermaid';
+import { useStreaming } from './composables/useStreaming';
 import { htmlToVNodes } from './htmlToVNodes';
 import type { XMarkdownProps, XMarkdownSlots } from './interface';
 import { parseMarkdown } from './parser';
@@ -79,6 +80,19 @@ const markdownSource = computed(() => {
     .join('');
 });
 
+const mergedComponents = computed(() => ({
+  code: DefaultCode,
+  ...props.components,
+}));
+
+const streamingConfig = computed(() => ({
+  streaming: props.streaming,
+  components: mergedComponents.value,
+}));
+
+/** Incremental token cache while streaming; full content when finished */
+const streamOutput = useStreaming(markdownSource, streamingConfig);
+
 const streamStatus = computed(() =>
   props.streaming?.hasNextChunk ? ('loading' as const) : ('done' as const),
 );
@@ -106,13 +120,8 @@ const disableStyleCls = computed(() => {
   return undefined;
 });
 
-const mergedComponents = computed(() => ({
-  code: DefaultCode,
-  ...props.components,
-}));
-
 const renderedNodes = computed(() => {
-  const source = markdownSource.value;
+  const source = streamOutput.value;
   if (!source) {
     return null;
   }
@@ -133,7 +142,7 @@ const renderedNodes = computed(() => {
 });
 
 defineRender(() => {
-  if (!markdownSource.value) {
+  if (!streamOutput.value) {
     return null;
   }
 
