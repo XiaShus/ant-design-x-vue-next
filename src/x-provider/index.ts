@@ -3,7 +3,13 @@ import useXProviderContext, {
 } from './hooks/use-x-provider-context';
 import XProvider from './index.vue';
 
-export type { XProviderProps } from './context';
+export type {
+  XProviderProps,
+  XComponentsConfig,
+  XComponentStyleConfig,
+  ComponentStyleConfig,
+  DefaultPickType,
+} from './context';
 
 // @ts-ignore
 XProvider.install = function(app: App) {

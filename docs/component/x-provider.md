@@ -61,9 +61,11 @@ import antdZhCN from 'ant-design-vue/es/locale/zh_CN';
 
 通过 `XProvider` 传入下列键，可为对应组件提供默认的 `classNames` / `styles` / `className` / `style`（已由运行时 `XComponentsConfig` 支持；`1.90.0` 补齐文档）。
 
+自 `1.107.0` 起可从包入口 `import type { XComponentsConfig, XComponentStyleConfig, ComponentStyleConfig }`。
+
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
-| bubble | 气泡组件的全局配置 | `'classNames' \| 'styles' \| 'className' \| 'style'` | - |  |
+| bubble | 气泡组件的全局配置 | ComponentStyleConfig\<BubbleProps\> | - | 1.107.0（类型导出） |
 | conversations | 会话组件的全局配置 | `'classNames' \| 'styles' \| 'className' \| 'style'` | - |  |
 | prompts | 提示集组件的全局配置 | `'classNames' \| 'styles' \| 'className' \| 'style'` | - |  |
 | sender | 输入框组件的全局配置 | `'classNames' \| 'styles' \| 'className' \| 'style'` | - |  |
