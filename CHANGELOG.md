@@ -2,6 +2,15 @@
 
 > Vue Next 文档站时间线版见 [更新日志](https://ant-design-x-vue-next-524.netlify.app/development/changelog.html)。
 
+## 1.88.0
+
+`2026-07-31`
+
+### ant-design-x-vue-next
+
+- 🆕 导出 `RenderChildrenProps`（对齐 React Suggestion 模块入口）
+- 🛠 发布 npm `ant-design-x-vue-next@1.88.0`
+
 ## 1.87.0
 
 `2026-07-31`

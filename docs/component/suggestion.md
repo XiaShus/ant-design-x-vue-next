@@ -42,7 +42,7 @@ suggestion/trigger
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
 | block | 是否整行宽度 | boolean | false | - |
-| children | 自定义输入框 | ({ onTrigger, onKeyDown, open }) => VNode | - | 1.32.0 起含 `open` |
+| children | 自定义输入框（类型 `RenderChildrenProps`，自 `1.88.0` 可从包入口导入） | (props: RenderChildrenProps) => VNode | - | 1.32.0 起含 `open`；1.88.0（类型导出） |
 | items | 建议项列表 | SuggestionItem[] \| ((info: T) => SuggestionItem[]) | - | - |
 | open | 受控打开面板 | boolean | - | - |
 | rootClassName | 根元素样式类名 | string | - | - |

@@ -6,6 +6,7 @@ export type {
   SuggestionSemanticType,
   SuggestionItem,
   SuggestionCascaderPassthrough,
+  RenderChildrenProps,
 } from './interface';
 
 // @ts-ignore
