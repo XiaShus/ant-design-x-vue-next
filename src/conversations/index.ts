@@ -10,6 +10,8 @@ export type {
   DividerItemType,
   ConversationsItems,
   ConversationsSemanticType,
+  Groupable,
+  GroupableProps,
   CreationProps,
   ShortcutKeys,
 } from './interface';

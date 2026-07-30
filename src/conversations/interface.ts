@@ -246,6 +246,9 @@ export interface Groupable {
   onExpand?: (expandedKeys: string[]) => void;
 }
 
+/** Align React `@ant-design/x` export name for Conversations.groupable. */
+export type GroupableProps = Groupable;
+
 export interface GroupTitleContextProps {
   prefixCls?: ConfigProviderProps['prefixCls'];
 }

@@ -156,6 +156,8 @@ conversations/group-sort
 
 ### GroupableProps
 
+自 `1.87.0` 起可从包入口 `import type { GroupableProps }`（对齐 React；内部亦保留 `Groupable` 别名）。
+
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
 | `sort` | 分组排序函数 | (a: string, b: string) => number | - | - |
