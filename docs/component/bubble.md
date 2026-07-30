@@ -225,14 +225,25 @@ bubble/gpt-vis
 | onEditConfirm | 编辑确认回调 | `(content: string) => void` | - | 1.19.0 |
 | onEditCancel | 编辑取消回调 | `() => void` | - | 1.19.0 |
 | streaming | 流式传输中；为 true 时不触发 `onTypingComplete` | boolean | `false` | 1.20.0 |
-| footerPlacement | footer 位置 | `outer-start` \| `outer-end` \| `inner-start` \| `inner-end` | 随 placement | 1.20.0 |
-| typing.effect | 打字效果 | `typing` \| `fade-in` | `typing` | 1.20.0 |
+| footerPlacement | footer 位置 | FooterPlacement | 随 placement | 1.20.0；1.99.0（类型导出） |
+| typing.effect | 打字效果 | BubbleTypingEffect | `typing` | 1.20.0；1.99.0（类型导出） |
 | typing.step | 每次前进字符数；数组为闭区间随机步长 | `number \| [number, number]` | `1` | 1.43.0（区间） |
 | typing.keepPrefix | 内容变化时是否保留公共前缀续打（流式场景） | boolean | `true` | 1.29.0 |
+
+自 `1.99.0` 起可从包入口 `import type { TypingOption, BubbleTypingEffect, FooterPlacement }`。
 
 ```ts
 type MessageStatus = 'local' | 'loading' | 'updating' | 'success' | 'error' | 'abort';
 type InfoType = { key?: string | number; status?: MessageStatus; extraInfo?: object };
+type FooterPlacement = 'outer-start' | 'outer-end' | 'inner-start' | 'inner-end';
+type BubbleTypingEffect = 'typing' | 'fade-in';
+type TypingOption = {
+  step?: number | [number, number];
+  interval?: number;
+  suffix?: VNode | string;
+  effect?: BubbleTypingEffect;
+  keepPrefix?: boolean;
+};
 ```
 
 ### Bubble Ref

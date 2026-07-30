@@ -19,6 +19,9 @@ export type {
   BubbleItemType,
   RolesType,
   RoleType,
+  TypingOption,
+  BubbleTypingEffect,
+  FooterPlacement,
 } from './interface';
 // MessageStatus lives in use-x-chat — re-export would clash at package root
 
