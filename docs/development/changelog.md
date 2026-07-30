@@ -19,6 +19,16 @@ customClass: changelog-page
 
 ---
 
+## 1.24.0
+
+`2026-07-30`
+
+### ant-design-x-vue-next
+
+- 🆕 `ThoughtChain.Item`：独立复合节点，支持 `variant`（solid/outlined/text）、`status`（loading/success/error/abort）、`blink`、`disabled` 与语义化 `classNames` / `styles`。
+- 📖 ThoughtChain 新增「简洁思维链」演示；对齐进度更新。
+- 🛠 发布 npm 包 [`ant-design-x-vue-next@1.24.0`](https://www.npmjs.com/package/ant-design-x-vue-next)。
+
 ## 1.23.0
 
 `2026-07-30`

@@ -1,12 +1,95 @@
 import type { ConfigProviderProps } from 'ant-design-vue';
-import { type CSSObject, unit } from '../../_util/cssinjs';
+import { FastColor } from '@ant-design/fast-color';
+import { type CSSObject, Keyframes, unit } from '../../_util/cssinjs';
 import { mergeToken } from '../../_util/cssinjs-utils';
-import type { FullToken, GenerateStyle } from '../../theme/cssinjs-utils';
+import type { FullToken, GenerateStyle, GetDefaultToken } from '../../theme/cssinjs-utils';
 import { genStyleHooks } from '../../theme/genStyleUtils';
 import { genTransitionCollapseStyle } from '../../transition-collapse';
 import { THOUGHT_CHAIN_ITEM_STATUS } from '../interface';
+import genThoughtChainCompoundItemStyle from './item';
 
-export interface ComponentToken {}
+export interface ComponentToken {
+  /**
+   * @desc 实心的 ThoughtChain.Item 背景色
+   * @descEN ThoughtChain.Item `solid`'s background color
+   */
+  itemSolidBg: string;
+  /**
+   * @desc 实心的 ThoughtChain.Item 悬浮态背景色
+   * @descEN ThoughtChain.Item `solid`'s hover background color
+   */
+  itemSolidHoverBg: string;
+  /**
+   * @desc 边框模式的 ThoughtChain.Item 背景色
+   * @descEN ThoughtChain.Item `outlined`'s background color
+   */
+  itemOutlinedBg: string;
+  /**
+   * @desc 边框模式的 ThoughtChain.Item 悬浮态背景色
+   * @descEN ThoughtChain.Item `outlined`'s hover background color
+   */
+  itemOutlinedHoverBg: string;
+  /**
+   * @desc ThoughtChain.Item 圆角
+   * @descEN ThoughtChain.Item's border radius
+   */
+  itemBorderRadius: number;
+  /**
+   * @desc 思维链节点描述文字的动画颜色
+   * @descEN ThoughtChain node description text animation color
+   */
+  itemMotionDescription: string;
+  /**
+   * @desc 默认打字动画颜色
+   * @descEN Default typing animation color
+   */
+  colorTextBlinkDefault: string;
+  /**
+   * @desc 打字动画颜色
+   * @descEN Typing animation color
+   */
+  colorTextBlink: string;
+  /**
+   * @desc 错误状态描述文字颜色
+   * @descEN Error state description text color
+   */
+  colorErrorTextDescription: string;
+  /**
+   * @desc 错误状态禁用文字颜色
+   * @descEN Error state disabled text color
+   */
+  colorErrorTextDisabled: string;
+  /**
+   * @desc 错误状态禁用描述文字颜色
+   * @descEN Error state disabled description text color
+   */
+  colorErrorTextDescriptionDisabled: string;
+  /**
+   * @desc 错误状态禁用背景色
+   * @descEN Error state disabled background color
+   */
+  colorErrorBgDisabled: string;
+  /**
+   * @desc 禁用描述文字颜色
+   * @descEN Disabled description text color
+   */
+  colorDescriptionDisabled: string;
+  /**
+   * @desc 禁用标题文字颜色
+   * @descEN Disabled title text color
+   */
+  colorTitleDisabled: string;
+  /**
+   * @desc 成功状态禁用颜色
+   * @descEN Success state disabled color
+   */
+  colorSuccessDisabled: string;
+  /**
+   * @desc 主要状态禁用颜色
+   * @descEN Primary state disabled color
+   */
+  colorPrimaryDisabled: string;
+}
 
 export interface ThoughtChainToken extends FullToken<'ThoughtChain'> {
   /**
@@ -51,6 +134,29 @@ type GenerateThoughtChainItemStyle = GenerateStyle<
   ThoughtChainToken,
   CSSObject
 >;
+
+const blink = new Keyframes('antXThoughtChainBlink', {
+  '0%': {
+    backgroundPositionX: '-200%',
+    backgroundPositionY: '100%',
+  },
+  '25%': {
+    backgroundPositionX: '-100%',
+    backgroundPositionY: '100%',
+  },
+  '50%': {
+    backgroundPositionX: '0%',
+    backgroundPositionY: '100%',
+  },
+  '75%': {
+    backgroundPositionX: '100%',
+    backgroundPositionY: '100%',
+  },
+  '100%': {
+    backgroundPositionX: '200%',
+    backgroundPositionY: '100%',
+  },
+});
 
 const genThoughtChainItemStatusStyle: GenerateThoughtChainItemStyle = (
   token,
@@ -290,6 +396,20 @@ const genThoughtChainStyle: GenerateStyle<ThoughtChainToken> = (token) => {
       ...genThoughtChainSizeStyle(token, 'large'),
       ...genThoughtChainSizeStyle(token, 'small'),
 
+      [`${componentCls}-motion-blink`]: {
+        backgroundClip: 'text',
+        color: token.colorTextBlinkDefault,
+        WebkitBackgroundClip: 'text',
+        backgroundImage: `linear-gradient(90deg,transparent,${token.colorTextBlink},transparent)`,
+        animationDuration: '1s',
+        animationIterationCount: 'infinite',
+        animationTimingFunction: 'linear',
+        animationFillMode: 'forwards',
+        backgroundSize: '50%',
+        backgroundRepeat: 'no-repeat',
+        animationName: blink,
+      },
+
       [`&${componentCls}-rtl`]: {
         direction: 'rtl',
       },
@@ -297,35 +417,94 @@ const genThoughtChainStyle: GenerateStyle<ThoughtChainToken> = (token) => {
   };
 };
 
-export default genStyleHooks('ThoughtChain', (token) => {
-  const compToken = mergeToken<ThoughtChainToken>(token, {
-    // small size tokens
-    itemFontSizeSM: token.fontSizeSM,
-    itemSizeSM: token
-      .calc(token.controlHeightXS)
-      .add(token.controlHeightSM)
-      .div(2)
-      .equal() as number,
-    itemGapSM: token.marginSM,
-    // default size tokens
-    itemFontSize: token.fontSize,
-    itemSize: token
-      .calc(token.controlHeightSM)
-      .add(token.controlHeight)
-      .div(2)
-      .equal() as number,
-    itemGap: token.margin,
-    // large size tokens
-    itemFontSizeLG: token.fontSizeLG,
-    itemSizeLG: token
-      .calc(token.controlHeight)
-      .add(token.controlHeightLG)
-      .div(2)
-      .equal() as number,
-    itemGapLG: token.marginLG,
-  });
-  return [
-    genThoughtChainStyle(compToken),
-    genTransitionCollapseStyle(compToken),
-  ];
-});
+export const prepareComponentToken: GetDefaultToken<'ThoughtChain'> = (token) => {
+  const itemMotionDescription = new FastColor(token.colorTextDescription)
+    .setA(0.25)
+    .toRgbString();
+  const colorTextBlinkDefault = token.colorTextDescription;
+  const colorTextBlink = token.colorTextBase;
+  const colorErrorTextDescription = new FastColor(token.colorErrorText)
+    .setA(0.45)
+    .toRgbString();
+  const colorErrorTextDisabled = new FastColor(token.colorErrorText)
+    .setA(0.45)
+    .toRgbString();
+  const itemSolidHoverBg = new FastColor(token.colorFillTertiary)
+    .setA(0.06)
+    .toRgbString();
+  const colorErrorTextDescriptionDisabled = new FastColor(token.colorErrorText)
+    .setA(0.25)
+    .toRgbString();
+  const colorDescriptionDisabled = new FastColor(token.colorTextDescription)
+    .setA(0.25)
+    .toRgbString();
+  const colorTitleDisabled = new FastColor(token.colorText).setA(0.45).toRgbString();
+  const colorErrorBgDisabled = new FastColor(token.colorErrorBg)
+    .setA(0.25)
+    .toRgbString();
+  const itemOutlinedHoverBg = itemSolidHoverBg;
+  const colorSuccessDisabled = new FastColor(token.colorSuccess)
+    .setA(0.45)
+    .toRgbString();
+  const colorPrimaryDisabled = new FastColor(token.colorPrimary)
+    .setA(0.45)
+    .toRgbString();
+
+  return {
+    colorDescriptionDisabled,
+    colorPrimaryDisabled,
+    colorSuccessDisabled,
+    colorTitleDisabled,
+    colorErrorTextDisabled,
+    colorErrorBgDisabled,
+    colorErrorTextDescriptionDisabled,
+    itemMotionDescription,
+    colorTextBlinkDefault,
+    colorTextBlink,
+    itemSolidBg: token.colorFillTertiary,
+    itemSolidHoverBg,
+    itemOutlinedBg: token.colorBgContainer,
+    itemOutlinedHoverBg,
+    itemBorderRadius: token.borderRadius,
+    colorErrorTextDescription,
+  };
+};
+
+export default genStyleHooks(
+  'ThoughtChain',
+  (token) => {
+    const compToken = mergeToken<ThoughtChainToken>(token, {
+      // small size tokens
+      itemFontSizeSM: token.fontSizeSM,
+      itemSizeSM: token
+        .calc(token.controlHeightXS)
+        .add(token.controlHeightSM)
+        .div(2)
+        .equal() as number,
+      itemGapSM: token.marginSM,
+      // default size tokens
+      itemFontSize: token.fontSize,
+      itemSize: token
+        .calc(token.controlHeightSM)
+        .add(token.controlHeight)
+        .div(2)
+        .equal() as number,
+      itemGap: token.margin,
+      // large size tokens
+      itemFontSizeLG: token.fontSizeLG,
+      itemSizeLG: token
+        .calc(token.controlHeight)
+        .add(token.controlHeightLG)
+        .div(2)
+        .equal() as number,
+      itemGapLG: token.marginLG,
+    });
+    return [
+      blink,
+      genThoughtChainStyle(compToken),
+      genThoughtChainCompoundItemStyle(compToken),
+      genTransitionCollapseStyle(compToken),
+    ];
+  },
+  prepareComponentToken,
+);

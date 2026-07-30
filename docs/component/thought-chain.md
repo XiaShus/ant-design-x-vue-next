@@ -74,6 +74,14 @@ thought-chain/tooltip
 
 :::
 
+### 简洁思维链
+
+:::demo `ThoughtChain.Item` 独立复合组件，支持 `variant` / `status` / `blink` / `disabled`
+
+thought-chain/simple
+
+:::
+
 ## API
 
 <!-- 通用属性参考：[通用属性](/docs/react/common-props) -->
@@ -90,7 +98,7 @@ thought-chain/tooltip
 | size | 尺寸 | 'large' \| 'middle' \| 'small' | 'middle' | - |
 | styles | 语义化结构的样式 | Record<'item' \| 'itemHeader' \| 'itemContent' \| 'itemFooter', CSSProperties> | - | - |
 
-### ThoughtChainItem
+### ThoughtChainItem（items[] 节点）
 
 | 属性        | 说明               | 类型                              | 默认值 | 版本 |
 | ----------- | ------------------ | --------------------------------- | ------ | ---- |
@@ -103,6 +111,22 @@ thought-chain/tooltip
 | status      | 思维节点状态       | 'pending' \| 'success' \| 'error' | -      | -    |
 | title       | 思维节点标题       | VNode \| string          | -      | -    |
 | tooltip     | 思维节点 tooltip   | boolean \| TooltipConfig | -      | -    |
+
+### ThoughtChain.Item
+
+| 属性 | 说明 | 类型 | 默认值 | 版本 |
+| --- | --- | --- | --- | --- |
+| prefixCls | 自定义前缀 | string | - | 1.24.0 |
+| icon | 思维链图标 | VNode \| string | - | 1.24.0 |
+| title | 思维链标题 | VNode \| string | - | 1.24.0 |
+| description | 思维链描述 | VNode \| string | - | 1.24.0 |
+| status | 思维链状态 | `'loading' \| 'success' \| 'error' \| 'abort'` | - | 1.24.0 |
+| variant | 变体配置 | `'solid' \| 'outlined' \| 'text'` | `solid` | 1.24.0 |
+| blink | 闪动效果 | boolean | `false` | 1.24.0 |
+| disabled | 是否禁用 | boolean | `false` | 1.24.0 |
+| classNames | 语义化类名 | Record<'root' \| 'icon' \| 'title' \| 'description', string> | - | 1.24.0 |
+| styles | 语义化样式 | Record<'root' \| 'icon' \| 'title' \| 'description', CSSProperties> | - | 1.24.0 |
+| rootClassName | 根元素样式类名 | string | - | 1.24.0 |
 
 ### CollapsibleOptions
 

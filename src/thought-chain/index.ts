@@ -1,16 +1,29 @@
 import type { App } from 'vue';
-import ThoughtChain from './ThoughtChain.vue';
+import ThoughtChainComponent from './ThoughtChain.vue';
+import ThoughtChainItemComponent from './ThoughtChainItem.vue';
 
 export type { ThoughtChainProps, ThoughtChainItem } from './interface';
+export type {
+  ThoughtChainItemProps,
+  ThoughtChainItemVariant,
+  ThoughtChainItemStatus,
+  ThoughtChainItemSemanticType,
+} from './item-types';
+
+type CompoundedThoughtChain = typeof ThoughtChainComponent & {
+  Item: typeof ThoughtChainItemComponent;
+};
+
+const ThoughtChain = ThoughtChainComponent as CompoundedThoughtChain;
+ThoughtChain.Item = ThoughtChainItemComponent;
 
 // @ts-ignore
-ThoughtChain.install = function(app: App) {
-  app.component(ThoughtChain.name, ThoughtChain);
+ThoughtChain.install = function (app: App) {
+  app.component(ThoughtChain.name!, ThoughtChain);
+  app.component(ThoughtChainItemComponent.name!, ThoughtChainItemComponent);
   return app;
-}
+};
 
 export default ThoughtChain;
 
-export {
-  ThoughtChain,
-}
+export { ThoughtChain, ThoughtChainItemComponent };

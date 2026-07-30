@@ -2,6 +2,26 @@
 
 > Vue Next 文档站时间线版见 [更新日志](https://ant-design-x-vue-next-524.netlify.app/development/changelog.html)。
 
+## 1.24.0
+
+`2026-07-30`
+
+### ant-design-x-vue-next
+
+- 🆕 ThoughtChain.Item 复合组件（variant / status / blink / disabled）
+- 📖 ThoughtChain 简洁思维链演示与对齐进度
+- 🛠 发布 npm `ant-design-x-vue-next@1.24.0`
+
+## 1.24.0
+
+`2026-07-30`
+
+### ant-design-x-vue-next
+
+- 🆕 ThoughtChain.Item compound (`variant` / `status` / `blink` / `disabled`)
+- 📖 ThoughtChain 简洁思维链文档与演示
+- 🛠 发布 npm `ant-design-x-vue-next@1.24.0`
+
 ## 1.23.0
 
 `2026-07-30`
