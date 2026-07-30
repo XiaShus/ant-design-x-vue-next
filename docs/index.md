@@ -3,23 +3,27 @@
 layout: home
 
 hero:
-  name: "Ant Design X Vue"
+  name: "Ant Design X Vue Next"
   text: "AI 体验新秩序"
-  tagline: Ant Design X For Vue。基于 RICH 设计范式，打造卓越 AI 界面解决方案，引领智能新体验。
+  tagline: Ant Design X 的 Vue 社区续作。基于 RICH 设计范式，持续对齐官方 @ant-design/x，打造卓越 AI 界面解决方案。
   actions:
     - theme: brand
       text: 开始使用
+      link: /development/introduce
+    - theme: alt
+      text: 组件总览
       link: /component/overview
     - theme: alt
-      text: 设计语言
-      link: https://x.ant.design/docs/spec/introduce-cn
+      text: 更新日志
+      link: /development/changelog
 
 features:
-  - title: AI 设计范式 - RICH
-    details: 创造卓越 AI 产品体验
-  - title: AI 界面解决方案
-    details: 基于RICH，全新 AGI 混合界面（Hybrid-UI）解决方案，完美融合 GUI 和自然会话交互。
-  - title: 组件丰富，选用自如
-    details: Ant Design X Vue 全新 AI 组件 , 大量实用组件满足你的需求 , 灵活定制与拓展
+  - title: AI 设计范式 · RICH
+    details: 角色、意图、会话与混合界面。从唤醒到反馈，组件与官方设计语言对齐。
+  - title: Vue 组件库
+    details: Bubble、Sender、Think、Sources、FileCard、Folder 等开箱即用，覆盖主流 AI 对话场景。
+  - title: 数据流工具
+    details: useXChat / useXAgent / XRequest / XStream，简化与模型服务的对接与流式处理。
+  - title: 持续对齐官方
+    details: 社区续作仓库，对照 @ant-design/x 2.9.x 推进缺口组件与文档体验。
 ---
-

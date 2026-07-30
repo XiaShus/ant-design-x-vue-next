@@ -6,6 +6,7 @@ import './custom.css'
 import { computed, h } from 'vue'
 import { theme, XProvider } from 'ant-design-x-vue'
 import PreferenceSwitch from './components/PreferenceSwitch.vue'
+import HomeExtra from './components/HomeExtra.vue'
 import { useData } from 'vitepress'
 
 const define = <T>(value: T): T => value
@@ -18,6 +19,7 @@ export default define<Theme>({
 
     return h(XProvider, { theme: { algorithm: algorithm.value, } }, () => h(DefaultTheme.Layout, {class: frontmatter.value.customClass}, {
       'sidebar-nav-before': () => h(PreferenceSwitch),
+      'home-features-after': () => h(HomeExtra),
     }));
   },
   enhanceApp: ({ app }) => {

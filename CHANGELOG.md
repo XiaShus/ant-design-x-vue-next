@@ -1,5 +1,29 @@
 # Changelog
 
+> Vue Next 文档站时间线版见 [更新日志](https://ant-design-x-vue-next-524.netlify.app/development/changelog.html)。
+
+## 1.7.0
+
+`2026-07-30`
+
+### ant-design-x-vue-next
+
+- 🆕 Think / Sources / FileCard / Folder
+- 📖 文档站对齐官方分组与组件文档
+- 🛠 发布 npm `ant-design-x-vue-next@1.7.0`
+
+## 1.6.0 (Vue Next)
+
+`2026-07-30`
+
+### ant-design-x-vue-next
+
+- 🆕 Fork `ant-design-x-vue@1.6.0` 为社区续作，包名 `ant-design-x-vue-next`
+- 🆕 首发含 Think；文档站 Netlify 上线
+
+---
+
+以下为上游 `ant-design-x-vue` 的 changelogen 历史记录。
 
 ## v1.6.0
 

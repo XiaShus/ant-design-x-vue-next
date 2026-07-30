@@ -8,6 +8,7 @@ import {
   Input,
   Tag,
   Affix,
+  Button,
 } from 'ant-design-vue';
 import {
   MessageOutlined,
@@ -24,129 +25,204 @@ import {
   CloudOutlined,
   RobotOutlined,
   SearchOutlined,
+  LinkOutlined,
+  FileOutlined,
+  FolderOutlined,
+  NotificationOutlined,
+  CodeOutlined,
+  PartitionOutlined,
+  ExperimentOutlined,
 } from '@ant-design/icons-vue';
 import { ref, computed } from 'vue';
 import { useData } from 'vitepress';
 
 defineOptions({ name: 'AXOverviewDemo' });
 
-const { Title, Paragraph } = Typography;
-
-// 搜索功能
+const { isDark } = useData();
 const searchValue = ref('');
 
-// 暗黑模式
-const { isDark } = useData();
+type ComponentStatus = 'ready' | 'planned';
 
-// 组件数据
-const allComponents = [
+type OverviewItem = {
+  id: string;
+  category: string;
+  title: string;
+  description: string;
+  icon: any;
+  status: ComponentStatus;
+};
+
+const allComponents: OverviewItem[] = [
   {
     id: 'bubble',
-    category: '通用组件',
+    category: '通用',
     title: 'Bubble 对话气泡',
     description: '用于展示对话消息的气泡组件，支持多种样式和自定义内容',
     icon: <CommentOutlined style={{ color: '#52c41a' }} />,
-    content: 'bubble-demo',
+    status: 'ready',
   },
   {
     id: 'conversations',
-    category: '通用组件',
+    category: '通用',
     title: 'Conversations 管理对话',
-    description: '管理多个对话会话的组件，支持分组、排序和交互操作',
+    description: '管理多个对话会话，支持分组、排序和菜单操作',
     icon: <MessageOutlined style={{ color: '#722ed1' }} />,
-    content: 'conversations-demo',
+    status: 'ready',
+  },
+  {
+    id: 'notification',
+    category: '通用',
+    title: 'Notification 系统通知',
+    description: '系统级通知与提醒（对齐官方，规划中）',
+    icon: <NotificationOutlined style={{ color: '#fa541c' }} />,
+    status: 'planned',
   },
   {
     id: 'welcome',
-    category: '唤醒组件',
+    category: '唤醒',
     title: 'Welcome 欢迎',
-    description: 'AI 应用的欢迎界面组件，用于引导用户开始对话',
+    description: 'AI 应用欢迎界面，引导用户开始对话',
     icon: <StarOutlined style={{ color: '#fa8c16' }} />,
-    content: 'welcome-demo',
+    status: 'ready',
   },
   {
     id: 'prompts',
-    category: '唤醒组件',
+    category: '唤醒',
     title: 'Prompts 提示集',
-    description: '预设提示词组件，帮助用户快速选择对话主题',
+    description: '预设提示词，帮助用户快速选择对话主题',
     icon: <BulbOutlined style={{ color: '#ffd700' }} />,
-    content: 'prompts-demo',
-  },
-  {
-    id: 'attachments',
-    category: '表达组件',
-    title: 'Attachments 输入附件',
-    description: '处理文件上传和附件管理的组件，支持多种文件类型',
-    icon: <PaperClipOutlined style={{ color: '#eb2f96' }} />,
-    content: 'attachments-demo',
+    status: 'ready',
   },
   {
     id: 'sender',
-    category: '表达组件',
+    category: '表达',
     title: 'Sender 输入框',
-    description: '消息输入组件，支持文本输入、语音识别等功能',
+    description: '消息输入，支持语音、页眉页脚等扩展',
     icon: <SendOutlined style={{ color: '#1890ff' }} />,
-    content: 'sender-demo',
+    status: 'ready',
+  },
+  {
+    id: 'attachments',
+    category: '表达',
+    title: 'Attachments 输入附件',
+    description: '文件上传与附件管理',
+    icon: <PaperClipOutlined style={{ color: '#eb2f96' }} />,
+    status: 'ready',
   },
   {
     id: 'suggestion',
-    category: '表达组件',
+    category: '表达',
     title: 'Suggestion 快捷指令',
-    description: '快捷建议组件，为用户提供预设的操作选项',
+    description: '快捷建议与指令触发',
     icon: <ThunderboltOutlined style={{ color: '#f5222d' }} />,
-    content: 'suggestion-demo',
+    status: 'ready',
+  },
+  {
+    id: 'folder',
+    category: '表达',
+    title: 'Folder 文件夹',
+    description: '目录树浏览与文件预览',
+    icon: <FolderOutlined style={{ color: '#13c2c2' }} />,
+    status: 'ready',
+  },
+  {
+    id: 'code-highlighter',
+    category: '表达',
+    title: 'CodeHighlighter 代码高亮',
+    description: '代码高亮展示（对齐官方，规划中）',
+    icon: <CodeOutlined style={{ color: '#2f54eb' }} />,
+    status: 'planned',
+  },
+  {
+    id: 'mermaid',
+    category: '表达',
+    title: 'Mermaid 图表渲染',
+    description: 'Mermaid 图表渲染（对齐官方，规划中）',
+    icon: <PartitionOutlined style={{ color: '#eb2f96' }} />,
+    status: 'planned',
+  },
+  {
+    id: 'think',
+    category: '确认',
+    title: 'Think 思考过程',
+    description: '展示大模型深度思考过程',
+    icon: <ExperimentOutlined style={{ color: '#1677ff' }} />,
+    status: 'ready',
   },
   {
     id: 'thought-chain',
-    category: '确认组件',
+    category: '确认',
     title: 'ThoughtChain 思维链',
-    description: '展示 AI 思考过程的组件，可视化推理步骤',
+    description: '可视化推理步骤与思维链',
     icon: <NodeIndexOutlined style={{ color: '#722ed1' }} />,
-    content: 'thought-chain-demo',
+    status: 'ready',
+  },
+  {
+    id: 'actions',
+    category: '反馈',
+    title: 'Actions 操作列表',
+    description: '结果区快捷操作',
+    icon: <SettingOutlined style={{ color: '#595959' }} />,
+    status: 'ready',
+  },
+  {
+    id: 'sources',
+    category: '反馈',
+    title: 'Sources 引用来源',
+    description: '引用资料列表与折叠展示',
+    icon: <LinkOutlined style={{ color: '#52c41a' }} />,
+    status: 'ready',
+  },
+  {
+    id: 'file-card',
+    category: '反馈',
+    title: 'FileCard 文件卡片',
+    description: '以卡片形式展示文件信息',
+    icon: <FileOutlined style={{ color: '#faad14' }} />,
+    status: 'ready',
   },
   {
     id: 'use-x-agent',
-    category: '工具组件',
+    category: '工具',
     title: 'useXAgent',
-    description: '模型调度的 Vue 组合式函数',
+    description: '模型调度的组合式函数',
     icon: <RobotOutlined style={{ color: '#13c2c2' }} />,
-    content: 'use-x-agent-demo',
+    status: 'ready',
   },
   {
     id: 'use-x-chat',
-    category: '工具组件',
+    category: '工具',
     title: 'useXChat',
-    description: '聊天数据管理的组合式函数',
+    description: '聊天数据管理',
     icon: <MessageOutlined style={{ color: '#52c41a' }} />,
-    content: 'use-x-chat-demo',
+    status: 'ready',
   },
   {
     id: 'x-stream',
-    category: '工具组件',
+    category: '工具',
     title: 'XStream',
     description: '流式数据传输工具',
     icon: <CloudOutlined style={{ color: '#1890ff' }} />,
-    content: 'x-stream-demo',
+    status: 'ready',
   },
   {
     id: 'x-request',
-    category: '工具组件',
+    category: '工具',
     title: 'XRequest',
     description: 'AI 服务请求工具',
     icon: <ApiOutlined style={{ color: '#fa541c' }} />,
-    content: 'x-request-demo',
+    status: 'ready',
   },
   {
     id: 'x-provider',
-    category: '工具组件',
+    category: '工具',
     title: 'XProvider 全局化配置',
-    description: '全局配置提供者，统一管理应用级别的设置',
+    description: '全局配置提供者',
     icon: <GlobalOutlined style={{ color: '#722ed1' }} />,
-    content: 'x-provider-demo',
+    status: 'ready',
   },
 ];
 
-// 过滤组件
 const filteredComponents = computed(() => {
   if (!searchValue.value) return allComponents;
   const search = searchValue.value.toLowerCase();
@@ -154,13 +230,13 @@ const filteredComponents = computed(() => {
     (component) =>
       component.title.toLowerCase().includes(search) ||
       component.description.toLowerCase().includes(search) ||
-      component.category.toLowerCase().includes(search),
+      component.category.toLowerCase().includes(search) ||
+      (component.status === 'ready' ? '已实现' : '规划中').includes(search),
   );
 });
 
-// 按分类分组
 const groupedComponents = computed(() => {
-  const groups: Record<string, typeof allComponents> = {};
+  const groups: Record<string, OverviewItem[]> = {};
   filteredComponents.value.forEach((component) => {
     if (!groups[component.category]) {
       groups[component.category] = [];
@@ -170,40 +246,23 @@ const groupedComponents = computed(() => {
   return groups;
 });
 
-// 获取组件显示文本
-const getComponentDisplayText = (component: any) => {
-  const textMap: Record<string, string> = {
-    conversations: '对话管理界面',
-    attachments: '文件上传区域',
-    'use-x-agent': 'AI 模型调度',
-    'use-x-chat': '数据管理',
-    'x-stream': '流数据处理',
-    'x-request': '请求处理',
-    'x-provider': '全局配置管理',
-  };
-  return textMap[component.id] || component.title;
-};
-
-// 获取组件子文本
-const getComponentSubText = (component: any) => {
-  const subTextMap: Record<string, string> = {
-    conversations: '支持会话分组和排序',
-    attachments: '支持多种文件类型',
-    'x-provider': '统一管理应用级别设置',
-  };
-  return subTextMap[component.id] || '';
-};
-
-// 组件路由映射
 const componentRoutes: Record<string, string> = {
   bubble: '/component/bubble',
   conversations: '/component/conversations',
+  notification: '/component/notification',
   welcome: '/component/welcome',
   prompts: '/component/prompts',
   attachments: '/component/attachments',
   sender: '/component/sender',
   suggestion: '/component/suggestion',
+  folder: '/component/folder',
+  'code-highlighter': '/component/code-highlighter',
+  mermaid: '/component/mermaid',
+  think: '/component/think',
   'thought-chain': '/component/thought-chain',
+  actions: '/component/actions',
+  sources: '/component/sources',
+  'file-card': '/component/file-card',
   'use-x-agent': '/component/use-x-agent',
   'use-x-chat': '/component/use-x-chat',
   'x-stream': '/component/x-stream',
@@ -211,7 +270,6 @@ const componentRoutes: Record<string, string> = {
   'x-provider': '/component/x-provider',
 };
 
-// 静态预览图映射
 const componentImages: Record<string, string> = {
   bubble: '/images/Bubble.svg',
   conversations: '/images/Conversations.svg',
@@ -228,48 +286,48 @@ const componentImages: Record<string, string> = {
   'x-provider': '/images/XProvider.svg',
 };
 
-const getComponentImageSrc = (component: any) => {
+const getComponentImageSrc = (component: OverviewItem) => {
   const base = componentImages[component.id];
   if (!base) return '';
   return isDark.value ? base.replace(/\.svg$/, '-dark.svg') : base;
 };
 
-// 处理组件点击
-const handleComponentClick = (component: any) => {
+const handleComponentClick = (component: OverviewItem) => {
   const route = componentRoutes[component.id];
   if (route) {
     window.location.href = route;
-  } else {
-    console.log('未找到路由:', component.id);
   }
 };
 
-const Demo = () => {
+defineRender(() => {
   return (
     <div>
-      {/* 搜索框 */}
+      <Space wrap style={{ marginBottom: 16 }}>
+        <Button type="link" href="/component/align">
+          对齐进度
+        </Button>
+        <Button type="link" href="/development/changelog">
+          更新日志
+        </Button>
+        <Button type="link" href="/development/introduce">
+          开始使用
+        </Button>
+      </Space>
+
       <Affix offsetTop={54}>
-        <div
-          style={{
-            padding: '16px 0',
-            marginBottom: '24px',
-          }}
-        >
-          <div style={{ margin: '0 auto' }}>
-            <Input
-              v-model:value={searchValue.value}
-              placeholder="搜索组件名称、描述或分类..."
-              size="large"
-              allowClear
-              v-slots={{
-                prefix: () => <SearchOutlined style={{ color: '#bfbfbf' }} />,
-              }}
-            />
-          </div>
+        <div style={{ padding: '16px 0', marginBottom: '24px' }}>
+          <Input
+            v-model:value={searchValue.value}
+            placeholder="搜索组件名称、描述、分类或状态..."
+            size="large"
+            allowClear
+            v-slots={{
+              prefix: () => <SearchOutlined style={{ color: '#bfbfbf' }} />,
+            }}
+          />
         </div>
       </Affix>
 
-      {/* 动态渲染各分类 */}
       {Object.entries(groupedComponents.value).map(([category, components]) => (
         <div key={category}>
           <div
@@ -286,62 +344,71 @@ const Demo = () => {
           <Row gutter={[16, 24]} style={{ marginBottom: '48px' }}>
             {components.map((component) => (
               <Col key={component.id} xs={24} lg={12}>
-                  {/* 组件演示区域 */}
-                  <Card size="small" title={component.title} bodyStyle={{ padding: '16px' }} hoverable={true} class="overview-card">
-                    <div
-                      style={{
-                      
-                        minHeight: '200px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                      }}
-                      onClick={() => handleComponentClick(component)}
-                    >
-                      <div style={{ textAlign: 'center', width: '100%' }}>
-                        {getComponentImageSrc(component) ? (
-                          <img
-                            src={getComponentImageSrc(component)}
-                            alt={component.title}
-                            style={{ maxWidth: '100%', height: '160px', objectFit: 'contain' }}
-                          />
-                        ) : (
-                          <div style={{ color: '#666' }}>
-                            <div style={{ fontSize: '48px' }}>
-                              {component.icon}
-                            </div>
-                            <div style={{ fontWeight: '500' }}>
-                              {getComponentDisplayText(component)}
-                            </div>
-                            {getComponentSubText(component) && (
-                              <div style={{ fontSize: '12px', marginTop: '4px' }}>
-                                {getComponentSubText(component)}
-                              </div>
-                            )}
-                          </div>
-                        )}
+                <Card
+                  size="small"
+                  hoverable
+                  class="overview-card"
+                  bodyStyle={{ padding: '16px' }}
+                  v-slots={{
+                    title: () => (
+                      <div
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'space-between',
+                          gap: 8,
+                        }}
+                      >
+                        <span>{component.title}</span>
+                        <Tag color={component.status === 'ready' ? 'success' : 'default'}>
+                          {component.status === 'ready' ? '已实现' : '规划中'}
+                        </Tag>
                       </div>
+                    ),
+                  }}
+                >
+                  <div
+                    style={{
+                      minHeight: '180px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      cursor: 'pointer',
+                      opacity: component.status === 'planned' ? 0.75 : 1,
+                    }}
+                    onClick={() => handleComponentClick(component)}
+                  >
+                    <div style={{ textAlign: 'center', width: '100%' }}>
+                      {getComponentImageSrc(component) ? (
+                        <img
+                          src={getComponentImageSrc(component)}
+                          alt={component.title}
+                          style={{ maxWidth: '100%', height: '140px', objectFit: 'contain' }}
+                        />
+                      ) : (
+                        <div style={{ color: '#666' }}>
+                          <div style={{ fontSize: '40px', marginBottom: 8 }}>{component.icon}</div>
+                          <Typography.Paragraph type="secondary" style={{ marginBottom: 0 }}>
+                            {component.description}
+                          </Typography.Paragraph>
+                        </div>
+                      )}
                     </div>
-                  </Card>
+                  </div>
+                </Card>
               </Col>
             ))}
           </Row>
         </div>
       ))}
 
-      {/* 无搜索结果 */}
       {Object.keys(groupedComponents.value).length === 0 && (
         <div style={{ textAlign: 'center', padding: '60px 0', color: '#999' }}>
           <SearchOutlined style={{ fontSize: '48px', marginBottom: '16px' }} />
           <div style={{ fontSize: '16px' }}>未找到匹配的组件</div>
-          <div style={{ fontSize: '14px', marginTop: '8px' }}>请尝试其他关键词</div>
         </div>
       )}
     </div>
   );
-};
-
-defineRender(() => {
-  return <Demo />;
 });
 </script>

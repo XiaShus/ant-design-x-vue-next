@@ -60,7 +60,7 @@ export default defineConfig({
     config: (md) => mdPlugin(md),
   },
   title: "Ant Design X Vue Next",
-  description: "Ant Design X For Vue — community continuation",
+  description: "Ant Design X For Vue — community continuation aligned with @ant-design/x",
   head: [
     ['link', { rel: 'icon', href: '/images/x-logo.svg' }],
   ],
@@ -71,12 +71,14 @@ export default defineConfig({
     nav: [
       { text: '研发', link: '/development/introduce' },
       { text: '组件', link: '/component/overview' },
-      { text: '对齐进度', link: '/component/align' },
       { text: '演示', link: '/playground/independent' },
+      { text: '更新日志', link: '/development/changelog' },
       {
         text: '更多',
         items: [
+          { text: '与 Ant Design X 对齐', link: '/component/align' },
           { text: 'Ant Design X of React', link: 'https://x.ant.design/index-cn' },
+          { text: '官方更新日志', link: 'https://x.ant.design/changelog-cn' },
           { text: '原 Vue 仓库', link: 'https://github.com/wzc520pyfm/ant-design-x-vue' },
           { text: 'Ant Design Vue', link: 'https://www.antdv.com/components/overview-cn' },
         ]
@@ -93,6 +95,10 @@ export default defineConfig({
         {
           text: '样式兼容',
           link: '/development/compatible-style'
+        },
+        {
+          text: '更新日志',
+          link: '/development/changelog'
         },
       ],
       '/component/': [
