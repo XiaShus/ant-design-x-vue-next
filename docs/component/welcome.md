@@ -50,6 +50,12 @@ welcome/background
 | title | 显示在提示列表顶部的标题。 | VNode \| string \| (() => VNode \| string) | - | - |
 | variant | 变体类型。 | 'filled' \| 'borderless' | 'filled' | - |
 
+### Welcome Ref
+
+| 属性 | 说明 | 类型 | 版本 |
+| --- | --- | --- | --- |
+| nativeElement | 根节点 DOM | HTMLDivElement | 1.63.0 |
+
 ### Welcome Slots
 
 | 插槽名 | 说明 |

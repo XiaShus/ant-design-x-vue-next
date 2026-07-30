@@ -1,7 +1,7 @@
 import type { App } from 'vue';
 import Welcome from './Welcome.vue';
 
-export type { WelcomeProps, WelcomeSemanticType } from './interface';
+export type { WelcomeProps, WelcomeSemanticType, WelcomeRef } from './interface';
 
 // @ts-ignore
 Welcome.install = function(app: App) {

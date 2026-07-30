@@ -5,7 +5,7 @@ import type { WelcomeProps } from './interface';
 import useXComponentConfig from '../_util/hooks/use-x-component-config';
 
 import useStyle from './style';
-import { computed, type VNode } from 'vue';
+import { computed, ref, type VNode } from 'vue';
 import { Flex, Typography } from 'ant-design-vue';
 
 defineOptions({ name: 'AXWelcome' });
@@ -27,6 +27,8 @@ const {
   description,
   extra,
 } = defineProps<WelcomeProps>();
+
+const flexRef = ref<any>(null);
 
 const slots = defineSlots<{
   title?(): VNode | string;
@@ -133,7 +135,7 @@ const extraNode = computed(() => {
 defineRender(() => {
   return wrapCSSVar(
     <Flex
-      // ref={ref}
+      ref={flexRef}
       class={classnames(
         prefixCls,
         contextConfig.value.className,
@@ -187,4 +189,12 @@ defineRender(() => {
     </Flex>
   )
 })
+
+defineExpose({
+  get nativeElement() {
+    const inst = flexRef.value;
+    if (!inst) return null as unknown as HTMLDivElement;
+    return (inst.$el ?? inst) as HTMLDivElement;
+  },
+});
 </script>

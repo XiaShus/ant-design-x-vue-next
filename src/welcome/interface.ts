@@ -6,6 +6,10 @@ export type SemanticType = 'root' | 'title' | 'description' | 'icon' | 'extra';
 
 export type WelcomeSemanticType = SemanticType;
 
+export interface WelcomeRef {
+  nativeElement: HTMLDivElement;
+}
+
 export interface WelcomeProps {
   prefixCls?: string;
   rootClassName?: string;
