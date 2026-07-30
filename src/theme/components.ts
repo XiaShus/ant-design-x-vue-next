@@ -7,6 +7,7 @@ import type { ComponentToken as SenderComponentToken } from '../sender/style';
 import type { ComponentToken as SuggestionComponentToken } from '../suggestion/style';
 import type { ComponentToken as ThoughtChainComponentToken } from '../thought-chain/style';
 import type { ComponentToken as ThinkComponentToken } from '../think/style';
+import type { ComponentToken as SourcesComponentToken } from '../sources/style';
 import type { ComponentToken as TransitionCollapseComponentToken } from '../transition-collapse/style';
 import type { ComponentToken as WelcomeComponentToken } from '../welcome/style';
 
@@ -21,5 +22,6 @@ export interface ComponentTokenMap {
   Suggestion?: SuggestionComponentToken;
   ThoughtChain?: ThoughtChainComponentToken;
   Think?: ThinkComponentToken;
+  Sources?: SourcesComponentToken;
   Welcome?: WelcomeComponentToken;
 }

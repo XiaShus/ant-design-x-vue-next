@@ -14,7 +14,7 @@
 | 表达 | Sender | ✅ | ✅ | [文档](/component/sender) |
 | 表达 | Attachments | ✅ | ✅ | [文档](/component/attachments) |
 | 表达 | Suggestion | ✅ | ✅ | [文档](/component/suggestion) |
-| 表达 | Sources | ✅ | ⏳ 规划中 | [占位](/component/sources) |
+| 反馈 | Sources | ✅ | ✅ | [文档](/component/sources) |
 | 表达 | FileCard | ✅ | ⏳ 规划中 | [占位](/component/file-card) |
 | 表达 | Folder | ✅ | ⏳ 规划中 | [占位](/component/folder) |
 | 表达 | CodeHighlighter | ✅ | ⏳ 规划中 | [占位](/component/code-highlighter) |
