@@ -133,7 +133,9 @@ thought-chain/simple
 | collapsible | 是否可折叠 | boolean | - | 1.25.0 |
 | blink | 闪动效果 | boolean | - | 1.25.0 |
 | destroyOnHidden | 隐藏时是否销毁内容节点 | boolean | `true` | 1.25.0 |
-| tooltip | 思维节点 tooltip | boolean \| TooltipConfig | - | - |
+| tooltip | 思维节点 tooltip | boolean \| TooltipConfig | - | 1.100.0（类型导出） |
+
+自 `1.100.0` 起可从包入口 `import type { TooltipConfig }`。
 
 ### ThoughtChain.Item
 
