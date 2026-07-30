@@ -3,7 +3,7 @@ import { Avatar } from 'ant-design-vue';
 import useXComponentConfig from '../_util/hooks/use-x-component-config';
 import { useXProviderContext } from '../x-provider';
 import useTypedEffect from './hooks/useTypedEffect';
-import useTypingConfig from './hooks/useTypingConfig';
+import useTypingConfig, { type TypingProp } from './hooks/useTypingConfig';
 import type { BubbleContentType, BubbleProps, EditableBubbleOption, InfoType } from './interface';
 import EditableContent from './EditableContent.vue';
 import Loading from './loading.vue';
@@ -106,7 +106,11 @@ const contextConfig = useXComponentConfig('bubble');
 
 // ============================ Typing ============================
 const [typingEnabled, typingStep, typingInterval, typingSuffix, typingEffect, typingKeepPrefix] =
-  useTypingConfig(() => props.typing);
+  useTypingConfig(
+    () => props.typing as TypingProp,
+    () => content.value as BubbleContentType,
+    () => renderInfo.value,
+  );
 
 const [typedContent, isTyping] = useTypedEffect(
   content,

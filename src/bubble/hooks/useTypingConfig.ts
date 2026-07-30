@@ -1,13 +1,36 @@
-import { computed, toValue, type MaybeRefOrGetter } from 'vue';
-import type { BubbleProps, TypingOption } from '../interface';
+import { computed } from 'vue';
+import type { BubbleContentType, InfoType, TypingOption } from '../interface';
 
-function useTypingConfig(typing: MaybeRefOrGetter<BubbleProps['typing']>) {
-  const typingEnabled = computed(() => {
-    if (!toValue(typing)) {
-      return false;
-    }
-    return true;
-  });
+export type TypingProp<ContentType extends BubbleContentType = BubbleContentType> =
+  | TypingOption
+  | boolean
+  | ((content: ContentType, info: InfoType) => TypingOption | boolean)
+  | undefined
+  | null;
+
+export type ResolvedTyping = TypingOption | boolean | undefined | null;
+
+function resolveTyping(
+  typing: TypingProp,
+  content: BubbleContentType,
+  info: InfoType,
+): ResolvedTyping {
+  if (typeof typing === 'function') {
+    return typing(content, info);
+  }
+  return typing;
+}
+
+/** Pass getters (not MaybeRefOrGetter) so TS won't confuse typing-fn with a ref getter. */
+function useTypingConfig(
+  getTyping: () => TypingProp,
+  getContent: () => BubbleContentType,
+  getInfo: () => InfoType,
+) {
+  const resolved = computed(() => resolveTyping(getTyping(), getContent(), getInfo()));
+
+  const typingEnabled = computed(() => Boolean(resolved.value));
+
   const baseConfig: Required<TypingOption> = {
     step: 1,
     interval: 50,
@@ -16,11 +39,12 @@ function useTypingConfig(typing: MaybeRefOrGetter<BubbleProps['typing']>) {
     effect: 'typing',
     keepPrefix: true,
   };
+
   const config = computed(() => {
-    const typingRaw = toValue(typing);
+    const typingRaw = resolved.value;
     return {
       ...baseConfig,
-      ...(typeof typingRaw === 'object' ? typingRaw : {}),
+      ...(typeof typingRaw === 'object' && typingRaw ? typingRaw : {}),
     };
   });
 

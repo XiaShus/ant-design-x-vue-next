@@ -65,7 +65,11 @@ export interface BubbleProps<ContentType extends BubbleContentType = string> ext
   avatar?: Partial<_AvatarProps> | VNode | (() => VNode);
   placement?: 'start' | 'end';
   loading?: boolean;
-  typing?: AvoidValidation<TypingOption | boolean>;
+  typing?: AvoidValidation<
+    | TypingOption
+    | boolean
+    | ((content: ContentType, info: InfoType) => TypingOption | boolean)
+  >;
   /**
    * 是否处于流式传输；为 true 时不触发 onTypingComplete
    * @default false

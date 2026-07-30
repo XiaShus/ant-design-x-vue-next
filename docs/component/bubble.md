@@ -211,7 +211,7 @@ bubble/gpt-vis
 | placement | 信息位置 | `start` \| `end` | `start` |  |
 | shape | 气泡形状 | `round` \| `corner` | - |  |
 | styles | 语义化结构 style | [Record<SemanticDOM, CSSProperties>](#semantic-dom) | - |  |
-| typing | 设置聊天内容打字动画 | boolean \| \{ step?: number, interval?: number \} | false |  |
+| typing | 设置聊天内容打字动画；可为 `(content, info) => boolean \| TypingOption` | boolean \| TypingOption \| `((content, info) => boolean \| TypingOption)` | false | 1.40.0（函数形式） |
 | variant | 气泡样式变体 | `filled` \| `borderless` \| `outlined` \| `shadow` | `filled` |  |
 | loadingRender | 自定义渲染加载态内容 | () => VNode | - |  |
 | contentRender | 自定义渲染内容（React 2.x 主 API） | `(content: ContentType, info: InfoType) => VNode \| string` | - | 1.36.0 |
