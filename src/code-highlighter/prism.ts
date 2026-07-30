@@ -118,7 +118,7 @@ export async function ensureLanguage(lang: string): Promise<string> {
 export async function ensureFullPrism(): Promise<void> {
   if (!fullPrismPromise) {
     fullPrismPromise = Promise.all(COMMON_FULL_LANGS.map((lang) => ensureLanguage(lang))).then(
-      () => undefined,
+      (): void => undefined,
     );
   }
   return fullPrismPromise;
