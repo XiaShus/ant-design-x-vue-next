@@ -9,6 +9,7 @@ export type {
   SenderSemanticType,
   SenderComponents,
   ActionsComponents,
+  SenderHeaderProps,
   SuffixRender,
   ActionsRender,
 } from './interface';

@@ -2,6 +2,15 @@
 
 > Vue Next 文档站时间线版见 [更新日志](https://ant-design-x-vue-next-524.netlify.app/development/changelog.html)。
 
+## 1.95.0
+
+`2026-07-31`
+
+### ant-design-x-vue-next
+
+- 🆕 导出 `SenderHeaderProps`；补齐 Sender.Header `classNames`/`styles` 文档（对齐 React）
+- 🛠 发布 npm `ant-design-x-vue-next@1.95.0`
+
 ## 1.94.0
 
 `2026-07-31`

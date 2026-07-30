@@ -284,6 +284,8 @@ type SkillType = {
 
 ### Sender.Header
 
+自 `1.95.0` 起可从包入口 `import type { SenderHeaderProps }`（对齐 React）。
+
 | 属性         | 说明                                        | 类型                    | 默认值 | 版本 |
 | ------------ | ------------------------------------------- | ----------------------- | ------ | ---- |
 | children     | 面板内容                                    | VNode                   | -      | -    |
@@ -292,6 +294,8 @@ type SkillType = {
 | open         | 是否展开                                    | boolean                 | -      | -    |
 | title        | 标题                                        | VNode                   | -      | -    |
 | onOpenChange | 展开状态改变的回调                          | (open: boolean) => void | -      | -    |
+| classNames | 语义化 class（`header` / `content`） | Record<'header' \| 'content', string> | - | 1.95.0（文档） |
+| styles | 语义化 style（`header` / `content`） | Record<'header' \| 'content', CSSProperties> | - | 1.95.0（文档） |
 
 ### Sender.Switch
 
