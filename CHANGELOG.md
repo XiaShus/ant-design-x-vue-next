@@ -2,6 +2,15 @@
 
 > Vue Next 文档站时间线版见 [更新日志](https://ant-design-x-vue-next-524.netlify.app/development/changelog.html)。
 
+## 1.94.0
+
+`2026-07-31`
+
+### ant-design-x-vue-next
+
+- 🆕 Actions：顶层 `ItemType.danger`（对齐 React `list-danger` / `colorError`）
+- 🛠 发布 npm `ant-design-x-vue-next@1.94.0`
+
 ## 1.93.0
 
 `2026-07-31`

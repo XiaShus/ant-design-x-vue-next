@@ -59,6 +59,11 @@ const genActionsStyle: GenerateStyle<ActionsToken> = (token) => {
             },
           },
         },
+
+        // Align React: top-level ItemType.danger
+        [`${componentCls}-list-danger`]: {
+          color: token.colorError,
+        },
       },
 
       [`${componentCls}-variant-outlined`]: {

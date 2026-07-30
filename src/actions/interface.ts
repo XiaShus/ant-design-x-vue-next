@@ -60,6 +60,11 @@ export interface ItemType extends DataAttributes {
    */
   disabled?: boolean;
   /**
+   * @desc 危险样式（对齐 React 顶层 ItemType.danger）
+   * @descEN Danger style for top-level action items (React-aligned).
+   */
+  danger?: boolean;
+  /**
    * @desc 子操作项
    * @descEN Child action items.
    */

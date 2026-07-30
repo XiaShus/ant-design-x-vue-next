@@ -84,6 +84,7 @@ actions/fade-in
 | label | 自定义操作的显示标签 | string | - | - |
 | icon | 自定义操作的图标 | VNode | - | - |
 | disabled | 是否禁用 | boolean | `false` | - |
+| danger | 危险样式（顶层操作项，对齐 React） | boolean | `false` | 1.94.0 |
 | children | 子操作项 | ActionItem[] | - | - |
 | subItems | 子操作项（对齐 React；与 `children` 同时传入时优先 `children`） | ActionItem[] | - | 1.92.0 |
 | triggerSubMenuAction | 触发子菜单的操作 | `'hover' \| 'click'` | 'hover' | - |

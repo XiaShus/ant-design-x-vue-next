@@ -154,8 +154,8 @@ const handleMenuClick = (menuInfo: {
   emit('click', menuInfo);
 };
 
-const renderSingleItem = (item: SubItemType) => {
-  const { icon, label, key, disabled } = item;
+const renderSingleItem = (item: SubItemType & { danger?: boolean }) => {
+  const { icon, label, key, disabled, danger } = item;
 
   return (
     <div
@@ -164,6 +164,7 @@ const renderSingleItem = (item: SubItemType) => {
         mergedItemClassName.value,
         {
           [`${prefixCls}-list-item-disabled`]: disabled,
+          [`${prefixCls}-list-danger`]: danger,
         },
       )}
       style={mergedItemStyle.value}
