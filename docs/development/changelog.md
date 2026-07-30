@@ -19,6 +19,15 @@ customClass: changelog-page
 
 ---
 
+## 1.41.0
+
+`2026-07-31`
+
+### ant-design-x-vue-next
+
+- 🆕 Sender / SlotTextArea `insert(string)` 重载（普通模式插入 textarea，slot 模式追加 text 词槽）。
+- 🛠 发布 npm 包 [`ant-design-x-vue-next@1.41.0`](https://www.npmjs.com/package/ant-design-x-vue-next)。
+
 ## 1.40.0
 
 `2026-07-31`

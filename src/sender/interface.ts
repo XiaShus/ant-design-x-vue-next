@@ -117,7 +117,19 @@ export type SenderRef = {
   nativeElement: HTMLDivElement;
   focus: (options?: InputFocusOptions) => void;
   blur: () => void;
-  insert?: SlotTextAreaRef['insert'];
+  /**
+   * Plain mode: insert text into the textarea.
+   * Slot mode: insert(string) as text slot, or insert(slotConfig[], …).
+   */
+  insert: {
+    (value: string): void;
+    (
+      slotConfig: import('./slot-types').SlotConfigType[],
+      position?: import('./slot-types').InsertPosition,
+      replaceCharacters?: string,
+      preventScroll?: boolean,
+    ): void;
+  };
   clear?: SlotTextAreaRef['clear'];
   getValue?: SlotTextAreaRef['getValue'];
 };

@@ -13,8 +13,8 @@ import SlotTextArea from './components/SlotTextArea.vue';
 import SpeechButton from './components/SpeechButton/index.vue';
 import useStyle from './style';
 import useSpeech from './useSpeech';
-import type { SenderComponents, SenderProps } from './interface';
-import { computed, ref, watch, type VNode } from 'vue';
+import type { SenderComponents, SenderProps, SenderRef } from './interface';
+import { computed, nextTick, ref, watch, type VNode } from 'vue';
 import getValue from '../_util/getValue';
 import type { ChangeEvent, ClipboardEventHandler, MouseEventHandler } from "ant-design-vue/es/_util/EventInterface";;
 
@@ -528,8 +528,44 @@ defineExpose({
     // @ts-expect-error
     inputRef.value?.blur();
   },
-  insert: (...args: Parameters<NonNullable<InstanceType<typeof SlotTextArea>['insert']>>) =>
-    slotRef.value?.insert(...args),
+  insert: ((
+    valueOrSlots: string | import('./slot-types').SlotConfigType[],
+    position?: import('./slot-types').InsertPosition,
+    replaceCharacters?: string,
+    preventScroll?: boolean,
+  ) => {
+    if (isSlotMode.value) {
+      if (typeof valueOrSlots === 'string') {
+        slotRef.value?.insert(valueOrSlots);
+        return;
+      }
+      slotRef.value?.insert(valueOrSlots, position, replaceCharacters, preventScroll);
+      return;
+    }
+    // Plain textarea mode: only string insert is supported
+    const text = typeof valueOrSlots === 'string' ? valueOrSlots : '';
+    if (!text) return;
+    const el = (inputRef.value as any)?.resizableTextArea?.textArea as
+      | HTMLTextAreaElement
+      | undefined;
+    const current = innerValue.value ?? '';
+    if (el && typeof el.selectionStart === 'number') {
+      const start = el.selectionStart;
+      const end = el.selectionEnd ?? start;
+      const next = `${current.slice(0, start)}${text}${current.slice(end)}`;
+      triggerValueChange(next);
+      nextTick(() => {
+        const pos = start + text.length;
+        el.focus();
+        el.setSelectionRange(pos, pos);
+        if (!preventScroll) {
+          el.scrollIntoView?.({ block: 'nearest' });
+        }
+      });
+      return;
+    }
+    triggerValueChange(`${current}${text}`);
+  }) as SenderRef['insert'],
   clear: () => {
     if (isSlotMode.value) {
       slotRef.value?.clear();

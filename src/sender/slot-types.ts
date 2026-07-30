@@ -107,12 +107,19 @@ export interface SlotTextAreaRef {
   focus: (options?: SlotTextAreaFocusOptions) => void;
   blur: () => void;
   nativeElement: HTMLDivElement;
-  insert: (
-    slotConfig: SlotConfigType[],
-    position?: InsertPosition,
-    replaceCharacters?: string,
-    preventScroll?: boolean,
-  ) => void;
+  /**
+   * Insert plain text (as a text slot) or structured slots.
+   * Aligns with React Sender.insert overloads.
+   */
+  insert: {
+    (value: string): void;
+    (
+      slotConfig: SlotConfigType[],
+      position?: InsertPosition,
+      replaceCharacters?: string,
+      preventScroll?: boolean,
+    ): void;
+  };
   clear: () => void;
   getValue: () => {
     value: string;

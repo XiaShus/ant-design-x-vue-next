@@ -18,6 +18,7 @@ import type {
   SlotConfigType,
   SlotConfigWithValue,
   SlotTextAreaFocusOptions,
+  SlotTextAreaRef,
 } from '../slot-types';
 import type { ChangeEvent, KeyboardEventHandler } from '../interface';
 
@@ -299,7 +300,12 @@ const getValue = () => ({
   skill: currentSkill.value,
 });
 
-const insert = (slots: SlotConfigType[], position: InsertPosition = 'end') => {
+const insertSlots = (
+  slots: SlotConfigType[],
+  position: InsertPosition = 'end',
+  _replaceCharacters?: string,
+  preventScroll?: boolean,
+) => {
   const keyedSlots = ensureSlotKeys(slots, `ins_${++textKeySeq}`);
   const newValues = buildSlotValues(keyedSlots);
   const newTexts = buildTextContents(keyedSlots);
@@ -321,8 +327,24 @@ const insert = (slots: SlotConfigType[], position: InsertPosition = 'end') => {
   nextTick(() => {
     syncEditableDomFromState();
     emitChange();
+    if (!preventScroll) {
+      containerRef.value?.scrollIntoView?.({ block: 'nearest' });
+    }
   });
 };
+
+const insert: SlotTextAreaRef['insert'] = ((
+  valueOrSlots: string | SlotConfigType[],
+  position?: InsertPosition,
+  replaceCharacters?: string,
+  preventScroll?: boolean,
+) => {
+  if (typeof valueOrSlots === 'string') {
+    insertSlots([{ type: 'text', value: valueOrSlots }], 'end', undefined, preventScroll);
+    return;
+  }
+  insertSlots(valueOrSlots, position ?? 'end', replaceCharacters, preventScroll);
+}) as SlotTextAreaRef['insert'];
 
 const clear = () => {
   insertedSlots.value = [];
