@@ -132,7 +132,7 @@ const messages = [{ content: 'Hello, Ant Design X Vue Next!', role: 'user' }];
 
 分组对齐官方 Ant Design X：
 
-- **通用**: `Bubble`、`Conversations`（`Notification` 规划中）
+- **通用**: `Bubble`、`Conversations`、`notification`（系统 Web Notification）
 - **唤醒**: `Welcome`、`Prompts`
 - **表达**: `Sender`、`Attachments`、`Suggestion`、`Folder`（`CodeHighlighter` / `Mermaid` 规划中）
 - **确认**: `Think`、`ThoughtChain`

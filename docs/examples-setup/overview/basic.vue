@@ -75,7 +75,7 @@ const allComponents: OverviewItem[] = [
     title: 'Notification 系统通知',
     description: '系统级通知与提醒（对齐官方，规划中）',
     icon: <NotificationOutlined style={{ color: '#fa541c' }} />,
-    status: 'planned',
+    status: 'ready',
   },
   {
     id: 'welcome',

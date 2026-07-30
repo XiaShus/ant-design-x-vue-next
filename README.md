@@ -67,7 +67,8 @@ import { Bubble, XProvider } from 'ant-design-x-vue-next';
 | Sources | ✅（本仓库新增） | ✅ |
 | FileCard | ✅（本仓库新增） | ✅ |
 | Folder | ✅（本仓库新增） | ✅ |
-| CodeHighlighter / Mermaid / Notification | ⏳ | ✅ |
+| Notification | ✅（本仓库新增） | ✅ |
+| CodeHighlighter / Mermaid | ⏳ | ✅ |
 | `@ant-design/x-markdown` / `x-sdk` / `x-card` | ⏳ | ✅ |
 
 ## ⌨️ 开发

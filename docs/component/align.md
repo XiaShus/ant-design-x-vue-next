@@ -8,7 +8,7 @@
 | --- | --- | --- | --- | --- |
 | 通用 | Bubble | ✅ | ✅ | [文档](/component/bubble) |
 | 通用 | Conversations | ✅ | ✅ | [文档](/component/conversations) |
-| 通用 | Notification | ✅ | ⏳ 规划中 | [占位](/component/notification) |
+| 通用 | Notification | ✅ | ✅ | [文档](/component/notification) |
 | 唤醒 | Welcome | ✅ | ✅ | [文档](/component/welcome) |
 | 唤醒 | Prompts | ✅ | ✅ | [文档](/component/prompts) |
 | 表达 | Sender | ✅ | ✅ | [文档](/component/sender) |
@@ -45,7 +45,7 @@ React 2.x 已拆出独立包，Vue Next 尚未拆分：
 
 1. ~~Sources~~ ✅
 2. ~~FileCard / Folder~~ ✅
-3. Notification
+3. ~~Notification~~ ✅
 4. CodeHighlighter / Mermaid
 5. Markdown / SDK 能力对齐
 
