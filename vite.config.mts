@@ -31,21 +31,27 @@ export default defineConfig({
     rollupOptions: {
       external: [...externals, /^ant-design-vue/],
       input: Object.fromEntries(
-        globSync('src/**/*.*').filter(file => !file.includes('test')).map(file => [
-          // 删除 `src/` 以及每个文件的扩展名: src/nested/foo.js => nested/foo
-          relative(
-            'src',
-            file.slice(0, file.length - extname(file).length)
-          ),
-          // 将相对路径扩展为绝对路径: src/nested/foo => /project/src/nested/foo.js
-          fileURLToPath(new URL(file, import.meta.url))
-        ])
+        globSync('src/**/*.*')
+          .filter(
+            (file) =>
+              !file.includes('test') &&
+              // CSS is imported as side-effect assets; cannot be rollup entries
+              // when cssCodeSplit is false
+              !/\.(css|less|scss|sass|styl)$/i.test(file),
+          )
+          .map((file) => [
+            // 删除 `src/` 以及每个文件的扩展名: src/nested/foo.js => nested/foo
+            relative('src', file.slice(0, file.length - extname(file).length)),
+            // 将相对路径扩展为绝对路径: src/nested/foo => /project/src/nested/foo.js
+            fileURLToPath(new URL(file, import.meta.url)),
+          ]),
       ),
       output: [
         {
           format: 'es',
           dir: 'es',
           entryFileNames: '[name].mjs',
+          assetFileNames: 'assets/[name][extname]',
           manualChunks: (id) => {
             if (id.includes('node_modules')) {
               // 库依赖
@@ -64,6 +70,7 @@ export default defineConfig({
           format: 'cjs',
           dir: 'lib',
           entryFileNames: '[name].js',
+          assetFileNames: 'assets/[name][extname]',
           manualChunks: (id) => {
             if (id.includes('node_modules')) {
               // 库依赖
