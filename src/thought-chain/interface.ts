@@ -117,6 +117,9 @@ export interface ThoughtChainItem {
   tooltip?: boolean | TooltipConfig;
 }
 
+/** Align React `@ant-design/x` export name for ThoughtChain items. */
+export type ThoughtChainItemType = ThoughtChainItem;
+
 /** Align React ThoughtChain SemanticType. */
 export type SemanticType =
   | 'root'

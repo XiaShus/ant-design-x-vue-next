@@ -98,7 +98,7 @@ thought-chain/simple
 
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
-| items | 思维节点集合 | ThoughtChainItem[] | - | - |
+| items | 思维节点集合（类型亦导出为 `ThoughtChainItemType`，对齐 React） | ThoughtChainItem[] / ThoughtChainItemType[] | - | 1.82.0（`ThoughtChainItemType` 导出） |
 | defaultExpandedKeys | 初始化展开的节点 | string[] | - | 1.25.0 |
 | expandedKeys | 当前展开的节点 | string[] | - | 1.25.0 |
 | onExpand | 展开节点变化回调 | (expandedKeys: string[]) => void | - | 1.25.0 |
@@ -117,6 +117,8 @@ thought-chain/simple
 | nativeElement | 根节点 DOM | HTMLDivElement | 1.60.0 |
 
 ### ThoughtChainItem（items[] 节点）
+
+自 `1.82.0` 起可从包入口 `import type { ThoughtChainItem, ThoughtChainItemType }`（`ThoughtChainItemType` 为 React 同名别名）。
 
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |

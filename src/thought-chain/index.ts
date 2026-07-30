@@ -5,6 +5,7 @@ import ThoughtChainItemComponent from './ThoughtChainItem.vue';
 export type {
   ThoughtChainProps,
   ThoughtChainItem,
+  ThoughtChainItemType,
   ThoughtChainLine,
   ThoughtChainSemanticType,
   ThoughtChainRef,
