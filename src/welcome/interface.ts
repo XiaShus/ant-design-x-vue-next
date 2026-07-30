@@ -1,7 +1,10 @@
 import type { CSSProperties, VNode } from "vue";
 import type { AvoidValidation } from '../type-utility'
 
-export type SemanticType = 'title' | 'description' | 'icon' | 'extra';
+/** Align React Welcome SemanticType. */
+export type SemanticType = 'root' | 'title' | 'description' | 'icon' | 'extra';
+
+export type WelcomeSemanticType = SemanticType;
 
 export interface WelcomeProps {
   prefixCls?: string;

@@ -41,12 +41,12 @@ welcome/background
 
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
-| classNames | 自定义样式类名，用于各个提示项的不同部分。 | Record<'icon' \| 'title' \| 'description' \| 'extra', string> | - | - |
+| classNames | 自定义样式类名，用于各个提示项的不同部分。 | Record<'root' \| 'icon' \| 'title' \| 'description' \| 'extra', string> | - | 1.57.0 起含 `root` |
 | description | 显示在提示列表中的描述。 | VNode \| string \| (() => VNode \| string) | - | - |
 | extra | 显示在提示列表末尾的额外操作。 | VNode \| string \| (() => VNode \| string) | - | - |
 | icon | 显示在提示列表前侧的图标。 | VNode \| () => VNode | - | - |
 | rootClassName | 根节点的样式类名。 | string | - | - |
-| styles | 自定义样式，用于各个提示项的不同部分。 | Record<'icon' \| 'title' \| 'description' \| 'extra', CSSProperties> | - | - |
+| styles | 自定义样式，用于各个提示项的不同部分。 | Record<'root' \| 'icon' \| 'title' \| 'description' \| 'extra', CSSProperties> | - | 1.57.0 起含 `root` |
 | title | 显示在提示列表顶部的标题。 | VNode \| string \| (() => VNode \| string) | - | - |
 | variant | 变体类型。 | 'filled' \| 'borderless' | 'filled' | - |
 

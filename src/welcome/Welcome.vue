@@ -139,6 +139,8 @@ defineRender(() => {
         contextConfig.value.className,
         className,
         rootClassName,
+        (contextConfig.value.classNames as any)?.root,
+        classNames.root,
         hashId.value,
         cssVarCls,
         `${prefixCls}-${variant}`,
@@ -146,7 +148,11 @@ defineRender(() => {
           [`${prefixCls}-rtl`]: direction.value === 'rtl',
         },
       )}
-      style={style}
+      style={{
+        ...(typeof style === 'object' ? style : {}),
+        ...((contextConfig.value.styles as any)?.root || {}),
+        ...(styles.root || {}),
+      }}
     >
       {/* Icon */}
       {iconNode.value}

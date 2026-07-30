@@ -2,6 +2,15 @@
 
 > Vue Next 文档站时间线版见 [更新日志](https://ant-design-x-vue-next-524.netlify.app/development/changelog.html)。
 
+## 1.57.0
+
+`2026-07-31`
+
+### ant-design-x-vue-next
+
+- 🆕 Welcome：`classNames`/`styles` 支持语义 `root`（对齐 React SemanticType）
+- 🛠 发布 npm `ant-design-x-vue-next@1.57.0`
+
 ## 1.56.0
 
 `2026-07-31`
