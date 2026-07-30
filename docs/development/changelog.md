@@ -19,6 +19,17 @@ customClass: changelog-page
 
 ---
 
+## 1.19.0
+
+`2026-07-30`
+
+### ant-design-x-vue-next
+
+- 🆕 `Bubble.System` / `Bubble.Divider`：系统消息与会话分割线。
+- 🆕 Bubble `editable`：contentEditable 编辑态 + `onEditConfirm` / `onEditCancel`。
+- 📖 Bubble 文档新增演示；对齐进度更新。
+- 🛠 发布 npm 包 [`ant-design-x-vue-next@1.19.0`](https://www.npmjs.com/package/ant-design-x-vue-next)。
+
 ## 1.18.0
 
 `2026-07-30`

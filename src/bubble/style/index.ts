@@ -3,7 +3,9 @@ import { mergeToken } from '../../_util/cssinjs-utils';
 import type { FullToken, GenerateStyle, GetDefaultToken } from '../../theme/cssinjs-utils';
 import { genStyleHooks } from '../../theme/genStyleUtils';
 import { genShapeStyle, genVariantStyle } from './content';
+import genDividerBubbleStyle from './divider';
 import genBubbleListStyle from './list';
+import genSystemBubbleStyle from './system';
 
 const loadingMove = new Keyframes('loadingMove', {
   '0%': {
@@ -52,6 +54,21 @@ const genBubbleStyle: GenerateStyle<BubbleToken> = (token) => {
 
         [`& ${componentCls}-content-wrapper`]: {
           alignItems: 'flex-end',
+        },
+        [`& ${componentCls}-editing-opts`]: {
+          flexDirection: 'row-reverse',
+        },
+      },
+      [`& ${componentCls}-content-editing`]: {
+        minWidth: 120,
+        [`[contenteditable]`]: {
+          outline: 'none',
+          minHeight: '1em',
+          whiteSpace: 'pre-wrap',
+          wordBreak: 'break-word',
+        },
+        [`${componentCls}-editing-opts`]: {
+          marginTop: token.marginXS,
         },
       },
       [`&${componentCls}-rtl`]: {
@@ -157,6 +174,8 @@ export default genStyleHooks<'Bubble'>(
       genBubbleListStyle(bubbleToken),
       genVariantStyle(bubbleToken),
       genShapeStyle(bubbleToken),
+      genSystemBubbleStyle(bubbleToken),
+      genDividerBubbleStyle(bubbleToken),
     ];
   },
   prepareComponentToken,

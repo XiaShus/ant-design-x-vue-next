@@ -6,7 +6,7 @@
 
 | 分组 | 组件 | React `@ant-design/x` | Vue Next | 文档 |
 | --- | --- | --- | --- | --- |
-| 通用 | Bubble | ✅ | ✅ | [文档](/component/bubble) |
+| 通用 | Bubble | ✅ | ✅（含 `System` / `Divider` / `editable`） | [文档](/component/bubble) |
 | 通用 | Conversations | ✅ | ✅ | [文档](/component/conversations) |
 | 通用 | Notification | ✅ | ✅ | [文档](/component/notification) |
 | 唤醒 | Welcome | ✅ | ✅ | [文档](/component/welcome) |

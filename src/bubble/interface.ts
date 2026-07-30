@@ -1,7 +1,13 @@
-import type { AvatarProps } from 'ant-design-vue';
+import type { AvatarProps, DividerProps } from 'ant-design-vue';
 import type { AvoidValidation } from '../type-utility';
-import type { CSSProperties, HTMLAttributes, VNode } from 'vue';
+import type { CSSProperties, HTMLAttributes, VNode, VNodeChild } from 'vue';
 import { AnyObject } from '../_util/type';
+
+export interface EditableBubbleOption {
+  editing?: boolean;
+  okText?: VNodeChild;
+  cancelText?: VNodeChild;
+}
 
 export interface TypingOption {
   /**
@@ -49,6 +55,26 @@ export interface BubbleProps<ContentType extends BubbleContentType = string> ext
   onTypingComplete?: VoidFunction;
   header?: AvoidValidation<VNode | string | ((content: ContentType, info: SlotInfoType) => VNode | string)>;
   footer?: AvoidValidation<VNode | string | ((content: ContentType, info: SlotInfoType) => VNode | string)>;
+  /**
+   * 是否可编辑（仅 content 为 string）
+   */
+  editable?: boolean | EditableBubbleOption;
+  onEditConfirm?: (content: string) => void;
+  onEditCancel?: () => void;
+}
+
+export type SystemBubbleProps<ContentType extends BubbleContentType = string> = Pick<
+  BubbleProps<ContentType>,
+  'prefixCls' | 'content' | 'rootClassName' | 'variant' | 'shape' | 'styles' | 'classNames'
+>;
+
+export interface DividerBubbleProps<ContentType extends BubbleContentType = string> {
+  prefixCls?: string;
+  rootClassName?: string;
+  styles?: BubbleProps<ContentType>['styles'];
+  classNames?: BubbleProps<ContentType>['classNames'];
+  content?: ContentType;
+  dividerProps?: Omit<DividerProps, 'children'>;
 }
 
 export interface BubbleRef {

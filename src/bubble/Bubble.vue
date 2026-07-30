@@ -4,15 +4,17 @@ import useXComponentConfig from '../_util/hooks/use-x-component-config';
 import { useXProviderContext } from '../x-provider';
 import useTypedEffect from './hooks/useTypedEffect';
 import useTypingConfig from './hooks/useTypingConfig';
-import type { BubbleContentType, BubbleProps, SlotInfoType } from './interface';
+import type { BubbleContentType, BubbleProps, EditableBubbleOption, SlotInfoType } from './interface';
+import EditableContent from './EditableContent.vue';
 import Loading from './loading.vue';
 import useStyle from './style';
 import { useBubbleContextInject } from './context';
-import { computed, isVNode, ref, toRef, toValue, unref, useTemplateRef, watch, watchEffect } from 'vue';
+import { computed, isVNode, ref, toValue, unref, watch, watchEffect } from 'vue';
 import type { VNode } from 'vue'
 
 defineOptions({ name: "AXBubble" });
 
+const props = defineProps<BubbleProps<T>>();
 const {
   prefixCls: customizePrefixCls,
   rootClassName,
@@ -32,9 +34,12 @@ const {
   onTypingComplete,
   header,
   footer,
+  onEditConfirm,
+  onEditCancel,
+  editable: _editable,
   _key,
   ...otherHtmlProps
-} = defineProps<BubbleProps<T>>();
+} = props;
 
 const slots = defineSlots<{
   avatar?(): VNode;
@@ -133,6 +138,11 @@ const avatarNode = computed(() => {
       : <Avatar {...avatar} />;
 });
 
+const isEditing = computed(() => {
+  const editable = props.editable ?? false;
+  return typeof editable === 'boolean' ? editable : !!(editable as EditableBubbleOption)?.editing;
+});
+
 // =========================== Content ============================
 const mergedContent = computed(() => {
   if (slots.message) {
@@ -148,14 +158,27 @@ const contentNode = computed<VNode>(() => {
       return slots.loading();
     }
     return loadingRender ? loadingRender() : <Loading prefixCls={prefixCls} />;
-  } else {
+  }
+  if (isEditing.value) {
+    const editable = props.editable;
+    const option = typeof editable === 'object' && editable ? editable : undefined;
     return (
-      <>
-        {mergedContent.value}
-        {isTyping.value && toValue(typingSuffix)}
-      </>
+      <EditableContent
+        prefixCls={prefixCls}
+        content={String(content.value)}
+        okText={option?.okText}
+        cancelText={option?.cancelText}
+        onEditConfirm={(val: string) => onEditConfirm?.(val)}
+        onEditCancel={() => onEditCancel?.()}
+      />
     );
   }
+  return (
+    <>
+      {mergedContent.value}
+      {isTyping.value && toValue(typingSuffix)}
+    </>
+  );
 });
 
 const fullContent = computed<VNode>(() => {
@@ -169,6 +192,7 @@ const fullContent = computed<VNode>(() => {
         `${prefixCls}-content`,
         `${prefixCls}-content-${variant}`,
         { [`${prefixCls}-content-${shape}`]: shape },
+        { [`${prefixCls}-content-editing`]: isEditing.value },
         contextConfig.value.classNames.content,
         classNames.content,
       ]}
@@ -181,11 +205,13 @@ const fullContent = computed<VNode>(() => {
     : typeof header === 'function'
       ? header(typedContent.value as T, { key: _key })
       : header;
-  const _footer = slots.footer
-    ? slots.footer({ content: typedContent.value as T, info: { key: _key } })
-    : typeof footer === 'function'
-      ? footer(typedContent.value as T, { key: _key })
-      : footer;
+  const _footer = isEditing.value
+    ? null
+    : slots.footer
+      ? slots.footer({ content: typedContent.value as T, info: { key: _key } })
+      : typeof footer === 'function'
+        ? footer(typedContent.value as T, { key: _key })
+        : footer;
 
   if (_header || _footer) {
     return (

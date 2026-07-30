@@ -21,6 +21,30 @@ bubble/basic
 
 :::
 
+### 系统消息
+
+:::demo `Bubble.System` 居中系统提示。
+
+bubble/system
+
+:::
+
+### 分割线
+
+:::demo `Bubble.Divider` 会话分段。
+
+bubble/divider
+
+:::
+
+### 可编辑
+
+:::demo `editable` + `onEditConfirm` / `onEditCancel`。
+
+bubble/editable
+
+:::
+
 ### 支持位置和头像
 
 :::demo 通过 `avatar` 设置自定义头像，通过 `placement` 设置位置，提供了 `start`、`end` 两个选项。
@@ -160,6 +184,24 @@ bubble/gpt-vis
 | loadingRender | 自定义渲染加载态内容 | () => VNode | - |  |
 | messageRender | 自定义渲染内容 | <ContentType extends [BubbleContentType](https://github.com/wzc520pyfm/ant-design-x-vue/blob/main/src/bubble/interface.ts#L23) = string>(content?: ContentType) => VNode | - |  |
 | onTypingComplete | 打字效果完成时的回调，如果没有设置 typing 将在渲染时立刻触发 | () => void | - |  |
+| editable | 是否可编辑（content 需为 string） | `boolean \| { editing?: boolean; okText?; cancelText? }` | `false` | 1.19.0 |
+| onEditConfirm | 编辑确认回调 | `(content: string) => void` | - | 1.19.0 |
+| onEditCancel | 编辑取消回调 | `() => void` | - | 1.19.0 |
+
+### Bubble.System
+
+| 属性 | 说明 | 类型 | 默认值 | 版本 |
+| --- | --- | --- | --- | --- |
+| content | 系统消息内容 | ContentType | - | 1.19.0 |
+| variant | 气泡样式变体 | `filled` \| `borderless` \| `outlined` \| `shadow` | `shadow` | 1.19.0 |
+| shape | 气泡形状 | `round` \| `corner` | - | 1.19.0 |
+
+### Bubble.Divider
+
+| 属性 | 说明 | 类型 | 默认值 | 版本 |
+| --- | --- | --- | --- | --- |
+| content | 分割线文案 | ContentType | - | 1.19.0 |
+| dividerProps | 透传 ant-design-vue Divider | `DividerProps`（如 `dashed` / `plain`） | - | 1.19.0 |
 
 ### Bubble Slots
 

@@ -2,6 +2,16 @@
 
 > Vue Next 文档站时间线版见 [更新日志](https://ant-design-x-vue-next-524.netlify.app/development/changelog.html)。
 
+## 1.19.0
+
+`2026-07-30`
+
+### ant-design-x-vue-next
+
+- 🆕 Bubble.System / Bubble.Divider / editable 编辑态
+- 📖 Bubble 文档与对齐进度更新
+- 🛠 发布 npm `ant-design-x-vue-next@1.19.0`
+
 ## 1.18.0
 
 `2026-07-30`
