@@ -19,6 +19,15 @@ customClass: changelog-page
 
 ---
 
+## 1.80.0
+
+`2026-07-31`
+
+### ant-design-x-vue-next
+
+- 🆕 Attachments：`items[].cardType` 映射到 FileListCard `type`（对齐 React；避开 Upload MIME `type`）。
+- 🛠 发布 npm 包 [`ant-design-x-vue-next@1.80.0`](https://www.npmjs.com/package/ant-design-x-vue-next)。
+
 ## 1.79.0
 
 `2026-07-31`

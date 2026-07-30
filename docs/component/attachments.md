@@ -107,7 +107,7 @@ attachments/files-custom
 | classNames       | 自定义样式类名，[见下](#semantic-dom)                                      | Record<string, string>                                             | -      | -    |
 | disabled         | 是否禁用                                                                   | boolean                                                            | false  | -    |
 | getDropContainer | 设置拖拽时，可以释放文件的区域                                             | () => HTMLElement                                                  | -      | -    |
-| items            | 附件列表，同 Upload `fileList`                                             | Attachment[]                                                       | -      | -    |
+| items            | 附件列表，同 Upload `fileList`；可用 `cardType` 指定卡片展示类型（对齐 React；勿用 Upload `type` MIME） | Attachment[]                                                       | -      | 1.80.0（`cardType`） |
 | overflow         | 文件列表超出时样式                                                         | 'wrap' \| 'scrollX' \| 'scrollY'                                   | -      | -    |
 | placeholder      | 没有文件时的占位信息                                                       | PlaceholderType \| ((type: 'inline' \| 'drop') => PlaceholderType) | -      | -    |
 | rootClassName    | 根节点的样式类名                                                           | string                                                             | -      | -    |
@@ -122,6 +122,12 @@ interface PlaceholderType {
   title?: VNode | string;
   description?: VNode | string;
 }
+
+type Attachment = UploadFile & {
+  description?: VNode | string;
+  /** 映射到 FileCard `type`；UploadFile.`type` 为 MIME，不可复用 */
+  cardType?: 'file' | 'image';
+};
 ```
 
 ### Attachments Slots
@@ -148,7 +154,7 @@ interface PlaceholderType {
 | item      | 附件，同 Upload `UploadFile`                                                                                             | Attachment                                       | -      | -    |
 | onRemove  | 点击移除文件时的回调，返回值为 false 时不移除。支持返回一个 Promise 对象，Promise 对象 resolve(false) 或 reject 时不移除 | (item: Attachment) => boolean \| Promise         | -      | -    |
 | icon | 自定义图标；预设含 `java` / `javascript` / `python`（对齐 FileCard） | VNode \| PresetIcons | - | 1.74.0（语言图标） |
-| type | 定义文件类型，当类型为`image`时，会展示为图片预览模式 | 'file' \| 'image' | `file` | - |
+| type | 定义文件类型，当类型为`image`时，会展示为图片预览模式；列表模式由 `items[].cardType` 传入（对齐 React） | 'file' \| 'image' | - | 1.80.0（`cardType` 映射） |
 
 ```ts
 type PresetIcons =

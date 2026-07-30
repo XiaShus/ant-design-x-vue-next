@@ -162,6 +162,7 @@ defineRender(() => {
           onRemove={onRemove}
           className={classnames(itemClassName)}
           imageProps={imageProps}
+          type={item.cardType}
           style={{
             ...itemStyle,
           }}

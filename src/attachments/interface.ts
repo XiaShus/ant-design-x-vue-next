@@ -77,6 +77,11 @@ export interface ProgressProps {
 
 export type Attachment = UploadProps['fileList'][number] & {
   description?: VNode | string;
+  /**
+   * FileCard display type. UploadFile.`type` is MIME and must not be reused
+   * (align React `cardType` → FileCard `type`).
+   */
+  cardType?: 'file' | 'image';
 };
 
 // refer from the UploadProps of ant-design-vue
