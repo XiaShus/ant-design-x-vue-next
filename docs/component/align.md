@@ -21,7 +21,7 @@
 | 表达 | Mermaid | ✅ | ✅ | [文档](/component/mermaid) |
 | 确认 | Think | ✅ | ✅ | [文档](/component/think) |
 | 确认 | ThoughtChain | ✅ | ✅ | [文档](/component/thought-chain) |
-| 反馈 | Actions | ✅ | ✅ | [文档](/component/actions) |
+| 反馈 | Actions | ✅ | ✅（含 Copy / Feedback / Item / Audio 预设 + `actionRender`） | [文档](/component/actions) |
 | 工具 | XProvider | ✅ | ✅ | [文档](/component/x-provider) |
 
 ## 独立包（React monorepo）

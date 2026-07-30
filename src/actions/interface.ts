@@ -1,5 +1,5 @@
 import type { MenuItemProps, MenuProps } from 'ant-design-vue';
-import type { CSSProperties, HTMLAttributes, VNode } from 'vue';
+import type { CSSProperties, HTMLAttributes, VNode, VNodeChild } from 'vue';
 
 type DataAttributes = {
   [Key in `data-${string}`]: string | number;
@@ -31,6 +31,11 @@ export interface SubItemType extends Pick<MenuItemProps, 'danger'>, DataAttribut
    * @descEN Callback function when the custom action button is clicked.
    */
   onItemClick?: (info?: ActionItem) => void;
+  /**
+   * @desc 自定义渲染操作项内容
+   * @descEN Custom render action item content
+   */
+  actionRender?: ((item: ActionItem) => VNodeChild) | VNodeChild;
 }
 
 export interface ItemType extends DataAttributes {
@@ -69,6 +74,11 @@ export interface ItemType extends DataAttributes {
    * @descEN Callback function when the custom action button is clicked.
    */
   onItemClick?: (info?: ActionItem) => void;
+  /**
+   * @desc 自定义渲染操作项内容
+   * @descEN Custom render action item content
+   */
+  actionRender?: ((item: ActionItem) => VNodeChild) | VNodeChild;
 }
 
 export type ActionItem = SubItemType | ItemType;

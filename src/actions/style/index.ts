@@ -80,6 +80,52 @@ const genActionsStyle: GenerateStyle<ActionsToken> = (token) => {
       '& .block': {
         display: 'flex',
       },
+
+      // Preset: Copy (Typography.Text copyable)
+      [`${componentCls}-copy`]: {
+        [`&${componentCls}-copy-rtl`]: {
+          direction: 'rtl',
+        },
+        [`${componentCls}-copy-copy`]: {
+          fontSize: 'inherit',
+          [`&:not(${componentCls}-copy-success)`]: {
+            color: 'inherit !important',
+          },
+        },
+      },
+
+      // Preset: Feedback
+      [`&${componentCls}-feedback, ${componentCls}-feedback`]: {
+        display: 'inline-flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: token.paddingXXS,
+      },
+
+      // Preset: Item / Audio button
+      [`&${componentCls}-button-item, ${componentCls}-button-item, &${componentCls}-item, ${componentCls}-item`]:
+        {
+          cursor: 'pointer',
+          fontSize: token.fontSize,
+          paddingInline: token.paddingXXS,
+          paddingBlock: token.paddingXXS,
+          borderRadius: token.borderRadiusSM,
+          height: token.controlHeightSM,
+          boxSizing: 'border-box',
+          display: 'inline-flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          lineHeight: token.lineHeight,
+          touchAction: 'manipulation',
+          '&:hover': {
+            background: token.colorBgTextHover,
+          },
+        },
+
+      [`${componentCls}-audio-recording-icon`]: {
+        width: '1em',
+        height: '1em',
+      },
     },
   };
 };

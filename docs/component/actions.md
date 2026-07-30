@@ -33,6 +33,14 @@ actions/variant
 
 :::
 
+### 预设操作
+
+:::demo 通过 `actionRender` 组合 `Actions.Copy` / `Feedback` / `Item` / `Audio`。
+
+actions/preset
+
+:::
+
 ## API
 
 <!-- 通用属性参考：[通用属性](/docs/react/common-props) -->
@@ -60,6 +68,7 @@ actions/variant
 | children | 子操作项 | ActionItem[] | - | - |
 | triggerSubMenuAction | 触发子菜单的操作 | `'hover' \| 'click'` | 'hover' | - |
 | onItemClick | 点击自定义操作按钮时的回调函数 | (info: ActionItem) => void | - | - |
+| actionRender | 自定义渲染操作项（可挂载预设组件） | `((item) => VNodeChild) \| VNodeChild` | - | 1.17.0 |
 
 ### SubItemType
 
@@ -71,6 +80,16 @@ actions/variant
 | disabled | 是否禁用 | boolean | `false` | - |
 | onItemClick | 点击自定义操作按钮时的回调函数 | (info: ActionItem) => void | - | - |
 | danger | 语法糖，设置危险 icon | boolean | false | - |
+| actionRender | 自定义渲染操作项 | `((item) => VNodeChild) \| VNodeChild` | - | 1.17.0 |
+
+### 预设组件
+
+| 组件 | 说明 | 版本 |
+| --- | --- | --- |
+| `Actions.Copy` | 复制文本（基于 Typography copyable） | 1.17.0 |
+| `Actions.Feedback` | 点赞 / 点踩 | 1.17.0 |
+| `Actions.Item` | 带 status 的通用操作按钮（loading / running / error） | 1.17.0 |
+| `Actions.Audio` | 音频播放状态按钮 | 1.17.0 |
 
 ### ActionItem
 

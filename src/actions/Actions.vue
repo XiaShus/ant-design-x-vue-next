@@ -123,6 +123,11 @@ defineRender(() => {
     <div class={mergedCls.value} {...domProps.value} style={mergedStyle.value}>
       <div class={classnames(`${prefixCls}-list`, props.variant, { block: props.block })}>
         {props.items.map((item) => {
+          if (item.actionRender) {
+            return typeof item.actionRender === 'function'
+              ? item.actionRender(item)
+              : item.actionRender;
+          }
           if ('children' in item && item.children) {
             return (
               <ActionMenu key={item.key} item={item} prefixCls={prefixCls} onClick={handleMenuClick} />
