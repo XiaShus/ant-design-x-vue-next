@@ -33,4 +33,9 @@ export interface SuggestionProps<T = any> {
   block?: boolean;
   styles?: Partial<Record<SuggestionSemanticType, CSSProperties>>;
   classNames?: Partial<Record<SuggestionSemanticType, string>>;
+  /**
+   * Menu render parent node. Default renders to `body`.
+   * Useful when the dropdown is clipped by overflow containers.
+   */
+  getPopupContainer?: (triggerNode: HTMLElement) => HTMLElement;
 }

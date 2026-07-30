@@ -50,6 +50,7 @@ suggestion/trigger
 | styles | 语义化结构 style | Record<root \| content \| popup, CSSProperties> | - | 1.54.0 |
 | onSelect | 选中建议项回调 | (value: string, selectedOptions: SuggestionItem[]) => void | - | 1.32.0 |
 | onOpenChange | 面板打开状态变化回调 | (open: boolean) => void | - | - |
+| getPopupContainer | 菜单渲染父节点；默认渲染到 `body` | `(triggerNode: HTMLElement) => HTMLElement` | `() => document.body` | 1.67.0 |
 
 #### Semantic DOM
 

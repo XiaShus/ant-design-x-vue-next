@@ -2,6 +2,15 @@
 
 > Vue Next 文档站时间线版见 [更新日志](https://ant-design-x-vue-next-524.netlify.app/development/changelog.html)。
 
+## 1.67.0
+
+`2026-07-31`
+
+### ant-design-x-vue-next
+
+- 🆕 Suggestion：支持 `getPopupContainer`（对齐 React Cascader 透传）
+- 🛠 发布 npm `ant-design-x-vue-next@1.67.0`
+
 ## 1.66.0
 
 `2026-07-31`

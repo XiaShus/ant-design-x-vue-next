@@ -25,6 +25,7 @@ const {
   block,
   styles = {},
   classNames = {},
+  getPopupContainer,
 } = defineProps<SuggestionProps<T>>();
 
 const slots = defineSlots<{
@@ -212,6 +213,7 @@ defineRender(() => {
       popupClassName={popupCls.value}
       onChange={onInternalChange as CascaderProps['onChange']}
       dropdownStyle={mergedDropdownStyle.value}
+      getPopupContainer={getPopupContainer}
       class={rootCls.value}
       style={rootStyle.value}
     >
