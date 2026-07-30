@@ -117,6 +117,11 @@ conversations/group-sort
 
 `ShortcutKeys` 为修饰键元组，例如 `['Ctrl', ShortcutKeyCode.N]`、`['Ctrl', 'number']`（Ctrl+1…9）。可从包导出 `ShortcutKeyCode`。
 
+### Conversations Ref
+
+| 属性 | 说明 | 类型 | 版本 |
+| --- | --- | --- | --- |
+| nativeElement | 根节点 DOM（`<ul>`） | HTMLUListElement | 1.62.0 |
 
 ### Conversations.Creation / CreationProps
 

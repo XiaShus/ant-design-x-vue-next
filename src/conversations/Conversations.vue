@@ -46,6 +46,7 @@ const {
 } = props;
 
 const activeKey = ref(activeKeyProp);
+const containerRef = ref<HTMLUListElement | null>(null);
 
 const domProps = computed(() => pickAttrs(restProps, {
   attr: true,
@@ -174,6 +175,7 @@ defineRender(() => {
   return wrapCSSVar(
     <ul
       {...domProps.value}
+      ref={containerRef}
       style={mergedRootStyle.value}
       class={mergedCls.value}
     >
@@ -285,5 +287,9 @@ defineRender(() => {
       })}
     </ul>
   )
+});
+
+defineExpose({
+  nativeElement: containerRef,
 });
 </script>

@@ -86,6 +86,10 @@ export const isDividerItem = (item: ItemType): item is DividerItemType =>
 /** Align React Conversations SemanticType. */
 export type ConversationsSemanticType = 'root' | 'creation' | 'group' | 'item';
 
+export interface ConversationsRef {
+  nativeElement: HTMLUListElement;
+}
+
 /**
  * @desc 会话列表组件参数
  * @descEN Props for the conversation list component

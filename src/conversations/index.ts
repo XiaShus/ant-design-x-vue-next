@@ -4,6 +4,7 @@ import Creation from './Creation.vue';
 
 export type {
   ConversationsProps,
+  ConversationsRef,
   Conversation,
   ConversationItemType,
   DividerItemType,
