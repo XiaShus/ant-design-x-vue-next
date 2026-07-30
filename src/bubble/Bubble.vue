@@ -96,8 +96,11 @@ const [typedContent, isTyping] = useTypedEffect(
 
 const triggerTypingCompleteRef = ref(false);
 
-watch(typedContent, () => {
+watch(typedContent, (next) => {
   onUpdate?.();
+  if (typeof next === 'string' && typeof content.value === 'string') {
+    props.onTyping?.(next, content.value);
+  }
 });
 
 watchEffect(() => {

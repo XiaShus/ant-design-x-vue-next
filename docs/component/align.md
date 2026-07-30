@@ -6,7 +6,7 @@
 
 | 分组 | 组件 | React `@ant-design/x` | Vue Next | 文档 |
 | --- | --- | --- | --- | --- |
-| 通用 | Bubble | ✅ | ✅（含 System / Divider / editable / streaming / footerPlacement / `typing.keepPrefix`） | [文档](/component/bubble) |
+| 通用 | Bubble | ✅ | ✅（含 System / Divider / editable / streaming / footerPlacement / `typing.keepPrefix` / `onTyping`） | [文档](/component/bubble) |
 | 通用 | Conversations | ✅ | ✅（含 `creation` / `Conversations.Creation`） | [文档](/component/conversations) |
 | 通用 | Notification | ✅ | ✅ | [文档](/component/notification) |
 | 唤醒 | Welcome | ✅ | ✅ | [文档](/component/welcome) |

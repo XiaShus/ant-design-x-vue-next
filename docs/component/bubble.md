@@ -207,6 +207,7 @@ bubble/gpt-vis
 | variant | 气泡样式变体 | `filled` \| `borderless` \| `outlined` \| `shadow` | `filled` |  |
 | loadingRender | 自定义渲染加载态内容 | () => VNode | - |  |
 | messageRender | 自定义渲染内容 | <ContentType extends [BubbleContentType](https://github.com/wzc520pyfm/ant-design-x-vue/blob/main/src/bubble/interface.ts#L23) = string>(content?: ContentType) => VNode | - |  |
+| onTyping | 打字过程回调 | (rendererContent: string, currentContent: string) => void | - | 1.30.0 |
 | onTypingComplete | 打字效果完成时的回调，如果没有设置 typing 将在渲染时立刻触发 | () => void | - |  |
 | editable | 是否可编辑（content 需为 string） | `boolean \| { editing?: boolean; okText?; cancelText? }` | `false` | 1.19.0 |
 | onEditConfirm | 编辑确认回调 | `(content: string) => void` | - | 1.19.0 |

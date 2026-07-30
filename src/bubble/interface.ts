@@ -71,6 +71,10 @@ export interface BubbleProps<ContentType extends BubbleContentType = string> ext
   variant?: 'filled' | 'borderless' | 'outlined' | 'shadow';
   shape?: 'round' | 'corner';
   _key?: number | string;
+  /**
+   * 打字过程回调（rendererContent 为当前已渲染片段，currentContent 为完整内容）
+   */
+  onTyping?: (rendererContent: string, currentContent: string) => void;
   onTypingComplete?: VoidFunction;
   header?: AvoidValidation<VNode | string | ((content: ContentType, info: SlotInfoType) => VNode | string)>;
   footer?: AvoidValidation<VNode | string | ((content: ContentType, info: SlotInfoType) => VNode | string)>;
