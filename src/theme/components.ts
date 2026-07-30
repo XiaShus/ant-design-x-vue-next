@@ -10,6 +10,7 @@ import type { ComponentToken as ThinkComponentToken } from '../think/style';
 import type { ComponentToken as SourcesComponentToken } from '../sources/style';
 import type { ComponentToken as FileCardComponentToken } from '../file-card/style';
 import type { ComponentToken as FolderComponentToken } from '../folder/style';
+import type { ComponentToken as CodeHighlighterComponentToken } from '../code-highlighter/style';
 import type { ComponentToken as TransitionCollapseComponentToken } from '../transition-collapse/style';
 import type { ComponentToken as WelcomeComponentToken } from '../welcome/style';
 
@@ -21,6 +22,7 @@ export interface ComponentTokenMap {
   Conversations?: ConversationsComponentToken;
   FileCard?: FileCardComponentToken;
   Folder?: FolderComponentToken;
+  CodeHighlighter?: CodeHighlighterComponentToken;
   Prompts?: PromptsComponentToken;
   Sender?: SenderComponentToken;
   Suggestion?: SuggestionComponentToken;

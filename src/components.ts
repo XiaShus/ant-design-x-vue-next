@@ -12,4 +12,5 @@ export * from './think';
 export * from './sources';
 export * from './file-card';
 export * from './folder';
+export * from './code-highlighter';
 export * from './notification';

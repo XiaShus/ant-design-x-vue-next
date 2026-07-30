@@ -8,6 +8,7 @@ import { ConfigProvider as AntdConfigProvider } from 'ant-design-vue';
 defineOptions({ name: 'AXProvider', inheritAttrs: false });
 
 const {
+  actions,
   attachments,
   bubble,
   conversations,
@@ -15,6 +16,11 @@ const {
   sender,
   suggestion,
   thoughtChain,
+  think,
+  sources,
+  fileCard,
+  folder,
+  codeHighlighter,
   welcome,
   ...antdConfProps
 } = defineProps<XProviderProps>();
@@ -24,6 +30,7 @@ const slots = defineSlots<{
 }>();
 
 const xProviderProps = computed(() => ({
+  actions,
   attachments,
   bubble,
   conversations,
@@ -31,6 +38,11 @@ const xProviderProps = computed(() => ({
   sender,
   suggestion,
   thoughtChain,
+  think,
+  sources,
+  fileCard,
+  folder,
+  codeHighlighter,
   welcome,
 }));
 

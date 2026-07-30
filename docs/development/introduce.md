@@ -134,7 +134,7 @@ const messages = [{ content: 'Hello, Ant Design X Vue Next!', role: 'user' }];
 
 - **通用**: `Bubble`、`Conversations`、`notification`（系统 Web Notification）
 - **唤醒**: `Welcome`、`Prompts`
-- **表达**: `Sender`、`Attachments`、`Suggestion`、`Folder`（`CodeHighlighter` / `Mermaid` 规划中）
+- **表达**: `Sender`、`Attachments`、`Suggestion`、`Folder`、`CodeHighlighter`（`Mermaid` 规划中）
 - **确认**: `Think`、`ThoughtChain`
 - **反馈**: `Actions`、`Sources`、`FileCard`
 

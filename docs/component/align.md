@@ -17,7 +17,7 @@
 | 反馈 | Sources | ✅ | ✅ | [文档](/component/sources) |
 | 反馈 | FileCard | ✅ | ✅ | [文档](/component/file-card) |
 | 表达 | Folder | ✅ | ✅ | [文档](/component/folder) |
-| 表达 | CodeHighlighter | ✅ | ⏳ 规划中 | [占位](/component/code-highlighter) |
+| 表达 | CodeHighlighter | ✅ | ✅ | [文档](/component/code-highlighter) |
 | 表达 | Mermaid | ✅ | ⏳ 规划中 | [占位](/component/mermaid) |
 | 确认 | Think | ✅ | ✅ | [文档](/component/think) |
 | 确认 | ThoughtChain | ✅ | ✅ | [文档](/component/thought-chain) |
@@ -46,7 +46,8 @@ React 2.x 已拆出独立包，Vue Next 尚未拆分：
 1. ~~Sources~~ ✅
 2. ~~FileCard / Folder~~ ✅
 3. ~~Notification~~ ✅
-4. CodeHighlighter / Mermaid
-5. Markdown / SDK 能力对齐
+4. ~~CodeHighlighter~~ ✅
+5. Mermaid
+6. Markdown / SDK 能力对齐
 
 参考源码：[`ant-design/x`](https://github.com/ant-design/x)

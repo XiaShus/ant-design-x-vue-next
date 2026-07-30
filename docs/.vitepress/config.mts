@@ -131,7 +131,7 @@ export default defineConfig({
             { text: 'Attachments 输入附件', link: '/component/attachments' },
             { text: 'Suggestion 快捷指令', link: '/component/suggestion' },
             { text: 'Folder 文件夹', link: '/component/folder' },
-            { text: 'CodeHighlighter 代码高亮 ⏳', link: '/component/code-highlighter' },
+            { text: 'CodeHighlighter 代码高亮', link: '/component/code-highlighter' },
             { text: 'Mermaid 图表渲染 ⏳', link: '/component/mermaid' },
           ]
         },

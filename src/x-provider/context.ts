@@ -13,6 +13,7 @@ import type { ThinkProps } from 'ant-design-x-vue/think';
 import type { SourcesProps } from 'ant-design-x-vue/sources';
 import type { FileCardProps } from 'ant-design-x-vue/file-card';
 import type { FolderProps } from 'ant-design-x-vue/folder';
+import type { CodeHighlighterProps } from 'ant-design-x-vue/code-highlighter';
 import type { WelcomeProps } from 'ant-design-x-vue/welcome';
 
 // refer from the ConfigProviderProps of ant-design-vue
@@ -68,6 +69,7 @@ export interface XComponentsConfig {
   sources?: ComponentStyleConfig<SourcesProps>;
   fileCard?: ComponentStyleConfig<FileCardProps>;
   folder?: ComponentStyleConfig<FolderProps>;
+  codeHighlighter?: ComponentStyleConfig<CodeHighlighterProps>;
   attachments?: ComponentStyleConfig<AttachmentsProps>;
   welcome?: ComponentStyleConfig<WelcomeProps>;
 }
