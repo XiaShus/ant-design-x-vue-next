@@ -14,10 +14,12 @@ export default defineConfig({
   ],
   test: {
     environment: 'happy-dom',
-    include: ['./**/*.test.{ts,js,tsx}'],
+    include: ['src/**/*.test.{ts,js,tsx}'],
+    exclude: ['**/node_modules/**', '**/.ref-antd-x/**', '**/docs/**'],
     coverage: {
       provider: 'v8',
       reporter: ['html', 'text', 'json'],
     },
   },
 });
+

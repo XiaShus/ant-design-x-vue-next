@@ -1,13 +1,17 @@
 # Ant Design X Vue Next
 
+[![npm version][npm-version-src]][npm-version-href]
 [![License][license-src]][license-href]
 ![vue][vue-version-src]
+[![Netlify Status][netlify-src]][netlify-href]
 
 > Community continuation of [ant-design-x-vue](https://github.com/wzc520pyfm/ant-design-x-vue), aligned with [@ant-design/x](https://github.com/ant-design/x).
 
 Ant Design X For Vue. 🔥 [中文](./README.md)
 
-**Repo:** https://github.com/XiaShus/ant-design-x-vue-next
+**Repo:** https://github.com/XiaShus/ant-design-x-vue-next  
+**Docs:** https://ant-design-x-vue-next-524.netlify.app  
+**npm:** https://www.npmjs.com/package/ant-design-x-vue-next
 
 ## ✨ Features
 
@@ -59,6 +63,10 @@ $ pnpm run build
 
 <!-- Badges -->
 
+[npm-version-src]: https://img.shields.io/npm/v/ant-design-x-vue-next.svg?style=flat
+[npm-version-href]: https://www.npmjs.com/package/ant-design-x-vue-next
 [vue-version-src]: https://img.shields.io/badge/vue-%20%3E%3D%203.5-47c219
 [license-src]: https://img.shields.io/github/license/XiaShus/ant-design-x-vue-next?style=flat
 [license-href]: https://github.com/XiaShus/ant-design-x-vue-next/blob/main/LICENSE
+[netlify-src]: https://api.netlify.com/api/v1/badges/768dab5b-1472-4133-942d-e06f30e6f1f9/deploy-status
+[netlify-href]: https://ant-design-x-vue-next-524.netlify.app

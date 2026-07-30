@@ -1,7 +1,10 @@
 # Ant Design X Vue Next
 
+[![npm version][npm-version-src]][npm-version-href]
+[![npm downloads][npm-downloads-src]][npm-downloads-href]
 [![License][license-src]][license-href]
 ![vue][vue-version-src]
+[![Netlify Status][netlify-src]][netlify-href]
 
 > Community continuation of [ant-design-x-vue](https://github.com/wzc520pyfm/ant-design-x-vue), aligning follow-up features with [@ant-design/x](https://github.com/ant-design/x).
 
@@ -9,7 +12,9 @@ Ant Design X For Vue. 🔥 [English](./README.en.md)
 
 这里是 [Ant Design X](https://github.com/ant-design/x) 的 Vue 实现（社区续作）。
 
-**仓库：** https://github.com/XiaShus/ant-design-x-vue-next
+**仓库：** https://github.com/XiaShus/ant-design-x-vue-next  
+**文档站：** https://ant-design-x-vue-next-524.netlify.app  
+**npm：** https://www.npmjs.com/package/ant-design-x-vue-next
 
 **上游：**
 - Vue 原版：https://github.com/wzc520pyfm/ant-design-x-vue
@@ -98,6 +103,12 @@ $ pnpm lint
 
 <!-- Badges -->
 
+[npm-version-src]: https://img.shields.io/npm/v/ant-design-x-vue-next.svg?style=flat
+[npm-version-href]: https://www.npmjs.com/package/ant-design-x-vue-next
+[npm-downloads-src]: https://img.shields.io/npm/dm/ant-design-x-vue-next.svg?style=flat
+[npm-downloads-href]: https://www.npmjs.com/package/ant-design-x-vue-next
 [vue-version-src]: https://img.shields.io/badge/vue-%20%3E%3D%203.5-47c219
 [license-src]: https://img.shields.io/github/license/XiaShus/ant-design-x-vue-next?style=flat
 [license-href]: https://github.com/XiaShus/ant-design-x-vue-next/blob/main/LICENSE
+[netlify-src]: https://api.netlify.com/api/v1/badges/768dab5b-1472-4133-942d-e06f30e6f1f9/deploy-status
+[netlify-href]: https://ant-design-x-vue-next-524.netlify.app
