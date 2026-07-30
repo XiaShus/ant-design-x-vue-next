@@ -2,7 +2,7 @@
 import { Tooltip, type TooltipProps } from 'ant-design-vue';
 import classnames from 'classnames';
 import pickAttrs from '../_util/pick-attrs';
-import { computed } from 'vue';
+import { computed, Transition } from 'vue';
 
 import useXComponentConfig from '../_util/hooks/use-x-component-config';
 import { useXProviderContext } from '../x-provider';
@@ -18,6 +18,8 @@ const props = withDefaults(defineProps<ActionsProps>(), {
   variant: 'borderless',
   block: false,
   items: () => [],
+  fadeIn: false,
+  fadeInLeft: false,
 });
 
 const emit = defineEmits<{
@@ -32,12 +34,19 @@ const emit = defineEmits<{
 // ============================ PrefixCls ============================
 const { getPrefixCls, direction } = useXProviderContext();
 const prefixCls = getPrefixCls('actions', props.prefixCls);
+const rootPrefixCls = getPrefixCls();
 
 // ======================= Component Config =======================
 const contextConfig = useXComponentConfig('actions');
 
 // ============================ Styles ============================
 const [wrapCSSVar, hashId, cssVarCls] = useStyle(prefixCls);
+
+const motionName = computed(() =>
+  props.fadeInLeft || props.fadeIn
+    ? `${rootPrefixCls}-x-fade${props.fadeInLeft ? '-left' : ''}`
+    : '',
+);
 
 const mergedCls = computed(() => classnames(
   prefixCls,
@@ -119,7 +128,7 @@ const domProps = computed(() => pickAttrs(props, {
 }));
 
 defineRender(() => {
-  return wrapCSSVar(
+  const rootNode = (
     <div class={mergedCls.value} {...domProps.value} style={mergedStyle.value}>
       <div class={classnames(`${prefixCls}-list`, props.variant, { block: props.block })}>
         {props.items.map((item) => {
@@ -130,14 +139,38 @@ defineRender(() => {
           }
           if ('children' in item && item.children) {
             return (
-              <ActionMenu key={item.key} item={item} prefixCls={prefixCls} onClick={handleMenuClick} />
+              <ActionMenu
+                key={item.key}
+                item={item}
+                prefixCls={prefixCls}
+                dropdownProps={props.dropdownProps}
+                onClick={handleMenuClick}
+              />
             );
           }
           return renderSingleItem(item as SubItemType);
         })}
       </div>
-    </div>,
+    </div>
   );
+
+  const name = motionName.value;
+  const content = name ? (
+    <Transition
+      appear
+      enterFromClass={`${name}-enter ${name}-appear`}
+      enterActiveClass={`${name}-enter ${name}-enter-active ${name}-appear ${name}-appear-active`}
+      enterToClass={`${name}-enter ${name}-enter-active`}
+      leaveFromClass={`${name}-leave`}
+      leaveActiveClass={`${name}-leave ${name}-leave-active`}
+      leaveToClass={`${name}-leave ${name}-leave-active`}
+    >
+      {rootNode}
+    </Transition>
+  ) : (
+    rootNode
+  );
+
+  return wrapCSSVar(content);
 });
 </script>
-

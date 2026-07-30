@@ -19,6 +19,17 @@ customClass: changelog-page
 
 ---
 
+## 1.35.0
+
+`2026-07-30`
+
+### ant-design-x-vue-next
+
+- 🆕 Actions `fadeIn` / `fadeInLeft` 挂载淡入（复用共享 motion）。
+- 🆕 Actions `dropdownProps` 透传子菜单 Dropdown。
+- 📖 新增 Actions fade-in 演示。
+- 🛠 发布 npm 包 [`ant-design-x-vue-next@1.35.0`](https://www.npmjs.com/package/ant-design-x-vue-next)。
+
 ## 1.34.0
 
 `2026-07-30`

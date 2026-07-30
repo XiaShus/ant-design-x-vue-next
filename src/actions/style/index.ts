@@ -1,6 +1,7 @@
 import { mergeToken } from '../../_util/cssinjs-utils';
 import type { FullToken, GenerateStyle, GetDefaultToken } from '../../theme/cssinjs-utils';
 import { genStyleHooks } from '../../theme/genStyleUtils';
+import { initFadeLeftMotion, initFadeMotion } from '../../style';
 
 // biome-ignore lint/suspicious/noEmptyInterface: ComponentToken need to be empty by default
 export interface ComponentToken {}
@@ -136,7 +137,11 @@ export default genStyleHooks(
   'Actions',
   (token) => {
     const compToken = mergeToken<ActionsToken>(token, {});
-    return [genActionsStyle(compToken)];
+    return [
+      genActionsStyle(compToken),
+      initFadeLeftMotion(compToken, true),
+      initFadeMotion(compToken, true),
+    ];
   },
   prepareComponentToken,
 );

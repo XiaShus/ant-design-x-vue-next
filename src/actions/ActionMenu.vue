@@ -1,15 +1,17 @@
 <script setup lang="tsx">
 import { EllipsisOutlined } from '@ant-design/icons-vue';
-import { Dropdown, type MenuProps } from 'ant-design-vue';
+import { Dropdown, type DropdownProps, type MenuProps } from 'ant-design-vue';
+import classnames from 'classnames';
 import { computed } from 'vue';
 import { useXProviderContext } from '../x-provider';
-import type { ActionsProps, ActionItem, ItemType } from './interface';
+import type { ActionItem, ItemType } from './interface';
 
 defineOptions({ name: 'AXActionMenu' });
 
 const props = defineProps<{
   item: ItemType;
   prefixCls?: string;
+  dropdownProps?: DropdownProps;
 }>();
 
 const emit = defineEmits<{
@@ -22,14 +24,12 @@ const emit = defineEmits<{
 }>();
 
 const findItem = (keyPath: string[], items: ActionItem[]): ActionItem | null => {
-  const keyToFind = keyPath[0]; // Get the first key from the keyPath
+  const keyToFind = keyPath[0];
 
   for (const item of items) {
     if (item.key === keyToFind) {
-      // If the item is found and this is the last key in the path
       if (keyPath.length === 1) return item;
 
-      // If it is a SubItemType, recurse to find in its children
       if ('children' in item && item.children) {
         return findItem(keyPath.slice(1), item.children);
       }
@@ -45,6 +45,7 @@ const prefixCls = getPrefixCls('actions', props.prefixCls);
 const icon = computed(() => props.item?.icon ?? <EllipsisOutlined />);
 const children = computed(() => props.item.children || []);
 const triggerSubMenuAction = computed(() => props.item.triggerSubMenuAction || 'hover');
+const dropdownProps = computed(() => props.dropdownProps || {});
 
 const menuProps = computed<MenuProps>(() => ({
   items: children.value as MenuProps['items'],
@@ -64,12 +65,20 @@ const menuProps = computed<MenuProps>(() => ({
 }));
 
 defineRender(() => {
+  const {
+    overlayClassName,
+    arrow,
+    trigger,
+    ...restDropdownProps
+  } = dropdownProps.value;
+
   return (
     <Dropdown
+      {...restDropdownProps}
       menu={menuProps.value}
-      overlayClassName={`${prefixCls}-sub-item`}
-      arrow
-      trigger={[triggerSubMenuAction.value]}
+      overlayClassName={classnames(`${prefixCls}-sub-item`, overlayClassName)}
+      arrow={arrow ?? true}
+      trigger={trigger ?? [triggerSubMenuAction.value]}
     >
       <div class={`${prefixCls}-list-item`}>
         <div class={`${prefixCls}-list-item-icon`}>{icon.value}</div>
@@ -78,4 +87,3 @@ defineRender(() => {
   );
 });
 </script>
-

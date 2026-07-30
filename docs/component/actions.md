@@ -41,6 +41,14 @@ actions/preset
 
 :::
 
+### 淡入动画
+
+:::demo `fadeIn` / `fadeInLeft` 挂载淡入；切换类型后点 Re-Render 可重播。
+
+actions/fade-in
+
+:::
+
 ## API
 
 <!-- 通用属性参考：[通用属性](/docs/react/common-props) -->
@@ -56,6 +64,9 @@ actions/preset
 | style | 根节点样式 | CSSProperties | - | - |
 | variant | 变体 | `'borderless' \| 'border'` | 'borderless' | - |
 | prefixCls | 样式类名的前缀 | string | - | - |
+| fadeIn | 挂载时淡入 | boolean | `false` | 1.35.0 |
+| fadeInLeft | 挂载时从左淡入（与 `fadeIn` 同时设置时优先） | boolean | `false` | 1.35.0 |
+| dropdownProps | 透传给子菜单 Dropdown | `DropdownProps` | - | 1.35.0 |
 
 ### ItemType
 

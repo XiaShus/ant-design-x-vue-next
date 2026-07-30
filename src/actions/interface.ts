@@ -1,4 +1,4 @@
-import type { MenuItemProps, MenuProps } from 'ant-design-vue';
+import type { DropdownProps, MenuItemProps, MenuProps } from 'ant-design-vue';
 import type { CSSProperties, HTMLAttributes, VNode, VNodeChild } from 'vue';
 
 type DataAttributes = {
@@ -126,5 +126,20 @@ export interface ActionsProps extends Omit<HTMLAttributes, 'onClick'> {
    * @descEN Prefix for style class names.
    */
   prefixCls?: string;
+  /**
+   * @desc 挂载时淡入动画。
+   * @descEN Fade-in animation on mount.
+   */
+  fadeIn?: boolean;
+  /**
+   * @desc 挂载时从左淡入（与 fadeIn 同时设置时优先）。
+   * @descEN Left-mask fade-in on mount (wins over fadeIn when both set).
+   */
+  fadeInLeft?: boolean;
+  /**
+   * @desc 透传给子菜单 Dropdown 的属性。
+   * @descEN Props passed through to the submenu Dropdown.
+   */
+  dropdownProps?: DropdownProps;
 }
 
