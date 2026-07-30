@@ -84,6 +84,8 @@ type XNotificationOpenArgs = NotificationOptions & {
 
 ### useNotification
 
+自 `1.93.0` 起可从包入口 `import type { useNotificationType, UseNotificationType }`（`useNotificationType` 为 React 同名别名）。
+
 ```ts
 const [{ permission }, { open, close, requestPermission }] = useNotification();
 // 或

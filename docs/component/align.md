@@ -8,7 +8,7 @@
 | --- | --- | --- | --- | --- |
 | 通用 | Bubble | ✅ | ✅（含导出 `BubbleRef` / `BubbleItemType` / `ListSemanticType` / `RolesType`；System / Divider `nativeElement` ref；List `role`/`roles` 别名+语义；Bubble 语义 `root`/`body`；`scrollBoxNativeElement`+`scrollTo.top` / `contentRender`+`InfoType` / `extra` / avatar BubbleSlot / streaming / typing） | [文档](/component/bubble) |
 | 通用 | Conversations | ✅ | ✅（含导出 `GroupableProps`；`creation` / `Conversations.Creation`、`shortcutKeys`、`groupable.collapsible` + 折叠动效、`onActiveChange(key, item)`、divider、`classNames/styles` root/group；移动端菜单常显；`nativeElement` ref） | [文档](/component/conversations) |
-| 通用 | Notification | ✅ | ✅ | [文档](/component/notification) |
+| 通用 | Notification | ✅ | ✅（含导出 `useNotificationType`） | [文档](/component/notification) |
 | 唤醒 | Welcome | ✅ | ✅（含 `classNames/styles` root/title/description/icon/extra、`nativeElement` ref） | [文档](/component/welcome) |
 | 唤醒 | Prompts | ✅ | ✅（含导出 `PromptProps` / `PromptsItemType`；`fadeIn` / `fadeInLeft`、`classNames/styles` 含 `root`、`nativeElement` ref） | [文档](/component/prompts) |
 | 表达 | Sender | ✅ | ✅（含导出 `SenderComponents` / `ActionsComponents`；`suffix`/`actions`、Switch（含 `nativeElement` ref）、词槽 contentEditable、`insert`+cursor/`replaceCharacters`、`classNames/styles` root/content、`inputElement`、locale） | [文档](/component/sender) |

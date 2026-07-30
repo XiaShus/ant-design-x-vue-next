@@ -18,3 +18,6 @@ export type UseNotificationType = [
     requestPermission: () => Promise<NotificationPermission>;
   },
 ];
+
+/** Align React `@ant-design/x` export name for the useNotification return tuple. */
+export type useNotificationType = UseNotificationType;

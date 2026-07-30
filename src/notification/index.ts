@@ -1,6 +1,10 @@
 import notification, { XNotification } from './notification';
 
-export type { XNotificationOpenArgs, UseNotificationType } from './interface';
+export type {
+  XNotificationOpenArgs,
+  UseNotificationType,
+  useNotificationType,
+} from './interface';
 
 export { notification, XNotification };
 export default notification;
