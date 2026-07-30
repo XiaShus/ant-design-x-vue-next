@@ -19,13 +19,16 @@ customClass: changelog-page
 
 ---
 
-## Unreleased
+## 1.8.0
+
+`2026-07-30`
 
 ### ant-design-x-vue-next
 
 - 🆕 新增 `notification` / `useNotification`，对齐官方系统级 Web Notification API。
 - 🆕 新增 `CodeHighlighter` 组件（基于 `prismjs`），支持按需语言加载、自定义 Header 与复制。
 - 🆕 新增 `Mermaid` 组件，支持图表渲染、缩放平移、图片/代码双视图与操作栏配置。
+- 🛠 依赖新增 `prismjs`、`mermaid`；XProvider 透传新增组件样式配置。
 
 ## 1.7.0
 
