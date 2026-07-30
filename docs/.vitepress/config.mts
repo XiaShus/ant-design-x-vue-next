@@ -161,6 +161,7 @@ export default defineConfig({
             { text: 'XCard A2UI 动态卡片', link: '/component/x-card' },
             { text: 'useXAgent 模型调度', link: '/component/use-x-agent' },
             { text: 'useXChat 数据管理', link: '/component/use-x-chat' },
+            { text: 'useXConversations 多会话', link: '/component/use-x-conversations' },
             { text: 'XStream 流', link: '/component/x-stream' },
             { text: 'XRequest 请求', link: '/component/x-request' },
             { text: 'XProvider 全局化配置', link: '/component/x-provider' }

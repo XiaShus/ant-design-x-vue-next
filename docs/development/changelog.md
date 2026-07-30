@@ -19,6 +19,18 @@ customClass: changelog-page
 
 ---
 
+## 1.12.0
+
+`2026-07-30`
+
+### ant-design-x-vue-next
+
+- 🆕 SDK：`AbstractChatProvider` / `DefaultChatProvider`；`OpenAIChatProvider` / `DeepSeekChatProvider` 继承抽象基类。
+- 🆕 `useXChat` 支持 `provider`；`conversationKey` 支持 `MaybeRefOrGetter`（可直接绑定 `useXConversations`）。
+- 🆕 `useXConversations` 多会话列表管理（对接 `conversationStore`）。
+- 📖 对齐进度与文档页更新；新增 [useXConversations](/component/use-x-conversations)。
+- 🛠 发布 npm 包 [`ant-design-x-vue-next@1.12.0`](https://www.npmjs.com/package/ant-design-x-vue-next)。
+
 ## 1.11.0
 
 `2026-07-30`

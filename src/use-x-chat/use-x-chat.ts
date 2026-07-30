@@ -1,4 +1,4 @@
-import { computed, ref, watch } from 'vue';
+import { computed, ref, toValue, watch, type MaybeRefOrGetter } from 'vue';
 import { XAgent } from '../use-x-agent';
 import useSyncState from './useSyncState';
 import { useEventCallback } from '../_util/hooks/use-event-callback';
@@ -10,6 +10,7 @@ import {
   getConversationMessages,
   setConversationMessages,
 } from './conversationStore';
+import type { AbstractChatProvider } from '../chat-providers/AbstractChatProvider';
 
 export type SimpleType = string | number | boolean | object;
 
@@ -48,8 +49,9 @@ export interface XChatConfig<
 
   /**
    * Isolate message list by conversation key (multi-conversation enterprise chat).
+   * Accepts string/symbol or a Ref/getter (e.g. useXConversations.activeConversationKey).
    */
-  conversationKey?: ConversationKey;
+  conversationKey?: MaybeRefOrGetter<ConversationKey>;
 
   /** Convert agent message to bubble usage message type */
   parser?: (message: AgentMessage) => BubbleMessage | BubbleMessage[];
@@ -57,6 +59,11 @@ export interface XChatConfig<
   requestPlaceholder?: AgentMessage | RequestPlaceholderFn<AgentMessage>;
   requestFallback?: AgentMessage | RequestFallbackFn<AgentMessage>;
   transformMessage?: TransformMessageFn<AgentMessage, Output>;
+  /**
+   * Chat provider (AbstractChatProvider). When set, injects getMessages and
+   * supplies transformMessage / transformParams unless overridden.
+   */
+  provider?: AbstractChatProvider<AgentMessage, Input, Output>;
   transformStream?: XStreamOptions<AgentMessage>['transformStream'];
   resolveAbortController?: (abortController: AbortController) => void;
 }
@@ -110,6 +117,7 @@ export default function useXChat<
     requestPlaceholder,
     parser,
     transformMessage,
+    provider,
     transformStream,
     resolveAbortController,
     conversationKey: conversationKeyProp,
@@ -117,9 +125,12 @@ export default function useXChat<
 
   const idRef = ref(0);
   const abortControllerRef = ref<AbortController | null>(null);
-  const activeConversationKey = ref<ConversationKey>(
-    conversationKeyProp ?? Symbol('ConversationKey'),
-  );
+  const fallbackConversationKey = Symbol('ConversationKey');
+  const resolveConversationKey = (): ConversationKey => {
+    if (conversationKeyProp === undefined) return fallbackConversationKey;
+    return toValue(conversationKeyProp);
+  };
+  const activeConversationKey = ref<ConversationKey>(resolveConversationKey());
 
   const buildDefaultMessages = (): MessageInfo<AgentMessage>[] =>
     (defaultMessages || []).map((info, index) => ({
@@ -152,7 +163,7 @@ export default function useXChat<
   };
 
   watch(
-    () => conversationKeyProp,
+    () => (conversationKeyProp === undefined ? undefined : toValue(conversationKeyProp)),
     (key) => {
       if (key === undefined || key === activeConversationKey.value) return;
       // Persist current before switch
@@ -200,10 +211,17 @@ export default function useXChat<
 
   const getRequestMessages = () => getFilteredMessages(messages.value);
 
+  if (provider) {
+    provider.injectGetMessages(() => getRequestMessages());
+  }
+
   const getTransformMessage: TransformMessageFn<AgentMessage, Output> = (params) => {
     const { chunk, chunks, originMessage } = params;
     if (typeof transformMessage === 'function') {
       return transformMessage(params);
+    }
+    if (provider) {
+      return provider.transformMessage(params);
     }
     if (chunk) {
       return chunk as unknown as AgentMessage;
@@ -257,13 +275,23 @@ export default function useXChat<
     const { updatingId, reload } = opts || {};
     let loadingMsgId: number | string | null = null;
     let message: AgentMessage;
-    let otherRequestParams = {};
+    let otherRequestParams: AnyObject = {};
 
     if (requestParams && typeof requestParams === 'object' && 'message' in requestParams) {
       const { message: requestParamsMessage, ...other } =
         requestParams as RequestParams<AgentMessage>;
       message = requestParamsMessage;
       otherRequestParams = other;
+    } else if (
+      provider &&
+      requestParams &&
+      typeof requestParams === 'object' &&
+      !Array.isArray(requestParams)
+    ) {
+      const local = provider.transformLocalMessage(requestParams as Partial<Input>);
+      const locals = toArray(local);
+      message = (locals[locals.length - 1] ?? requestParams) as AgentMessage;
+      otherRequestParams = { ...(requestParams as AnyObject) };
     } else {
       message = requestParams as AgentMessage;
     }
@@ -343,12 +371,18 @@ export default function useXChat<
       return msg;
     };
 
+    const baseRequest = {
+      message,
+      messages: getRequestMessages(),
+      ...otherRequestParams,
+    } as Input;
+
+    const agentInput = provider
+      ? provider.transformParams(baseRequest as Partial<Input>, getRequestMessages())
+      : baseRequest;
+
     agent.request(
-      {
-        message,
-        messages: getRequestMessages(),
-        ...otherRequestParams,
-      } as Input,
+      agentInput,
       {
         onUpdate: (chunk) => {
           updateMessage('updating', chunk, []);

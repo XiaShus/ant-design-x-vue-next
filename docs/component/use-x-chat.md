@@ -65,12 +65,13 @@ type useXChat<
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
 | agent | 通过 `useXAgent` 生成的 `agent`，当使用 `onRequest` 方法时, `agent` 参数是必需的。 | XAgent | - |  |
-| conversationKey | 多会话隔离 key，切换时自动持久化/恢复消息列表 | `string \| symbol` | - |  |
+| conversationKey | 多会话隔离 key，切换时自动持久化/恢复消息列表；可传 Ref（配合 useXConversations） | `MaybeRefOrGetter<string \| symbol>` | - |  |
 | defaultMessages | 默认展示信息 | { status, message }[] | - |  |
 | parser | 将 AgentMessage 转换成消费使用的 ParsedMessage，不设置时则直接消费 AgentMessage。支持将一条 AgentMessage 转换成多条 ParsedMessage | (message: AgentMessage) => BubbleMessage \| BubbleMessage[] | - |  |
 | requestFallback | 请求失败的兜底信息，不提供则不会展示 | AgentMessage \| () => AgentMessage | - |  |
 | requestPlaceholder | 请求中的占位信息，不提供则不会展示 | AgentMessage \| () => AgentMessage | - |  |
 | transformMessage | 可在更新数据时对`messages`做转换，同时会更新到`messages` | (info: {originMessage?: AgentMessage,chunk: Output,chunks: Output[],status: MessageStatus}) => AgentMessage| - | - |
+| provider | `AbstractChatProvider` 实例；未设置 `transformMessage` 时使用其 `transformMessage`，请求前调用 `transformParams` | `AbstractChatProvider` | - | - |
 | transformStream | 可选的转换函数，用于处理流数据 | `XStreamOptions<Output>['transformStream']` | - | - |
 | resolveAbortController | `AbortController` 控制器，用于控制流状态 | (abortController: AbortController) => void| - | - |
 
@@ -101,7 +102,7 @@ import {
   DeepSeekChatProvider,
 } from 'ant-design-x-vue-next';
 
-const provider = new OpenAIChatProvider();
+const provider = new OpenAIChatProvider({ params: { model: 'gpt-4o-mini' } });
 // DeepSeek：reasoning_content → <think> 块，可配合 Think 组件
 // const provider = new DeepSeekChatProvider();
 
@@ -109,9 +110,13 @@ const [agent] = useXAgent({ baseURL: '/api/chat', model: 'gpt-4o-mini' });
 const { onRequest, abort, messages } = useXChat({
   agent: agent.value,
   conversationKey: 'session-1',
-  transformMessage: provider.asTransformMessage(),
+  // 推荐：直接传 provider（自动 injectGetMessages + transformMessage/Params）
+  provider,
+  // 或：transformMessage: provider.asTransformMessage(),
 });
 ```
+
+多会话列表请配合 [useXConversations](/component/use-x-conversations)。
 
 ### MCP Client
 

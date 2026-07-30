@@ -71,7 +71,7 @@ import 'ant-design-x-vue-next/dist/style.css'
 | 包名 | 必须改为 `ant-design-x-vue-next`，不能继续依赖旧包 |
 | Resolver | 从 `ant-design-x-vue-next/resolver` 引入 |
 | 新增组件 | Think / Sources / FileCard / Folder / CodeHighlighter / Mermaid / XMarkdown / XCard / Notification 等可直接用 |
-| React 独立包 | `@ant-design/x-skill`、完整 AbstractChatProvider 栈仍在对齐中，一般不影响从旧 Vue 包迁移 |
+| React 独立包 | `@ant-design/x-skill`、AbstractXRequestClass 驱动仍在对齐中；已有 AbstractChatProvider / useXConversations，一般不影响从旧 Vue 包迁移 |
 
 ## 相关链接
 
