@@ -273,6 +273,7 @@ type SkillType = {
 | 属性          | 说明     | 类型                                                                       | 默认值 | 版本 |
 | ------------- | -------- | -------------------------------------------------------------------------- | ------ | ---- |
 | nativeElement | 外层容器 | `HTMLDivElement`                                                           | -      | -    |
+| inputElement  | 输入元素（纯文本为 textarea；词槽模式为 SlotTextArea 根节点） | `HTMLElement \| null` | - | 1.52.0 |
 | focus         | 获取焦点 | (option?: { preventScroll?: boolean, cursor?: 'start' \| 'end' \| 'all' \| 'slot', key?: string }) | - | - |
 | blur          | 取消焦点 | () => void                                                                 | -      | -    |
 | getValue      | 获取词槽合成值（slot 模式） | () => \{ value: string; slotConfig: SlotConfigType[]; skill?: SkillType \} | - | 1.22.0 |

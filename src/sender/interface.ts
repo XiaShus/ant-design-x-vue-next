@@ -28,6 +28,16 @@ export interface SenderComponents {
   input?: typeof Input.TextArea;
 }
 
+/** Align React Sender SemanticType (plus legacy `actions`). */
+export type SenderSemanticType =
+  | 'root'
+  | 'prefix'
+  | 'input'
+  | 'suffix'
+  | 'footer'
+  | 'switch'
+  | 'content';
+
 export type ActionsComponents = {
   SendButton: typeof SendButton;
   ClearButton: typeof ClearButton;
@@ -75,22 +85,14 @@ export interface SenderProps {
   onPaste?: ClipboardEventHandler;
   onPasteFile?: (firstFile: File, files: FileList) => void;
   components?: SenderComponents;
-  styles?: {
-    prefix?: CSSProperties;
-    input?: CSSProperties;
+  styles?: Partial<Record<SenderSemanticType, CSSProperties>> & {
     /** @deprecated Use `suffix` — kept for backward compatibility */
     actions?: CSSProperties;
-    suffix?: CSSProperties;
-    footer?: CSSProperties;
   };
   rootClassName?: string;
-  classNames?: {
-    prefix?: string;
-    input?: string;
+  classNames?: Partial<Record<SenderSemanticType, string>> & {
     /** @deprecated Use `suffix` — kept for backward compatibility */
     actions?: string;
-    suffix?: string;
-    footer?: string;
   };
   style?: CSSProperties;
   className?: string;
@@ -115,6 +117,8 @@ export interface InputFocusOptions extends FocusOptions {
 }
 export type SenderRef = {
   nativeElement: HTMLDivElement;
+  /** Native textarea (plain) or SlotTextArea root (slot mode). */
+  inputElement: HTMLElement | null;
   focus: (options?: InputFocusOptions) => void;
   blur: () => void;
   /**

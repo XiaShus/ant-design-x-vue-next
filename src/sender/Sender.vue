@@ -147,6 +147,8 @@ const mergedCls = computed(() => {
   return classnames(
     prefixCls.value,
     contextConfig.value.className,
+    (contextConfig.value.classNames as any)?.root,
+    classNames.root,
     className,
     rootClassName,
     hashId.value,
@@ -156,7 +158,28 @@ const mergedCls = computed(() => {
       [`${prefixCls.value}-disabled`]: disabled,
     },
   );
-})
+});
+
+const mergedRootStyle = computed(() => ({
+  ...contextConfig.value.style,
+  ...style,
+  ...((contextConfig.value.styles as any)?.root || {}),
+  ...(styles.root || {}),
+}));
+
+const getInputElement = (): HTMLElement | null => {
+  if (isSlotMode.value) {
+    const native = (slotRef.value as any)?.nativeElement;
+    if (native && typeof native === 'object' && 'value' in native) {
+      return (native.value as HTMLElement | null) ?? null;
+    }
+    return (native as HTMLElement | null) ?? null;
+  }
+  return (
+    ((inputRef.value as any)?.resizableTextArea?.textArea as HTMLTextAreaElement | undefined) ??
+    null
+  );
+};
 
 const actionBtnCls = computed(() => `${prefixCls.value}-actions-btn`);
 const actionListCls = computed(() => `${prefixCls.value}-actions-list`);
@@ -405,14 +428,25 @@ const prefixComp = computed(() => {
 
 defineRender(() => {
   return wrapCSSVar(
-    <div ref={containerRef} class={mergedCls.value} style={{ ...contextConfig.value.style, ...style }}>
+    <div ref={containerRef} class={mergedCls.value} style={mergedRootStyle.value}>
       {/* Header */}
       {headerComp.value && (
         <SenderHeaderContextProvider value={{ prefixCls: prefixCls.value }}>{headerComp.value}</SenderHeaderContextProvider>
       )}
       <ActionButtonContextProvider value={actionsButtonContextProps.value}>
 
-        <div class={`${prefixCls.value}-content`} onMousedown={onContentMouseDown}>
+        <div
+          class={classnames(
+            `${prefixCls.value}-content`,
+            (contextConfig.value.classNames as any)?.content,
+            classNames.content,
+          )}
+          style={{
+            ...((contextConfig.value.styles as any)?.content || {}),
+            ...(styles.content || {}),
+          }}
+          onMousedown={onContentMouseDown}
+        >
           {/* Prefix */}
           {prefixComp.value && (
             <div
@@ -512,6 +546,9 @@ defineRender(() => {
 
 defineExpose({
   nativeElement: containerRef,
+  get inputElement() {
+    return getInputElement();
+  },
   focus: (opt?: any) => {
     if (isSlotMode.value) {
       slotRef.value?.focus(opt);
