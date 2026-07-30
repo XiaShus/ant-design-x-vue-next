@@ -104,7 +104,7 @@ attachments/files-custom
 
 | 属性             | 说明                                                                       | 类型                                                               | 默认值 | 版本 |
 | ---------------- | -------------------------------------------------------------------------- | ------------------------------------------------------------------ | ------ | ---- |
-| classNames       | 自定义样式类名，[见下](#semantic-dom)                                      | Record<string, string>                                             | -      | -    |
+| classNames       | 自定义样式类名，[见下](#semantic-dom)                                      | Record<'list' \| 'item' \| 'placeholder' \| 'upload', string>       | -      | 1.97.0 |
 | disabled         | 是否禁用                                                                   | boolean                                                            | false  | -    |
 | getDropContainer | 设置拖拽时，可以释放文件的区域                                             | () => HTMLElement                                                  | -      | -    |
 | items            | 附件列表，同 Upload `fileList`；可用 `cardType` 指定卡片展示类型（对齐 React；勿用 Upload `type` MIME） | Attachment[]                                                       | -      | 1.80.0（`cardType`） |
@@ -112,16 +112,23 @@ attachments/files-custom
 | placeholder      | 没有文件时的占位信息                                                       | PlaceholderType \| ((type: 'inline' \| 'drop') => PlaceholderType) | -      | -    |
 | rootClassName    | 根节点的样式类名                                                           | string                                                             | -      | -    |
 | rootStyle        | 根节点的样式对象                                                           | CSSProperties                                                      | -      | -    |
-| styles           | 自定义样式对象，[见下](#semantic-dom)                                      | Record<string, CSSProperties>                                      | -      | -    |
+| styles           | 自定义样式对象，[见下](#semantic-dom)                                      | Record<'list' \| 'item' \| 'placeholder' \| 'upload', CSSProperties> | -      | 1.97.0 |
 | imageProps       | 图片属性，同 antdv [Image](https://www.antdv.com/components/image-cn) 属性 | ImageProps                                                         | -      | -    |
 | maxCount         | 限制附件数量；达到上限后隐藏 FileList 继续上传入口（对齐 React）         | number                                                             | -      | 1.46.0 |
 
+自 `1.97.0` 起可从包入口 `import type { AttachmentsSemanticType, PlaceholderType }`（对齐 React）。
+
 ```tsx | pure
-interface PlaceholderType {
-  icon?: VNode;
-  title?: VNode | string;
-  description?: VNode | string;
-}
+type AttachmentsSemanticType = 'list' | 'item' | 'placeholder' | 'upload';
+
+type PlaceholderType =
+  | {
+      icon?: VNode;
+      title?: VNode | string;
+      description?: VNode | string;
+    }
+  | VNode
+  | string;
 
 type Attachment = UploadFile & {
   description?: VNode | string;

@@ -19,6 +19,15 @@ customClass: changelog-page
 
 ---
 
+## 1.97.0
+
+`2026-07-31`
+
+### ant-design-x-vue-next
+
+- 🆕 导出 `AttachmentsSemanticType` / `PlaceholderType`；Attachments `classNames`/`styles` 文档改为语义键类型（对齐 React）。
+- 🛠 发布 npm 包 [`ant-design-x-vue-next@1.97.0`](https://www.npmjs.com/package/ant-design-x-vue-next)。
+
 ## 1.96.0
 
 `2026-07-31`

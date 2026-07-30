@@ -39,6 +39,8 @@ export interface PlaceholderProps {
 }
 
 export type SemanticType = 'list' | 'item' | 'placeholder' | 'upload';
+/** Align React attachments `SemanticType` export name (`item` is Vue-wired). */
+export type AttachmentsSemanticType = SemanticType;
 
 export interface FileListProps {
   prefixCls: string;
