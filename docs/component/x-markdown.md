@@ -26,6 +26,14 @@ x-markdown/streaming
 
 :::
 
+### 数学公式（LaTeX）
+
+:::demo 通过 `Latex()` 插件渲染 KaTeX 公式（`$...$` / `$$...$$`）。
+
+x-markdown/latex
+
+:::
+
 ## API
 
 ### XMarkdownProps
@@ -42,18 +50,27 @@ x-markdown/streaming
 | dompurifyConfig | DOMPurify 配置 | `Config` | - |
 | disableDefaultStyles | 关闭内置默认样式 | `boolean \| DefaultStyleTag[]` | - |
 
+### Latex 插件
+
+```ts
+import { XMarkdown, Latex } from 'ant-design-x-vue-next';
+
+<XMarkdown content={md} config={{ extensions: Latex() }} />
+```
+
 ## 企业使用建议
 
 - 对大模型输出务必开启 `escapeRawHtml`，并按需收紧 `dompurifyConfig`。
 - 自定义组件标签会自动合并进 DOMPurify `ADD_TAGS`；不要手动关闭消毒。
 - 链接新开页请配合 `openLinksInNewTab`（自动带 `rel="noopener noreferrer"`）。
+- 流式场景请设置 `streaming.hasNextChunk: true`，启用增量 token 缓存。
 
 ## 说明
 
 - 解析引擎：[`marked`](https://github.com/markedjs/marked)（与官方一致）。
 - 安全清洗：[`dompurify`](https://github.com/cure53/DOMPurify)（含 happy-dom 兼容补丁，失败时 fail-closed，绝不回退原始 HTML）。
-- 已覆盖常用渲染、链接、代码块组件映射、流式尾标与 **增量 token 缓存**（流式时暂挂未闭合的链接/强调等，避免闪烁）。
-- 仍在对齐：LaTeX 插件、AnimationText、DebugPanel。
+- 已覆盖常用渲染、链接、代码块、流式尾标、**增量 token 缓存**与 **LaTeX/KaTeX**。
+- 仍在对齐：AnimationText、DebugPanel、独立包拆分。
 
 ## 贡献者
 

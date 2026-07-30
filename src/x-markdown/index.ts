@@ -25,3 +25,5 @@ export { sanitizeMarkdownHtml } from './sanitize';
 export { escapeHtml } from './escapeHtml';
 export { useStreaming } from './composables/useStreaming';
 export { processStreamingText, getInitialCache } from './streamCache';
+export { Latex, plugins as xMarkdownPlugins } from './plugins';
+export type { LatexOption } from './plugins';
