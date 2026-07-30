@@ -16,6 +16,7 @@ export type {
   DividerBubbleProps,
   InfoType,
   BubbleDataType,
+  BubbleItemType,
   RolesType,
   RoleType,
 } from './interface';

@@ -187,6 +187,9 @@ export type BubbleDataType = BubbleProps<any> & {
   extraInfo?: AnyObject;
 };
 
+/** Align React `@ant-design/x` export name for Bubble.List items. */
+export type BubbleItemType = BubbleDataType;
+
 export type RoleType = Partial<Omit<BubbleProps<any>, 'content'>>;
 
 export type RolesType = Record<string, RoleType> | ((bubbleDataP: BubbleDataType, index: number) => RoleType);

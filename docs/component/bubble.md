@@ -301,7 +301,7 @@ const MyBubble = Bubble<CustomContentType>;
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
 | autoScroll | 当内容更新时，自动滚动到最新位置。如果用户滚动，则会暂停自动滚动。 | boolean | true |  |
-| items | 气泡数据列表；`role: 'system' \| 'divider'` 渲染对应子组件 | (BubbleProps & { key?: string \| number, role?: string })[] | - | 1.53.0（system/divider） |
+| items | 气泡数据列表；`role: 'system' \| 'divider'` 渲染对应子组件（类型亦导出为 `BubbleItemType`，对齐 React） | BubbleItemType[] / BubbleDataType[] | - | 1.81.0（`BubbleItemType` 导出） |
 | roles | 设置气泡默认属性，`items` 中的 `role` 会进行自动对应（与 `role` 等价；同时传入时优先 `roles`） | Record<string, BubbleProps> \| (bubble, index) => BubbleProps | - |  |
 | role | 对齐 React：同 `roles` | Record<string, BubbleProps> \| (bubble, index) => BubbleProps | - | 1.68.0 |
 | classNames | 语义化 className | Record<'root' \| 'scroll' \| 'bubble' \| 'system' \| 'divider' \| …, string> | - | 1.53.0 |
