@@ -4,6 +4,9 @@ import { CloseCircleFilled, FileExcelFilled, FileImageFilled, FileMarkdownFilled
 import { computed, onWatcherCleanup, useTemplateRef, watch } from 'vue';
 import type { VNode } from 'vue';
 import AudioIcon from './AudioIcon.vue';
+import JavaIcon from './JavaIcon.vue';
+import JavaScriptIcon from './JavaScriptIcon.vue';
+import PythonIcon from './PythonIcon.vue';
 import VideoIcon from './VideoIcon.vue';
 import type { FileListCardProps, PresetIcons } from '../interface';
 import { useAttachmentContextInject } from '../context';
@@ -85,6 +88,24 @@ const PRESET_FILE_ICONS: {
       icon: <AudioIcon />,
       color: '#8c8c8c',
       ext: AUDIO_EXTS,
+    },
+    {
+      key: 'java',
+      icon: <JavaIcon />,
+      color: '#1677ff',
+      ext: new Set(['java']),
+    },
+    {
+      key: 'javascript',
+      icon: <JavaScriptIcon />,
+      color: '#fab714',
+      ext: new Set(['js']),
+    },
+    {
+      key: 'python',
+      icon: <PythonIcon />,
+      color: '#fab714',
+      ext: new Set(['py']),
     },
   ];
 

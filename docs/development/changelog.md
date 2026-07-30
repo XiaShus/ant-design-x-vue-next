@@ -19,6 +19,15 @@ customClass: changelog-page
 
 ---
 
+## 1.74.0
+
+`2026-07-31`
+
+### ant-design-x-vue-next
+
+- 🆕 Attachments：FileListCard 支持 java / javascript / python 预设图标（对齐 FileCard）。
+- 🛠 发布 npm 包 [`ant-design-x-vue-next@1.74.0`](https://www.npmjs.com/package/ant-design-x-vue-next)。
+
 ## 1.73.0
 
 `2026-07-31`

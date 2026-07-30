@@ -172,4 +172,17 @@ export interface AttachmentsRef {
 }
 
 
-export type PresetIcons = 'default' | 'excel' | 'image' | 'markdown' | 'pdf' | 'ppt' | 'word' | 'zip' | 'video' | 'audio';
+export type PresetIcons =
+  | 'default'
+  | 'excel'
+  | 'image'
+  | 'markdown'
+  | 'pdf'
+  | 'ppt'
+  | 'word'
+  | 'zip'
+  | 'video'
+  | 'audio'
+  | 'java'
+  | 'javascript'
+  | 'python';
