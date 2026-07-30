@@ -42,6 +42,9 @@ const primitiveNames = new Set<string>([
   'CodeHighlighter',
   'Mermaid',
   'XMarkdown',
+  'XCard',
+  'Box',
+  'Card',
   'Welcome',
 ])
 

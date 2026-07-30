@@ -2,6 +2,26 @@
 
 > Vue Next 文档站时间线版见 [更新日志](https://ant-design-x-vue-next-524.netlify.app/development/changelog.html)。
 
+## 1.10.0
+
+`2026-07-30`
+
+### ant-design-x-vue-next
+
+- 🆕 XMarkdown：安全消毒、`escapeRawHtml`、流式 token 缓存、LaTeX/KaTeX、AnimationText
+- 🆕 SDK：XRequest abort/timeout/retry/middleware；useXChat conversationKey；OpenAIChatProvider
+- 🆕 XCard A2UI v0.9（Box/Card + catalog 白名单）
+- 🛠 发布 npm `ant-design-x-vue-next@1.10.0`
+
+## 1.9.0
+
+`2026-07-30`
+
+### ant-design-x-vue-next
+
+- 🆕 内置 XMarkdown MVP（marked + DOMPurify + CodeHighlighter/Mermaid）
+- 🛠 发布 npm `ant-design-x-vue-next@1.9.0`
+
 ## 1.7.0
 
 `2026-07-30`

@@ -19,6 +19,18 @@ customClass: changelog-page
 
 ---
 
+## 1.10.0
+
+`2026-07-30`
+
+### ant-design-x-vue-next
+
+- 🆕 `XMarkdown` 企业能力：安全消毒 fail-closed、`escapeRawHtml`、增量流式 token 缓存、`Latex()` / KaTeX、`AnimationText`。
+- 🆕 SDK：`XRequest` timeout / streamTimeout / retry / middlewares / `abort`；`useXChat.abort` / `conversationKey`；`OpenAIChatProvider`。
+- 🆕 `XCard`（A2UI v0.9）：`Box` / `Card`、本地 catalog、远程 catalog 白名单。
+- 🛠 依赖新增 `katex`；文档站补充 XCard / LaTeX / 企业接入说明。
+- 🛠 发布 npm 包 [`ant-design-x-vue-next@1.10.0`](https://www.npmjs.com/package/ant-design-x-vue-next)。
+
 ## 1.9.0
 
 `2026-07-30`

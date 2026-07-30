@@ -38,6 +38,7 @@ React 2.x 已拆出独立包，Vue Next 尚未拆分：
 本仓库工具类文档：
 
 - [XMarkdown](/component/x-markdown)
+- [XCard](/component/x-card)
 - [useXAgent](/component/use-x-agent)
 - [useXChat](/component/use-x-chat)
 - [XStream](/component/x-stream)
