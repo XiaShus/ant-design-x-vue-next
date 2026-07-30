@@ -19,6 +19,16 @@ customClass: changelog-page
 
 ---
 
+## 1.39.0
+
+`2026-07-31`
+
+### ant-design-x-vue-next
+
+- 🆕 Actions `variant` 对齐 React：`borderless` / `outlined` / `filled`（旧值 `border` 映射为 `filled`）。
+- 📖 更新 variant 演示。
+- 🛠 发布 npm 包 [`ant-design-x-vue-next@1.39.0`](https://www.npmjs.com/package/ant-design-x-vue-next)。
+
 ## 1.38.0
 
 `2026-07-31`

@@ -117,10 +117,10 @@ export interface ActionsProps extends Omit<HTMLAttributes, 'onClick'> {
   style?: CSSProperties;
   /**
    * @desc 变体
-   * @descEN Variant.
+   * @descEN Variant. `border` is a deprecated alias of `filled`.
    * @default 'borderless'
    */
-  variant?: 'borderless' | 'border';
+  variant?: 'borderless' | 'outlined' | 'filled' | 'border';
   /**
    * @desc 样式类名的前缀。
    * @descEN Prefix for style class names.

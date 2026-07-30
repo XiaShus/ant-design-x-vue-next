@@ -62,7 +62,7 @@ actions/fade-in
 | block | 子操作项是否占据一行 | boolean | false | - |
 | onClick | Item 操作项被点击时的回调函数 | `function({ item, key, keyPath, domEvent })` | - | - |
 | style | 根节点样式 | CSSProperties | - | - |
-| variant | 变体 | `'borderless' \| 'border'` | 'borderless' | - |
+| variant | 变体（`border` 为 `filled` 的废弃别名） | `'borderless' \| 'outlined' \| 'filled' \| 'border'` | 'borderless' | 1.39.0（`outlined`/`filled`） |
 | prefixCls | 样式类名的前缀 | string | - | - |
 | fadeIn | 挂载时淡入 | boolean | `false` | 1.35.0 |
 | fadeInLeft | 挂载时从左淡入（与 `fadeIn` 同时设置时优先） | boolean | `false` | 1.35.0 |

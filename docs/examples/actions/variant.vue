@@ -1,6 +1,6 @@
 <script setup lang="tsx">
 import { CopyOutlined, RedoOutlined } from '@ant-design/icons-vue';
-import { App } from 'ant-design-vue';
+import { App, Flex, Typography } from 'ant-design-vue';
 import { Actions, type ActionsProps } from 'ant-design-x-vue';
 
 defineOptions({ name: 'AXActionsVariant' });
@@ -22,11 +22,31 @@ const Demo = () => {
   const { message } = App.useApp();
 
   const onClick: ActionsProps['onClick'] = ({ keyPath }) => {
-    // Logic for handling click events
     message.success(`you clicked ${keyPath.join(',')}`);
   };
 
-  return <Actions items={actionItems} onClick={onClick} variant="border" />;
+  return (
+    <Flex vertical gap="middle">
+      <div>
+        <Typography.Text type="secondary">borderless</Typography.Text>
+        <div>
+          <Actions items={actionItems} onClick={onClick} variant="borderless" />
+        </div>
+      </div>
+      <div>
+        <Typography.Text type="secondary">outlined</Typography.Text>
+        <div>
+          <Actions items={actionItems} onClick={onClick} variant="outlined" />
+        </div>
+      </div>
+      <div>
+        <Typography.Text type="secondary">filled</Typography.Text>
+        <div>
+          <Actions items={actionItems} onClick={onClick} variant="filled" />
+        </div>
+      </div>
+    </Flex>
+  );
 };
 
 defineRender(() => {
@@ -37,4 +57,3 @@ defineRender(() => {
   );
 });
 </script>
-

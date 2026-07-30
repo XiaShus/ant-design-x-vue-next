@@ -1,3 +1,4 @@
+import { unit } from '../../_util/cssinjs';
 import { mergeToken } from '../../_util/cssinjs-utils';
 import type { FullToken, GenerateStyle, GetDefaultToken } from '../../theme/cssinjs-utils';
 import { genStyleHooks } from '../../theme/genStyleUtils';
@@ -20,6 +21,7 @@ const genActionsStyle: GenerateStyle<ActionsToken> = (token) => {
       [`${componentCls}-list`]: {
         display: 'inline-flex',
         flexDirection: 'row',
+        alignItems: 'center',
         gap: token.paddingXS,
         color: token.colorTextDescription,
 
@@ -58,26 +60,30 @@ const genActionsStyle: GenerateStyle<ActionsToken> = (token) => {
           },
         },
       },
-      '& .border': {
-        padding: `${token.paddingXS}px ${token.paddingSM}px`,
-        gap: token.paddingSM,
-        borderRadius: calc(token.borderRadiusLG).mul(1.5).equal(),
+
+      [`${componentCls}-variant-outlined`]: {
+        paddingInline: unit(calc(token.paddingXXS).add(1).equal()),
+        paddingBlock: token.paddingXXS,
+        borderRadius: token.borderRadius,
+        border: `${unit(token.lineWidth)} ${token.lineType} ${token.colorBorderSecondary}`,
+      },
+
+      [`${componentCls}-variant-filled`]: {
+        paddingInline: unit(calc(token.paddingXXS).add(1).equal()),
+        paddingBlock: token.paddingXXS,
+        borderRadius: token.borderRadius,
         backgroundColor: token.colorBorderSecondary,
         color: token.colorTextSecondary,
 
         [`${componentCls}-list-item, ${componentCls}-list-sub-item`]: {
-          padding: 0,
-          lineHeight: token.lineHeight,
-
-          '&-icon': {
-            fontSize: token.fontSizeLG,
-          },
-
           '&:hover': {
+            color: token.colorTextSecondary,
+            background: 'transparent',
             opacity: 0.8,
           },
         },
       },
+
       '& .block': {
         display: 'flex',
       },

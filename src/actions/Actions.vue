@@ -64,6 +64,12 @@ const mergedStyle = computed(() => ({
   ...(typeof props.style === 'object' ? props.style : {}),
 }));
 
+/** `border` kept as deprecated alias of `filled` (legacy Vue API). */
+const normalizedVariant = computed(() => {
+  const v = props.variant ?? 'borderless';
+  return v === 'border' ? 'filled' : v;
+});
+
 const getTooltipNode = (node: any, title?: string, tooltipProps?: TooltipProps) => {
   if (title) {
     return (
@@ -130,7 +136,13 @@ const domProps = computed(() => pickAttrs(props, {
 defineRender(() => {
   const rootNode = (
     <div class={mergedCls.value} {...domProps.value} style={mergedStyle.value}>
-      <div class={classnames(`${prefixCls}-list`, props.variant, { block: props.block })}>
+      <div
+        class={classnames(
+          `${prefixCls}-list`,
+          `${prefixCls}-variant-${normalizedVariant.value}`,
+          { block: props.block },
+        )}
+      >
         {props.items.map((item) => {
           if (item.actionRender) {
             return typeof item.actionRender === 'function'
