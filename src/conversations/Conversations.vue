@@ -5,11 +5,12 @@ import type { Conversation, ConversationsItemProps, ConversationsProps } from '.
 import ConversationsItem from './ConversationsItem.vue';
 import Creation from './Creation.vue';
 import GroupTitle from './GroupTitle.vue';
-import { computed, ref, watch } from 'vue';
+import { computed, ref, toRef, watch } from 'vue';
 import useMergedState from '../_util/hooks/useMergedState';
 import { useXProviderContext } from '../x-provider';
 import useGroupable from './hooks/useGroupable';
 import useXComponentConfig from '../_util/hooks/use-x-component-config';
+import useShortcutKeys from '../_util/hooks/use-shortcut-keys';
 import useStyle from './style';
 import GroupTitleContextProvider from './context';
 
@@ -30,6 +31,7 @@ const {
   class: className,
   style,
   creation: _creation,
+  shortcutKeys: _shortcutKeys,
   ...restProps
 } = props;
 
@@ -89,8 +91,45 @@ const onConversationItemClick: ConversationsItemProps['onClick'] = (info) => {
   }
 };
 
+// Flat item list for shortcut index (Ctrl+1…9 / arrow list)
+const keyList = computed(() => (props.items || []).filter((item) => item && item.key));
+
+// ============================ Shortcut Keys =====================
+const { shortcutKeysInfo, subscribe } = useShortcutKeys(
+  'conversations',
+  toRef(props, 'shortcutKeys'),
+);
+
+subscribe((action) => {
+  switch (action?.name) {
+    case 'items': {
+      const index = action.actionKeyCodeNumber !== false
+        ? action.actionKeyCodeNumber
+        : action.index;
+      if (typeof index === 'number') {
+        const target = keyList.value[index];
+        if (target?.key && !target.disabled) {
+          setMergedActiveKey(target.key);
+          onActiveChange?.(target.key);
+        }
+      }
+      break;
+    }
+    case 'creation': {
+      const creation = props.creation;
+      if (typeof creation?.onClick === 'function' && !creation?.disabled) {
+        creation.onClick();
+      }
+      break;
+    }
+    default:
+      break;
+  }
+});
+
 defineRender(() => {
   const creation = props.creation;
+  const creationShortcut = shortcutKeysInfo.value?.creation;
   return wrapCSSVar(
     <ul
       {...domProps.value}
@@ -112,6 +151,12 @@ defineRender(() => {
           }}
           prefixCls={`${prefixCls.value}-creation`}
           {...creation}
+          shortcutKeysIcon={
+            Array.isArray(creationShortcut?.shortcutKeysIcon) &&
+            !Array.isArray(creationShortcut.shortcutKeysIcon[0])
+              ? (creationShortcut.shortcutKeysIcon as string[])
+              : creation.shortcutKeysIcon
+          }
         />
       )}
       {groupSate.value.groupList.map((groupInfo, groupIndex) => {

@@ -11,4 +11,6 @@ export interface CreationProps {
   disabled?: boolean;
   icon?: VNodeChild | (() => VNodeChild);
   onClick?: (event?: MouseEvent) => void;
+  /** Shortcut key icons shown next to the default label (from Conversations.shortcutKeys). */
+  shortcutKeysIcon?: string[];
 }

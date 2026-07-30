@@ -19,6 +19,16 @@ customClass: changelog-page
 
 ---
 
+## 1.44.0
+
+`2026-07-31`
+
+### ant-design-x-vue-next
+
+- 🆕 Conversations `shortcutKeys`（`creation` / `items`），对齐 React 2.x；导出 `ShortcutKeyCode`。
+- 🆕 Creation 默认标签展示快捷键图标。
+- 🛠 发布 npm 包 [`ant-design-x-vue-next@1.44.0`](https://www.npmjs.com/package/ant-design-x-vue-next)。
+
 ## 1.43.0
 
 `2026-07-31`

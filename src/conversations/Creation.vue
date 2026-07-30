@@ -39,9 +39,23 @@ const labelNode = computed(() => {
   if (props.label !== undefined && props.label !== null) {
     return typeof props.label === 'function' ? props.label() : props.label;
   }
+  const icons = props.shortcutKeysIcon || [];
   return (
-    <div class={`${creationPrefix.value}-label`}>
+    <div
+      class={classnames(`${creationPrefix.value}-label`, {
+        [`${creationPrefix.value}-label-shortcut-keys-show`]: icons.length > 0,
+      })}
+    >
       <span>{locale.value.create}</span>
+      {icons.length > 0 && (
+        <span class={`${creationPrefix.value}-shortcut-keys`}>
+          {icons.map((keyIcon) => (
+            <span class={`${creationPrefix.value}-shortcut-key`} key={keyIcon}>
+              {keyIcon}
+            </span>
+          ))}
+        </span>
+      )}
     </div>
   );
 });

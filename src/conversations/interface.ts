@@ -5,8 +5,11 @@ import type { ConfigProviderProps, DirectionType } from 'ant-design-vue/es/confi
 import type { MenuProps } from 'ant-design-vue';
 import type { AvoidValidation } from '../type-utility';
 import type { CreationProps } from './creation-types';
+import type { ShortcutKeys } from '../_util/shortcut-keys';
 
 export type { CreationProps, CreationAlign } from './creation-types';
+export type { ShortcutKeys } from '../_util/shortcut-keys';
+export { ShortcutKeyCode } from '../_util/shortcut-keys';
 
 type GroupType = string;
 
@@ -122,6 +125,15 @@ export interface ConversationsProps extends HTMLAttributes {
    * @descEN New chat button config
    */
   creation?: CreationProps;
+
+  /**
+   * @desc 快捷键：创建 新建对话；items 切换会话（数字键或方向键等）
+   * @descEN Shortcut keys for creation / item activation
+   */
+  shortcutKeys?: {
+    creation?: ShortcutKeys<number>;
+    items?: ShortcutKeys<'number'> | ShortcutKeys<number>[];
+  };
 }
 
 export interface ConversationsItemProps extends /* @vue-ignore */ Omit<HTMLAttributes, 'onClick'> {

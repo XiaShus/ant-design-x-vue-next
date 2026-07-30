@@ -96,6 +96,10 @@ conversations/group-sort
 | styles | 语义化结构 style | Record<'item' \| 'creation', CSSProperties> | - | - |
 | classNames | 语义化结构 className | Record<'item' \| 'creation', string> | - | - |
 | creation | 新建对话按钮配置（传入即显示） | `CreationProps` | - | 1.21.0 |
+| shortcutKeys | 快捷键：`creation` 触发新建；`items` 按索引/数字键切换会话 | `{ creation?: ShortcutKeys; items?: ShortcutKeys \| ShortcutKeys[] }` | - | 1.44.0 |
+
+`ShortcutKeys` 为修饰键元组，例如 `['Ctrl', ShortcutKeyCode.N]`、`['Ctrl', 'number']`（Ctrl+1…9）。可从包导出 `ShortcutKeyCode`。
+
 
 ### Conversations.Creation / CreationProps
 

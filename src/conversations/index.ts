@@ -2,7 +2,8 @@ import type { App } from 'vue';
 import ConversationsComponent from './Conversations.vue';
 import Creation from './Creation.vue';
 
-export type { ConversationsProps, Conversation, CreationProps } from './interface';
+export type { ConversationsProps, Conversation, CreationProps, ShortcutKeys } from './interface';
+export { ShortcutKeyCode } from './interface';
 
 type Compounded = typeof ConversationsComponent & {
   Creation: typeof Creation;
