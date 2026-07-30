@@ -41,6 +41,12 @@ sources/expand
 | activeKey | 行内模式激活 key | string \| number | - |
 | popoverOverlayWidth | 弹出层宽度 | number \| string | 300 |
 
+### Sources Ref
+
+| 属性 | 说明 | 类型 | 版本 |
+| --- | --- | --- | --- |
+| nativeElement | 根节点 DOM | HTMLElement | 1.66.0 |
+
 ```ts
 interface SourcesItem {
   key?: string | number

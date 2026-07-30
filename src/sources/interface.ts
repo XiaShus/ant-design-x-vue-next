@@ -4,6 +4,10 @@ import type { AvoidValidation } from '../type-utility';
 
 export type SourcesSemanticType = 'root' | 'title' | 'content';
 
+export interface SourcesRef {
+  nativeElement: HTMLElement;
+}
+
 export interface SourcesItem {
   key?: Key;
   title: AvoidValidation<VNode | string>;

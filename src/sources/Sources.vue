@@ -30,6 +30,8 @@ const emit = defineEmits<{
   click: [item: SourcesItem];
 }>();
 
+const sourcesRef = ref<HTMLDivElement | null>(null);
+
 const domProps = computed(() => {
   const attrs = pickAttrs(props, {
     attr: true,
@@ -130,6 +132,7 @@ defineRender(() => {
   return wrapCSSVar(
     <div
       {...domProps.value}
+      ref={sourcesRef}
       class={mergedCls.value}
       style={{
         ...(typeof contextConfig.value.style === 'object' ? contextConfig.value.style : {}),
@@ -205,5 +208,9 @@ defineRender(() => {
       )}
     </div>,
   );
+});
+
+defineExpose({
+  nativeElement: sourcesRef,
 });
 </script>

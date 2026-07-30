@@ -14,7 +14,7 @@
 | 表达 | Sender | ✅ | ✅（含 `suffix`/`actions`、Switch、词槽 contentEditable、`insert`+cursor/`replaceCharacters`、`classNames/styles` root/content、`inputElement`、locale） | [文档](/component/sender) |
 | 表达 | Attachments | ✅ | ✅（含 `select` / `fileNativeElement`、默认插槽触发、`#upload` + `maxCount` 隐藏） | [文档](/component/attachments) |
 | 表达 | Suggestion | ✅ | ✅（含 `icon`/`extra` 渲染、`onSelect` 第二参、`open` children prop、`classNames/styles` root/content/popup） | [文档](/component/suggestion) |
-| 反馈 | Sources | ✅ | ✅ | [文档](/component/sources) |
+| 反馈 | Sources | ✅ | ✅（含 `nativeElement` ref） | [文档](/component/sources) |
 | 反馈 | FileCard | ✅ | ✅ | [文档](/component/file-card) |
 | 表达 | Folder | ✅ | ✅ | [文档](/component/folder) |
 | 表达 | CodeHighlighter | ✅ | ✅ | [文档](/component/code-highlighter) |

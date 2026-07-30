@@ -1,7 +1,7 @@
 import type { App } from 'vue';
 import Sources from './Sources.vue';
 
-export type { SourcesProps, SourcesItem, SourcesSemanticType } from './interface';
+export type { SourcesProps, SourcesItem, SourcesSemanticType, SourcesRef } from './interface';
 
 // @ts-ignore
 Sources.install = function (app: App) {
