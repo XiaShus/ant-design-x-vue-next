@@ -10,7 +10,7 @@ export interface AntDesignXResolverOptions {
   /**
    * rename package
    *
-   * @default 'ant-design-x-vue'
+   * @default 'ant-design-x-vue-next'
    */
   packageName?: string
 
@@ -26,6 +26,7 @@ export interface AntDesignXResolverOptions {
  * set of components that are contained in the package
  */
 const primitiveNames = new Set<string>([
+  'Actions',
   'Attachments',
   'Bubble',
   'Conversations',
@@ -33,6 +34,7 @@ const primitiveNames = new Set<string>([
   'Sender',
   'Suggestion',
   'Theme',
+  'Think',
   'ThoughtChain',
   'Welcome',
 ])
@@ -58,7 +60,7 @@ export function AntDesignXVueResolver(
 ) {
   const {
     prefix = 'AX',
-    packageName = 'ant-design-x-vue',
+    packageName = 'ant-design-x-vue-next',
     exclude = []
   } = options
 

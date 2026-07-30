@@ -1,7 +1,7 @@
 {
-  "name": "ant-design-x-vue",
+  "name": "ant-design-x-vue-next",
   "version": "1.6.0",
-  "description": "Craft AI-driven interfaces effortlessly",
+  "description": "Ant Design X for Vue — community continuation aligned with @ant-design/x",
   "keywords": [
     "AI",
     "Copilot",
@@ -32,13 +32,12 @@
     "play": "vite ./play"
   },
   "author": {
-    "name": "wzc520pyfm",
-    "email": "wzc520pyf@163.com",
-    "url": "https://github.com/wzc520pyfm"
+    "name": "XiaShus",
+    "url": "https://github.com/XiaShus"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/wzc520pyfm/ant-design-x-vue"
+    "url": "https://github.com/XiaShus/ant-design-x-vue-next"
   },
   "license": "MIT",
   "exports": {

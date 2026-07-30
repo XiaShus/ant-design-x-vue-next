@@ -23,6 +23,10 @@ export default defineConfig({
           replacement: path.resolve(__dirname, '../../src')
         },
         {
+          find: /^ant-design-x-vue-next$/,
+          replacement: path.resolve(__dirname, '../../src')
+        },
+        {
           find: /^.*\/VPHero\.vue$/,
           replacement: fileURLToPath(
             new URL('./vitepress/components/vp-hero.vue', import.meta.url)
@@ -119,6 +123,7 @@ export default defineConfig({
         {
           text: '确认',
           items: [
+            { text: 'Think 思考过程', link: '/component/think' },
             { text: 'ThoughtChain 思维链', link: '/component/thought-chain' }
           ]
         },
@@ -151,7 +156,7 @@ export default defineConfig({
     },
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/wzc520pyfm/ant-design-x-vue' }
+      { icon: 'github', link: 'https://github.com/XiaShus/ant-design-x-vue-next' }
     ]
   }
 })

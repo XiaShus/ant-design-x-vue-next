@@ -1,12 +1,16 @@
 import { defineConfig } from 'vitest/config';
 import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
-
+import VueMacros from 'unplugin-vue-macros/vite';
 
 export default defineConfig({
   plugins: [
-    vue(),
-    vueJsx(),
+    VueMacros({
+      plugins: {
+        vue: vue(),
+        vueJsx: vueJsx(),
+      },
+    }),
   ],
   test: {
     environment: 'happy-dom',
