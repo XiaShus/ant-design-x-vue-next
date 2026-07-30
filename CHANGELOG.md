@@ -1,16 +1,6 @@
-# Changelog
+﻿# Changelog
 
-> Vue Next 文档站时间线版见 [更新日志](https://ant-design-x-vue-next-524.netlify.app/development/changelog.html)。
-
-## 1.24.0
-
-`2026-07-30`
-
-### ant-design-x-vue-next
-
-- 🆕 ThoughtChain.Item 复合组件（variant / status / blink / disabled）
-- 📖 ThoughtChain 简洁思维链演示与对齐进度
-- 🛠 发布 npm `ant-design-x-vue-next@1.24.0`
+> Vue Next 鏂囨。绔欐椂闂寸嚎鐗堣 [鏇存柊鏃ュ織](https://ant-design-x-vue-next-524.netlify.app/development/changelog.html)銆?
 
 ## 1.24.0
 
@@ -18,9 +8,9 @@
 
 ### ant-design-x-vue-next
 
-- 🆕 ThoughtChain.Item compound (`variant` / `status` / `blink` / `disabled`)
-- 📖 ThoughtChain 简洁思维链文档与演示
-- 🛠 发布 npm `ant-design-x-vue-next@1.24.0`
+- 馃啎 ThoughtChain.Item 澶嶅悎缁勪欢锛坴ariant / status / blink / disabled锛?
+- 馃摉 ThoughtChain 绠€娲佹€濈淮閾炬紨绀轰笌瀵归綈杩涘害
+- 馃洜 鍙戝竷 npm `ant-design-x-vue-next@1.24.0`
 
 ## 1.23.0
 
@@ -28,9 +18,9 @@
 
 ### ant-design-x-vue-next
 
-- 🆕 X locale pack via XProvider (`useLocale` / zh_CN / en_US)
-- 📖 XProvider 国际化文档与演示
-- 🛠 发布 npm `ant-design-x-vue-next@1.23.0`
+- 馃啎 X locale pack via XProvider (`useLocale` / zh_CN / en_US)
+- 馃摉 XProvider 鍥介檯鍖栨枃妗ｄ笌婕旂ず
+- 馃洜 鍙戝竷 npm `ant-design-x-vue-next@1.23.0`
 
 ## 1.22.0
 
@@ -38,9 +28,9 @@
 
 ### ant-design-x-vue-next
 
-- 🆕 Sender slotConfig / skill / SlotTextArea 词槽填空
-- 📖 Sender 词槽文档与演示
-- 🛠 发布 npm `ant-design-x-vue-next@1.22.0`
+- 馃啎 Sender slotConfig / skill / SlotTextArea 璇嶆Ы濉┖
+- 馃摉 Sender 璇嶆Ы鏂囨。涓庢紨绀?
+- 馃洜 鍙戝竷 npm `ant-design-x-vue-next@1.22.0`
 
 ## 1.21.0
 
@@ -48,9 +38,9 @@
 
 ### ant-design-x-vue-next
 
-- 🆕 Conversations.Creation / `creation` 新建对话
-- 📖 Conversations 文档更新
-- 🛠 发布 npm `ant-design-x-vue-next@1.21.0`
+- 馃啎 Conversations.Creation / `creation` 鏂板缓瀵硅瘽
+- 馃摉 Conversations 鏂囨。鏇存柊
+- 馃洜 鍙戝竷 npm `ant-design-x-vue-next@1.21.0`
 
 ## 1.20.0
 
@@ -58,9 +48,9 @@
 
 ### ant-design-x-vue-next
 
-- 🆕 Bubble streaming / footerPlacement / typing.effect
-- 📖 Bubble 流式与 Footer 演示
-- 🛠 发布 npm `ant-design-x-vue-next@1.20.0`
+- 馃啎 Bubble streaming / footerPlacement / typing.effect
+- 馃摉 Bubble 娴佸紡涓?Footer 婕旂ず
+- 馃洜 鍙戝竷 npm `ant-design-x-vue-next@1.20.0`
 
 ## 1.19.0
 
@@ -68,9 +58,9 @@
 
 ### ant-design-x-vue-next
 
-- 🆕 Bubble.System / Bubble.Divider / editable 编辑态
-- 📖 Bubble 文档与对齐进度更新
-- 🛠 发布 npm `ant-design-x-vue-next@1.19.0`
+- 馃啎 Bubble.System / Bubble.Divider / editable 缂栬緫鎬?
+- 馃摉 Bubble 鏂囨。涓庡榻愯繘搴︽洿鏂?
+- 馃洜 鍙戝竷 npm `ant-design-x-vue-next@1.19.0`
 
 ## 1.18.0
 
@@ -78,9 +68,9 @@
 
 ### ant-design-x-vue-next
 
-- 🆕 `Sender.Switch` 模式开关
-- 📖 Sender 文档与对齐进度更新
-- 🛠 发布 npm `ant-design-x-vue-next@1.18.0`
+- 馃啎 `Sender.Switch` 妯″紡寮€鍏?
+- 馃摉 Sender 鏂囨。涓庡榻愯繘搴︽洿鏂?
+- 馃洜 鍙戝竷 npm `ant-design-x-vue-next@1.18.0`
 
 ## 1.17.0
 
@@ -88,9 +78,9 @@
 
 ### ant-design-x-vue-next
 
-- 🆕 Actions 预设 Copy / Feedback / Item / Audio + `actionRender`
-- 📖 Actions 文档与对齐进度更新
-- 🛠 发布 npm `ant-design-x-vue-next@1.17.0`
+- 馃啎 Actions 棰勮 Copy / Feedback / Item / Audio + `actionRender`
+- 馃摉 Actions 鏂囨。涓庡榻愯繘搴︽洿鏂?
+- 馃洜 鍙戝竷 npm `ant-design-x-vue-next@1.17.0`
 
 ## 1.16.0
 
@@ -98,9 +88,9 @@
 
 ### ant-design-x-vue-next
 
-- 🆕 XCard Basic Catalog：`registerBasicCatalog` 内置 Text/Button/TextField/布局等
-- 📖 文档站 XCard 演示与对齐进度更新
-- 🛠 发布 npm `ant-design-x-vue-next@1.16.0`
+- 馃啎 XCard Basic Catalog锛歚registerBasicCatalog` 鍐呯疆 Text/Button/TextField/甯冨眬绛?
+- 馃摉 鏂囨。绔?XCard 婕旂ず涓庡榻愯繘搴︽洿鏂?
+- 馃洜 鍙戝竷 npm `ant-design-x-vue-next@1.16.0`
 
 ## 1.15.0
 
@@ -108,9 +98,9 @@
 
 ### ant-design-x-vue-next
 
-- 🆕 `createManualXRequest` / `AbstractXRequestClass`；Provider `request` + `injectRequest`
-- 🆕 `useXChat` 可仅用 `provider` 发请求
-- 🛠 发布 npm `ant-design-x-vue-next@1.15.0`
+- 馃啎 `createManualXRequest` / `AbstractXRequestClass`锛汸rovider `request` + `injectRequest`
+- 馃啎 `useXChat` 鍙粎鐢?`provider` 鍙戣姹?
+- 馃洜 鍙戝竷 npm `ant-design-x-vue-next@1.15.0`
 
 ## 1.14.0
 
@@ -118,9 +108,9 @@
 
 ### ant-design-x-vue-next
 
-- 🆕 `setXRequestGlobalOptions`；`useXChat` 异步 defaultMessages / queueRequest / extraInfo
-- 🛠 Release 流水线跳过已发布版本
-- 🛠 发布 npm `ant-design-x-vue-next@1.14.0`
+- 馃啎 `setXRequestGlobalOptions`锛沗useXChat` 寮傛 defaultMessages / queueRequest / extraInfo
+- 馃洜 Release 娴佹按绾胯烦杩囧凡鍙戝竷鐗堟湰
+- 馃洜 鍙戝竷 npm `ant-design-x-vue-next@1.14.0`
 
 ## 1.13.0
 
@@ -128,8 +118,8 @@
 
 ### ant-design-x-vue-next
 
-- 🆕 XCard A2UI v0.8 兼容
-- 🛠 发布 npm `ant-design-x-vue-next@1.13.0`
+- 馃啎 XCard A2UI v0.8 鍏煎
+- 馃洜 鍙戝竷 npm `ant-design-x-vue-next@1.13.0`
 
 ## 1.12.0
 
@@ -137,8 +127,8 @@
 
 ### ant-design-x-vue-next
 
-- 🆕 AbstractChatProvider / DefaultChatProvider；useXChat provider；useXConversations
-- 🛠 发布 npm `ant-design-x-vue-next@1.12.0`
+- 馃啎 AbstractChatProvider / DefaultChatProvider锛泆seXChat provider锛泆seXConversations
+- 馃洜 鍙戝竷 npm `ant-design-x-vue-next@1.12.0`
 
 ## 1.11.0
 
@@ -146,11 +136,11 @@
 
 ### ant-design-x-vue-next
 
-- 🆕 useXChat setMessage / removeMessage / onReload；Actions item.disabled
-- 🆕 XMarkdown DebugPanel；XMCPClient；DeepSeekChatProvider
-- 🛠 修复 dist/style.css 导出；Resolver 支持 AXProvider → XProvider
-- 📖 迁移指南：从 ant-design-x-vue 替换到本包
-- 🛠 发布 npm `ant-design-x-vue-next@1.11.0`
+- 馃啎 useXChat setMessage / removeMessage / onReload锛汚ctions item.disabled
+- 馃啎 XMarkdown DebugPanel锛沊MCPClient锛汥eepSeekChatProvider
+- 馃洜 淇 dist/style.css 瀵煎嚭锛汻esolver 鏀寔 AXProvider 鈫?XProvider
+- 馃摉 杩佺Щ鎸囧崡锛氫粠 ant-design-x-vue 鏇挎崲鍒版湰鍖?
+- 馃洜 鍙戝竷 npm `ant-design-x-vue-next@1.11.0`
 
 ## 1.10.0
 
@@ -158,10 +148,10 @@
 
 ### ant-design-x-vue-next
 
-- 🆕 XMarkdown：安全消毒、`escapeRawHtml`、流式 token 缓存、LaTeX/KaTeX、AnimationText
-- 🆕 SDK：XRequest abort/timeout/retry/middleware；useXChat conversationKey；OpenAIChatProvider
-- 🆕 XCard A2UI v0.9（Box/Card + catalog 白名单）
-- 🛠 发布 npm `ant-design-x-vue-next@1.10.0`
+- 馃啎 XMarkdown锛氬畨鍏ㄦ秷姣掋€乣escapeRawHtml`銆佹祦寮?token 缂撳瓨銆丩aTeX/KaTeX銆丄nimationText
+- 馃啎 SDK锛歑Request abort/timeout/retry/middleware锛泆seXChat conversationKey锛汷penAIChatProvider
+- 馃啎 XCard A2UI v0.9锛圔ox/Card + catalog 鐧藉悕鍗曪級
+- 馃洜 鍙戝竷 npm `ant-design-x-vue-next@1.10.0`
 
 ## 1.9.0
 
@@ -169,8 +159,8 @@
 
 ### ant-design-x-vue-next
 
-- 🆕 内置 XMarkdown MVP（marked + DOMPurify + CodeHighlighter/Mermaid）
-- 🛠 发布 npm `ant-design-x-vue-next@1.9.0`
+- 馃啎 鍐呯疆 XMarkdown MVP锛坢arked + DOMPurify + CodeHighlighter/Mermaid锛?
+- 馃洜 鍙戝竷 npm `ant-design-x-vue-next@1.9.0`
 
 ## 1.7.0
 
@@ -178,9 +168,9 @@
 
 ### ant-design-x-vue-next
 
-- 🆕 Think / Sources / FileCard / Folder
-- 📖 文档站对齐官方分组与组件文档
-- 🛠 发布 npm `ant-design-x-vue-next@1.7.0`
+- 馃啎 Think / Sources / FileCard / Folder
+- 馃摉 鏂囨。绔欏榻愬畼鏂瑰垎缁勪笌缁勪欢鏂囨。
+- 馃洜 鍙戝竷 npm `ant-design-x-vue-next@1.7.0`
 
 ## 1.6.0 (Vue Next)
 
@@ -188,52 +178,52 @@
 
 ### ant-design-x-vue-next
 
-- 🆕 Fork `ant-design-x-vue@1.6.0` 为社区续作，包名 `ant-design-x-vue-next`
-- 🆕 首发含 Think；文档站 Netlify 上线
+- 馃啎 Fork `ant-design-x-vue@1.6.0` 涓虹ぞ鍖虹画浣滐紝鍖呭悕 `ant-design-x-vue-next`
+- 馃啎 棣栧彂鍚?Think锛涙枃妗ｇ珯 Netlify 涓婄嚎
 
 ---
 
-以下为上游 `ant-design-x-vue` 的 changelogen 历史记录。
+浠ヤ笅涓轰笂娓?`ant-design-x-vue` 鐨?changelogen 鍘嗗彶璁板綍銆?
 
 ## v1.6.0
 
 [compare changes](https://github.com/wzc520pyfm/ant-design-x-vue/compare/v1.5.0...v1.6.0)
 
-### 🚀 Enhancements
+### 馃殌 Enhancements
 
 - **sender:** Add sendDisabled prop ([#458](https://github.com/wzc520pyfm/ant-design-x-vue/pull/458))
 
-### 🩹 Fixes
+### 馃┕ Fixes
 
 - **changelog:** Add repository URL to package.json ([#463](https://github.com/wzc520pyfm/ant-design-x-vue/pull/463))
 
-### 📖 Documentation
+### 馃摉 Documentation
 
 - **attachments:** Improve file card demo ([#453](https://github.com/wzc520pyfm/ant-design-x-vue/pull/453))
 - **conversations:** Fix group setup demo ([#459](https://github.com/wzc520pyfm/ant-design-x-vue/pull/459))
 - **sender:** Add custom Input sender component example ([#462](https://github.com/wzc520pyfm/ant-design-x-vue/pull/462))
 
-### ❤️ Contributors
+### 鉂わ笍 Contributors
 
 - Pengpeng ([@webvs2](https://github.com/webvs2))
 - Jason Ren ([@jasonren0403](https://github.com/jasonren0403))
-- 雨溪 ([@yuxi-ovo](https://github.com/yuxi-ovo))
+- 闆ㄦ邯 ([@yuxi-ovo](https://github.com/yuxi-ovo))
 - Wzc520pyfm ([@wzc520pyfm](https://github.com/wzc520pyfm))
 
 ## v1.5.0
 
 [compare changes](https://undefined/undefined/compare/v1.4.0...v1.5.0)
 
-### 🚀 Enhancements
+### 馃殌 Enhancements
 
 - **bubble:** Support to listen scroll callback for list (#452)
 
-### 🩹 Fixes
+### 馃┕ Fixes
 
 - **group-sort:** Update conversation label for ellipsis (#450)
 - **attachments:** Semantic of file list (#451)
 
-### ❤️ Contributors
+### 鉂わ笍 Contributors
 
 - Wzc520pyfm ([@wzc520pyfm](https://github.com/wzc520pyfm))
 
@@ -241,27 +231,27 @@
 
 [compare changes](https://undefined/undefined/compare/v1.3.2...v1.4.0)
 
-### 🚀 Enhancements
+### 馃殌 Enhancements
 
 - **attachments:** Add enter/leave animations (#380)
 - Add contributors section to documentation and scripts for automatic updates (#424)
 - **actions:** Add actions component (#449)
 
-### 🩹 Fixes
+### 馃┕ Fixes
 
 - **bubble:** Fix list auto scroll no work on init (#427)
 - **prompts:** Fix the warning of runtime type checking for the title (#439)
 - Bubble.List footer has no key (#448)
 
-### 📖 Documentation
+### 馃摉 Documentation
 
 - Add overview demo and setup examples for AI components (#423)
 
-### 🎨 Styles
+### 馃帹 Styles
 
 - Docs layout style in 1600 screen width and scrollbar (#433)
 
-### ❤️ Contributors
+### 鉂わ笍 Contributors
 
 - Wzc520pyfm ([@wzc520pyfm](https://github.com/wzc520pyfm))
 - Wujunyi0907 ([@wujunyi0907](https://github.com/wujunyi0907))
@@ -272,17 +262,17 @@
 
 [compare changes](https://undefined/undefined/compare/v1.3.1...v1.3.2)
 
-### 🩹 Fixes
+### 馃┕ Fixes
 
 - **use-x-agent:** Fix return type (#416)
 - **suggestion:** Fix open prop reactive (#425)
 
-### 📖 Documentation
+### 馃摉 Documentation
 
 - Update demo about x-agent (#418)
 - Update independent tsx demo (#419)
 
-### ❤️ Contributors
+### 鉂わ笍 Contributors
 
 - Wzc520pyfm ([@wzc520pyfm](http://github.com/wzc520pyfm))
 
@@ -290,17 +280,17 @@
 
 [compare changes](https://undefined/undefined/compare/v1.3.0...v1.3.1)
 
-### 🩹 Fixes
+### 馃┕ Fixes
 
 - **bubble:** Remove memo to fix bubble update (#415)
 
-### 📖 Documentation
+### 馃摉 Documentation
 
-- **style:** 修改演示demo 宽度 #411 (#413, #411)
+- **style:** 淇敼婕旂ずdemo 瀹藉害 #411 (#413, #411)
 - **attachments:** Add high-quality preview example for image file (#370)
 - **sender:** Add custom input demo (#384)
 
-### ❤️ Contributors
+### 鉂わ笍 Contributors
 
 - Wzc520pyfm ([@wzc520pyfm](http://github.com/wzc520pyfm))
 - Clddup ([@clddup](http://github.com/clddup))
@@ -309,7 +299,7 @@
 
 [compare changes](https://undefined/undefined/compare/v1.2.9...v1.3.0)
 
-### 🚀 Enhancements
+### 馃殌 Enhancements
 
 - Update useXChat & XRequest & fix useXAgent's RequestFn onSuccess type (#394)
 - **attachments:** Add custom icon options for FileCard (#381)
@@ -318,30 +308,30 @@
 - **use-x-agent:** Support dynamic option configuration (#395)
 - **x-request:** Support dynamic option configuration (#396)
 
-### 🔥 Performance
+### 馃敟 Performance
 
 - **bubble:** Memoize bubble items to optimize list rendering (#392)
 
-### 🩹 Fixes
+### 馃┕ Fixes
 
 - **prompts:** Fix scroll style (#399)
 - **welcome:** Fix warning of runtime prop checked (#404)
 - **bubble:** Disable typing for initial data (#391)
 
-### 📖 Documentation
+### 馃摉 Documentation
 
 - **sender:** Update components prop description (#402)
 - **bubble:** Fix list demo scroll style (#400)
 
-### 📦 Build
+### 馃摝 Build
 
 - **project:** Improve tree sharking (#386)
 
-### 🏡 Chore
+### 馃彙 Chore
 
 - Fix changelog (af5c881)
 
-### ❤️ Contributors
+### 鉂わ笍 Contributors
 
 - Wzc520pyfm ([@wzc520pyfm](http://github.com/wzc520pyfm))
 - PeikyLiu ([@PeikyLiu](http://github.com/PeikyLiu))
@@ -352,46 +342,46 @@
 
 [compare changes](https://undefined/undefined/compare/v1.2.8...v1.2.9)
 
-### 🚀 Enhancements
+### 馃殌 Enhancements
 
 - **bubble:** Support slots for bubble list (#373)
 
-### 🩹 Fixes
+### 馃┕ Fixes
 
 - **bubble:** Fix attrs reactive of bubble list (#393)
 - **bubble:** Improve bubble list scrollbar style (#389)
 - **suggestion:** Cascader dropdown popup height not auto (#398)
 
-### 📦 Build
+### 馃摝 Build
 
 - **project:** Support build esm min file for dist (#371)
 
-### ❤️ Contributors
+### 鉂わ笍 Contributors
 
 - Wzc520pyfm ([@wzc520pyfm](http://github.com/wzc520pyfm))
-- 雨溪 ([@yuxi-ovo](http://github.com/yuxi-ovo))
+- 闆ㄦ邯 ([@yuxi-ovo](http://github.com/yuxi-ovo))
 
 ## v1.2.8
 
 [compare changes](https://undefined/undefined/compare/v1.2.7...v1.2.8)
 
-### 🚀 Enhancements
+### 馃殌 Enhancements
 
 - **welcome:** Support vnode getter (#343)
 - **sender:** Add speech custom icon support (#374)
 - Support conf compatible style (#383)
 
-### 🩹 Fixes
+### 馃┕ Fixes
 
 - **suggestion:** Fix the dropdown width not adapting when block (#358)
 
-### 📖 Documentation
+### 馃摉 Documentation
 
 - **dev:** Add cdn online demo (#369)
 - Fix slot warning of setup demo (#372)
 - **xstream:** Fix documentation typos (#377)
 
-### ❤️ Contributors
+### 鉂わ笍 Contributors
 
 - Wzc520pyfm ([@wzc520pyfm](http://github.com/wzc520pyfm))
 - Kieran Wang ([@kieranwv](http://github.com/kieranwv))
@@ -401,43 +391,43 @@
 
 [compare changes](https://undefined/undefined/compare/v1.2.6...v1.2.7)
 
-### 🚀 Enhancements
+### 馃殌 Enhancements
 
 - **prompts:** Title prop support vnode getter (#344)
 - Add install func for components (#329)
 
-### 🩹 Fixes
+### 馃┕ Fixes
 
 - **sender:** Fix actions slot type (#357)
 - **bubble:** Fix slots type (#363)
 - **project:** Add require conf of resolver to support commonjs (#365)
 - **sender:** Fix sender define type err (#271)
 
-### 📦 Build
+### 馃摝 Build
 
 - **project:** Remove antdv from external of umd conf (#367)
 - **project:** Add esm output of dist (#368)
 
-### ❤️ Contributors
+### 鉂わ笍 Contributors
 
 - Wzc520pyfm ([@wzc520pyfm](http://github.com/wzc520pyfm))
-- 雨溪 ([@yuxi-ovo](http://github.com/yuxi-ovo))
+- 闆ㄦ邯 ([@yuxi-ovo](http://github.com/yuxi-ovo))
 
 ## v1.2.6
 
 [compare changes](https://undefined/undefined/compare/v1.2.5...v1.2.6)
 
-### 🩹 Fixes
+### 馃┕ Fixes
 
 - **bubble:** Fix header and footer warning of runtime prop checked (#353)
 - **bubble:** Fix display count reactive (#354)
 
-### 📖 Documentation
+### 馃摉 Documentation
 
 - **playground:** Add playground copilot demo (#346)
 - Update basic demo stackblitz link (#355)
 
-### ❤️ Contributors
+### 鉂わ笍 Contributors
 
 - Wzc520pyfm ([@wzc520pyfm](http://github.com/wzc520pyfm))
 - Bao ([@Bao0630](http://github.com/Bao0630))
@@ -446,17 +436,17 @@
 
 [compare changes](https://undefined/undefined/compare/v1.2.4...v1.2.5)
 
-### 🚀 Enhancements
+### 馃殌 Enhancements
 
 - **bubble:** Header support function (#341)
 - **sender:** Header and prefix support getter (#324)
 
-### 🩹 Fixes
+### 馃┕ Fixes
 
 - Passing Conversations menu.getPopupContainer to Dropdown (#303)
 - **thought-chain:** Fixed ellipsis not taking effect. (#254)
 
-### 📖 Documentation
+### 馃摉 Documentation
 
 - Remove api key and add description for api key (#335)
 - **thought-chain:** Add controlled setup demo (#321)
@@ -464,7 +454,7 @@
 - **bubble:** Add think demo (#138)
 - **bubble:** Add think setup demo (#299)
 
-### ❤️ Contributors
+### 鉂わ笍 Contributors
 
 - Superlollipop ([@quanbisen](http://github.com/quanbisen))
 - Wzc520pyfm ([@wzc520pyfm](http://github.com/wzc520pyfm))
@@ -475,34 +465,34 @@
 
 [compare changes](https://undefined/undefined/compare/v1.2.3...v1.2.4)
 
-### 🔥 Performance
+### 馃敟 Performance
 
 - Build script (#328)
 
-### 🩹 Fixes
+### 馃┕ Fixes
 
 - **Sender:** Fix pasted file is invalid in setup demo (#332)
 - Specify the file suffix for antdv (#334)
 
-### 📖 Documentation
+### 馃摉 Documentation
 
 - Fix warning for independent setup demo (#333)
 
-### ❤️ Contributors
+### 鉂わ笍 Contributors
 
 - Wzc520pyfm ([@wzc520pyfm](http://github.com/wzc520pyfm))
-- 专注的小眼神 ([@Jarvis2018](http://github.com/Jarvis2018))
-- 菠萝吹雪 ([@yuguaa](http://github.com/yuguaa))
+- 涓撴敞鐨勫皬鐪肩 ([@Jarvis2018](http://github.com/Jarvis2018))
+- 鑿犺悵鍚归洩 ([@yuguaa](http://github.com/yuguaa))
 
 ## v1.2.3
 
 [compare changes](https://undefined/undefined/compare/v1.2.2...v1.2.3)
 
-### 🩹 Fixes
+### 馃┕ Fixes
 
 - **attachments:** Fix maximum updates by ref transfer (#319)
 
-### ❤️ Contributors
+### 鉂わ笍 Contributors
 
 - Wzc520pyfm ([@wzc520pyfm](http://github.com/wzc520pyfm))
 
@@ -510,26 +500,26 @@
 
 [compare changes](https://undefined/undefined/compare/v1.2.1...v1.2.2)
 
-### 🩹 Fixes
+### 馃┕ Fixes
 
 - **bubble:** Fix message slot type (73a9bc8)
 - **bubble:** Fix content param for footer func (#309)
 - **attachment:** Fix template ref value (#310)
 
-### 📖 Documentation
+### 馃摉 Documentation
 
 - **bubble:** Update types about content (bd5ace2)
 - Update a new contributions charts (#304)
 
-### 📦 Build
+### 馃摝 Build
 
 - External import starting with ant-design-vue (#316)
 
-### 🏡 Chore
+### 馃彙 Chore
 
 - Add unpkg badge (#289)
 
-### ❤️ Contributors
+### 鉂わ笍 Contributors
 
 - Wzc520pyfm ([@wzc520pyfm](http://github.com/wzc520pyfm))
 - Shinji-Li <1349021570@qq.com>
@@ -538,25 +528,25 @@
 
 [compare changes](https://undefined/undefined/compare/v1.2.0...v1.2.1)
 
-### 🚀 Enhancements
+### 馃殌 Enhancements
 
 - Support XRequest & useXChat & useXAgent to model access (#297)
 
-### 🩹 Fixes
+### 馃┕ Fixes
 
 - **thought-chain:** Fix controlled mode not working (#241)
 - **sender:** Fix loading icon err (#298)
 - **use-x-agent:** Fix is-requesting reactive (#301)
 
-### 📖 Documentation
+### 馃摉 Documentation
 
 - Update a new contributions charts (#292)
 
-### 🏡 Chore
+### 馃彙 Chore
 
 - Add deepwiki badge and href (#288)
 
-### ❤️ Contributors
+### 鉂わ笍 Contributors
 
 - Wzc520pyfm ([@wzc520pyfm](http://github.com/wzc520pyfm))
 - InCBle ([@inCBle](http://github.com/inCBle))
@@ -566,28 +556,28 @@
 
 [compare changes](https://undefined/undefined/compare/v1.1.2...v1.2.0)
 
-### 🚀 Enhancements
+### 馃殌 Enhancements
 
 - **bubble:** Footer support function (#285)
 
-### 🩹 Fixes
+### 馃┕ Fixes
 
 - **sender:** Fix loading btn icon prop (#286)
 - **theme:** Fix theme system (#270)
 
-### 💅 Refactors
+### 馃拝 Refactors
 
 - **bubble:** Type messageRender (#284)
 
-### 📦 Build
+### 馃摝 Build
 
 - Improve build conf and dist (#272)
 
-### 🏡 Chore
+### 馃彙 Chore
 
 - Update lockfile (#283)
 
-### ❤️ Contributors
+### 鉂わ笍 Contributors
 
 - Wzc520pyfm ([@wzc520pyfm](http://github.com/wzc520pyfm))
 
@@ -595,18 +585,18 @@
 
 [compare changes](https://undefined/undefined/compare/v1.1.1...v1.1.2)
 
-### 🩹 Fixes
+### 馃┕ Fixes
 
 - **conversations:** Fix groupable type of conversations. (#257)
 - **x-provider & sender:** Fix type define resolver err (#262)
 - **attachments:** Fix img style (#268)
 
-### 📖 Documentation
+### 馃摉 Documentation
 
 - Add favicon (#265)
 - Fix demo app warpper hydration (#260)
 
-### ❤️ Contributors
+### 鉂わ笍 Contributors
 
 - Wzc520pyfm ([@wzc520pyfm](http://github.com/wzc520pyfm))
 - Hihanley ([@hihanley](http://github.com/hihanley))
@@ -616,7 +606,7 @@
 
 [compare changes](https://undefined/undefined/compare/v1.1.0...v1.1.1)
 
-### 🩹 Fixes
+### 馃┕ Fixes
 
 - **sender:** Fix auto-size prop type (927f19b)
 - **sender:** Sender header style (#242)
@@ -624,7 +614,7 @@
 - **sender:** Fix actions and footer slot type (#250)
 - **sender:** Fix auto-size prop passed (#256)
 
-### 📖 Documentation
+### 馃摉 Documentation
 
 - **x-provider:** Add x-provider setup demo (#243)
 - **attachments:** Fix with-sender setup demo err (#246)
@@ -632,11 +622,11 @@
 - **sender:** Add sender footer setup demo (#244)
 - **conversations:** Add conversations menu trigger setup demo (#245)
 
-### 🏡 Chore
+### 馃彙 Chore
 
 - Add requirement for vue version to be 3.5+ (#251)
 
-### ❤️ Contributors
+### 鉂わ笍 Contributors
 
 - Bao ([@Bao0630](http://github.com/Bao0630))
 - Wzc520pyfm ([@wzc520pyfm](http://github.com/wzc520pyfm))
@@ -646,21 +636,21 @@
 
 [compare changes](https://undefined/undefined/compare/v1.0.9...v1.1.0)
 
-### 🚀 Enhancements
+### 馃殌 Enhancements
 
 - Add conversations's menu trigger (#217)
 - **sender:** Add footer (#213)
 
-### 🩹 Fixes
+### 馃┕ Fixes
 
 - **build:** Define process.env.NODE_ENV to resolve "process is not defined" error (#229)
 - **sender:** Fix actions disabled logic (#221)
 
-### 💅 Refactors
+### 馃拝 Refactors
 
 - **sender:** Refactor actions click logic (#222)
 
-### 📖 Documentation
+### 馃摉 Documentation
 
 - Improve README (#228)
 - Add all prompts setup usage examples (#231)
@@ -668,7 +658,7 @@
 - **sender:** Add sender setup example (#233)
 - **sender:** Add setup demo for custom actions style (#234)
 
-### ❤️ Contributors
+### 鉂わ笍 Contributors
 
 - Wzc520pyfm ([@wzc520pyfm](http://github.com/wzc520pyfm))
 - Bao ([@Bao0630](http://github.com/Bao0630))
@@ -679,15 +669,15 @@
 
 [compare changes](https://undefined/undefined/compare/v1.0.8...v1.0.9)
 
-### 🩹 Fixes
+### 馃┕ Fixes
 
 - **sender:** Fix header transition err (#224)
 
-### 🏡 Chore
+### 馃彙 Chore
 
 - Update vue-macros version to 2.14.5 (#188)
 
-### ❤️ Contributors
+### 鉂わ笍 Contributors
 
 - Wzc520pyfm ([@wzc520pyfm](http://github.com/wzc520pyfm))
 
@@ -695,29 +685,29 @@
 
 [compare changes](https://undefined/undefined/compare/v1.0.7...v1.0.8)
 
-### 🚀 Enhancements
+### 馃殌 Enhancements
 
 - **sender:** Add files param to the onPasteFile callback (#201)
 - Attachments add imageProps (#209)
 - **sender:** Add autoSize property (#212)
 
-### 🩹 Fixes
+### 馃┕ Fixes
 
 - Fix resolver types path (#200)
 - **attachments:** Fix FileList scroll button is not shown (#203)
 - **attachments:** Fix onRemove no work (#204)
 - **sender:** Extend onFocus and onBlur events from TextAreaProps (#210)
 
-### 📖 Documentation
+### 馃摉 Documentation
 
 - **conversations:** Fix with menu demo err (#197)
 - **conversations:** Add conversation setup demo (#192)
 
-### 🏡 Chore
+### 馃彙 Chore
 
 - Add pnpm9.x for play (#202)
 
-### ❤️ Contributors
+### 鉂わ笍 Contributors
 
 - Wzc520pyfm ([@wzc520pyfm](http://github.com/wzc520pyfm))
 - Bao ([@Bao0630](http://github.com/Bao0630))
@@ -726,27 +716,27 @@
 
 [compare changes](https://undefined/undefined/compare/v1.0.5...v1.0.7)
 
-### 🚀 Enhancements
+### 馃殌 Enhancements
 
 - Add unplugin-vue-components resolver (#172)
 
-### 🩹 Fixes
+### 馃┕ Fixes
 
 - **conversation:** Fixed display issue where long Conversation names would not be truncated (#166)
 - **bubble:** Fix avatar slot no work (#180)
 - **bubble:** Fix avatar visible err (#186)
 
-### 📖 Documentation
+### 馃摉 Documentation
 
 - Update slogan (101db11)
 - Add auto import resolver doc (#179)
 - **sender:** Add basic setup demo (#181)
 
-### 🏡 Chore
+### 馃彙 Chore
 
 - **release:** V1.0.6 (5e743e9)
 
-### ❤️ Contributors
+### 鉂わ笍 Contributors
 
 - Wzc520pyfm ([@wzc520pyfm](http://github.com/wzc520pyfm))
 - Bao ([@Bao0630](http://github.com/Bao0630))
@@ -754,16 +744,16 @@
 
 ## v1.0.6
 [compare changes](https://undefined/undefined/compare/v1.0.5...v1.0.6)
-### 🚀 Enhancements
+### 馃殌 Enhancements
 - Add unplugin-vue-components resolver (#172)
-### 🩹 Fixes
+### 馃┕ Fixes
 - **conversation:** Fixed display issue where long Conversation names would not be truncated (#166)
 - **bubble:** Fix avatar slot no work (#180)
-### 📖 Documentation
+### 馃摉 Documentation
 - Update slogan (101db11)
 - Add auto import resolver doc (#179)
 - **sender:** Add basic setup demo (c2049ca)
-### ❤️ Contributors
+### 鉂わ笍 Contributors
 - Wzc520pyfm ([@wzc520pyfm](http://github.com/wzc520pyfm))
 - Bao ([@Bao0630](http://github.com/Bao0630))
 - YuePeng ([@erupts](http://github.com/erupts))
@@ -772,22 +762,22 @@
 
 [compare changes](https://undefined/undefined/compare/v1.0.4...v1.0.5)
 
-### 🚀 Enhancements
+### 馃殌 Enhancements
 
 - Thought-chain TransitionCollapse (#152)
 - **play:** Add playground (#150)
 - **sender:** Add SpeechButton to actions (#168)
 
-### 🩹 Fixes
+### 馃┕ Fixes
 
 - **sender:** Fix force-render no work (e8e69fc)
 - **bubble:** Fix useListData error when roles null (#165)
 
-### 📖 Documentation
+### 馃摉 Documentation
 
 - Fix markdown-it type error (e62429f)
 - **attachments:** Add placeholder setup demo (38613ca)
-- Add bubble setup usage example「markdown」 (#154)
+- Add bubble setup usage example銆宮arkdown銆?(#154)
 - **useXChat:** Add use-x-chat setup example (#155)
 - **Attachments:** Add all example for template (#160)
 - **x-request:** Add x-request setup example (#158)
@@ -796,41 +786,41 @@
 - Add development introduce (#167)
 - Update img path (c4bcfec)
 
-### 📦 Build
+### 馃摝 Build
 
 - Update umd global variable to antdx (e772226)
 
-### 🏡 Chore
+### 馃彙 Chore
 
 - Add jsdelivr badge (fe0be75)
 - Update badge (ca87e46)
 - Add unpkg conf (#146)
 
-### ❤️ Contributors
+### 鉂わ笍 Contributors
 
 - Wzc520pyfm ([@wzc520pyfm](http://github.com/wzc520pyfm))
 - Wang Hao <710876099@qq.com>
 - LIKUN ([@StudyDayByDay](http://github.com/StudyDayByDay))
 - Bao ([@Bao0630](http://github.com/Bao0630))
 - Linhf123 ([@linhf123](http://github.com/linhf123))
-- 雨溪 ([@yuxi-ovo](http://github.com/yuxi-ovo))
+- 闆ㄦ邯 ([@yuxi-ovo](http://github.com/yuxi-ovo))
 - EralChen ([@EralChen](http://github.com/EralChen))
 
 ## v1.0.4
 
 [compare changes](https://undefined/undefined/compare/v1.0.3...v1.0.4)
 
-### 🚀 Enhancements
+### 馃殌 Enhancements
 
 - Add preference-switch for docs (#124)
 - Semantic dom (#140)
 
-### 🩹 Fixes
+### 馃┕ Fixes
 
 - **docs:** Fix md lang for vue setup demo source (#130)
 - **attachment:** Fix placeholder slot no work (#144)
 
-### 📖 Documentation
+### 馃摉 Documentation
 
 - Add welcome and x-stream setup usage example (#127, #128)
 - Add prompts/basic.vue setup usage example (#127, #128, #131)
@@ -842,13 +832,13 @@
 - **attachments:** Add with sender demo and update basic demo (#100)
 - **attachments:** Add with-sender setup demo file (a03e6d1)
 
-### ❤️ Contributors
+### 鉂わ笍 Contributors
 
 - Wzc520pyfm ([@wzc520pyfm](http://github.com/wzc520pyfm))
 - Linhf123 ([@linhf123](http://github.com/linhf123))
 - Bao ([@Bao0630](http://github.com/Bao0630))
 - Zoey Zhao ([@zoeyzhao19](http://github.com/zoeyzhao19))
-- 归谜 ([@vhxubo](http://github.com/vhxubo))
+- 褰掕皽 ([@vhxubo](http://github.com/vhxubo))
 - LIKUN ([@StudyDayByDay](http://github.com/StudyDayByDay))
 - Zhangqiang ([@JACK-ZHANG-coming](http://github.com/JACK-ZHANG-coming))
 
@@ -856,20 +846,20 @@
 
 [compare changes](https://undefined/undefined/compare/v1.0.2...v1.0.3)
 
-### 🚀 Enhancements
+### 馃殌 Enhancements
 
 - Add netlify redirects (#117)
 
-### 🩹 Fixes
+### 馃┕ Fixes
 
 - **attachments:** Fix ref err (#122)
 
-### 📖 Documentation
+### 馃摉 Documentation
 
 - Fix hy load err by remove App comp (#121)
 - Add and-design-vue link (#107)
 
-### ❤️ Contributors
+### 鉂わ笍 Contributors
 
 - Wzc520pyfm ([@wzc520pyfm](http://github.com/wzc520pyfm))
 
@@ -877,65 +867,65 @@
 
 [compare changes](https://undefined/undefined/compare/v1.0.1...v1.0.2)
 
-### 🚀 Enhancements
+### 馃殌 Enhancements
 
 - **bubble:** Add index to roles function for bubble list (#108)
 - Add stackblitz playground (#115)
 
-### 🩹 Fixes
+### 馃┕ Fixes
 
 - **attachments:** Fix Attachments broken image (#94)
 - Fix the problem that the BubbleList component cannot trigger scrolling (#101)
 
-### 📦 Build
+### 馃摝 Build
 
 - Fix pkg error (b0aa3da)
 
-### 🏡 Chore
+### 馃彙 Chore
 
 - Enhance readme (#106)
 - Remove react deps (#82)
 
-### ❤️ Contributors
+### 鉂わ笍 Contributors
 
 - Zoey Zhao ([@zoeyzhao19](http://github.com/zoeyzhao19))
 - Wzc520pyfm ([@wzc520pyfm](http://github.com/wzc520pyfm))
 - Wangyonghui0394 ([@wangyonghui0394](http://github.com/wangyonghui0394))
 - Linhf123 ([@linhf123](http://github.com/linhf123))
-- 李慧峰 ([@enootttt](http://github.com/enootttt))
+- 鏉庢収宄?([@enootttt](http://github.com/enootttt))
 
 ## v1.0.1
 
 [compare changes](https://undefined/undefined/compare/v1.0.0...v1.0.1)
 
-### 🚀 Enhancements
+### 馃殌 Enhancements
 
 - **theme:** More detailed documentation is displayed (#87)
 
-### 🩹 Fixes
+### 馃┕ Fixes
 
 - **conversations:** Fix item label render err when it is a vnode (#92)
 
-### 📖 Documentation
+### 馃摉 Documentation
 
 - Add ant design x spec link (#85)
 - Add ant design x link in nav (#86)
 
-### 🏡 Chore
+### 馃彙 Chore
 
 - Enhance readme for English (#89)
 
-### ❤️ Contributors
+### 鉂わ笍 Contributors
 
 - Wzc520pyfm ([@wzc520pyfm](http://github.com/wzc520pyfm))
 - Wangyonghui0394 ([@wangyonghui0394](http://github.com/wangyonghui0394))
-- 雨溪 ([@yuxi-ovo](http://github.com/yuxi-ovo))
+- 闆ㄦ邯 ([@yuxi-ovo](http://github.com/yuxi-ovo))
 
 ## v1.0.0
 
 [compare changes](https://undefined/undefined/compare/v0.1.4...v1.0.0)
 
-### 🚀 Enhancements
+### 馃殌 Enhancements
 
 - **bubble:** Add slots (#46)
 - **welcome:** Add slots (#47)
@@ -944,11 +934,11 @@
 - **use-x-agent:** Use array exports instead of object exports (#49)
 - **attachments:** Add placeholder slot (#58)
 
-### 🏡 Chore
+### 馃彙 Chore
 
 - Remove dumi (#79)
 
-### ❤️ Contributors
+### 鉂わ笍 Contributors
 
 - Wzc520pyfm ([@wzc520pyfm](http://github.com/wzc520pyfm))
 
@@ -956,24 +946,24 @@
 
 [compare changes](https://undefined/undefined/compare/v0.1.3...v0.1.4)
 
-### 🩹 Fixes
+### 馃┕ Fixes
 
 - Fix prop type for defineProps (#72)
 - **sender:** Fix actions style (#78)
 
-### 📖 Documentation
+### 馃摉 Documentation
 
 - **attachments:** Fix typo and add file-card props description (#59)
 
-### 🏡 Chore
+### 馃彙 Chore
 
 - Add more badge (#54)
 
-### 🤖 CI
+### 馃 CI
 
 - Fix ci (#75)
 
-### ❤️ Contributors
+### 鉂わ笍 Contributors
 
 - Wzc520pyfm ([@wzc520pyfm](http://github.com/wzc520pyfm))
 
@@ -981,18 +971,18 @@
 
 [compare changes](https://undefined/undefined/compare/0.1.2...v0.1.3)
 
-### 🩹 Fixes
+### 馃┕ Fixes
 
 - **attachments:** Fix beforeUpload prop no work (#65)
 
-### 🏡 Chore
+### 馃彙 Chore
 
 - Configure Renovate (#50)
 - Update reademe (8a74002)
 - Add ci and update lint rules (#55)
 - Add changelogen and release script (#56)
 
-### ❤️ Contributors
+### 鉂わ笍 Contributors
 
 - Wzc520pyfm ([@wzc520pyfm](http://github.com/wzc520pyfm))
 
