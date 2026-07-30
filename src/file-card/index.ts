@@ -5,6 +5,10 @@ import List from './List.vue';
 export type {
   FileCardProps,
   FileCardListProps,
+  FileCardListItem,
+  FileCardSpinProps,
+  FileCardSemanticType,
+  FileCardListSemanticType,
   CardInfo,
   CardType,
   PresetIcons,

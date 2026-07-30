@@ -70,6 +70,12 @@ export interface FileCardProps extends /* @vue-ignore */ Omit<HTMLAttributes, 'o
 
 export type FileCardListSemanticType = 'root' | 'card';
 
+/**
+ * List item may carry React-aligned `key` for identity.
+ * Not declared on FileCardProps because Vue reserves `key`.
+ */
+export type FileCardListItem = FileCardProps & { key?: string | number };
+
 export interface FileCardListProps {
   prefixCls?: string;
   className?: string;
@@ -78,10 +84,10 @@ export interface FileCardListProps {
   classNames?: Partial<Record<FileCardListSemanticType | FileCardSemanticType, string>>;
   style?: CSSProperties;
   styles?: Partial<Record<FileCardListSemanticType | FileCardSemanticType, CSSProperties>>;
-  items: FileCardProps[];
+  items: FileCardListItem[];
   size?: 'small' | 'default';
-  removable?: boolean | ((item: FileCardProps) => boolean);
-  onRemove?: (item: FileCardProps) => void;
+  removable?: boolean | ((item: FileCardListItem) => boolean);
+  onRemove?: (item: FileCardListItem) => void;
   extension?: AvoidValidation<VNode | string>;
   overflow?: 'scrollX' | 'scrollY' | 'wrap';
 }

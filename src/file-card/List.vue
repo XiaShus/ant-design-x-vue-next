@@ -6,7 +6,7 @@ import { Button } from 'ant-design-vue';
 import { useXProviderContext } from '../x-provider';
 import FileCard from './FileCard.vue';
 import useStyle from './style';
-import type { FileCardListProps, FileCardProps } from './interface';
+import type { FileCardListItem, FileCardListProps } from './interface';
 
 defineOptions({ name: 'AXFileCardList' });
 
@@ -16,18 +16,18 @@ const props = withDefaults(defineProps<FileCardListProps>(), {
 });
 
 const emit = defineEmits<{
-  remove: [item: FileCardProps];
+  remove: [item: FileCardListItem];
 }>();
 
 const containerRef = ref<HTMLDivElement | null>(null);
-const list = ref<(FileCardProps & { key: string | number })[]>([]);
+const list = ref<(FileCardListItem & { key: string | number })[]>([]);
 
 watch(
   () => props.items,
   (items) => {
     list.value = items.map((item, index) => ({
       ...item,
-      key: `${item.name}-${index}`,
+      key: item.key ?? `${item.name}-${index}`,
     }));
   },
   { immediate: true, deep: true },
@@ -71,7 +71,7 @@ const onScrollOffset = (offset: -1 | 1) => {
   });
 };
 
-const handleRemove = (item: FileCardProps & { key: string | number }) => {
+const handleRemove = (item: FileCardListItem & { key: string | number }) => {
   list.value = list.value.filter((i) => i.key !== item.key);
   props.onRemove?.(item);
   emit('remove', item);

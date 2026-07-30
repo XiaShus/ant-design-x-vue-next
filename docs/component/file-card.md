@@ -44,13 +44,13 @@ file-card/list
 
 ### FileCard.List
 
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| items | 文件列表 | FileCardProps[] | - |
-| size | 卡片大小 | `'small' \| 'default'` | - |
-| removable | 是否可移除 | boolean \| function | - |
-| onRemove | 移除回调 | `(item) => void` | - |
-| overflow | 超出样式 | `'scrollX' \| 'scrollY' \| 'wrap'` | - |
+| 属性 | 说明 | 类型 | 默认值 | 版本 |
+| --- | --- | --- | --- | --- |
+| items | 文件列表；支持 `item.key` 作为列表项标识（对齐 React；Vue 中勿写在单卡 props） | (FileCardProps & \{ key?: string \| number \})[] | - | 1.76.0（`key`） |
+| size | 卡片大小 | `'small' \| 'default'` | - | - |
+| removable | 是否可移除 | boolean \| function | - | - |
+| onRemove | 移除回调 | `(item) => void` | - | - |
+| overflow | 超出样式 | `'scrollX' \| 'scrollY' \| 'wrap'` | - | - |
 
 ## 贡献者
 

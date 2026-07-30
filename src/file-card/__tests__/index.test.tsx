@@ -89,4 +89,23 @@ describe('FileCard.List', () => {
     expect(wrapper.text()).toContain('a');
     expect(wrapper.text()).toContain('b');
   });
+
+  it('respects item.key for list identity', async () => {
+    const wrapper = mount(List, {
+      props: {
+        items: [
+          { key: 'k1', name: 'a.pdf', byte: 100 },
+          { key: 'k2', name: 'b.docx', byte: 200 },
+        ],
+        removable: true,
+      },
+    });
+
+    const items = wrapper.findAll('.ant-file-card-list-item');
+    expect(items).toHaveLength(2);
+    await items[0].find('.ant-file-card-list-remove').trigger('click');
+    expect(wrapper.findAll('.ant-file-card-list-item')).toHaveLength(1);
+    expect(wrapper.text()).toContain('b');
+    expect(wrapper.text()).not.toContain('a.pdf');
+  });
 });

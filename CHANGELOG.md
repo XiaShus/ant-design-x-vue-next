@@ -2,6 +2,16 @@
 
 > Vue Next 文档站时间线版见 [更新日志](https://ant-design-x-vue-next-524.netlify.app/development/changelog.html)。
 
+## 1.76.0
+
+`2026-07-31`
+
+### ant-design-x-vue-next
+
+- 🆕 FileCard / FileCard.List：支持 `item.key` 作为列表项标识（对齐 React）
+- 🛠 导出 `FileCardSpinProps` / `FileCardSemanticType` / `SuggestionCascaderPassthrough` 等类型
+- 🛠 发布 npm `ant-design-x-vue-next@1.76.0`
+
 ## 1.75.0
 
 `2026-07-31`
