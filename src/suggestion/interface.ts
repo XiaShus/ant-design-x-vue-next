@@ -1,4 +1,4 @@
-import type { CSSProperties, VNode } from "vue";
+import type { CSSProperties, VNode } from 'vue';
 
 export type SuggestionItem = {
   label: VNode | string;
@@ -14,6 +14,7 @@ export type SuggestionItem = {
 export interface RenderChildrenProps<T> {
   onTrigger: (info?: T | false) => void;
   onKeyDown: (e: KeyboardEvent) => void;
+  open: boolean;
 }
 
 export interface SuggestionProps<T = any> {
@@ -25,7 +26,7 @@ export interface SuggestionProps<T = any> {
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
   items: SuggestionItem[] | ((info?: T) => SuggestionItem[]);
-  onSelect?: (value: string) => void;
+  onSelect?: (value: string, selectedOptions: SuggestionItem[]) => void;
   block?: boolean;
   styles?: Partial<Record<string, CSSProperties>>;
   classNames?: Partial<Record<string, string>>;

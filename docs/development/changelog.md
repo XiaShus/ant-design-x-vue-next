@@ -19,6 +19,17 @@ customClass: changelog-page
 
 ---
 
+## 1.32.0
+
+`2026-07-30`
+
+### ant-design-x-vue-next
+
+- 🆕 Suggestion 渲染建议项 `icon` / `extra`（对齐 React Cascader `optionRender`）。
+- 🆕 Suggestion `onSelect(value, selectedOptions)` 与 children / 插槽 `open`。
+- 💄 Suggestion 下拉菜单 `maxHeight: 256px` 可滚动。
+- 🛠 发布 npm 包 [`ant-design-x-vue-next@1.32.0`](https://www.npmjs.com/package/ant-design-x-vue-next)。
+
 ## 1.31.0
 
 `2026-07-30`

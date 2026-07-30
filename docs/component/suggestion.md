@@ -42,11 +42,11 @@ suggestion/trigger
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
 | block | 是否整行宽度 | boolean | false | - |
-| children | 自定义输入框 | ({ onTrigger, onKeyDown }) => VNode | - | - |
+| children | 自定义输入框 | ({ onTrigger, onKeyDown, open }) => VNode | - | 1.32.0 起含 `open` |
 | items | 建议项列表 | SuggestionItem[] \| ((info: T) => SuggestionItem[]) | - | - |
 | open | 受控打开面板 | boolean | - | - |
 | rootClassName | 根元素样式类名 | string | - | - |
-| onSelect | 选中建议项回调 | (value: string) => void | - | - |
+| onSelect | 选中建议项回调 | (value: string, selectedOptions: SuggestionItem[]) => void | - | 1.32.0 |
 | onOpenChange | 面板打开状态变化回调 | (open: boolean) => void | - | - |
 
 #### onTrigger
@@ -61,7 +61,7 @@ Suggestion 接受泛型以自定义传递给 `items` renderProps 的参数类型
 
 | 插槽名 | 说明 | 类型 |
 | --- | --- | --- |
-| default | 用于自定义输入框 | \{ onTrigger, onKeyDown \} |
+| default | 用于自定义输入框 | \{ onTrigger, onKeyDown, open \} |
 
 ### SuggestionItem
 

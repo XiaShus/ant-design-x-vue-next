@@ -2,6 +2,16 @@
 
 > Vue Next 文档站时间线版见 [更新日志](https://ant-design-x-vue-next-524.netlify.app/development/changelog.html)。
 
+## 1.32.0
+
+`2026-07-30`
+
+### ant-design-x-vue-next
+
+- 🆕 Suggestion 渲染 `icon`/`extra`；`onSelect` 第二参与 children `open`
+- 💄 Suggestion 菜单 maxHeight 可滚动
+- 🛠 发布 npm `ant-design-x-vue-next@1.32.0`
+
 ## 1.31.0
 
 `2026-07-30`
