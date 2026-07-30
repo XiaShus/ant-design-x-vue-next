@@ -1,14 +1,16 @@
 # Changelog
 
-> Vue Next 鏂囨。绔欐椂闂寸嚎鐗堣 [鏇存柊鏃ュ織](https://ant-design-x-vue-next-524.netlify.app/development/changelog.html)銆?
+> Vue Next 文档站时间线版见 [更新日志](https://ant-design-x-vue-next-524.netlify.app/development/changelog.html)。
+
 ## 1.24.0
 
 `2026-07-30`
 
 ### ant-design-x-vue-next
 
-- 馃啎 ThoughtChain.Item 澶嶅悎缁勪欢锛坴ariant / status / blink / disabled锛?- 馃摉 ThoughtChain 绠€娲佹€濈淮閾炬紨绀轰笌瀵归綈杩涘害
-- 馃洜 鍙戝竷 npm `ant-design-x-vue-next@1.24.0`
+- 🆕 ThoughtChain.Item 复合组件（variant / status / blink / disabled）
+- 📖 ThoughtChain 简洁思维链演示与对齐进度
+- 🛠 发布 npm `ant-design-x-vue-next@1.24.0`
 
 ## 1.23.0
 
@@ -16,9 +18,9 @@
 
 ### ant-design-x-vue-next
 
-- 馃啎 X locale pack via XProvider (`useLocale` / zh_CN / en_US)
-- 馃摉 XProvider 鍥介檯鍖栨枃妗ｄ笌婕旂ず
-- 馃洜 鍙戝竷 npm `ant-design-x-vue-next@1.23.0`
+- 🆕 X locale pack via XProvider (`useLocale` / zh_CN / en_US)
+- 📖 XProvider 国际化文档与演示
+- 🛠 发布 npm `ant-design-x-vue-next@1.23.0`
 
 ## 1.22.0
 
@@ -26,9 +28,9 @@
 
 ### ant-design-x-vue-next
 
-- 馃啎 Sender slotConfig / skill / SlotTextArea 璇嶆Ы濉┖
-- 馃摉 Sender 璇嶆Ы鏂囨。涓庢紨绀?- 馃洜 鍙戝竷 npm `ant-design-x-vue-next@1.22.0`
-
+- 🆕 Sender slotConfig / skill / SlotTextArea 词槽填空
+- 📖 Sender 词槽文档与演示
+- 🛠 发布 npm `ant-design-x-vue-next@1.22.0`
 ## 1.21.0
 
 `2026-07-30`
