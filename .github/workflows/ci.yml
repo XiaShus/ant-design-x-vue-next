@@ -7,17 +7,39 @@ on:
   pull_request:
     branches:
       - main
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   ci:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: npm i -fg corepack && corepack enable
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9.6.0
+
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: "pnpm"
-      - run: pnpm install
-      - run: pnpm lint
-      - run: pnpm build
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm lint
+
+      # Full-repo `pnpm typecheck` still has legacy docs/util debt; gate on the publish tsconfig.
+      - name: Typecheck (build)
+        run: pnpm exec vue-tsc --project ./tsconfig.build.json --noEmit
+
+      - name: Test
+        run: pnpm test
+
+      - name: Build
+        run: pnpm build

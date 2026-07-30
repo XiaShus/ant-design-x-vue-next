@@ -2,6 +2,7 @@
 
 [![npm version][npm-version-src]][npm-version-href]
 [![npm downloads][npm-downloads-src]][npm-downloads-href]
+[![CI][ci-src]][ci-href]
 [![License][license-src]][license-href]
 ![vue][vue-version-src]
 [![Netlify Status][netlify-src]][netlify-href]
@@ -115,6 +116,8 @@ $ pnpm lint
 [npm-version-href]: https://www.npmjs.com/package/ant-design-x-vue-next
 [npm-downloads-src]: https://img.shields.io/npm/dm/ant-design-x-vue-next.svg?style=flat
 [npm-downloads-href]: https://www.npmjs.com/package/ant-design-x-vue-next
+[ci-src]: https://github.com/XiaShus/ant-design-x-vue-next/actions/workflows/ci.yml/badge.svg
+[ci-href]: https://github.com/XiaShus/ant-design-x-vue-next/actions/workflows/ci.yml
 [vue-version-src]: https://img.shields.io/badge/vue-%20%3E%3D%203.5-47c219
 [license-src]: https://img.shields.io/github/license/XiaShus/ant-design-x-vue-next?style=flat
 [license-href]: https://github.com/XiaShus/ant-design-x-vue-next/blob/main/LICENSE

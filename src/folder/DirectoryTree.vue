@@ -3,7 +3,7 @@ import { FileOutlined, FolderOutlined } from '@ant-design/icons-vue';
 import { Dropdown, Tree } from 'ant-design-vue';
 import type { ItemType } from 'ant-design-vue/es/menu';
 import classnames from 'classnames';
-import { computed, ref, type VNode } from 'vue';
+import { computed, ref, watch, type VNode } from 'vue';
 import { useXProviderContext } from '../x-provider';
 import type { FolderProps, FolderTreeData } from './interface';
 import { isFolderNode } from './utils';
@@ -79,11 +79,15 @@ const buildPathSegments = (node: FolderTreeData, parentSegments: string[] = []):
   return [...parentSegments, node.path].filter((segment) => segment !== '');
 };
 
-const convertToTreeData = (nodes: FolderTreeData[], parentSegments: string[] = []): any[] => {
+const convertToTreeData = (
+  nodes: FolderTreeData[],
+  map: Map<string, FolderTreeData>,
+  parentSegments: string[] = [],
+): any[] => {
   return nodes.map((node) => {
     const pathSegments = buildPathSegments(node, parentSegments);
     const fullPath = pathSegments.join('/').replace(/^\/+/, '');
-    nodeDataMap.value.set(fullPath, node);
+    map.set(fullPath, node);
     return {
       ...node,
       key: fullPath,
@@ -92,15 +96,22 @@ const convertToTreeData = (nodes: FolderTreeData[], parentSegments: string[] = [
       title: node.title,
       icon: getIcon(node),
       isLeaf: !isFolderNode(node),
-      children: node.children ? convertToTreeData(node.children, pathSegments) : undefined,
+      children: node.children ? convertToTreeData(node.children, map, pathSegments) : undefined,
     };
   });
 };
 
-const treeDataConverted = computed(() => {
-  nodeDataMap.value = new Map();
-  return convertToTreeData(props.treeData || []);
-});
+const treeDataConverted = ref<any[]>([]);
+
+watch(
+  () => [props.treeData, props.directoryIcons] as const,
+  () => {
+    const map = new Map<string, FolderTreeData>();
+    treeDataConverted.value = convertToTreeData(props.treeData || [], map);
+    nodeDataMap.value = map;
+  },
+  { immediate: true, deep: true },
+);
 
 const titleNode = computed(() => {
   if (props.directoryTitle === false || props.directoryTitle == null) return null;

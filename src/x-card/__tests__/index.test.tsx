@@ -4,7 +4,7 @@ import { defineComponent, h, nextTick, ref } from 'vue';
 import { Box, Card, registerCatalog, clearCatalogCache } from '../index';
 
 const Text = defineComponent({
-  name: 'Text',
+  name: 'A2UIDemoText',
   props: { text: String },
   setup(p, { slots }) {
     return () =>
@@ -13,7 +13,7 @@ const Text = defineComponent({
 });
 
 const Button = defineComponent({
-  name: 'Button',
+  name: 'A2UIDemoButton',
   props: {
     text: String,
     action: Object,
