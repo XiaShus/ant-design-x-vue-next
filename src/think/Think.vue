@@ -27,6 +27,8 @@ const emit = defineEmits<{
   expand: [expand: boolean];
 }>();
 
+const thinkRef = ref<HTMLDivElement | null>(null);
+
 const domProps = computed(() => {
   const attrs = pickAttrs(props, {
     attr: true,
@@ -112,6 +114,7 @@ defineRender(() => {
   return wrapCSSVar(
     <div
       {...domProps.value}
+      ref={thinkRef}
       class={mergedCls.value}
       style={{
         ...(typeof contextConfig.value.style === 'object' ? contextConfig.value.style : {}),
@@ -154,5 +157,9 @@ defineRender(() => {
       </TransitionCollapse>
     </div>,
   );
+});
+
+defineExpose({
+  nativeElement: thinkRef,
 });
 </script>

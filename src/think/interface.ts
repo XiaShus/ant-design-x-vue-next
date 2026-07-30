@@ -3,6 +3,10 @@ import type { AvoidValidation } from '../type-utility';
 
 export type ThinkSemanticType = 'root' | 'status' | 'content';
 
+export interface ThinkRef {
+  nativeElement: HTMLElement;
+}
+
 export interface ThinkProps extends /* @vue-ignore */ Omit<HTMLAttributes, 'title'> {
   prefixCls?: string;
   rootClassName?: string;

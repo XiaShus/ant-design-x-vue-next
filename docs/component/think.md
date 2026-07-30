@@ -49,6 +49,12 @@ think/expand
 | blink | 闪动模式 | boolean | - | - |
 | destroyOnHidden | 隐藏时是否销毁内容节点 | boolean | true | - |
 
+### Think Ref
+
+| 属性 | 说明 | 类型 | 版本 |
+| --- | --- | --- | --- |
+| nativeElement | 根节点 DOM | HTMLElement | 1.65.0 |
+
 ### Think Slots
 
 | 插槽名 | 说明 |
