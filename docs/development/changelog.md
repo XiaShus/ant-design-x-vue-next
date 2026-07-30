@@ -19,11 +19,15 @@ customClass: changelog-page
 
 ---
 
-## Unreleased
+## 1.9.0
+
+`2026-07-30`
 
 ### ant-design-x-vue-next
 
 - 🆕 新增内置 `XMarkdown`（MVP）：`marked` + `DOMPurify`，支持流式尾标、自定义组件映射；代码块默认对接 `CodeHighlighter` / `Mermaid`。
+- 🛠 依赖新增 `marked`、`dompurify`；构建脚本改为 `pnpm exec` 以兼容 Windows PATH。
+- 🛠 发布 npm 包 [`ant-design-x-vue-next@1.9.0`](https://www.npmjs.com/package/ant-design-x-vue-next)。
 
 ## 1.8.0
 
@@ -35,6 +39,7 @@ customClass: changelog-page
 - 🆕 新增 `CodeHighlighter` 组件（基于 `prismjs`），支持按需语言加载、自定义 Header 与复制。
 - 🆕 新增 `Mermaid` 组件，支持图表渲染、缩放平移、图片/代码双视图与操作栏配置。
 - 🛠 依赖新增 `prismjs`、`mermaid`；XProvider 透传新增组件样式配置。
+- 🛠 Git tag `v1.8.0` 已创建；本版本 npm 与 `1.9.0` 一并交付（见上）。
 
 ## 1.7.0
 
