@@ -19,6 +19,15 @@ customClass: changelog-page
 
 ---
 
+## 1.53.0
+
+`2026-07-31`
+
+### ant-design-x-vue-next
+
+- 🆕 Bubble.List 语义化 `classNames` / `styles`（`root` / `scroll` / `bubble` / `system` / `divider`）；列表项 `role: 'system' | 'divider'` 渲染对应子组件；scroll-box 结构对齐 React。
+- 🛠 发布 npm 包 [`ant-design-x-vue-next@1.53.0`](https://www.npmjs.com/package/ant-design-x-vue-next)。
+
 ## 1.52.0
 
 `2026-07-31`

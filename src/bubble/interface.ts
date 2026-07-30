@@ -172,6 +172,15 @@ export type RoleType = Partial<Omit<BubbleProps<any>, 'content'>>;
 
 export type RolesType = Record<string, RoleType> | ((bubbleDataP: BubbleDataType, index: number) => RoleType);
 
+/** Align React Bubble.List SemanticType. */
+export type ListSemanticType =
+  | SemanticType
+  | 'root'
+  | 'scroll'
+  | 'bubble'
+  | 'system'
+  | 'divider';
+
 export interface BubbleListProps extends /* @vue-ignore */ HTMLAttributes {
   prefixCls?: string;
   rootClassName?: string;
@@ -179,4 +188,6 @@ export interface BubbleListProps extends /* @vue-ignore */ HTMLAttributes {
   autoScroll?: boolean;
   roles?: AvoidValidation<RolesType>;
   onScroll?: (e: Event) => void;
+  classNames?: Partial<Record<ListSemanticType, string>>;
+  styles?: Partial<Record<ListSemanticType, CSSProperties>>;
 }
