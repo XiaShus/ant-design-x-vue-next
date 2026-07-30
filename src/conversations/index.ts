@@ -8,6 +8,7 @@ export type {
   ConversationItemType,
   DividerItemType,
   ConversationsItems,
+  ConversationsSemanticType,
   CreationProps,
   ShortcutKeys,
 } from './interface';

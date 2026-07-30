@@ -83,6 +83,9 @@ export type ConversationsItems = ItemType;
 export const isDividerItem = (item: ItemType): item is DividerItemType =>
   !!item && (item as DividerItemType).type === 'divider';
 
+/** Align React Conversations SemanticType. */
+export type ConversationsSemanticType = 'root' | 'creation' | 'group' | 'item';
+
 /**
  * @desc 会话列表组件参数
  * @descEN Props for the conversation list component
@@ -128,13 +131,13 @@ export interface ConversationsProps extends HTMLAttributes {
    * @desc 语义化结构 style
    * @descEN Semantic structure styles
    */
-  styles?: Partial<Record<'item' | 'creation', CSSProperties>>;
+  styles?: Partial<Record<ConversationsSemanticType, CSSProperties>>;
 
   /**
    * @desc 语义化结构 className
    * @descEN Semantic structure class names
    */
-  classNames?: Partial<Record<'item' | 'creation', string>>;
+  classNames?: Partial<Record<ConversationsSemanticType, string>>;
 
   /**
    * @desc 自定义前缀

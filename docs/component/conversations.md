@@ -110,8 +110,8 @@ conversations/group-sort
 | onActiveChange | 选中变更回调；第二参为对应会话项 | (value: string, item?: ConversationsItems) => void | - | 1.48.0 |
 | menu | 会话操作菜单 | MenuProps \| ((value: `Conversation`) => MenuProps) | - | - |
 | groupable | 是否支持分组, 开启后默认按 `Conversation.group` 字段分组 | boolean \| GroupableProps | - | - |
-| styles | 语义化结构 style | Record<'item' \| 'creation', CSSProperties> | - | - |
-| classNames | 语义化结构 className | Record<'item' \| 'creation', string> | - | - |
+| styles | 语义化结构 style | Record<'root' \| 'creation' \| 'group' \| 'item', CSSProperties> | - | 1.50.0 |
+| classNames | 语义化结构 className | Record<'root' \| 'creation' \| 'group' \| 'item', string> | - | 1.50.0 |
 | creation | 新建对话按钮配置（传入即显示） | `CreationProps` | - | 1.21.0 |
 | shortcutKeys | 快捷键：`creation` 触发新建；`items` 按索引/数字键切换会话 | `{ creation?: ShortcutKeys; items?: ShortcutKeys \| ShortcutKeys[] }` | - | 1.44.0 |
 

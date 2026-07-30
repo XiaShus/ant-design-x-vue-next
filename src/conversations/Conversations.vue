@@ -103,6 +103,8 @@ const [wrapCSSVar, hashId, cssVarCls] = useStyle(prefixCls);
 const mergedCls = computed(() => classnames(
   prefixCls.value,
   contextConfig.value.className,
+  (contextConfig.value.classNames as any)?.root,
+  classNames.root,
   className,
   rootClassName,
   hashId.value,
@@ -111,6 +113,13 @@ const mergedCls = computed(() => classnames(
     [`${prefixCls.value}-rtl`]: direction.value === 'rtl',
   },
 ));
+
+const mergedRootStyle = computed(() => ({
+  ...(typeof contextConfig.value.style === 'object' ? contextConfig.value.style : {}),
+  ...(typeof style === 'object' ? style : {}),
+  ...((contextConfig.value.styles as any)?.root || {}),
+  ...(styles.root || {}),
+}));
 
 // ============================ Events ============================
 const onConversationItemClick: ConversationsItemProps['onClick'] = (info) => {
@@ -165,10 +174,7 @@ defineRender(() => {
   return wrapCSSVar(
     <ul
       {...domProps.value}
-      style={{
-        ...(typeof contextConfig.value.style === 'object' ? contextConfig.value.style : {}),
-        ...(typeof style === 'object' ? style : {}),
-      }}
+      style={mergedRootStyle.value}
       class={mergedCls.value}
     >
       {!!creation && (
@@ -231,7 +237,17 @@ defineRender(() => {
           const labelNode = renderGroupLabel(groupInfo);
 
           return (
-            <li key={groupKey}>
+            <li
+              key={groupKey}
+              class={classnames(
+                (contextConfig.value.classNames as any)?.group,
+                classNames.group,
+              )}
+              style={{
+                ...((contextConfig.value.styles as any)?.group || {}),
+                ...(styles.group || {}),
+              }}
+            >
               <GroupTitleContextProvider value={{ prefixCls: prefixCls.value }}>
                 <GroupTitle
                   collapsible={groupCollapsible}

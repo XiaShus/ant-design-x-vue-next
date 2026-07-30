@@ -11,6 +11,8 @@ const props = defineProps<{
   collapsible?: boolean;
   expanded?: boolean;
   onToggle?: () => void;
+  className?: string;
+  style?: Record<string, any>;
 }>();
 
 const slots = defineSlots<{
@@ -27,9 +29,10 @@ defineRender(() => {
   const prefixCls = groupTitleContext.value.prefixCls;
   return (
     <div
-      class={classnames(`${prefixCls}-group-title`, {
+      class={classnames(`${prefixCls}-group-title`, props.className, {
         [`${prefixCls}-group-title-collapsible`]: mergeCollapsible.value,
       })}
+      style={props.style}
       onClick={() => {
         if (mergeCollapsible.value) {
           props.onToggle?.();
