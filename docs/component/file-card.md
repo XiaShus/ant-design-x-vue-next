@@ -37,7 +37,7 @@ file-card/list
 | loading | 是否加载中 | boolean | false |
 | type | 文件类型 | `'file' \| 'image' \| 'audio' \| 'video'` | - |
 | src | 资源地址 | string | - |
-| icon | 自定义图标 | VNode \| PresetIcons | - |
+| icon | 自定义图标；预设含 `java` / `javascript` / `python`（对齐 React） | VNode \| PresetIcons | - | 1.69.0（语言图标） |
 | onClick | 点击回调 | `(info, event) => void` | - |
 
 ### FileCard.List

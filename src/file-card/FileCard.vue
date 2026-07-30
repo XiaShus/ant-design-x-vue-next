@@ -16,6 +16,9 @@ import pickAttrs from '../_util/pick-attrs';
 import useXComponentConfig from '../_util/hooks/use-x-component-config';
 import { useXProviderContext } from '../x-provider';
 import AudioIcon from './icons/AudioIcon.vue';
+import JavaIcon from './icons/JavaIcon.vue';
+import JavaScriptIcon from './icons/JavaScriptIcon.vue';
+import PythonIcon from './icons/PythonIcon.vue';
 import VideoIcon from './icons/VideoIcon.vue';
 import useStyle from './style';
 import { getSize, matchExt } from './utils';
@@ -52,9 +55,9 @@ const PRESET_FILE_ICONS: {
   { icon: <FileZipFilled />, color: '#fab714', ext: ['zip', 'rar', '7z', 'tar', 'gz'], key: 'zip' },
   { icon: <VideoIcon />, color: '#ff4d4f', ext: VIDEO_EXT, key: 'video' },
   { icon: <AudioIcon />, color: '#ff6e31', ext: AUDIO_EXT, key: 'audio' },
-  { icon: <FileTextFilled />, color: '#1677ff', ext: ['java'], key: 'java' },
-  { icon: <FileTextFilled />, color: '#fab714', ext: ['js'], key: 'javascript' },
-  { icon: <FileTextFilled />, color: '#fab714', ext: ['py'], key: 'python' },
+  { icon: <JavaIcon />, color: '#1677ff', ext: ['java'], key: 'java' },
+  { icon: <JavaScriptIcon />, color: '#fab714', ext: ['js'], key: 'javascript' },
+  { icon: <PythonIcon />, color: '#fab714', ext: ['py'], key: 'python' },
 ];
 
 const DEFAULT_ICON = {

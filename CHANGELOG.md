@@ -2,6 +2,15 @@
 
 > Vue Next 文档站时间线版见 [更新日志](https://ant-design-x-vue-next-524.netlify.app/development/changelog.html)。
 
+## 1.69.0
+
+`2026-07-31`
+
+### ant-design-x-vue-next
+
+- 🆕 FileCard：java / javascript / python 预设图标对齐 React（`JavaOutlined` / `JavaScriptOutlined` / `PythonOutlined` 等价 SVG）
+- 🛠 发布 npm `ant-design-x-vue-next@1.69.0`
+
 ## 1.68.0
 
 `2026-07-31`
