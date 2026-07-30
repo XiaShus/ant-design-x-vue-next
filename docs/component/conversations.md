@@ -129,9 +129,11 @@ conversations/group-sort
 | --- | --- | --- | --- | --- |
 | label | 按钮文案 | VNode \| `() => VNode` | `新建对话` | 1.21.0 |
 | icon | 图标 | VNode \| `() => VNode` | PlusOutlined | 1.21.0 |
-| align | 对齐 | `start` \| `center` \| `end` | `center` | 1.21.0 |
+| align | 对齐 | CreationAlign | `center` | 1.21.0；1.105.0（类型导出） |
 | disabled | 禁用 | boolean | `false` | 1.21.0 |
 | onClick / `@click` | 点击回调 | `(e?: MouseEvent) => void` | - | 1.21.0 |
+
+自 `1.105.0` 起可从包入口 `import type { CreationAlign }`（`'start' | 'center' | 'end'`）。
 
 ### Conversation
 

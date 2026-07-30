@@ -13,6 +13,7 @@ export type {
   Groupable,
   GroupableProps,
   CreationProps,
+  CreationAlign,
   ShortcutKeys,
 } from './interface';
 export { ShortcutKeyCode, isDividerItem } from './interface';
