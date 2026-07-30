@@ -314,10 +314,12 @@ export function processStreamingText(
       commitCache(cache);
       continue;
     }
-    if (cache.token === StreamCacheTokenType.Text) {
+    // Compare via local snapshot so recognize() mutations are re-checked without stale narrowing.
+    const tokenBefore = cache.token;
+    if (tokenBefore === StreamCacheTokenType.Text) {
       for (const handler of recognizeHandlers) handler.recognize(cache);
     } else {
-      const handler = recognizeHandlers.find((h) => h.tokenType === cache.token);
+      const handler = recognizeHandlers.find((h) => h.tokenType === tokenBefore);
       handler?.recognize(cache);
       if (cache.token === StreamCacheTokenType.Text) {
         for (const h of recognizeHandlers) h.recognize(cache);

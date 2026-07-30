@@ -13,7 +13,7 @@ export class OpenAIChatProvider<
   Output extends SSEOutput = SSEOutput,
 > {
   transformLocalMessage(requestParams: Partial<Input>): ChatMessage {
-    const messages = requestParams.messages || [];
+    const messages = (requestParams.messages ?? []) as XModelMessage[];
     const last = messages[messages.length - 1];
     return (last || { role: 'user', content: '' }) as ChatMessage;
   }
