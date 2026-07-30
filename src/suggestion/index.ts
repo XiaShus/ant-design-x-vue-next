@@ -1,7 +1,7 @@
 import type { App } from 'vue';
 import Suggestion from './Suggestion.vue';
 
-export type { SuggestionProps } from './interface';
+export type { SuggestionProps, SuggestionSemanticType, SuggestionItem } from './interface';
 
 // @ts-ignore
 Suggestion.install = function(app: App) {

@@ -46,8 +46,18 @@ suggestion/trigger
 | items | 建议项列表 | SuggestionItem[] \| ((info: T) => SuggestionItem[]) | - | - |
 | open | 受控打开面板 | boolean | - | - |
 | rootClassName | 根元素样式类名 | string | - | - |
+| classNames | 语义化结构 className | Record<root \| content \| popup, string> | - | 1.54.0 |
+| styles | 语义化结构 style | Record<root \| content \| popup, CSSProperties> | - | 1.54.0 |
 | onSelect | 选中建议项回调 | (value: string, selectedOptions: SuggestionItem[]) => void | - | 1.32.0 |
 | onOpenChange | 面板打开状态变化回调 | (open: boolean) => void | - | - |
+
+#### Semantic DOM
+
+| 名称 | 说明 |
+| --- | --- |
+| root | 根节点（Cascader 容器 / 弹层公共 class） |
+| content | 触发器内容容器（`.ant-suggestion-content`） |
+| popup | 建议列表面板 |
 
 #### onTrigger
 

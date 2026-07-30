@@ -2,6 +2,15 @@
 
 > Vue Next 文档站时间线版见 [更新日志](https://ant-design-x-vue-next-524.netlify.app/development/changelog.html)。
 
+## 1.54.0
+
+`2026-07-31`
+
+### ant-design-x-vue-next
+
+- 🆕 Suggestion：`classNames`/`styles`（root/content/popup）；内容容器对齐 `.ant-suggestion-content`
+- 🛠 发布 npm `ant-design-x-vue-next@1.54.0`
+
 ## 1.53.0
 
 `2026-07-31`

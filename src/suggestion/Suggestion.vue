@@ -23,6 +23,8 @@ const {
   items,
   onSelect,
   block,
+  styles = {},
+  classNames = {},
 } = defineProps<SuggestionProps<T>>();
 
 const slots = defineSlots<{
@@ -47,11 +49,63 @@ const [wrapCSSVar, hashId, cssVarCls] = useStyle(prefixCls);
 
 const { width: slotActiveWidth } = useElementSize(cascaderSlotRef);
 
-const dropdownStyle = computed(() => {
-  if (!block) return undefined;
-  if (!slotActiveWidth.value) return undefined;
-  return { width: `${slotActiveWidth.value}px` };
+const mergedDropdownStyle = computed(() => {
+  const popupStyle = {
+    ...((contextConfig.value.styles as any)?.popup || {}),
+    ...(styles.popup || {}),
+  };
+  if (block && slotActiveWidth.value) {
+    return { ...popupStyle, width: `${slotActiveWidth.value}px` };
+  }
+  return Object.keys(popupStyle).length ? popupStyle : undefined;
 });
+
+const rootCls = computed(() =>
+  classnames(
+    rootClassName,
+    className,
+    (contextConfig.value.classNames as any)?.root,
+    classNames.root,
+    prefixCls.value,
+    hashId.value,
+    cssVarCls,
+    {
+      [`${prefixCls.value}-block`]: block,
+    },
+  ),
+);
+
+const contentCls = computed(() =>
+  classnames(
+    prefixCls.value,
+    rootClassName,
+    (contextConfig.value.classNames as any)?.content,
+    classNames.content,
+    `${prefixCls.value}-content`,
+    hashId.value,
+    cssVarCls,
+  ),
+);
+
+const contentStyle = computed(() => ({
+  ...((contextConfig.value.styles as any)?.content || {}),
+  ...styles.content,
+}));
+
+const popupCls = computed(() =>
+  classnames(
+    rootCls.value,
+    (contextConfig.value.classNames as any)?.popup,
+    classNames.popup,
+  ),
+);
+
+const rootStyle = computed(() => ({
+  ...contextConfig.value.style,
+  ...((contextConfig.value.styles as any)?.root || {}),
+  ...styles.root,
+  ...style,
+}));
 
 // =========================== Trigger ============================
 const [mergedOpen, setOpen] = useState(open);
@@ -155,29 +209,18 @@ defineRender(() => {
           onClose();
         }
       }}
-      popupClassName={classnames(rootClassName, prefixCls.value, hashId.value, cssVarCls, {
-        [`${prefixCls.value}-block`]: block,
-      })}
+      popupClassName={popupCls.value}
       onChange={onInternalChange as CascaderProps['onChange']}
-      dropdownStyle={dropdownStyle.value}
+      dropdownStyle={mergedDropdownStyle.value}
+      class={rootCls.value}
+      style={rootStyle.value}
     >
       {{
         default: () => (
           <div
             ref={cascaderSlotRef}
-            class={classnames(
-              prefixCls.value,
-              contextConfig.value.className,
-              rootClassName,
-              className,
-              `${prefixCls.value}-wrapper`,
-              hashId.value,
-              cssVarCls,
-            )}
-            style={{
-              ...contextConfig.value.style,
-              ...style,
-            }}
+            class={contentCls.value}
+            style={contentStyle.value}
           >
             {childNode.value}
           </div>

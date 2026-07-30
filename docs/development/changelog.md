@@ -19,6 +19,15 @@ customClass: changelog-page
 
 ---
 
+## 1.54.0
+
+`2026-07-31`
+
+### ant-design-x-vue-next
+
+- 🆕 Suggestion 语义化 `classNames` / `styles`（`root` / `content` / `popup`）；内容容器 class 对齐为 `.ant-suggestion-content`。
+- 🛠 发布 npm 包 [`ant-design-x-vue-next@1.54.0`](https://www.npmjs.com/package/ant-design-x-vue-next)。
+
 ## 1.53.0
 
 `2026-07-31`

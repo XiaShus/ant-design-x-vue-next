@@ -1,5 +1,8 @@
 import type { CSSProperties, VNode } from 'vue';
 
+/** Align React Suggestion SemanticType. */
+export type SuggestionSemanticType = 'root' | 'content' | 'popup';
+
 export type SuggestionItem = {
   label: VNode | string;
   value: string;
@@ -28,6 +31,6 @@ export interface SuggestionProps<T = any> {
   items: SuggestionItem[] | ((info?: T) => SuggestionItem[]);
   onSelect?: (value: string, selectedOptions: SuggestionItem[]) => void;
   block?: boolean;
-  styles?: Partial<Record<string, CSSProperties>>;
-  classNames?: Partial<Record<string, string>>;
+  styles?: Partial<Record<SuggestionSemanticType, CSSProperties>>;
+  classNames?: Partial<Record<SuggestionSemanticType, string>>;
 }
