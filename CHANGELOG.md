@@ -2,6 +2,15 @@
 
 > Vue Next 文档站时间线版见 [更新日志](https://ant-design-x-vue-next-524.netlify.app/development/changelog.html)。
 
+## 1.91.0
+
+`2026-07-31`
+
+### ant-design-x-vue-next
+
+- 🆕 包入口导出 `version`（对齐 React；同步版本字符串至 `1.91.0`）
+- 🛠 发布 npm `ant-design-x-vue-next@1.91.0`
+
 ## 1.90.0
 
 `2026-07-31`

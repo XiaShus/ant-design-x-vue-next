@@ -9,6 +9,9 @@ export * from './hooks';
 export * from './theme';
 export * from './_util/cssinjs';
 
+/** Align React `@ant-design/x` root `version` export. */
+export { default as version } from './version';
+
 export const install = function (app: App) {
   Object.keys(components).forEach(key => {
     // @ts-ignore
