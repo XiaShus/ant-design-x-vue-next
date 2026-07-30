@@ -72,6 +72,7 @@ const Demo = () => {
                       key: 'retry',
                       icon: <RedoOutlined />,
                       label: 'Retry',
+                      disabled: requesting.value,
                     },
                     {
                       key: 'copy',
@@ -84,7 +85,6 @@ const Demo = () => {
                       items={items}
                       onClick={({ key }) => {
                         if (key === 'retry') {
-                          if (requesting.value) return;
                           onReload(id);
                           return;
                         }

@@ -65,6 +65,7 @@ const bubbleItems = computed(() =>
                 key: 'retry',
                 icon: h(RedoOutlined),
                 label: 'Retry',
+                disabled: requesting.value,
               },
               {
                 key: 'copy',
@@ -76,7 +77,6 @@ const bubbleItems = computed(() =>
               items,
               onClick: ({ key }: { key?: string | number }) => {
                 if (key === 'retry') {
-                  if (requesting.value) return;
                   onReload(id);
                   return;
                 }

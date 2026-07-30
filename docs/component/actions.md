@@ -56,6 +56,7 @@ actions/variant
 | key | 自定义操作的唯一标识 | string | - | - |
 | label | 自定义操作的显示标签 | string | - | - |
 | icon | 自定义操作的图标 | VNode | - | - |
+| disabled | 是否禁用 | boolean | `false` | - |
 | children | 子操作项 | ActionItem[] | - | - |
 | triggerSubMenuAction | 触发子菜单的操作 | `'hover' \| 'click'` | 'hover' | - |
 | onItemClick | 点击自定义操作按钮时的回调函数 | (info: ActionItem) => void | - | - |
@@ -67,6 +68,7 @@ actions/variant
 | label | 自定义操作的显示标签 | string | - | - |
 | key | 自定义操作的唯一标识 | string | - | - |
 | icon | 自定义操作的图标 | VNode | - | - |
+| disabled | 是否禁用 | boolean | `false` | - |
 | onItemClick | 点击自定义操作按钮时的回调函数 | (info: ActionItem) => void | - | - |
 | danger | 语法糖，设置危险 icon | boolean | false | - |
 

@@ -71,6 +71,10 @@ const handleItemClick = (
   item: ActionItem,
   domEvent: MouseEvent,
 ) => {
+  if (item.disabled) {
+    domEvent.preventDefault();
+    return;
+  }
   if (item.onItemClick) {
     item.onItemClick(item);
     return;
@@ -93,11 +97,14 @@ const handleMenuClick = (menuInfo: {
 };
 
 const renderSingleItem = (item: SubItemType) => {
-  const { icon, label, key } = item;
+  const { icon, label, key, disabled } = item;
 
   return (
     <div
-      class={classnames(`${prefixCls}-list-item`)}
+      class={classnames(`${prefixCls}-list-item`, {
+        [`${prefixCls}-list-item-disabled`]: disabled,
+      })}
+      aria-disabled={disabled || undefined}
       onClick={(domEvent: MouseEvent) => handleItemClick(key, item, domEvent)}
       key={key}
     >

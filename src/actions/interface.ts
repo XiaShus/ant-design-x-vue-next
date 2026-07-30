@@ -22,6 +22,11 @@ export interface SubItemType extends Pick<MenuItemProps, 'danger'>, DataAttribut
    */
   icon?: VNode;
   /**
+   * @desc 是否禁用
+   * @descEN Whether the action is disabled
+   */
+  disabled?: boolean;
+  /**
    * @desc 点击自定义操作按钮时的回调函数
    * @descEN Callback function when the custom action button is clicked.
    */
@@ -44,6 +49,11 @@ export interface ItemType extends DataAttributes {
    * @descEN Icon for the custom action.
    */
   icon?: VNode;
+  /**
+   * @desc 是否禁用
+   * @descEN Whether the action is disabled
+   */
+  disabled?: boolean;
   /**
    * @desc 子操作项
    * @descEN Child action items.

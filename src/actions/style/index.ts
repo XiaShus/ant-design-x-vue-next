@@ -45,6 +45,16 @@ const genActionsStyle: GenerateStyle<ActionsToken> = (token) => {
           '&:hover': {
             background: token.colorBgTextHover,
           },
+
+          '&-disabled': {
+            cursor: 'not-allowed',
+            opacity: 0.4,
+            pointerEvents: 'none',
+
+            '&:hover': {
+              background: 'transparent',
+            },
+          },
         },
       },
       '& .border': {
