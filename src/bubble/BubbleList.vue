@@ -40,6 +40,7 @@ const {
   items: itemsProp,
   autoScroll = true,
   roles: rolesProp,
+  role: roleProp,
   onScroll,
   classNames = {},
   styles = {},
@@ -66,7 +67,7 @@ const domProps = computed(
 );
 
 const items = ref<BubbleListProps['items']>(itemsProp);
-const roles = ref<AvoidValidation<RolesType>>(rolesProp);
+const roles = ref<AvoidValidation<RolesType>>(rolesProp ?? roleProp);
 
 watch(
   () => itemsProp,
@@ -76,9 +77,9 @@ watch(
 );
 
 watch(
-  () => rolesProp,
-  () => {
-    roles.value = rolesProp;
+  () => [rolesProp, roleProp] as const,
+  ([nextRoles, nextRole]) => {
+    roles.value = nextRoles ?? nextRole;
   },
 );
 

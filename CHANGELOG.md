@@ -2,6 +2,15 @@
 
 > Vue Next 文档站时间线版见 [更新日志](https://ant-design-x-vue-next-524.netlify.app/development/changelog.html)。
 
+## 1.68.0
+
+`2026-07-31`
+
+### ant-design-x-vue-next
+
+- 🆕 Bubble.List：支持 React 对齐的 `role`（与既有 `roles` 等价，同时传入时优先 `roles`）
+- 🛠 发布 npm `ant-design-x-vue-next@1.68.0`
+
 ## 1.67.0
 
 `2026-07-31`

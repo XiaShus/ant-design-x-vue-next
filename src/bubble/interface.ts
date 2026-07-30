@@ -200,12 +200,19 @@ export type ListSemanticType =
   | 'system'
   | 'divider';
 
-export interface BubbleListProps extends /* @vue-ignore */ HTMLAttributes {
+export interface BubbleListProps extends /* @vue-ignore */ Omit<HTMLAttributes, 'role'> {
   prefixCls?: string;
   rootClassName?: string;
   items?: BubbleDataType[];
   autoScroll?: boolean;
+  /**
+   * Vue 历史命名；与 React `role` 等价。两者同时传入时优先 `roles`。
+   */
   roles?: AvoidValidation<RolesType>;
+  /**
+   * 对齐 React Bubble.List `role`：按 `items[].role` 映射默认气泡属性。
+   */
+  role?: AvoidValidation<RolesType>;
   onScroll?: (e: Event) => void;
   classNames?: Partial<Record<ListSemanticType, string>>;
   styles?: Partial<Record<ListSemanticType, CSSProperties>>;
