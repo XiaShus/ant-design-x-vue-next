@@ -115,7 +115,7 @@ export interface ConversationsProps extends HTMLAttributes {
   rootClassName?: string;
 }
 
-export interface ConversationsItemProps extends Omit<HTMLAttributes, 'onClick'> {
+export interface ConversationsItemProps extends /* @vue-ignore */ Omit<HTMLAttributes, 'onClick'> {
   info: Conversation;
   prefixCls?: string;
   direction?: DirectionType;

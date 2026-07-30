@@ -129,7 +129,9 @@ defineRender(() => {
       headerNode = (
         <div class={`${previewCls.value}-title`}>
           <span class={`${previewCls.value}-filename`}>{title}</span>
-          <Typography.Text copyable={{ text: content }} class={`${previewCls.value}-copy`} />
+          <span class={`${previewCls.value}-copy`}>
+            <Typography.Text copyable={{ text: content }} />
+          </span>
         </div>
       );
     }

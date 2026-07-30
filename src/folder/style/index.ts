@@ -106,7 +106,7 @@ const genFilePreviewStyle: GenerateStyle<FolderToken> = (token) => {
         [`pre`]: {
           margin: 0,
           background: 'transparent',
-          fontFamily: token.fontFamilyCode,
+          fontFamily: token.fontFamily,
           fontSize: token.fontSize,
           whiteSpace: 'pre-wrap',
           wordBreak: 'break-word',

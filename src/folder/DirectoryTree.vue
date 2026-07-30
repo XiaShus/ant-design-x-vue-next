@@ -180,7 +180,7 @@ defineRender(() => {
         menu={{ items: contextMenuItems.value || [] }}
         open={contextMenuOpen.value}
         onOpenChange={handleContextMenuOpenChange}
-        trigger={['contextMenu']}
+        trigger={['contextmenu']}
       >
         <div style={{ height: '100%' }}>
           <Tree.DirectoryTree
