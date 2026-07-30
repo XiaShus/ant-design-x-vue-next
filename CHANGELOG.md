@@ -1,15 +1,13 @@
-﻿# Changelog
+# Changelog
 
 > Vue Next 鏂囨。绔欐椂闂寸嚎鐗堣 [鏇存柊鏃ュ織](https://ant-design-x-vue-next-524.netlify.app/development/changelog.html)銆?
-
 ## 1.24.0
 
 `2026-07-30`
 
 ### ant-design-x-vue-next
 
-- 馃啎 ThoughtChain.Item 澶嶅悎缁勪欢锛坴ariant / status / blink / disabled锛?
-- 馃摉 ThoughtChain 绠€娲佹€濈淮閾炬紨绀轰笌瀵归綈杩涘害
+- 馃啎 ThoughtChain.Item 澶嶅悎缁勪欢锛坴ariant / status / blink / disabled锛?- 馃摉 ThoughtChain 绠€娲佹€濈淮閾炬紨绀轰笌瀵归綈杩涘害
 - 馃洜 鍙戝竷 npm `ant-design-x-vue-next@1.24.0`
 
 ## 1.23.0
@@ -29,8 +27,7 @@
 ### ant-design-x-vue-next
 
 - 馃啎 Sender slotConfig / skill / SlotTextArea 璇嶆Ы濉┖
-- 馃摉 Sender 璇嶆Ы鏂囨。涓庢紨绀?
-- 馃洜 鍙戝竷 npm `ant-design-x-vue-next@1.22.0`
+- 馃摉 Sender 璇嶆Ы鏂囨。涓庢紨绀?- 馃洜 鍙戝竷 npm `ant-design-x-vue-next@1.22.0`
 
 ## 1.21.0
 
@@ -58,9 +55,7 @@
 
 ### ant-design-x-vue-next
 
-- 馃啎 Bubble.System / Bubble.Divider / editable 缂栬緫鎬?
-- 馃摉 Bubble 鏂囨。涓庡榻愯繘搴︽洿鏂?
-- 馃洜 鍙戝竷 npm `ant-design-x-vue-next@1.19.0`
+- 馃啎 Bubble.System / Bubble.Divider / editable 缂栬緫鎬?- 馃摉 Bubble 鏂囨。涓庡榻愯繘搴︽洿鏂?- 馃洜 鍙戝竷 npm `ant-design-x-vue-next@1.19.0`
 
 ## 1.18.0
 
@@ -68,9 +63,7 @@
 
 ### ant-design-x-vue-next
 
-- 馃啎 `Sender.Switch` 妯″紡寮€鍏?
-- 馃摉 Sender 鏂囨。涓庡榻愯繘搴︽洿鏂?
-- 馃洜 鍙戝竷 npm `ant-design-x-vue-next@1.18.0`
+- 馃啎 `Sender.Switch` 妯″紡寮€鍏?- 馃摉 Sender 鏂囨。涓庡榻愯繘搴︽洿鏂?- 馃洜 鍙戝竷 npm `ant-design-x-vue-next@1.18.0`
 
 ## 1.17.0
 
@@ -79,8 +72,7 @@
 ### ant-design-x-vue-next
 
 - 馃啎 Actions 棰勮 Copy / Feedback / Item / Audio + `actionRender`
-- 馃摉 Actions 鏂囨。涓庡榻愯繘搴︽洿鏂?
-- 馃洜 鍙戝竷 npm `ant-design-x-vue-next@1.17.0`
+- 馃摉 Actions 鏂囨。涓庡榻愯繘搴︽洿鏂?- 馃洜 鍙戝竷 npm `ant-design-x-vue-next@1.17.0`
 
 ## 1.16.0
 
@@ -88,9 +80,7 @@
 
 ### ant-design-x-vue-next
 
-- 馃啎 XCard Basic Catalog锛歚registerBasicCatalog` 鍐呯疆 Text/Button/TextField/甯冨眬绛?
-- 馃摉 鏂囨。绔?XCard 婕旂ず涓庡榻愯繘搴︽洿鏂?
-- 馃洜 鍙戝竷 npm `ant-design-x-vue-next@1.16.0`
+- 馃啎 XCard Basic Catalog锛歚registerBasicCatalog` 鍐呯疆 Text/Button/TextField/甯冨眬绛?- 馃摉 鏂囨。绔?XCard 婕旂ず涓庡榻愯繘搴︽洿鏂?- 馃洜 鍙戝竷 npm `ant-design-x-vue-next@1.16.0`
 
 ## 1.15.0
 
@@ -99,8 +89,7 @@
 ### ant-design-x-vue-next
 
 - 馃啎 `createManualXRequest` / `AbstractXRequestClass`锛汸rovider `request` + `injectRequest`
-- 馃啎 `useXChat` 鍙粎鐢?`provider` 鍙戣姹?
-- 馃洜 鍙戝竷 npm `ant-design-x-vue-next@1.15.0`
+- 馃啎 `useXChat` 鍙粎鐢?`provider` 鍙戣姹?- 馃洜 鍙戝竷 npm `ant-design-x-vue-next@1.15.0`
 
 ## 1.14.0
 
@@ -139,8 +128,7 @@
 - 馃啎 useXChat setMessage / removeMessage / onReload锛汚ctions item.disabled
 - 馃啎 XMarkdown DebugPanel锛沊MCPClient锛汥eepSeekChatProvider
 - 馃洜 淇 dist/style.css 瀵煎嚭锛汻esolver 鏀寔 AXProvider 鈫?XProvider
-- 馃摉 杩佺Щ鎸囧崡锛氫粠 ant-design-x-vue 鏇挎崲鍒版湰鍖?
-- 馃洜 鍙戝竷 npm `ant-design-x-vue-next@1.11.0`
+- 馃摉 杩佺Щ鎸囧崡锛氫粠 ant-design-x-vue 鏇挎崲鍒版湰鍖?- 馃洜 鍙戝竷 npm `ant-design-x-vue-next@1.11.0`
 
 ## 1.10.0
 
@@ -159,8 +147,7 @@
 
 ### ant-design-x-vue-next
 
-- 馃啎 鍐呯疆 XMarkdown MVP锛坢arked + DOMPurify + CodeHighlighter/Mermaid锛?
-- 馃洜 鍙戝竷 npm `ant-design-x-vue-next@1.9.0`
+- 馃啎 鍐呯疆 XMarkdown MVP锛坢arked + DOMPurify + CodeHighlighter/Mermaid锛?- 馃洜 鍙戝竷 npm `ant-design-x-vue-next@1.9.0`
 
 ## 1.7.0
 
@@ -184,7 +171,6 @@
 ---
 
 浠ヤ笅涓轰笂娓?`ant-design-x-vue` 鐨?changelogen 鍘嗗彶璁板綍銆?
-
 ## v1.6.0
 
 [compare changes](https://github.com/wzc520pyfm/ant-design-x-vue/compare/v1.5.0...v1.6.0)
