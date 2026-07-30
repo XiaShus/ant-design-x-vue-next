@@ -9,7 +9,7 @@ const groupedItems = [
 ];
 
 describe('Conversations groupable collapsible', () => {
-  it('collapses groups by default when collapsible is true', async () => {
+  it('keeps collapsed lists in DOM with v-show hidden (motion ready)', async () => {
     const wrapper = mount(Conversations, {
       props: {
         items: groupedItems,
@@ -17,7 +17,11 @@ describe('Conversations groupable collapsible', () => {
       },
     });
     await nextTick();
-    expect(wrapper.findAll('.ant-conversations-list')).toHaveLength(0);
+    const lists = wrapper.findAll('.ant-conversations-list');
+    expect(lists).toHaveLength(2);
+    lists.forEach((el) => {
+      expect((el.element as HTMLElement).style.display).toBe('none');
+    });
     expect(wrapper.findAll('.ant-conversations-group-title-collapsible')).toHaveLength(2);
     wrapper.unmount();
   });
@@ -30,18 +34,21 @@ describe('Conversations groupable collapsible', () => {
       },
     });
     await nextTick();
-    expect(wrapper.findAll('.ant-conversations-list')).toHaveLength(1);
+    const lists = wrapper.findAll('.ant-conversations-list');
+    expect(lists).toHaveLength(2);
+    expect((lists[0].element as HTMLElement).style.display).not.toBe('none');
+    expect((lists[1].element as HTMLElement).style.display).toBe('none');
     expect(wrapper.text()).toContain('Chat 1');
-    expect(wrapper.text()).not.toContain('Chat 2');
 
     const titles = wrapper.findAll('.ant-conversations-group-title-collapsible');
     await titles[1].trigger('click');
     await nextTick();
+    expect((lists[1].element as HTMLElement).style.display).not.toBe('none');
     expect(wrapper.text()).toContain('Chat 2');
 
     await titles[0].trigger('click');
     await nextTick();
-    expect(wrapper.text()).not.toContain('Chat 1');
+    expect((lists[0].element as HTMLElement).style.display).toBe('none');
     wrapper.unmount();
   });
 

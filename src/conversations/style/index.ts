@@ -3,6 +3,7 @@ import { unit } from '../../_util/cssinjs';
 import type { FullToken, GenerateStyle, GetDefaultToken } from '../../theme/cssinjs-utils';
 import { genStyleHooks } from '../../theme/genStyleUtils';
 import { mergeToken } from '../../_util/cssinjs-utils';
+import { genTransitionCollapseStyle } from '../../transition-collapse';
 
 export interface ComponentToken {
   creationBgColor?: string;
@@ -198,6 +199,10 @@ const genConversationsStyle: GenerateStyle<ConversationsToken> = (token) => {
       [`& ${componentCls}-group-collapse-trigger-close`]: {
         transform: 'rotate(0deg)',
       },
+      // Align React CSSMotion leavedClassName
+      [`& ${componentCls}-content-hidden`]: {
+        display: 'none',
+      },
     },
   };
 };
@@ -217,7 +222,7 @@ export default genStyleHooks(
   'Conversations',
   (token) => {
     const compToken = mergeToken<ConversationsToken>(token, {});
-    return genConversationsStyle(compToken);
+    return [genConversationsStyle(compToken), genTransitionCollapseStyle(compToken)];
   },
   prepareComponentToken,
 );

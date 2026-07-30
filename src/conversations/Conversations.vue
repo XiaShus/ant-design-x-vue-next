@@ -15,6 +15,7 @@ import useShortcutKeys from '../_util/hooks/use-shortcut-keys';
 import useStyle from './style';
 import GroupTitleContextProvider from './context';
 import type { GroupLabel } from './interface';
+import { TransitionCollapse } from '../transition-collapse';
 
 defineOptions({ name: 'AXConversations' });
 
@@ -218,14 +219,21 @@ defineRender(() => {
                   {labelNode}
                 </GroupTitle>
               </GroupTitleContextProvider>
-              {groupOpen && (
-                <ul
-                  class={classnames(`${prefixCls.value}-list`, {
-                    [`${prefixCls.value}-group-collapsible-list`]: groupCollapsible,
-                  })}
-                >
-                  {convItems}
-                </ul>
+              {groupCollapsible ? (
+                <TransitionCollapse prefixCls={prefixCls.value}>
+                  <ul
+                    v-show={groupOpen}
+                    key={`list-${groupKey}`}
+                    class={classnames(
+                      `${prefixCls.value}-list`,
+                      `${prefixCls.value}-group-collapsible-list`,
+                    )}
+                  >
+                    {convItems}
+                  </ul>
+                </TransitionCollapse>
+              ) : (
+                <ul class={`${prefixCls.value}-list`}>{convItems}</ul>
               )}
             </li>
           );

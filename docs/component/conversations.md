@@ -72,11 +72,12 @@ conversations/group
 
 ### 分组折叠
 
-:::demo `groupable.collapsible` 支持折叠分组；可用 `expandedKeys` / `onExpand` 受控。
+:::demo `groupable.collapsible` 支持折叠分组（含展开/收起动效）；可用 `expandedKeys` / `onExpand` 受控。
 
 conversations/collapsible
 
 :::
+
 
 ### 分组排序
 

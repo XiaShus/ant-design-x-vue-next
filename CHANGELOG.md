@@ -2,6 +2,15 @@
 
 > Vue Next 文档站时间线版见 [更新日志](https://ant-design-x-vue-next-524.netlify.app/development/changelog.html)。
 
+## 1.47.0
+
+`2026-07-31`
+
+### ant-design-x-vue-next
+
+- 🆕 Conversations `groupable.collapsible` 展开/收起动效（`TransitionCollapse`，对齐 React CSSMotion）
+- 🛠 发布 npm `ant-design-x-vue-next@1.47.0`
+
 ## 1.46.0
 
 `2026-07-31`
