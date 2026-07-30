@@ -19,6 +19,15 @@ customClass: changelog-page
 
 ---
 
+## 1.46.0
+
+`2026-07-31`
+
+### ant-design-x-vue-next
+
+- 🆕 Attachments FileList 支持 `#upload` 自定义继续上传按钮；`SilentUploader.visible` + `maxCount` 达上限时隐藏入口（保留 file input）。
+- 🛠 发布 npm 包 [`ant-design-x-vue-next@1.46.0`](https://www.npmjs.com/package/ant-design-x-vue-next)。
+
 ## 1.45.0
 
 `2026-07-31`

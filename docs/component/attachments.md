@@ -61,6 +61,15 @@ attachments/select-files
 
 </ClientOnly>
 
+### 自定义继续上传
+
+:::demo 通过 `#upload` 自定义 FileList 内的继续上传按钮；达到 `maxCount` 时隐藏（输入仍保留）。
+
+attachments/upload-slot
+
+:::
+
+
 ### 文件卡片
 
 <ClientOnly>
@@ -105,6 +114,7 @@ attachments/files-custom
 | rootStyle        | 根节点的样式对象                                                           | CSSProperties                                                      | -      | -    |
 | styles           | 自定义样式对象，[见下](#semantic-dom)                                      | Record<string, CSSProperties>                                      | -      | -    |
 | imageProps       | 图片属性，同 antdv [Image](https://www.antdv.com/components/image-cn) 属性 | ImageProps                                                         | -      | -    |
+| maxCount         | 限制附件数量；达到上限后隐藏 FileList 继续上传入口（对齐 React）         | number                                                             | -      | 1.46.0 |
 
 ```tsx | pure
 interface PlaceholderType {
@@ -120,6 +130,7 @@ interface PlaceholderType {
 | ----------- | -------------------------------------------- | ------------------------------ | ------ |
 | default     | 自定义触发节点（children 模式，对齐 React） | -                              | 1.38.0 |
 | placeholder | 没有文件时的占位信息                         | \{ type: "inline" \| "drop" \} | -      |
+| upload      | 自定义 FileList 内继续上传触发器             | -                              | 1.46.0 |
 
 ### Attachments Expose
 

@@ -13,9 +13,13 @@ export interface DropUploaderProps {
 }
 
 export interface SilentUploaderProps {
-  children: VNode;
+  children?: VNode;
   upload: UploadProps;
+  /** When false, hide uploader but keep file input mounted (align React). */
+  visible?: boolean;
   rootClassName?: string;
+  className?: string;
+  style?: CSSProperties;
 }
 
 export interface PlaceholderConfig {
@@ -43,6 +47,8 @@ export interface FileListProps {
   overflow?: 'scrollX' | 'scrollY' | 'wrap';
   upload: UploadProps;
   imageProps?: ImageProps;
+  /** Custom FileList upload trigger (from Attachments `#upload` slot). */
+  uploadNode?: VNode;
 
   // Semantic
   listClassName?: string;

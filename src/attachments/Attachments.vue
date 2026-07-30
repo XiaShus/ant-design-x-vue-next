@@ -39,12 +39,15 @@ const {
   classNames = {},
   styles = {},
   accept,
+  maxCount,
   ...uploadProps
 } = defineProps<AttachmentsProps>();
 
 const slots = defineSlots<{
   default?(): VNode | VNode[] | string;
   placeholder?(props?: { type: 'inline' | 'drop' }): VNode | string;
+  /** Custom FileList upload trigger (plus button area). */
+  upload?(): VNode | VNode[] | string;
 }>();
 
 // ============================ PrefixCls ============================
@@ -100,6 +103,7 @@ const triggerChange: AttachmentsProps['onChange'] = (info) => {
 const mergedUploadProps = computed<UploadProps>(() => ({
   ...uploadProps,
   accept,
+  maxCount,
   fileList: fileList.value,
   onChange: triggerChange,
 }));
@@ -156,6 +160,15 @@ const resolveChildren = (): VNode | null => {
   return (<>{list}</>) as unknown as VNode;
 };
 
+const resolveUploadNode = (): VNode | undefined => {
+  const nodes = slots.upload?.();
+  if (!nodes) return undefined;
+  const list = Array.isArray(nodes) ? nodes : [nodes];
+  if (!list.length) return undefined;
+  if (list.length === 1) return list[0] as VNode;
+  return (<>{list}</>) as unknown as VNode;
+};
+
 defineExpose<AttachmentsRef>({
   get nativeElement() {
     return containerRef.value ?? null;
@@ -196,6 +209,7 @@ defineExpose<AttachmentsRef>({
 
 defineRender(() => {
   const childrenNode = resolveChildren();
+  const uploadNode = resolveUploadNode();
 
   return wrapCSSVar(
     <AttachmentContextProvider
@@ -242,6 +256,7 @@ defineRender(() => {
             onRemove={onItemRemove}
             overflow={overflow}
             upload={mergedUploadProps.value}
+            uploadNode={uploadNode}
             listClassName={classnames(contextClassNames.value.list, classNames.list)}
             listStyle={{
               ...contextStyles.value.list,

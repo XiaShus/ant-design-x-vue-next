@@ -13,12 +13,14 @@ defineOptions({ name: 'AXAttachmentsFileList' });
 
 const TOLERANCE = 1;
 
+const props = defineProps<FileListProps>();
 const {
   prefixCls,
   items,
   onRemove,
   overflow,
   upload,
+  uploadNode,
   listClassName,
   listStyle,
   itemClassName,
@@ -26,7 +28,7 @@ const {
   uploadStyle,
   itemStyle,
   imageProps,
-} = defineProps<FileListProps>();
+} = props;
 const listCls = computed(() => `${prefixCls}-list`);
 const containerRef = useTemplateRef<HTMLDivElement>('file-list-container');
 
@@ -34,6 +36,13 @@ const [firstMount, setFirstMount] = useState(false);
 
 // has disabled
 const attachmentContext = useAttachmentContextInject();
+
+const showExtension = computed(
+  () =>
+    !attachmentContext.value.disabled &&
+    (typeof props.upload.maxCount === 'undefined' ||
+      (props.upload.maxCount as number) > props.items.length),
+);
 
 watchEffect(() => {
   setFirstMount(true);
@@ -159,11 +168,11 @@ defineRender(() => {
         />
       })}
       </TransitionGroup>
-      {!attachmentContext.value.disabled && (
-        <SilentUploader
-          upload={upload}
-          // TODO: need support slot also
-          children={
+      <SilentUploader
+        upload={upload}
+        visible={showExtension.value}
+        children={
+          uploadNode || (
             <Button
               class={classnames(uploadClassName, `${listCls.value}-upload-btn`)}
               style={uploadStyle}
@@ -171,9 +180,9 @@ defineRender(() => {
             >
               <PlusOutlined class={`${listCls.value}-upload-btn-icon`} />
             </Button>
-          }
-        />
-      )}
+          )
+        }
+      />
 
       {overflow === 'scrollX' && (
         <>
