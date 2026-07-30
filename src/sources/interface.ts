@@ -1,4 +1,5 @@
-import type { CSSProperties, HTMLAttributes, Key, VNode } from 'vue';
+import type { CSSProperties, HTMLAttributes, VNode } from 'vue';
+import type { Key } from '../_util/type';
 import type { AvoidValidation } from '../type-utility';
 
 export type SourcesSemanticType = 'root' | 'title' | 'content';
