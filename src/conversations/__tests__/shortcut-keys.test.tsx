@@ -54,7 +54,7 @@ describe('Conversations shortcutKeys', () => {
       }),
     );
     await nextTick();
-    expect(onActiveChange).toHaveBeenCalledWith('b');
+    expect(onActiveChange).toHaveBeenCalledWith('b', expect.objectContaining({ key: 'b', label: 'B' }));
     wrapper.unmount();
     document.dispatchEvent(new KeyboardEvent('keyup', { bubbles: true }));
   });

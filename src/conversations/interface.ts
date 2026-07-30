@@ -79,10 +79,10 @@ export interface ConversationsProps extends HTMLAttributes {
   defaultActiveKey?: Conversation['key'];
 
   /**
-   * @desc 选中变更回调
-   * @descEN Callback for selection change
+   * @desc 选中变更回调（第二参为对应会话项，对齐 React）
+   * @descEN Callback for selection change; second arg is the matched item
    */
-  onActiveChange?: (value: string) => void;
+  onActiveChange?: (value: Conversation['key'], item?: Conversation) => void;
 
   /**
    * @desc 会话操作菜单

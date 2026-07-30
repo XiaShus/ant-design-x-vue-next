@@ -108,10 +108,10 @@ const mergedCls = computed(() => classnames(
 // ============================ Events ============================
 const onConversationItemClick: ConversationsItemProps['onClick'] = (info) => {
   setMergedActiveKey(info.key);
-
-  if (onActiveChange) {
-    onActiveChange(info.key);
-  }
+  onActiveChange?.(
+    info.key,
+    (props.items || []).find((item) => item.key === info.key),
+  );
 };
 
 // Flat item list for shortcut index (Ctrl+1…9 / arrow list)
@@ -133,7 +133,7 @@ subscribe((action) => {
         const target = keyList.value[index];
         if (target?.key && !target.disabled) {
           setMergedActiveKey(target.key);
-          onActiveChange?.(target.key);
+          onActiveChange?.(target.key, target);
         }
       }
       break;
