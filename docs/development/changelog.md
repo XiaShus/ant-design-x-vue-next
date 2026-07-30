@@ -19,6 +19,18 @@ customClass: changelog-page
 
 ---
 
+## 1.20.0
+
+`2026-07-30`
+
+### ant-design-x-vue-next
+
+- 🆕 Bubble `streaming`：流式进行中不触发 `onTypingComplete`。
+- 🆕 Bubble `footerPlacement`：`outer/inner` × `start/end`。
+- 🆕 `typing.effect`：支持 `typing` / `fade-in`。
+- 📖 Bubble 流式与 Footer 位置演示；对齐进度更新。
+- 🛠 发布 npm 包 [`ant-design-x-vue-next@1.20.0`](https://www.npmjs.com/package/ant-design-x-vue-next)。
+
 ## 1.19.0
 
 `2026-07-30`

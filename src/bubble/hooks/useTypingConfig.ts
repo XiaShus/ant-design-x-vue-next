@@ -12,21 +12,24 @@ function useTypingConfig(typing: MaybeRefOrGetter<BubbleProps['typing']>) {
     step: 1,
     interval: 50,
     // set default suffix is empty
-    suffix: null,
+    suffix: null as any,
+    effect: 'typing',
+    keepPrefix: true,
   };
   const config = computed(() => {
     const typingRaw = toValue(typing);
     return {
       ...baseConfig,
-      ...(typeof typingRaw === 'object' ? typingRaw : {})
-    }
+      ...(typeof typingRaw === 'object' ? typingRaw : {}),
+    };
   });
 
   return [
     typingEnabled,
     computed(() => config.value.step),
     computed(() => config.value.interval),
-    computed(() => config.value.suffix)
+    computed(() => config.value.suffix),
+    computed(() => config.value.effect || 'typing'),
   ] as const;
 }
 

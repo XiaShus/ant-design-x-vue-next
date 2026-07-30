@@ -45,6 +45,22 @@ bubble/editable
 
 :::
 
+### 流式输出
+
+:::demo `streaming` 控制流式结束时机；可叠加 `typing`。
+
+bubble/stream
+
+:::
+
+### Footer 位置
+
+:::demo `footerPlacement`：outer / inner × start / end。
+
+bubble/footer-placement
+
+:::
+
 ### 支持位置和头像
 
 :::demo 通过 `avatar` 设置自定义头像，通过 `placement` 设置位置，提供了 `start`、`end` 两个选项。
@@ -187,6 +203,9 @@ bubble/gpt-vis
 | editable | 是否可编辑（content 需为 string） | `boolean \| { editing?: boolean; okText?; cancelText? }` | `false` | 1.19.0 |
 | onEditConfirm | 编辑确认回调 | `(content: string) => void` | - | 1.19.0 |
 | onEditCancel | 编辑取消回调 | `() => void` | - | 1.19.0 |
+| streaming | 流式传输中；为 true 时不触发 `onTypingComplete` | boolean | `false` | 1.20.0 |
+| footerPlacement | footer 位置 | `outer-start` \| `outer-end` \| `inner-start` \| `inner-end` | 随 placement | 1.20.0 |
+| typing.effect | 打字效果 | `typing` \| `fade-in` | `typing` | 1.20.0 |
 
 ### Bubble.System
 

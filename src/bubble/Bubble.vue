@@ -37,6 +37,8 @@ const {
   onEditConfirm,
   onEditCancel,
   editable: _editable,
+  streaming: _streaming,
+  footerPlacement: _footerPlacement,
   _key,
   ...otherHtmlProps
 } = props;
@@ -59,9 +61,12 @@ const slots = defineSlots<{
 
 const content = ref(contentProp);
 
-watch(() => contentProp, () => {
-  content.value = contentProp;
-})
+watch(
+  () => props.content,
+  (v) => {
+    content.value = (v ?? '') as any;
+  },
+);
 
 const { onUpdate } = unref(useBubbleContextInject());
 
@@ -78,7 +83,9 @@ const prefixCls = getPrefixCls('bubble', customizePrefixCls);
 const contextConfig = useXComponentConfig('bubble');
 
 // ============================ Typing ============================
-const [typingEnabled, typingStep, typingInterval, typingSuffix] = useTypingConfig(() => typing);
+const [typingEnabled, typingStep, typingInterval, typingSuffix, typingEffect] = useTypingConfig(
+  () => props.typing,
+);
 
 const [typedContent, isTyping] = useTypedEffect(
   content,
@@ -94,17 +101,22 @@ watch(typedContent, () => {
 });
 
 watchEffect(() => {
-  if (!isTyping.value && !loading) {
-    // StrictMode will trigger this twice,
-    // So we need a flag to avoid that
+  // streaming 进行中不触发 complete（对齐 React Bubble）
+  if (!isTyping.value && !props.loading && !props.streaming) {
     if (!triggerTypingCompleteRef.value) {
       triggerTypingCompleteRef.value = true;
-      onTypingComplete?.();
+      props.onTypingComplete?.();
     }
   } else {
     triggerTypingCompleteRef.value = false;
   }
 });
+
+const mergedFooterPlacement = computed(() => {
+  if (props.footerPlacement) return props.footerPlacement;
+  return (props.placement || 'start') === 'start' ? 'outer-start' : 'outer-end';
+});
+const isFooterInner = computed(() => mergedFooterPlacement.value.includes('inner'));
 
 // ============================ Styles ============================
 const [wrapCSSVar, hashId, cssVarCls] = useStyle(() => prefixCls);
@@ -120,7 +132,14 @@ const mergedCls = computed(() => [
     [`${prefixCls}-rtl`]: direction.value === 'rtl',
   },
   {
-    [`${prefixCls}-typing`]: isTyping.value && !loading && !messageRender && !slots.message && !typingSuffix.value,
+    [`${prefixCls}-typing`]:
+      isTyping.value &&
+      !loading &&
+      !messageRender &&
+      !slots.message &&
+      !typingSuffix.value &&
+      typingEffect.value === 'typing',
+    [`${prefixCls}-fade-in`]: typingEnabled.value && typingEffect.value === 'fade-in',
   },
 ]);
 
@@ -148,8 +167,49 @@ const mergedContent = computed(() => {
   if (slots.message) {
     return slots.message({ content: typedContent.value as any });
   }
-  return messageRender ? messageRender(typedContent.value as any) : typedContent.value
+  const rendered = messageRender
+    ? messageRender(typedContent.value as any)
+    : typedContent.value;
+  // fade-in：对当前可见字符串包一层动画节点
+  if (
+    typingEnabled.value &&
+    typingEffect.value === 'fade-in' &&
+    typeof rendered === 'string' &&
+    isTyping.value
+  ) {
+    return <span class="fade-in">{rendered}</span>;
+  }
+  return rendered;
 });
+
+const renderFooterNode = () => {
+  if (isEditing.value) return null;
+  const node = slots.footer
+    ? slots.footer({ content: typedContent.value as T, info: { key: _key } })
+    : typeof footer === 'function'
+      ? footer(typedContent.value as T, { key: _key })
+      : footer;
+  if (!node) return null;
+  return (
+    <div
+      class={[
+        `${prefixCls}-footer`,
+        {
+          [`${prefixCls}-footer-start`]: mergedFooterPlacement.value.includes('start'),
+          [`${prefixCls}-footer-end`]: mergedFooterPlacement.value.includes('end'),
+        },
+        contextConfig.value.classNames.footer,
+        classNames.footer,
+      ]}
+      style={{
+        ...contextConfig.value.styles.footer,
+        ...styles.footer,
+      }}
+    >
+      {node}
+    </div>
+  );
+};
 
 // ============================ Render ============================
 const contentNode = computed<VNode>(() => {
@@ -173,12 +233,21 @@ const contentNode = computed<VNode>(() => {
       />
     );
   }
-  return (
+  const body = (
     <>
       {mergedContent.value}
       {isTyping.value && toValue(typingSuffix)}
     </>
   );
+  if (isFooterInner.value) {
+    return (
+      <div class={`${prefixCls}-content-with-footer`}>
+        {body}
+        {renderFooterNode()}
+      </div>
+    );
+  }
+  return body;
 });
 
 const fullContent = computed<VNode>(() => {
@@ -205,15 +274,9 @@ const fullContent = computed<VNode>(() => {
     : typeof header === 'function'
       ? header(typedContent.value as T, { key: _key })
       : header;
-  const _footer = isEditing.value
-    ? null
-    : slots.footer
-      ? slots.footer({ content: typedContent.value as T, info: { key: _key } })
-      : typeof footer === 'function'
-        ? footer(typedContent.value as T, { key: _key })
-        : footer;
+  const _footerOuter = !isFooterInner.value ? renderFooterNode() : null;
 
-  if (_header || _footer) {
+  if (_header || _footerOuter) {
     return (
       <div class={`${prefixCls}-content-wrapper`}>
         {_header && (
@@ -232,23 +295,9 @@ const fullContent = computed<VNode>(() => {
           </div>
         )}
         {_content}
-        {_footer && (
-          <div
-            class={[
-              `${prefixCls}-footer`,
-              contextConfig.value.classNames.footer,
-              classNames.footer,
-            ]}
-            style={{
-              ...contextConfig.value.styles.footer,
-              ...styles.footer,
-            }}
-          >
-            {_footer}
-          </div>
-        )}
+        {_footerOuter}
       </div>
-    )
+    );
   }
   return _content;
 });

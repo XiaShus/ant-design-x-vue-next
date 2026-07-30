@@ -9,6 +9,10 @@ export interface EditableBubbleOption {
   cancelText?: VNodeChild;
 }
 
+export type BubbleTypingEffect = 'typing' | 'fade-in';
+
+export type FooterPlacement = 'outer-start' | 'outer-end' | 'inner-start' | 'inner-end';
+
 export interface TypingOption {
   /**
    * @default 1
@@ -22,6 +26,16 @@ export interface TypingOption {
    * @default null
    */
   suffix?: VNode | string;
+  /**
+   * 打字动画效果：`typing` 光标逐字；`fade-in` 片段淡入
+   * @default 'typing'
+   */
+  effect?: BubbleTypingEffect;
+  /**
+   * 内容增长时是否保留公共前缀（流式场景）
+   * @default true
+   */
+  keepPrefix?: boolean;
 }
 
 export type SemanticType = 'avatar' | 'content' | 'header' | 'footer';
@@ -46,6 +60,11 @@ export interface BubbleProps<ContentType extends BubbleContentType = string> ext
   placement?: 'start' | 'end';
   loading?: boolean;
   typing?: AvoidValidation<TypingOption | boolean>;
+  /**
+   * 是否处于流式传输；为 true 时不触发 onTypingComplete
+   * @default false
+   */
+  streaming?: boolean;
   content?: ContentType;
   messageRender?: (content: ContentType) => VNode | string;
   loadingRender?: () => VNode;
@@ -55,6 +74,11 @@ export interface BubbleProps<ContentType extends BubbleContentType = string> ext
   onTypingComplete?: VoidFunction;
   header?: AvoidValidation<VNode | string | ((content: ContentType, info: SlotInfoType) => VNode | string)>;
   footer?: AvoidValidation<VNode | string | ((content: ContentType, info: SlotInfoType) => VNode | string)>;
+  /**
+   * footer 渲染位置
+   * @default placement===start ? 'outer-start' : 'outer-end'
+   */
+  footerPlacement?: FooterPlacement;
   /**
    * 是否可编辑（仅 content 为 string）
    */

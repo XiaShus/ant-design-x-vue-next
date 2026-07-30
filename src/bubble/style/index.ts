@@ -37,6 +37,15 @@ const cursorBlink = new Keyframes('cursorBlink', {
   },
 });
 
+const fadeIn = new Keyframes('bubbleFadeIn', {
+  '0%': {
+    opacity: 0,
+  },
+  '100%': {
+    opacity: 1,
+  },
+});
+
 // biome-ignore lint/suspicious/noEmptyInterface: ComponentToken need to be empty by default
 export interface ComponentToken {}
 
@@ -105,7 +114,30 @@ const genBubbleStyle: GenerateStyle<BubbleToken> = (token) => {
       },
 
       [`& ${componentCls}-footer`]: {
+        display: 'flex',
         marginTop: paddingSM,
+        '&-start': {
+          flexDirection: 'row',
+          justifyContent: 'flex-start',
+        },
+        '&-end': {
+          flexDirection: 'row',
+          justifyContent: 'flex-end',
+        },
+      },
+
+      [`& ${componentCls}-content-with-footer`]: {
+        display: 'flex',
+        flexDirection: 'column',
+        gap: token.paddingXXS,
+        width: '100%',
+      },
+
+      [`&${componentCls}-fade-in .fade-in`]: {
+        display: 'inline',
+        animationName: fadeIn,
+        animationDuration: '1s',
+        animationTimingFunction: 'linear',
       },
 
       // =========================== Content =============================
