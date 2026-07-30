@@ -110,6 +110,12 @@ thought-chain/simple
 | size | 尺寸 | 'large' \| 'middle' \| 'small' | 'middle' | - |
 | styles | 语义化结构的样式 | Record<'root' \| 'item' \| 'itemHeader' \| 'itemIcon' \| 'itemContent' \| 'itemFooter', CSSProperties> | - | 1.58.0 起含 `root` / `itemIcon` |
 
+### ThoughtChain Ref
+
+| 属性 | 说明 | 类型 | 版本 |
+| --- | --- | --- | --- |
+| nativeElement | 根节点 DOM | HTMLDivElement | 1.60.0 |
+
 ### ThoughtChainItem（items[] 节点）
 
 | 属性 | 说明 | 类型 | 默认值 | 版本 |

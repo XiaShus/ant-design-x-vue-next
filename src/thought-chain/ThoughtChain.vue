@@ -1,6 +1,6 @@
 <script setup lang="tsx">
 import classnames from 'classnames';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import pickAttrs from '../_util/pick-attrs';
 import type { ThoughtChainProps } from './interface';
 import { useXProviderContext } from '../x-provider';
@@ -18,6 +18,8 @@ const props = withDefaults(defineProps<ThoughtChainProps>(), {
   size: 'middle',
   line: true,
 });
+
+const thoughtChainRef = ref<HTMLDivElement | null>(null);
 
 const domProps = computed(() => {
   const attrs = pickAttrs(props as Record<string, unknown>, {
@@ -93,6 +95,7 @@ defineRender(() => {
   return wrapCSSVar(
     <div
       {...domProps.value}
+      ref={thoughtChainRef}
       class={mergedCls.value}
       style={mergedRootStyle.value}
     >
@@ -158,5 +161,9 @@ defineRender(() => {
       </ThoughtChainNodeContextProvider>
     </div>,
   );
+});
+
+defineExpose({
+  nativeElement: thoughtChainRef,
 });
 </script>

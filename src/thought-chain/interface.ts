@@ -128,6 +128,10 @@ export type SemanticType =
 
 export type ThoughtChainSemanticType = SemanticType;
 
+export interface ThoughtChainRef {
+  nativeElement: HTMLDivElement;
+}
+
 export interface ThoughtChainProps extends Omit<HTMLAttributes, 'title'> {
   /**
    * @desc 思维节点集合
