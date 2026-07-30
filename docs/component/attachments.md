@@ -49,6 +49,18 @@ attachments/with-sender
 
 </ClientOnly>
 
+### 手动选择文件
+
+<ClientOnly>
+
+:::demo 通过 `ref.select` 打开文件选择器，可按类型设置 `accept` / `multiple`。
+
+attachments/select-files
+
+:::
+
+</ClientOnly>
+
 ### 文件卡片
 
 <ClientOnly>
@@ -104,16 +116,19 @@ interface PlaceholderType {
 
 ### Attachments Slots
 
-| 插槽名      | 说明                 | 类型                           |
-| ----------- | -------------------- | ------------------------------ |
-| placeholder | 没有文件时的占位信息 | \{ type: "inline" \| "drop" \} |
+| 插槽名      | 说明                                         | 类型                           | 版本   |
+| ----------- | -------------------------------------------- | ------------------------------ | ------ |
+| default     | 自定义触发节点（children 模式，对齐 React） | -                              | 1.38.0 |
+| placeholder | 没有文件时的占位信息                         | \{ type: "inline" \| "drop" \} | -      |
 
 ### Attachments Expose
 
-| 属性          | 说明             | 类型                 | 版本 |
-| ------------- | ---------------- | -------------------- | ---- |
-| nativeElement | 获取原生节点     | HTMLElement          | -    |
-| upload        | 手工调用上传文件 | (file: File \| File[] \| FileList) => void | -    |
+| 属性              | 说明                                       | 类型                                                             | 版本   |
+| ----------------- | ------------------------------------------ | ---------------------------------------------------------------- | ------ |
+| nativeElement     | 获取根节点                                 | HTMLElement \| null                                              | -      |
+| fileNativeElement | 获取文件选择 input                         | HTMLInputElement \| null                                         | 1.38.0 |
+| upload            | 手工注入文件并触发上传                     | (file: File \| File[] \| FileList) => void                       | -      |
+| select            | 打开原生文件选择器（可覆盖 accept/multiple） | (options?: \{ accept?: string; multiple?: boolean \}) => void   | 1.38.0 |
 
 ### Attachments.FileCard Props
 

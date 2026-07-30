@@ -19,6 +19,17 @@ customClass: changelog-page
 
 ---
 
+## 1.38.0
+
+`2026-07-31`
+
+### ant-design-x-vue-next
+
+- 🆕 Attachments `ref.select({ accept, multiple })` 手动打开文件选择器（对齐 React 2.x）。
+- 🆕 Attachments `ref.fileNativeElement`；默认插槽可作为自定义触发节点（children 模式）。
+- 📖 新增 select-files 演示。
+- 🛠 发布 npm 包 [`ant-design-x-vue-next@1.38.0`](https://www.npmjs.com/package/ant-design-x-vue-next)。
+
 ## 1.37.0
 
 `2026-07-31`

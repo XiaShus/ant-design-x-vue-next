@@ -151,9 +151,18 @@ export interface AttachmentsProps extends AntdUploadProps {
   onChange?: (info: UploadChangeParam<UploadFile>) => void;
 }
 
+export interface AttachmentsSelectOptions {
+  accept?: string;
+  multiple?: boolean;
+}
+
 export interface AttachmentsRef {
   nativeElement: HTMLDivElement | null;
+  /** File input element used by the uploader. */
+  fileNativeElement: HTMLInputElement | null;
   upload: (file: File | File[] | FileList) => void;
+  /** Open the native file picker (optionally overriding accept / multiple). */
+  select: (options?: AttachmentsSelectOptions) => void;
 }
 
 

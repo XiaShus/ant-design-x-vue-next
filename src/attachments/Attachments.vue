@@ -3,7 +3,13 @@ import classnames from 'classnames';
 import { computed, useTemplateRef, type VNode, watch } from 'vue';
 import useXComponentConfig from '../_util/hooks/use-x-component-config';
 import { useXProviderContext } from '../x-provider';
-import type { Attachment, AttachmentsProps, AttachmentsRef, PlaceholderProps } from './interface';
+import type {
+  Attachment,
+  AttachmentsProps,
+  AttachmentsRef,
+  AttachmentsSelectOptions,
+  PlaceholderProps,
+} from './interface';
 import PlaceholderUploader from './PlaceholderUploader.vue';
 import type { UploadProps } from 'ant-design-vue';
 import DropArea from './DropArea.vue';
@@ -32,10 +38,12 @@ const {
   disabled,
   classNames = {},
   styles = {},
+  accept,
   ...uploadProps
 } = defineProps<AttachmentsProps>();
 
 const slots = defineSlots<{
+  default?(): VNode | VNode[] | string;
   placeholder?(props?: { type: 'inline' | 'drop' }): VNode | string;
 }>();
 
@@ -52,9 +60,26 @@ const contextStyles = computed(() => contextConfig.value.styles);
 
 // ============================= Ref =============================
 const containerRef = useTemplateRef<HTMLDivElement>('attachments-container');
-// const containerRef = ref<HTMLDivElement>(null);
+const placeholderUploaderRef = useTemplateRef<InstanceType<typeof PlaceholderUploader>>(
+  'placeholder-uploader',
+);
+const silentUploaderRef = useTemplateRef<InstanceType<typeof SilentUploader>>('attachments-upload');
 
-const placeholderUploaderRef = useTemplateRef<InstanceType<typeof PlaceholderUploader>>('placeholder-uploader');
+const unwrapNative = (value: unknown): HTMLElement | null => {
+  if (!value) return null;
+  // Child components may expose a computed ref for nativeElement.
+  if (typeof value === 'object' && value !== null && 'value' in (value as object)) {
+    return ((value as { value: HTMLElement | null }).value ?? null) as HTMLElement | null;
+  }
+  return value as HTMLElement;
+};
+
+const getUploadRoot = (): HTMLElement | null =>
+  unwrapNative(silentUploaderRef.value?.nativeElement) ??
+  unwrapNative(placeholderUploaderRef.value?.nativeElement);
+
+const getFileInput = (): HTMLInputElement | null =>
+  (getUploadRoot()?.querySelector?.('input[type="file"]') as HTMLInputElement | null) ?? null;
 
 // ============================ Style ============================
 const [wrapCSSVar, hashId, cssVarCls] = useStyle(prefixCls);
@@ -74,6 +99,7 @@ const triggerChange: AttachmentsProps['onChange'] = (info) => {
 
 const mergedUploadProps = computed<UploadProps>(() => ({
   ...uploadProps,
+  accept,
   fileList: fileList.value,
   onChange: triggerChange,
 }));
@@ -120,12 +146,25 @@ const getPlaceholderNode = (
 
 const hasFileList = computed(() => fileList.value.length > 0);
 
-defineExpose<AttachmentsRef>({
-  nativeElement: containerRef.value,
-  upload: (file) => {
-    // get native element
-    const fileInput = placeholderUploaderRef.value?.nativeElement.querySelector?.('input[type="file"]') as HTMLInputElement;
+const resolveChildren = (): VNode | null => {
+  if (children) return children;
+  const nodes = slots.default?.();
+  if (!nodes) return null;
+  const list = Array.isArray(nodes) ? nodes : [nodes];
+  if (!list.length) return null;
+  if (list.length === 1) return list[0] as VNode;
+  return (<>{list}</>) as unknown as VNode;
+};
 
+defineExpose<AttachmentsRef>({
+  get nativeElement() {
+    return containerRef.value ?? null;
+  },
+  get fileNativeElement() {
+    return getFileInput();
+  },
+  upload: (file) => {
+    const fileInput = getFileInput();
     if (!fileInput) return;
 
     const dataTransfer = new DataTransfer();
@@ -145,29 +184,37 @@ defineExpose<AttachmentsRef>({
       console.error('upload failed', err);
     }
   },
+  select: (options?: AttachmentsSelectOptions) => {
+    const fileInput = getFileInput();
+    if (!fileInput) return;
+    fileInput.multiple = options?.multiple ?? false;
+    const acceptValue = options?.accept ?? accept;
+    fileInput.accept = typeof acceptValue === 'string' ? acceptValue : '';
+    fileInput.click();
+  },
 });
 
 defineRender(() => {
+  const childrenNode = resolveChildren();
+
   return wrapCSSVar(
     <AttachmentContextProvider
       value={{
         disabled,
       }}
     >
-      {children ? (
+      {childrenNode ? (
         <>
           <SilentUploader
             upload={mergedUploadProps.value}
             rootClassName={rootClassName}
             ref="attachments-upload"
-            // TODO: need support slot alse
-            children={children}
+            children={childrenNode}
           />
           <DropArea
             getDropContainer={getDropContainer}
             prefixCls={prefixCls}
             className={classnames(cssinjsCls.value, rootClassName)}
-            // TODO: need support slot alse
             children={getPlaceholderNode('drop')}
           />
         </>

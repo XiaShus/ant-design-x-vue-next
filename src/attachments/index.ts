@@ -2,7 +2,12 @@ import type { App } from 'vue';
 import AttachmentsComponent from './Attachments.vue';
 import { FileListCard } from './FileList';
 
-export type { Attachment, AttachmentsProps } from './interface';
+export type {
+  Attachment,
+  AttachmentsProps,
+  AttachmentsRef,
+  AttachmentsSelectOptions,
+} from './interface';
 
 const Attachments = Object.assign(AttachmentsComponent, {
   FileCard: FileListCard,
