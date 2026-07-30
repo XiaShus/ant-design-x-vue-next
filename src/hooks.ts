@@ -3,4 +3,5 @@ export * from './x-request';
 export * from './use-x-agent';
 export * from './use-x-chat';
 export * from './chat-providers';
+export * from './x-mcp-client';
 export { useNotification } from './notification';

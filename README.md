@@ -71,9 +71,10 @@ import { Bubble, XProvider } from 'ant-design-x-vue-next';
 | CodeHighlighter | ✅（本仓库新增） | ✅ |
 | Mermaid | ✅（本仓库新增） | ✅ |
 | XMarkdown（安全 / 流式缓存 / LaTeX / Animation） | ✅（本仓库新增） | ✅（官方为独立包） |
-| OpenAIChatProvider / conversationKey | ✅（本仓库新增） | ✅（`@ant-design/x-sdk`） |
+| OpenAI / DeepSeek Provider / conversationKey | ✅（本仓库新增） | ✅（`@ant-design/x-sdk`） |
+| XMCPClient | ✅（本仓库新增） | ✅（`@ant-design/x-sdk`） |
 | XCard A2UI v0.9 | ✅（本仓库新增） | ✅（`@ant-design/x-card`） |
-| MCP Client / x-skill | ⏳ | ✅ |
+| AbstractChatProvider 完整栈 / x-skill | ⏳ | ✅ |
 
 ## ⌨️ 开发
 

@@ -80,18 +80,37 @@ type useXChat<
 
 `MessageStatus`：`local` | `loading` | `updating` | `success` | `error` | `abort`。
 
-### OpenAI Provider
+### OpenAI / DeepSeek Provider
 
 ```ts
-import { useXChat, useXAgent, OpenAIChatProvider } from 'ant-design-x-vue-next';
+import {
+  useXChat,
+  useXAgent,
+  OpenAIChatProvider,
+  DeepSeekChatProvider,
+} from 'ant-design-x-vue-next';
 
 const provider = new OpenAIChatProvider();
+// DeepSeek：reasoning_content → <think> 块，可配合 Think 组件
+// const provider = new DeepSeekChatProvider();
+
 const [agent] = useXAgent({ baseURL: '/api/chat', model: 'gpt-4o-mini' });
 const { onRequest, abort, messages } = useXChat({
   agent: agent.value,
   conversationKey: 'session-1',
   transformMessage: provider.asTransformMessage(),
 });
+```
+
+### MCP Client
+
+```ts
+import { XMCPClient } from 'ant-design-x-vue-next';
+
+const client = XMCPClient('https://your-mcp-host/tools', {
+  headers: { Authorization: 'Bearer xxx' },
+});
+const tools = await client.tools();
 ```
 
 ### RequestParams
