@@ -93,6 +93,14 @@ bubble/typing
 
 :::
 
+### 打字前缀保留
+
+:::demo `typing.keepPrefix`（默认 `true`）控制内容替换时是否从公共前缀续打；设为 `false` 则始终从头重打。
+
+bubble/animation
+
+:::
+
 ### 自定义渲染内容
 
 :::demo 自定义渲染内容。
@@ -206,6 +214,7 @@ bubble/gpt-vis
 | streaming | 流式传输中；为 true 时不触发 `onTypingComplete` | boolean | `false` | 1.20.0 |
 | footerPlacement | footer 位置 | `outer-start` \| `outer-end` \| `inner-start` \| `inner-end` | 随 placement | 1.20.0 |
 | typing.effect | 打字效果 | `typing` \| `fade-in` | `typing` | 1.20.0 |
+| typing.keepPrefix | 内容变化时是否保留公共前缀续打（流式场景） | boolean | `true` | 1.29.0 |
 
 ### Bubble.System
 

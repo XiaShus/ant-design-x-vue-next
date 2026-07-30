@@ -1,6 +1,5 @@
 import useState from '../../_util/hooks/use-state';
-import { computed, onWatcherCleanup, unref, watch } from 'vue';
-import type { Ref } from 'vue'
+import { computed, onWatcherCleanup, unref, watch, type Ref } from 'vue';
 import type { BubbleContentType } from '../interface';
 
 function isString(str: any): str is string {
@@ -30,6 +29,7 @@ const useTypedEffect = (
   typingEnabled: Ref<boolean>,
   typingStep: Ref<number>,
   typingInterval: Ref<number>,
+  keepPrefix: Ref<boolean> = computed(() => true),
 ): [typedContent: Ref<BubbleContentType>, isTyping: Ref<boolean>] => {
   const [prevContent, setPrevContent] = useState<BubbleContentType>('');
   const [typingIndex, setTypingIndex] = useState<number>(1);
@@ -37,49 +37,86 @@ const useTypedEffect = (
   const mergedTypingEnabled = computed(() => typingEnabled.value && isString(content.value));
 
   // Reset typing index when content changed
-  watch(content, () => {
-    const prevContentValue = unref(prevContent);
-    setPrevContent(content.value);
-    if (!mergedTypingEnabled.value && isString(content.value)) {
-      setTypingIndex(content.value.length);
-    } else if (isString(content.value) && isString(prevContentValue) && content.value.indexOf(prevContentValue) !== 0) {
-      // Handle empty strings
-      if (!content.value || !prevContentValue) {
-        setTypingIndex(1);
+  watch(
+    content,
+    () => {
+      const prevContentValue = unref(prevContent);
+      setPrevContent(content.value);
+      if (!mergedTypingEnabled.value && isString(content.value)) {
+        setTypingIndex(content.value.length);
         return;
       }
 
-      // Find the longest common prefix between new and old content
-      const commonPrefixLength = findCommonPrefix(content.value, prevContentValue);
-
-      // If there's no common prefix, start from beginning
-      // If there's a common prefix, start from the point where they differ
-      if (commonPrefixLength === 0) {
-        // Scenario 1: No common prefix, start from the beginning (AI completely changes the thinking process of the answer).
-        setTypingIndex(1);
-      } else {
-        // Scenario 2: There is a common prefix, start from the point where they differ (common streaming output scenario)
-        setTypingIndex(commonPrefixLength + 1);
+      if (!isString(content.value) || !isString(prevContentValue)) {
+        return;
       }
-    }
-  }, { immediate: true });
+
+      // keepPrefix=false: always restart from the beginning on content change
+      if (!keepPrefix.value) {
+        if (content.value !== prevContentValue) {
+          setTypingIndex(1);
+        }
+        return;
+      }
+
+      if (content.value.indexOf(prevContentValue) !== 0) {
+        // Handle empty strings
+        if (!content.value || !prevContentValue) {
+          setTypingIndex(1);
+          return;
+        }
+
+        // Find the longest common prefix between new and old content
+        const commonPrefixLength = findCommonPrefix(content.value, prevContentValue);
+
+        if (commonPrefixLength === 0) {
+          // Scenario 1: No common prefix, start from the beginning
+          setTypingIndex(1);
+        } else {
+          // Scenario 2: Common prefix — resume from the diverge point (streaming)
+          setTypingIndex(commonPrefixLength + 1);
+        }
+      }
+    },
+    { immediate: true },
+  );
 
   // Start typing
-  watch([typingIndex, typingEnabled, content], () => {
-    if (mergedTypingEnabled.value && isString(content.value) && unref(typingIndex) < content.value.length) {
-      const id = setTimeout(() => {
-        setTypingIndex(unref(typingIndex) + typingStep.value);
-      }, typingInterval.value);
+  watch(
+    [typingIndex, typingEnabled, content],
+    () => {
+      if (
+        mergedTypingEnabled.value &&
+        isString(content.value) &&
+        unref(typingIndex) < content.value.length
+      ) {
+        const id = setTimeout(() => {
+          setTypingIndex(unref(typingIndex) + typingStep.value);
+        }, typingInterval.value);
 
-      onWatcherCleanup(() => {
-        clearTimeout(id);
-      });
-    }
-  }, { immediate: true });
+        onWatcherCleanup(() => {
+          clearTimeout(id);
+        });
+      }
+    },
+    { immediate: true },
+  );
 
-  const mergedTypingContent = computed(() => mergedTypingEnabled.value && isString(content.value) ? content.value.slice(0, unref(typingIndex)) : content.value);
+  const mergedTypingContent = computed(() =>
+    mergedTypingEnabled.value && isString(content.value)
+      ? content.value.slice(0, unref(typingIndex))
+      : content.value,
+  );
 
-  return [mergedTypingContent, computed(() => mergedTypingEnabled.value && isString(content.value) && unref(typingIndex) < content.value.length)];
+  return [
+    mergedTypingContent,
+    computed(
+      () =>
+        mergedTypingEnabled.value &&
+        isString(content.value) &&
+        unref(typingIndex) < content.value.length,
+    ),
+  ];
 };
 
 export default useTypedEffect;

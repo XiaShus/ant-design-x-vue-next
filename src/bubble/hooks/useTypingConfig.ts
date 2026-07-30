@@ -30,6 +30,7 @@ function useTypingConfig(typing: MaybeRefOrGetter<BubbleProps['typing']>) {
     computed(() => config.value.interval),
     computed(() => config.value.suffix),
     computed(() => config.value.effect || 'typing'),
+    computed(() => config.value.keepPrefix !== false),
   ] as const;
 }
 

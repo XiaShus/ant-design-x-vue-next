@@ -83,15 +83,15 @@ const prefixCls = getPrefixCls('bubble', customizePrefixCls);
 const contextConfig = useXComponentConfig('bubble');
 
 // ============================ Typing ============================
-const [typingEnabled, typingStep, typingInterval, typingSuffix, typingEffect] = useTypingConfig(
-  () => props.typing,
-);
+const [typingEnabled, typingStep, typingInterval, typingSuffix, typingEffect, typingKeepPrefix] =
+  useTypingConfig(() => props.typing);
 
 const [typedContent, isTyping] = useTypedEffect(
   content,
   typingEnabled,
   typingStep,
   typingInterval,
+  typingKeepPrefix,
 );
 
 const triggerTypingCompleteRef = ref(false);
