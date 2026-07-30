@@ -110,6 +110,45 @@ actions/fade-in
 | `Actions.Item` | 带 status 的通用操作按钮（loading / running / error） | 1.17.0 |
 | `Actions.Audio` | 音频播放状态按钮 | 1.17.0 |
 
+自 `1.84.0` 起可从包入口 `import type { ActionsFeedbackProps, ActionsItemProps, ActionsCopyProps, ActionsAudioProps }`（对齐 React 导出习惯）。
+
+### Actions.Feedback
+
+| 属性 | 说明 | 类型 | 默认值 | 版本 |
+| --- | --- | --- | --- | --- |
+| value | 反馈状态值 | `'like' \| 'dislike' \| 'default'` | `default` | 1.17.0 |
+| onChange / `@change` | 反馈状态变化回调 | `(value: 'like' \| 'dislike' \| 'default') => void` | - | 1.17.0 |
+| classNames | 语义化 class | Record<'root' \| …, string> | - | - |
+| styles | 语义化 style | Record<'root' \| …, CSSProperties> | - | - |
+
+### Actions.Copy
+
+| 属性 | 说明 | 类型 | 默认值 | 版本 |
+| --- | --- | --- | --- | --- |
+| text | 复制的文本 | string | `''` | 1.17.0 |
+| icon | 复制按钮图标；可为 `[default, copied]` 二元组 | VNode \| [VNode, VNode] | - | 1.17.0 |
+| classNames | 语义化 class | Record<'root' \| …, string> | - | - |
+| styles | 语义化 style | Record<'root' \| …, CSSProperties> | - | - |
+
+### Actions.Audio
+
+| 属性 | 说明 | 类型 | 默认值 | 版本 |
+| --- | --- | --- | --- | --- |
+| status | 播放状态 | `'loading' \| 'error' \| 'running' \| 'default'` | `default` | 1.17.0 |
+| classNames | 语义化 class | Record<'root' \| …, string> | - | - |
+| styles | 语义化 style | Record<'root' \| …, CSSProperties> | - | - |
+
+### Actions.Item
+
+| 属性 | 说明 | 类型 | 默认值 | 版本 |
+| --- | --- | --- | --- | --- |
+| status | 状态 | `'loading' \| 'error' \| 'running' \| 'default'` | `default` | 1.17.0 |
+| label | 自定义操作的显示标签 | string | - | 1.17.0 |
+| defaultIcon | 默认状态图标 | VNode | - | 1.17.0 |
+| runningIcon | 执行状态图标 | VNode | - | 1.17.0 |
+| classNames | 语义化 class | Record<'root' \| …, string> | - | - |
+| styles | 语义化 style | Record<'root' \| …, CSSProperties> | - | - |
+
 ### ActionItem
 
 ```typescript | pure
