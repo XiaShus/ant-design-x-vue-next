@@ -31,7 +31,7 @@ const [state, { open, requestPermission, close }] = notification.useNotification
         type="primary"
         @click="requestPermission()"
       >
-        {{ state.permission === 'default' ? '请请求权限' : 通知权限： }}
+        {{ state.permission === 'default' ? '请请求权限' : `通知权限：${state.permission}` }}
       </Button>
       <Button :disabled="state.permission !== 'granted'" type="primary" @click="open(openData)">
         打开通知
