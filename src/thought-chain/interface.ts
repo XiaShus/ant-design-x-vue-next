@@ -117,7 +117,16 @@ export interface ThoughtChainItem {
   tooltip?: boolean | TooltipConfig;
 }
 
-export type SemanticType = 'item' | 'itemHeader' | 'itemContent' | 'itemFooter';
+/** Align React ThoughtChain SemanticType. */
+export type SemanticType =
+  | 'root'
+  | 'item'
+  | 'itemHeader'
+  | 'itemIcon'
+  | 'itemContent'
+  | 'itemFooter';
+
+export type ThoughtChainSemanticType = SemanticType;
 
 export interface ThoughtChainProps extends Omit<HTMLAttributes, 'title'> {
   /**

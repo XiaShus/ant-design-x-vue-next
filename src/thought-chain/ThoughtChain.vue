@@ -70,6 +70,8 @@ const mergedCls = computed(() =>
     props.rootClassName,
     prefixCls.value,
     contextConfig.value.className,
+    (contextConfig.value.classNames as any)?.root,
+    props.classNames.root,
     hashId.value,
     cssVarCls,
     lineModifier.value,
@@ -80,15 +82,19 @@ const mergedCls = computed(() =>
   ),
 );
 
+const mergedRootStyle = computed(() => ({
+  ...(typeof contextConfig.value.style === 'object' ? contextConfig.value.style : {}),
+  ...((contextConfig.value.styles as any)?.root || {}),
+  ...(typeof props.style === 'object' ? props.style : {}),
+  ...(props.styles.root || {}),
+}));
+
 defineRender(() => {
   return wrapCSSVar(
     <div
       {...domProps.value}
       class={mergedCls.value}
-      style={{
-        ...(typeof contextConfig.value.style === 'object' ? contextConfig.value.style : {}),
-        ...(typeof props.style === 'object' ? props.style : {}),
-      }}
+      style={mergedRootStyle.value}
     >
       <ThoughtChainNodeContextProvider
         value={{
@@ -101,6 +107,10 @@ defineRender(() => {
             itemHeader: classnames(
               contextConfig.value.classNames.itemHeader,
               props.classNames.itemHeader,
+            ),
+            itemIcon: classnames(
+              (contextConfig.value.classNames as any)?.itemIcon,
+              props.classNames.itemIcon,
             ),
             itemContent: classnames(
               contextConfig.value.classNames.itemContent,
@@ -115,6 +125,10 @@ defineRender(() => {
             itemHeader: {
               ...contextConfig.value.styles.itemHeader,
               ...props.styles.itemHeader,
+            },
+            itemIcon: {
+              ...((contextConfig.value.styles as any)?.itemIcon || {}),
+              ...(props.styles.itemIcon || {}),
             },
             itemContent: {
               ...contextConfig.value.styles.itemContent,

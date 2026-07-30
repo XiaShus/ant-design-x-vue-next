@@ -19,6 +19,15 @@ customClass: changelog-page
 
 ---
 
+## 1.58.0
+
+`2026-07-31`
+
+### ant-design-x-vue-next
+
+- 🆕 ThoughtChain：`classNames` / `styles` 支持语义 `root` / `itemIcon`（对齐 React SemanticType）。
+- 🛠 发布 npm 包 [`ant-design-x-vue-next@1.58.0`](https://www.npmjs.com/package/ant-design-x-vue-next)。
+
 ## 1.57.0
 
 `2026-07-31`

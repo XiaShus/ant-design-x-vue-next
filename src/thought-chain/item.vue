@@ -130,7 +130,11 @@ defineRender(() => {
         onClick={onThoughtChainNodeClick}
       >
         {/* Avatar */}
-        <Avatar icon={icon.value} class={`${itemCls.value}-icon`} />
+        <Avatar
+          icon={icon.value}
+          class={classnames(`${itemCls.value}-icon`, classNames.value?.itemIcon)}
+          style={styles.value?.itemIcon}
+        />
         {/* Header */}
         <div
           class={classnames(`${itemCls.value}-header-box`, {

@@ -6,6 +6,7 @@ export type {
   ThoughtChainProps,
   ThoughtChainItem,
   ThoughtChainLine,
+  ThoughtChainSemanticType,
 } from './interface';
 export type { Collapsible, CollapsibleOptions } from './hooks/useCollapsible';
 export type {
