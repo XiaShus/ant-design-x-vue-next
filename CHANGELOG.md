@@ -2,6 +2,16 @@
 
 > Vue Next 文档站时间线版见 [更新日志](https://ant-design-x-vue-next-524.netlify.app/development/changelog.html)。
 
+## 1.34.0
+
+`2026-07-30`
+
+### ant-design-x-vue-next
+
+- 🆕 Prompts `fadeIn` / `fadeInLeft` 挂载淡入
+- 📖 新增 fade-in 演示
+- 🛠 发布 npm `ant-design-x-vue-next@1.34.0`
+
 ## 1.33.0
 
 `2026-07-30`

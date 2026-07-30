@@ -72,6 +72,18 @@ export interface PromptsProps
   wrap?: boolean;
 
   /**
+   * @desc 挂载时淡入动画。
+   * @descEN Fade-in animation on mount.
+   */
+  fadeIn?: boolean;
+
+  /**
+   * @desc 挂载时从左淡入（与 fadeIn 同时设置时优先）。
+   * @descEN Left-mask fade-in on mount (wins over fadeIn when both set).
+   */
+  fadeInLeft?: boolean;
+
+  /**
    * @desc 自定义样式，用于各个提示项的不同部分。
    * @descEN Custom styles for different parts of each prompt item.
    */

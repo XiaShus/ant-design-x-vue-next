@@ -19,6 +19,17 @@ customClass: changelog-page
 
 ---
 
+## 1.34.0
+
+`2026-07-30`
+
+### ant-design-x-vue-next
+
+- 🆕 Prompts `fadeIn` / `fadeInLeft` 挂载淡入动画（对齐 React 2.9）。
+- 🆕 共享 `ant-x-fade` / `ant-x-fade-left` motion 样式。
+- 📖 新增 fade-in 演示。
+- 🛠 发布 npm 包 [`ant-design-x-vue-next@1.34.0`](https://www.npmjs.com/package/ant-design-x-vue-next)。
+
 ## 1.33.0
 
 `2026-07-30`

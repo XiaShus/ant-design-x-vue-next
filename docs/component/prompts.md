@@ -65,6 +65,18 @@ prompts/nest
 
 </ClientOnly>
 
+### 淡入动画
+
+<ClientOnly>
+
+:::demo `fadeIn` / `fadeInLeft` 挂载淡入；切换类型后点 Re-Render 可重播。
+
+prompts/fade-in
+
+:::
+
+</ClientOnly>
+
 ## API
 
 <!-- 通用属性参考：[通用属性](/docs/react/common-props) -->
@@ -81,6 +93,8 @@ prompts/nest
 | title | 显示在提示列表顶部的标题 | VNode \| string \| (() => VNode \| string) | - | - |
 | vertical | 设置为 `true` 时, 提示列表将垂直排列 | boolean | `false` | - |
 | wrap | 设置为 `true` 时, 提示列表将自动换行 | boolean | `false` | - |
+| fadeIn | 挂载时淡入 | boolean | `false` | 1.34.0 |
+| fadeInLeft | 挂载时从左淡入（与 `fadeIn` 同时设置时优先） | boolean | `false` | 1.34.0 |
 | onItemClick | 提示项被点击时的回调函数 | (info: { data: PromptProps }) => void | - | - |
 
 #### SemanticType

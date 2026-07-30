@@ -4,9 +4,8 @@ import useStyle from './style';
 import type { PromptsProps } from './interface';
 import { useXProviderContext } from '../x-provider';
 import useXComponentConfig from '../_util/hooks/use-x-component-config';
-import { computed, type VNode } from 'vue';
+import { computed, getCurrentInstance, Transition, type VNode } from 'vue';
 import { Typography } from 'ant-design-vue';
-import Prompts from '.';
 
 defineOptions({ name: 'AXPrompts' });
 
@@ -22,6 +21,8 @@ const {
   styles = {},
   classNames = {},
   style,
+  fadeIn,
+  fadeInLeft,
   ...htmlProps
 } = defineProps<PromptsProps>();
 
@@ -33,6 +34,7 @@ const slots = defineSlots<{
 const { getPrefixCls, direction } = useXProviderContext();
 
 const prefixCls = getPrefixCls('prompts', customizePrefixCls);
+const rootPrefixCls = getPrefixCls();
 
 // ===================== Component Config =========================
 const contextConfig = useXComponentConfig('prompts');
@@ -40,25 +42,33 @@ const contextConfig = useXComponentConfig('prompts');
 // ============================ Style ============================
 const [wrapCSSVar, hashId, cssVarCls] = useStyle(prefixCls);
 
-const mergedCls = computed(() => classnames(
-  prefixCls,
-  contextConfig.value.className,
-  className,
-  rootClassName,
-  hashId.value,
-  cssVarCls,
-  {
-    [`${prefixCls}-rtl`]: direction.value === 'rtl',
-  },
-));
+const motionName = computed(() =>
+  fadeInLeft || fadeIn ? `${rootPrefixCls}-x-fade${fadeInLeft ? '-left' : ''}` : '',
+);
 
-const mergedListCls = computed(() => classnames(
-  `${prefixCls}-list`,
-  contextConfig.value.classNames.list,
-  classNames.list,
-  { [`${prefixCls}-list-wrap`]: wrap },
-  { [`${prefixCls}-list-vertical`]: vertical },
-));
+const mergedCls = computed(() =>
+  classnames(
+    prefixCls,
+    contextConfig.value.className,
+    className,
+    rootClassName,
+    hashId.value,
+    cssVarCls,
+    {
+      [`${prefixCls}-rtl`]: direction.value === 'rtl',
+    },
+  ),
+);
+
+const mergedListCls = computed(() =>
+  classnames(
+    `${prefixCls}-list`,
+    contextConfig.value.classNames.list,
+    classNames.list,
+    { [`${prefixCls}-list-wrap`]: wrap },
+    { [`${prefixCls}-list-vertical`]: vertical },
+  ),
+);
 
 // ============================ Nodes ============================
 const titleNode = computed(() => {
@@ -69,7 +79,10 @@ const titleNode = computed(() => {
 });
 
 defineRender(() => {
-  return wrapCSSVar(
+  // Avoid circular import (`./index` → this SFC) for nested Prompts
+  const NestedPrompts = getCurrentInstance()!.type as any;
+
+  const rootNode = (
     <div
       {...htmlProps}
       class={mergedCls.value}
@@ -137,7 +150,7 @@ defineRender(() => {
 
                 {/* Children */}
                 {isNest && (
-                  <Prompts
+                  <NestedPrompts
                     class={`${prefixCls}-nested`}
                     items={info.children}
                     vertical
@@ -158,6 +171,25 @@ defineRender(() => {
         })}
       </div>
     </div>
-  )
+  );
+
+  const name = motionName.value;
+  const content = name ? (
+    <Transition
+      appear
+      enterFromClass={`${name}-enter ${name}-appear`}
+      enterActiveClass={`${name}-enter ${name}-enter-active ${name}-appear ${name}-appear-active`}
+      enterToClass={`${name}-enter ${name}-enter-active`}
+      leaveFromClass={`${name}-leave`}
+      leaveActiveClass={`${name}-leave ${name}-leave-active`}
+      leaveToClass={`${name}-leave ${name}-leave-active`}
+    >
+      {rootNode}
+    </Transition>
+  ) : (
+    rootNode
+  );
+
+  return wrapCSSVar(content);
 });
 </script>

@@ -10,7 +10,7 @@
 | 通用 | Conversations | ✅ | ✅（含 `creation` / `Conversations.Creation`；移动端菜单常显） | [文档](/component/conversations) |
 | 通用 | Notification | ✅ | ✅ | [文档](/component/notification) |
 | 唤醒 | Welcome | ✅ | ✅ | [文档](/component/welcome) |
-| 唤醒 | Prompts | ✅ | ✅ | [文档](/component/prompts) |
+| 唤醒 | Prompts | ✅ | ✅（含 `fadeIn` / `fadeInLeft`） | [文档](/component/prompts) |
 | 表达 | Sender | ✅ | ✅（含 `suffix`/`actions`、Switch、词槽 contentEditable、locale） | [文档](/component/sender) |
 | 表达 | Attachments | ✅ | ✅ | [文档](/component/attachments) |
 | 表达 | Suggestion | ✅ | ✅（含 `icon`/`extra` 渲染、`onSelect` 第二参、`open` children prop） | [文档](/component/suggestion) |
