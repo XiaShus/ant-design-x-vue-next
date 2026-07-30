@@ -27,6 +27,14 @@ export default defineConfig({
           replacement: path.resolve(__dirname, '../../src')
         },
         {
+          find: /^ant-design-x-vue\/locale\/(.+)$/,
+          replacement: path.resolve(__dirname, '../../src/locale/$1.ts'),
+        },
+        {
+          find: /^ant-design-x-vue-next\/locale\/(.+)$/,
+          replacement: path.resolve(__dirname, '../../src/locale/$1.ts'),
+        },
+        {
           find: /^.*\/VPHero\.vue$/,
           replacement: fileURLToPath(
             new URL('./vitepress/components/vp-hero.vue', import.meta.url)

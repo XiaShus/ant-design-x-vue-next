@@ -31,9 +31,31 @@ x-provider/use
 
 :::
 
+### 国际化
+
+:::demo 通过 `locale` 配置 X 组件文案（与 ant-design-vue locale 合并）。未设置时组件文案默认 `en_US`。
+
+x-provider/locale
+
+:::
+
+```ts
+import { XProvider } from 'ant-design-x-vue-next';
+import zhCN from 'ant-design-x-vue-next/locale/zh_CN';
+import antdZhCN from 'ant-design-vue/es/locale/zh_CN';
+
+<XProvider :locale="{ ...antdZhCN, ...zhCN }">
+  <App />
+</XProvider>
+```
+
 ## API
 
 `XProvider` 完全继承 `antdv` 的 `ConfigProvider`, 属性参考：[Antdv ConfigProvider](https://www.antdv.com/components/config-provider-cn#api)
+
+| 属性 | 说明 | 类型 | 默认值 | 版本 |
+| --- | --- | --- | --- | --- |
+| locale | ant-design-vue locale 与 X 组件文案包合并 | `Locale`（含 Conversations / Actions / Bubble / Mermaid / Folder / Sender） | - | 1.23.0 |
 
 ### 组件配置
 

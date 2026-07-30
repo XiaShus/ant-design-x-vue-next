@@ -2,6 +2,7 @@
 import { Button, Flex } from 'ant-design-vue';
 import type { VNodeChild } from 'vue';
 import { onMounted, ref } from 'vue';
+import useLocale from '../locale/useLocale';
 
 function isBlock(el: HTMLElement): boolean {
   const d = getComputedStyle(el).display;
@@ -33,6 +34,8 @@ function getPlainTextWithFormat(dom: HTMLElement) {
 }
 
 defineOptions({ name: 'AXBubbleEditableContent' });
+
+const [locale] = useLocale('Bubble');
 
 const props = defineProps<{
   content: string;
@@ -83,10 +86,10 @@ defineRender(() => {
       />
       <Flex class={`${props.prefixCls}-editing-opts`} gap={8}>
         <Button type="primary" shape="round" size="small" onClick={onConfirm}>
-          {props.okText || '确定'}
+          {props.okText || locale.value.editableOk}
         </Button>
         <Button type="text" shape="round" size="small" onClick={onCancel}>
-          {props.cancelText || '取消'}
+          {props.cancelText || locale.value.editableCancel}
         </Button>
       </Flex>
     </>

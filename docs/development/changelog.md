@@ -19,6 +19,16 @@ customClass: changelog-page
 
 ---
 
+## 1.23.0
+
+`2026-07-30`
+
+### ant-design-x-vue-next
+
+- 🆕 X locale pack：`useLocale` / `LocaleProvider`，`XProvider.locale` 驱动 Conversations / Actions / Bubble / Mermaid / Folder 文案；导出 `ant-design-x-vue-next/locale/zh_CN`、`en_US`。
+- 📖 XProvider 国际化演示；对齐进度更新。
+- 🛠 发布 npm 包 [`ant-design-x-vue-next@1.23.0`](https://www.npmjs.com/package/ant-design-x-vue-next)。
+
 ## 1.22.0
 
 `2026-07-30`

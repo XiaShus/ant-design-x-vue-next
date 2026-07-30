@@ -16,6 +16,7 @@ import type { FolderProps } from 'ant-design-x-vue/folder';
 import type { CodeHighlighterProps } from 'ant-design-x-vue/code-highlighter';
 import type { MermaidProps } from 'ant-design-x-vue/mermaid';
 import type { WelcomeProps } from 'ant-design-x-vue/welcome';
+import type { Locale as XLocale } from '../locale/types';
 
 // refer from the ConfigProviderProps of ant-design-vue
 export interface AntdConfigProviderProps {
@@ -29,7 +30,8 @@ export interface AntdConfigProviderProps {
   csp?: OriAntdConfigProviderProps['csp'];
   input?: OriAntdConfigProviderProps['input'];
   autoInsertSpaceInButton?: OriAntdConfigProviderProps['autoInsertSpaceInButton'];
-  locale?: OriAntdConfigProviderProps['locale'];
+  /** ant-design-vue locale merged with X component locale pack */
+  locale?: XLocale | OriAntdConfigProviderProps['locale'];
   pageHeader?: OriAntdConfigProviderProps['pageHeader'];
   componentSize?: OriAntdConfigProviderProps['componentSize'];
   componentDisabled?: OriAntdConfigProviderProps['componentDisabled'];

@@ -1,4 +1,6 @@
 export * from './x-provider';
+export { useLocale, LocaleProvider } from './locale';
+export type { Locale, xLocale, LocaleComponentName, LocaleContextProps } from './locale';
 export * from './bubble';
 export * from './conversations';
 export * from './welcome';

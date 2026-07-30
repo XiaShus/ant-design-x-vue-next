@@ -12,7 +12,7 @@ import { computed, useAttrs } from 'vue';
 import { useMobile } from '../_util/hooks/use-mobile';
 import { useXProviderContext } from '../x-provider';
 import { FEEDBACK_VALUE } from './constants';
-import { defaultActionsLocale } from './locale';
+import useLocale from '../locale/useLocale';
 import type { ActionsFeedbackProps } from './preset-types';
 import useStyle from './style';
 
@@ -36,7 +36,7 @@ const { direction, getPrefixCls } = useXProviderContext();
 const prefixCls = getPrefixCls('actions', props.prefixCls);
 const [wrapCSSVar, hashId, cssVarCls] = useStyle(prefixCls);
 const feedbackCls = `${prefixCls}-feedback`;
-const locale = defaultActionsLocale;
+const [locale] = useLocale('Actions');
 
 const mergedCls = computed(() =>
   classnames(
@@ -130,7 +130,7 @@ defineRender(() => {
         ? isMobile.value
           ? likeNode
           : (
-              <Tooltip key={`like_${value}`} title={locale.feedbackLike}>
+              <Tooltip key={`like_${value}`} title={locale.value.feedbackLike}>
                 {likeNode}
               </Tooltip>
             )
@@ -139,7 +139,7 @@ defineRender(() => {
         ? isMobile.value
           ? dislikeNode
           : (
-              <Tooltip key={`dislike_${value}`} title={locale.feedbackDislike}>
+              <Tooltip key={`dislike_${value}`} title={locale.value.feedbackDislike}>
                 {dislikeNode}
               </Tooltip>
             )

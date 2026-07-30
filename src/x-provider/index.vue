@@ -4,6 +4,8 @@ import XProviderContextProvider from './context';
 import type { XProviderProps } from './context';
 import useXProviderContext from './hooks/use-x-provider-context';
 import { ConfigProvider as AntdConfigProvider } from 'ant-design-vue';
+import LocaleProvider from '../locale/LocaleProvider.vue';
+import type { Locale as XLocale } from '../locale/types';
 
 defineOptions({ name: 'AXProvider', inheritAttrs: false });
 
@@ -23,6 +25,7 @@ const {
   codeHighlighter,
   mermaid,
   welcome,
+  locale,
   ...antdConfProps
 } = defineProps<XProviderProps>();
 
@@ -55,21 +58,22 @@ const mergedTheme = computed(() => ({
   ...antdConfProps.theme,
 }));
 
-const childNode = computed(() => slots.default?.());
-
 defineRender(() => {
+  const children = slots.default?.();
+  const content = locale ? (
+    <LocaleProvider locale={locale as XLocale}>{children}</LocaleProvider>
+  ) : (
+    children
+  );
+
   return (
     <XProviderContextProvider value={xProviderProps.value}>
       <AntdConfigProvider
         {...antdConfProps}
-        // Note:  we can not set `cssVar` by default.
-        //        Since when developer not wrap with XProvider,
-        //        the generate css is still using css var but no css var injected.
-        // Origin comment: antdx enable cssVar by default, and antd v6 will enable cssVar by default
-        // theme={{ cssVar: true, ...antdConfProps?.theme }}
+        locale={locale as any}
         theme={mergedTheme.value}
       >
-        {childNode.value}
+        {content}
       </AntdConfigProvider>
     </XProviderContextProvider>
   )

@@ -2,6 +2,7 @@
 import classnames from 'classnames';
 import { computed, ref, watch, type VNode } from 'vue';
 import useXComponentConfig from '../_util/hooks/use-x-component-config';
+import useLocale from '../locale/useLocale';
 import { useXProviderContext } from '../x-provider';
 import DirectoryTree from './DirectoryTree.vue';
 import FilePreview from './FilePreview.vue';
@@ -36,11 +37,7 @@ const emit = defineEmits<{
   rightClick: [info: { event: MouseEvent; node: any }];
 }>();
 
-const locale = {
-  selectFile: '请选择一个文件',
-  loadError: '文件加载失败',
-  noService: '未配置文件内容服务',
-};
+const [locale] = useLocale('Folder');
 
 const containerRef = ref<HTMLDivElement | null>(null);
 
@@ -150,7 +147,7 @@ watch(
       try {
         fileContent.value = await props.fileContentService.loadFileContent(filePath);
       } catch (error) {
-        fileContent.value = `// ${locale.loadError}: ${
+        fileContent.value = `// ${locale.value.loadError}: ${
           error instanceof Error ? error.message : 'Unknown error'
         }`;
       } finally {
@@ -160,7 +157,7 @@ watch(
       fileContent.value = node.content;
       loadingContent.value = false;
     } else {
-      fileContent.value = `// ${locale.noService}`;
+      fileContent.value = `// ${locale.value.noService}`;
       loadingContent.value = false;
     }
   },

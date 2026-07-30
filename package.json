@@ -1,6 +1,6 @@
 {
   "name": "ant-design-x-vue-next",
-  "version": "1.22.0",
+  "version": "1.23.0",
   "description": "Ant Design X for Vue — community continuation aligned with @ant-design/x",
   "keywords": [
     "AI",
@@ -46,6 +46,16 @@
       "types": "./typings/index.d.ts",
       "import": "./es/index.mjs",
       "require": "./lib/index.js"
+    },
+    "./locale/zh_CN": {
+      "types": "./typings/locale/zh_CN.d.ts",
+      "import": "./es/locale/zh_CN.mjs",
+      "require": "./lib/locale/zh_CN.js"
+    },
+    "./locale/en_US": {
+      "types": "./typings/locale/en_US.d.ts",
+      "import": "./es/locale/en_US.mjs",
+      "require": "./lib/locale/en_US.js"
     },
     "./dist/style.css": "./dist/style.css",
     "./dist/ant-design-x-vue-next.css": "./dist/ant-design-x-vue-next.css",

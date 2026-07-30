@@ -7,7 +7,7 @@ import { useXProviderContext } from '../x-provider';
 import RecordingIcon from '../sender/components/SpeechButton/RecordingIcon.vue';
 import ActionsItem from './ActionsItem.vue';
 import { ACTIONS_ITEM_STATUS } from './constants';
-import { defaultActionsLocale } from './locale';
+import useLocale from '../locale/useLocale';
 import type { ActionsAudioProps } from './preset-types';
 import useStyle from './style';
 
@@ -26,14 +26,14 @@ const { direction, getPrefixCls } = useXProviderContext();
 const prefixCls = getPrefixCls('actions', props.prefixCls);
 const [, hashId, cssVarCls] = useStyle(prefixCls);
 const audioCls = `${prefixCls}-audio`;
-const locale = defaultActionsLocale;
+const [locale] = useLocale('Actions');
 
-const StatusLabel: Record<string, string> = {
-  [ACTIONS_ITEM_STATUS.LOADING]: locale.audioLoading,
-  [ACTIONS_ITEM_STATUS.ERROR]: locale.audioError,
-  [ACTIONS_ITEM_STATUS.RUNNING]: locale.audioRunning,
-  [ACTIONS_ITEM_STATUS.DEFAULT]: locale.audio,
-};
+const statusLabel = computed<Record<string, string>>(() => ({
+  [ACTIONS_ITEM_STATUS.LOADING]: locale.value.audioLoading,
+  [ACTIONS_ITEM_STATUS.ERROR]: locale.value.audioError,
+  [ACTIONS_ITEM_STATUS.RUNNING]: locale.value.audioRunning,
+  [ACTIONS_ITEM_STATUS.DEFAULT]: locale.value.audio,
+}));
 
 const mergedRootClass = computed(() =>
   classnames(
@@ -56,7 +56,7 @@ defineRender(() => {
   return (
     <ActionsItem
       {...restAttrs}
-      label={props.status ? StatusLabel[props.status] : ''}
+      label={props.status ? statusLabel.value[props.status] : ''}
       style={attrs.style as CSSProperties}
       styles={props.styles}
       classNames={{

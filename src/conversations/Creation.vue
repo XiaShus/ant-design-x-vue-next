@@ -2,6 +2,7 @@
 import { PlusOutlined } from '@ant-design/icons-vue';
 import classnames from 'classnames';
 import { computed, useAttrs } from 'vue';
+import useLocale from '../locale/useLocale';
 import type { CreationProps } from './creation-types';
 import useStyle from './style';
 
@@ -22,6 +23,7 @@ const emit = defineEmits<{
 }>();
 
 const attrs = useAttrs();
+const [locale] = useLocale('Conversations');
 const creationPrefix = computed(() => props.prefixCls || 'ant-conversations-creation');
 const stylePrefix = computed(() => creationPrefix.value.replace(/-creation$/, '') || 'ant-conversations');
 const [wrapCSSVar, hashId, cssVarCls] = useStyle(stylePrefix);
@@ -39,7 +41,7 @@ const labelNode = computed(() => {
   }
   return (
     <div class={`${creationPrefix.value}-label`}>
-      <span>新建对话</span>
+      <span>{locale.value.create}</span>
     </div>
   );
 });

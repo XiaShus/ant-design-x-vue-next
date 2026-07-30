@@ -3,6 +3,7 @@ import { Empty, Spin, Typography } from 'ant-design-vue';
 import classnames from 'classnames';
 import { computed, type VNode } from 'vue';
 import useXComponentConfig from '../_util/hooks/use-x-component-config';
+import useLocale from '../locale/useLocale';
 import { useXProviderContext } from '../x-provider';
 import type { FolderProps, FolderSlots, FolderTreeData } from './interface';
 import useStyle from './style';
@@ -34,11 +35,7 @@ const props = withDefaults(
 
 const slots = defineSlots<FolderSlots>();
 
-const locale = {
-  selectFile: '请选择一个文件',
-  loadError: '文件加载失败',
-  noService: '未配置文件内容服务',
-};
+const [locale] = useLocale('Folder');
 
 const { getPrefixCls } = useXProviderContext();
 const prefixCls = computed(() => getPrefixCls('folder', props.prefixCls));
@@ -93,7 +90,7 @@ defineRender(() => {
         : typeof props.emptyRender === 'function'
           ? props.emptyRender()
           : props.emptyRender || (
-              <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description={locale.selectFile} />
+              <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description={locale.value.selectFile} />
             );
 
       return (

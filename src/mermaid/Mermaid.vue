@@ -16,12 +16,14 @@ import warning from '../_util/warning';
 import useXComponentConfig from '../_util/hooks/use-x-component-config';
 import { Actions, type ActionItem } from '../actions';
 import { CodeHighlighter } from '../code-highlighter';
+import useLocale from '../locale/useLocale';
 import { useXProviderContext } from '../x-provider';
-import locale from './locale';
 import useStyle from './style';
 import type { MermaidProps, MermaidRef, MermaidRenderType, MermaidSlots } from './interface';
 
 defineOptions({ name: 'AXMermaid' });
+
+const [locale] = useLocale('Mermaid');
 
 const props = withDefaults(defineProps<MermaidProps>(), {
   styles: () => ({}),
@@ -323,19 +325,19 @@ const actionItems = computed((): ActionItem[] => {
         {
           key: 'zoomIn',
           icon: <ZoomInOutlined />,
-          label: locale.zoomIn,
+          label: locale.value.zoomIn,
           onItemClick: handleZoomIn,
         },
         {
           key: 'zoomOut',
           icon: <ZoomOutOutlined />,
-          label: locale.zoomOut,
+          label: locale.value.zoomOut,
           onItemClick: handleZoomOut,
         },
         {
           key: 'zoomReset',
           icon: <ReloadOutlined />,
-          label: locale.zoomReset,
+          label: locale.value.zoomReset,
           onItemClick: handleReset,
         },
       );
@@ -344,7 +346,7 @@ const actionItems = computed((): ActionItem[] => {
       items.push({
         key: 'download',
         icon: <DownloadOutlined />,
-        label: locale.download,
+        label: locale.value.download,
         onItemClick: handleDownload,
       });
     }
@@ -393,8 +395,8 @@ defineRender(() => {
       >
         <Segmented
           options={[
-            { label: locale.image, value: 'image' },
-            { label: locale.code, value: 'code' },
+            { label: locale.value.image, value: 'image' },
+            { label: locale.value.code, value: 'code' },
           ]}
           value={renderType.value}
           onChange={handleRenderTypeChange}

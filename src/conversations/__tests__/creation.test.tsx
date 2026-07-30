@@ -18,7 +18,7 @@ describe('Conversations.Creation', () => {
     });
     const btn = wrapper.find('button.ant-conversations-creation');
     expect(btn.exists()).toBe(true);
-    expect(btn.text()).toContain('新建对话');
+    expect(btn.text()).toContain('New chat');
     await btn.trigger('click');
     expect(onClick).toHaveBeenCalled();
   });
