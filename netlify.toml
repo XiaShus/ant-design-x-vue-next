@@ -1,3 +1,7 @@
+[build]
+  command = "pnpm docs:build"
+  publish = "docs/.vitepress/dist"
+
 ## history 路由模式
 [[redirects]]
   from = "/*"

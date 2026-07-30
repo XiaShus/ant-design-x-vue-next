@@ -1,7 +1,9 @@
 
 # Ant Design X of Vue
 
-`ant-design-x-vue` 是遵循 Ant Design 设计体系的一个 Vue UI 库，是 `@ant-design/x` 的 Vue 实现，用于构建由 AI 驱动的界面，一键接入智能对话组件与 API 服务。
+`ant-design-x-vue-next` 是遵循 Ant Design 设计体系的 Vue UI 库，是 [`@ant-design/x`](https://github.com/ant-design/x) 的社区续作（基于 [`ant-design-x-vue`](https://github.com/wzc520pyfm/ant-design-x-vue)），用于构建由 AI 驱动的界面，并持续对齐官方 React 版能力。
+
+> 组件对齐进度见 [与 Ant Design X 对齐](/component/align)。
 
 <div style="display: flex; align-items: center; gap: 20px;">
   <img width="150" src="/images/x-logo.svg"/>
@@ -29,19 +31,19 @@
 ::: code-group
 
 ```sh [npm]
-$ npm install ant-design-x-vue --save
+$ npm install ant-design-x-vue-next --save
 ```
 
 ```sh [pnpm]
-$ pnpm install ant-design-x-vue --save
+$ pnpm install ant-design-x-vue-next --save
 ```
 
 ```sh [yarn]
-$ yarn add ant-design-x-vue
+$ yarn add ant-design-x-vue-next
 ```
 
 ```sh [bun]
-$ bun add ant-design-x-vue
+$ bun add ant-design-x-vue-next
 ```
 
 :::
@@ -91,7 +93,7 @@ import { defineConfig } from 'vite';
 
 // add the following dependencies
 import components from 'unplugin-vue-components/vite';
-import { AntDesignXVueResolver } from 'ant-design-x-vue/resolver';
+import { AntDesignXVueResolver } from 'ant-design-x-vue-next/resolver';
 
 export default defineConfig({
   // ...
@@ -109,7 +111,7 @@ export default defineConfig({
 
 // add the following dependencies
 const Components = require('unplugin-vue-components/webpack');
-const { AntDesignXVueResolver } = require('ant-design-x-vue/resolver');
+const { AntDesignXVueResolver } = require('ant-design-x-vue-next/resolver');
 
 module.exports = {
   configureWebpack: {
@@ -127,12 +129,12 @@ module.exports = {
 
 更多打包工具的示例，可以参考 [unplugin-vue-components](https://github.com/unplugin/unplugin-vue-components#installation)
 
-在项目中，以 `AX` 开头的组件，将被自动解析为 `ant-design-x-vue` 组件并导入到文件中，你可以直接在模板中使用它们：
+在项目中，以 `AX` 开头的组件，将被自动解析为 `ant-design-x-vue-next` 组件并导入到文件中，你可以直接在模板中使用它们：
 
 ```html
 <script setup>
 // auto import equals to
-// import { Bubble as AXBubble } from 'ant-design-x-vue';
+// import { Bubble as AXBubble } from 'ant-design-x-vue-next';
 </script>
 
 <template>
@@ -144,12 +146,13 @@ module.exports = {
 
 ## 🧩 原子组件
 
-我们基于 RICH 交互范式，在不同的交互阶段提供了大量的原子组件，帮助你灵活搭建你的 AI 对话应用：
+我们基于 RICH 交互范式，在不同的交互阶段提供了大量的原子组件，帮助你灵活搭建你的 AI 对话应用（分组对齐 Ant Design X）：
 
-- 通用: `Bubble` - 消息气泡、`Conversations` - 会话管理
-- 唤醒: `Welcome` - 欢迎、`Prompts` - 提示集
-- 表达: `Sender` - 发送框、`Attachment` - 附件、`Suggestion` - 快捷指令
-- 确认: `ThoughtChain` - 思维链
+- 通用: `Bubble`、`Conversations`（`Notification` 规划中）
+- 唤醒: `Welcome`、`Prompts`
+- 表达: `Sender`、`Attachments`、`Suggestion`（`Sources` / `FileCard` / `Folder` / `CodeHighlighter` / `Mermaid` 规划中）
+- 确认: `Think`、`ThoughtChain`
+- 反馈: `Actions`
 
 下面是使用原子组件搭建一个最简单的对话框的代码示例:
 

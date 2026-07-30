@@ -59,8 +59,8 @@ export default defineConfig({
   markdown: {
     config: (md) => mdPlugin(md),
   },
-  title: "Ant Design X Vue",
-  description: "Ant Design X For Vue",
+  title: "Ant Design X Vue Next",
+  description: "Ant Design X For Vue — community continuation",
   head: [
     ['link', { rel: 'icon', href: '/images/x-logo.svg' }],
   ],
@@ -71,11 +71,13 @@ export default defineConfig({
     nav: [
       { text: '研发', link: '/development/introduce' },
       { text: '组件', link: '/component/overview' },
+      { text: '对齐进度', link: '/component/align' },
       { text: '演示', link: '/playground/independent' },
       {
         text: '更多',
         items: [
           { text: 'Ant Design X of React', link: 'https://x.ant.design/index-cn' },
+          { text: '原 Vue 仓库', link: 'https://github.com/wzc520pyfm/ant-design-x-vue' },
           { text: 'Ant Design Vue', link: 'https://www.antdv.com/components/overview-cn' },
         ]
       }
@@ -96,13 +98,17 @@ export default defineConfig({
       '/component/': [
         {
           text: '总览',
-          link: '/component/overview'
+          items: [
+            { text: '组件总览', link: '/component/overview' },
+            { text: '与 Ant Design X 对齐', link: '/component/align' },
+          ]
         },
         {
           text: '通用',
           items: [
             { text: 'Bubble 对话气泡框', link: '/component/bubble' },
-            { text: 'Conversations 管理对话', link: '/component/conversations' }
+            { text: 'Conversations 管理对话', link: '/component/conversations' },
+            { text: 'Notification 系统通知 ⏳', link: '/component/notification' },
           ]
         },
         {
@@ -117,7 +123,12 @@ export default defineConfig({
           items: [
             { text: 'Sender 输入框', link: '/component/sender' },
             { text: 'Attachments 输入附件', link: '/component/attachments' },
-            { text: 'Suggestion 快捷指令', link: '/component/suggestion' }
+            { text: 'Suggestion 快捷指令', link: '/component/suggestion' },
+            { text: 'Sources 引用来源 ⏳', link: '/component/sources' },
+            { text: 'FileCard 文件卡片 ⏳', link: '/component/file-card' },
+            { text: 'Folder 文件夹 ⏳', link: '/component/folder' },
+            { text: 'CodeHighlighter 代码高亮 ⏳', link: '/component/code-highlighter' },
+            { text: 'Mermaid 图表渲染 ⏳', link: '/component/mermaid' },
           ]
         },
         {

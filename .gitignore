@@ -16,3 +16,4 @@ docs/.vitepress/.temp
 .cursor
 .history
 .ref-antd-x
+.netlify
