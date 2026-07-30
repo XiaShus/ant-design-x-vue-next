@@ -16,7 +16,7 @@ export interface AntDesignXResolverOptions {
 
   /**
    * customizable prefix for resolving components
-   * 
+   *
    * @default 'AX'
    */
   prefix?: string
@@ -24,6 +24,7 @@ export interface AntDesignXResolverOptions {
 
 /**
  * set of components that are contained in the package
+ * (name after stripping the `AX` prefix from template tags)
  */
 const primitiveNames = new Set<string>([
   'Actions',
@@ -31,9 +32,9 @@ const primitiveNames = new Set<string>([
   'Bubble',
   'Conversations',
   'Prompts',
+  'Provider',
   'Sender',
   'Suggestion',
-  'Theme',
   'Think',
   'ThoughtChain',
   'Sources',
@@ -48,21 +49,17 @@ const primitiveNames = new Set<string>([
   'Welcome',
 ])
 
+/**
+ * Map template suffix → actual named export from the package.
+ * `<AXProvider>` strips to `Provider`, but the export is `XProvider`.
+ */
+const exportNameMap: Record<string, string> = {
+  Provider: 'XProvider',
+}
+
 function isAntdXVueComponent(name: string) {
   return primitiveNames.has(name)
 }
-
-// currently unnecessary to add side effects
-// function getSideEffects(
-//  componentName: string,
-//  options: AntDesignXResolverOptions = {} 
-// ) {
-//   const { importStyle = true, packageName = 'ant-design-x-vue' } = options
-
-//   if (!importStyle) return
-
-//   return 
-// }
 
 export function AntDesignXVueResolver(
   options: AntDesignXResolverOptions = {}
@@ -84,8 +81,10 @@ export function AntDesignXVueResolver(
         !isAntdXVueComponent(componentName) || exclude.includes(componentName)
       ) return
 
+      const exportName = exportNameMap[componentName] || componentName
+
       return {
-        name: componentName,
+        name: exportName,
         from: packageName,
         as: `${prefix}${componentName}`
       }

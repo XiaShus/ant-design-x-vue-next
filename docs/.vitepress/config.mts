@@ -93,6 +93,10 @@ export default defineConfig({
           link: '/development/introduce'
         },
         {
+          text: '从 ant-design-x-vue 迁移',
+          link: '/development/migrate-from-ant-design-x-vue'
+        },
+        {
           text: '样式兼容',
           link: '/development/compatible-style'
         },

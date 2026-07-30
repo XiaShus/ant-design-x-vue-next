@@ -1,6 +1,6 @@
 {
   "name": "ant-design-x-vue-next",
-  "version": "1.10.0",
+  "version": "1.11.0",
   "description": "Ant Design X for Vue — community continuation aligned with @ant-design/x",
   "keywords": [
     "AI",
@@ -15,7 +15,7 @@
   "scripts": {
     "build": "run-p build:es build:dist build:resolver",
     "build:es": "pnpm exec vite build && pnpm exec vue-tsc --project ./tsconfig.build.json",
-    "build:dist": "pnpm exec vite build --config ./vite.config.dist.mts && pnpm exec vue-tsc --project ./tsconfig.build.json",
+    "build:dist": "pnpm exec vite build --config ./vite.config.dist.mts && node ./scripts/copy-dist-style.mjs && pnpm exec vue-tsc --project ./tsconfig.build.json",
     "build:resolver": "pnpm exec tsc resolver/index.ts --outDir resolver-dist --declaration",
     "build:watch": "vite build --watch",
     "docs:dev": "vitepress dev docs",
@@ -48,6 +48,7 @@
       "require": "./lib/index.js"
     },
     "./dist/style.css": "./dist/style.css",
+    "./dist/ant-design-x-vue-next.css": "./dist/ant-design-x-vue-next.css",
     "./resolver": {
       "types": "./resolver-dist/index.d.ts",
       "import": "./resolver-dist/index.js",

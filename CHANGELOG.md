@@ -2,6 +2,18 @@
 
 > Vue Next 文档站时间线版见 [更新日志](https://ant-design-x-vue-next-524.netlify.app/development/changelog.html)。
 
+## 1.11.0
+
+`2026-07-30`
+
+### ant-design-x-vue-next
+
+- 🆕 useXChat setMessage / removeMessage / onReload；Actions item.disabled
+- 🆕 XMarkdown DebugPanel；XMCPClient；DeepSeekChatProvider
+- 🛠 修复 dist/style.css 导出；Resolver 支持 AXProvider → XProvider
+- 📖 迁移指南：从 ant-design-x-vue 替换到本包
+- 🛠 发布 npm `ant-design-x-vue-next@1.11.0`
+
 ## 1.10.0
 
 `2026-07-30`

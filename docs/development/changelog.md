@@ -19,6 +19,19 @@ customClass: changelog-page
 
 ---
 
+## 1.11.0
+
+`2026-07-30`
+
+### ant-design-x-vue-next
+
+- 🆕 `useXChat`：`setMessage` / `removeMessage` / `onReload`（编辑、删除、原地重新生成）。
+- 🆕 `Actions` 支持 `item.disabled`；文档补充 regenerate + copy 演示。
+- 🆕 `XMarkdown` DebugPanel；`XMCPClient`；`DeepSeekChatProvider`。
+- 🛠 修复 `dist/style.css` 导出与构建产物对齐；Resolver 支持 `<AXProvider>` → `XProvider`。
+- 📖 新增 [从 ant-design-x-vue 迁移](/development/migrate-from-ant-design-x-vue) 指南。
+- 🛠 发布 npm 包 [`ant-design-x-vue-next@1.11.0`](https://www.npmjs.com/package/ant-design-x-vue-next)。
+
 ## 1.10.0
 
 `2026-07-30`

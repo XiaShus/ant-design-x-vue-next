@@ -15,6 +15,7 @@
 | 入口 | 说明 |
 | --- | --- |
 | [组件总览](/component/overview) | 按 RICH 分组浏览全部组件 |
+| [从 ant-design-x-vue 迁移](/development/migrate-from-ant-design-x-vue) | 替换上游 Vue 包到本续作 |
 | [更新日志](/development/changelog) | 版本变更时间线（对齐官方风格） |
 | [对齐进度](/component/align) | 与 `@ant-design/x` 的对照表 |
 | [设计语言](https://x.ant.design/docs/spec/introduce-cn) | 官方 RICH 设计指南（外链） |

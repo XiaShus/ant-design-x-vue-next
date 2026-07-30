@@ -47,6 +47,8 @@ $ pnpm add ant-design-vue ant-design-x-vue-next
 
 开发阶段也可继续使用源码别名 `ant-design-x-vue`（与原仓库兼容）。
 
+从上游包迁移请看：[从 ant-design-x-vue 迁移](https://ant-design-x-vue-next-524.netlify.app/development/migrate-from-ant-design-x-vue.html)。
+
 ## 🔨 示例
 
 ```html
