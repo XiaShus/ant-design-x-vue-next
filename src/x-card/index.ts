@@ -24,6 +24,22 @@ export {
   clearCatalogCache,
 } from './catalog';
 
+export {
+  registerBasicCatalog,
+  createBasicCatalogComponents,
+  basicCatalog,
+  BASIC_CATALOG_ID,
+  A2UIText,
+  A2UIButton,
+  A2UITextField,
+  A2UICheckBox,
+  A2UIColumn,
+  A2UIRow,
+  A2UIDivider,
+  A2UIImage,
+  A2UICard,
+} from './basic-catalog';
+
 export { Box, Card };
 
 export const XCard = { Box, Card };

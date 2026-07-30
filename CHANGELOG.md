@@ -2,6 +2,54 @@
 
 > Vue Next 文档站时间线版见 [更新日志](https://ant-design-x-vue-next-524.netlify.app/development/changelog.html)。
 
+## 1.16.0
+
+`2026-07-30`
+
+### ant-design-x-vue-next
+
+- 🆕 XCard Basic Catalog：`registerBasicCatalog` 内置 Text/Button/TextField/布局等
+- 📖 文档站 XCard 演示与对齐进度更新
+- 🛠 发布 npm `ant-design-x-vue-next@1.16.0`
+
+## 1.15.0
+
+`2026-07-30`
+
+### ant-design-x-vue-next
+
+- 🆕 `createManualXRequest` / `AbstractXRequestClass`；Provider `request` + `injectRequest`
+- 🆕 `useXChat` 可仅用 `provider` 发请求
+- 🛠 发布 npm `ant-design-x-vue-next@1.15.0`
+
+## 1.14.0
+
+`2026-07-30`
+
+### ant-design-x-vue-next
+
+- 🆕 `setXRequestGlobalOptions`；`useXChat` 异步 defaultMessages / queueRequest / extraInfo
+- 🛠 Release 流水线跳过已发布版本
+- 🛠 发布 npm `ant-design-x-vue-next@1.14.0`
+
+## 1.13.0
+
+`2026-07-30`
+
+### ant-design-x-vue-next
+
+- 🆕 XCard A2UI v0.8 兼容
+- 🛠 发布 npm `ant-design-x-vue-next@1.13.0`
+
+## 1.12.0
+
+`2026-07-30`
+
+### ant-design-x-vue-next
+
+- 🆕 AbstractChatProvider / DefaultChatProvider；useXChat provider；useXConversations
+- 🛠 发布 npm `ant-design-x-vue-next@1.12.0`
+
 ## 1.11.0
 
 `2026-07-30`

@@ -240,6 +240,12 @@ function renderNode(node: ComponentTree): VNodeChild {
       ? resolvePropsV09(node.props, dataModel.value)
       : resolvePropsV08(node.props, dataModel.value);
 
+  // Preserve binding path for two-way inputs (value was a JSON pointer before resolve)
+  const rawValue = node.props.value;
+  if (typeof rawValue === 'string' && rawValue.startsWith('/')) {
+    resolvedProps.valuePath = rawValue;
+  }
+
   resolvedProps.onAction = (name: string, context: Record<string, any>) => {
     handleAction(name, context, resolvedProps.action);
   };
