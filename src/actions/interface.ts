@@ -83,6 +83,9 @@ export interface ItemType extends DataAttributes {
 
 export type ActionItem = SubItemType | ItemType;
 
+/** Align React Actions SemanticType. */
+export type ActionsSemanticType = 'root' | 'item' | 'itemDropdown';
+
 export interface ActionsProps extends Omit<HTMLAttributes, 'onClick'> {
   /**
    * @desc 包含多个操作项的列表
@@ -94,6 +97,16 @@ export interface ActionsProps extends Omit<HTMLAttributes, 'onClick'> {
    * @descEN Root node style class.
    */
   rootClassName?: string;
+  /**
+   * @desc 语义化结构 className
+   * @descEN Semantic structure class names
+   */
+  classNames?: Partial<Record<ActionsSemanticType, string>>;
+  /**
+   * @desc 语义化结构 style
+   * @descEN Semantic structure styles
+   */
+  styles?: Partial<Record<ActionsSemanticType, CSSProperties>>;
   /**
    * @desc 子操作项是否占据一行
    * @descEN Whether the child action items occupy a line.

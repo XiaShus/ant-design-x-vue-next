@@ -5,7 +5,13 @@ import ActionsCopy from './ActionsCopy.vue';
 import ActionsFeedback from './ActionsFeedback.vue';
 import ActionsItem from './ActionsItem.vue';
 
-export type { ActionsProps, ActionItem, ItemType, SubItemType } from './interface';
+export type {
+  ActionsProps,
+  ActionItem,
+  ItemType,
+  SubItemType,
+  ActionsSemanticType,
+} from './interface';
 export type {
   ActionsCopyProps,
   ActionsFeedbackProps,

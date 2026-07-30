@@ -7,6 +7,7 @@ import { computed, Transition } from 'vue';
 import useXComponentConfig from '../_util/hooks/use-x-component-config';
 import { useXProviderContext } from '../x-provider';
 import ActionMenu from './ActionMenu.vue';
+import { ActionsContextProvider } from './context';
 import type { ActionsProps, ActionItem, SubItemType } from './interface';
 
 import useStyle from './style';
@@ -20,6 +21,8 @@ const props = withDefaults(defineProps<ActionsProps>(), {
   items: () => [],
   fadeIn: false,
   fadeInLeft: false,
+  classNames: () => ({}),
+  styles: () => ({}),
 });
 
 const emit = defineEmits<{
@@ -48,9 +51,44 @@ const motionName = computed(() =>
     : '',
 );
 
+const mergedItemClassName = computed(() =>
+  classnames(
+    (contextConfig.value.classNames as any)?.item,
+    props.classNames?.item,
+  ),
+);
+const mergedItemStyle = computed(() => ({
+  ...((contextConfig.value.styles as any)?.item || {}),
+  ...(props.styles?.item || {}),
+}));
+const mergedItemDropdownClassName = computed(() =>
+  classnames(
+    (contextConfig.value.classNames as any)?.itemDropdown,
+    props.classNames?.itemDropdown,
+  ),
+);
+const mergedItemDropdownStyle = computed(() => ({
+  ...((contextConfig.value.styles as any)?.itemDropdown || {}),
+  ...(props.styles?.itemDropdown || {}),
+}));
+
+const actionsContextValue = computed(() => ({
+  prefixCls,
+  classNames: {
+    item: mergedItemClassName.value,
+    itemDropdown: mergedItemDropdownClassName.value,
+  },
+  styles: {
+    item: mergedItemStyle.value,
+    itemDropdown: mergedItemDropdownStyle.value,
+  },
+}));
+
 const mergedCls = computed(() => classnames(
   prefixCls,
   contextConfig.value.className,
+  (contextConfig.value.classNames as any)?.root,
+  props.classNames?.root,
   props.rootClassName,
   cssVarCls,
   hashId.value,
@@ -62,6 +100,8 @@ const mergedCls = computed(() => classnames(
 const mergedStyle = computed(() => ({
   ...contextConfig.value.style,
   ...(typeof props.style === 'object' ? props.style : {}),
+  ...((contextConfig.value.styles as any)?.root || {}),
+  ...(props.styles?.root || {}),
 }));
 
 /** `border` kept as deprecated alias of `filled` (legacy Vue API). */
@@ -116,9 +156,14 @@ const renderSingleItem = (item: SubItemType) => {
 
   return (
     <div
-      class={classnames(`${prefixCls}-list-item`, {
-        [`${prefixCls}-list-item-disabled`]: disabled,
-      })}
+      class={classnames(
+        `${prefixCls}-list-item`,
+        mergedItemClassName.value,
+        {
+          [`${prefixCls}-list-item-disabled`]: disabled,
+        },
+      )}
+      style={mergedItemStyle.value}
       aria-disabled={disabled || undefined}
       onClick={(domEvent: MouseEvent) => handleItemClick(key, item, domEvent)}
       key={key}
@@ -135,35 +180,37 @@ const domProps = computed(() => pickAttrs(props, {
 
 defineRender(() => {
   const rootNode = (
-    <div class={mergedCls.value} {...domProps.value} style={mergedStyle.value}>
-      <div
-        class={classnames(
-          `${prefixCls}-list`,
-          `${prefixCls}-variant-${normalizedVariant.value}`,
-          { block: props.block },
-        )}
-      >
-        {props.items.map((item) => {
-          if (item.actionRender) {
-            return typeof item.actionRender === 'function'
-              ? item.actionRender(item)
-              : item.actionRender;
-          }
-          if ('children' in item && item.children) {
-            return (
-              <ActionMenu
-                key={item.key}
-                item={item}
-                prefixCls={prefixCls}
-                dropdownProps={props.dropdownProps}
-                onClick={handleMenuClick}
-              />
-            );
-          }
-          return renderSingleItem(item as SubItemType);
-        })}
+    <ActionsContextProvider value={actionsContextValue.value}>
+      <div class={mergedCls.value} {...domProps.value} style={mergedStyle.value}>
+        <div
+          class={classnames(
+            `${prefixCls}-list`,
+            `${prefixCls}-variant-${normalizedVariant.value}`,
+            { block: props.block },
+          )}
+        >
+          {props.items.map((item) => {
+            if (item.actionRender) {
+              return typeof item.actionRender === 'function'
+                ? item.actionRender(item)
+                : item.actionRender;
+            }
+            if ('children' in item && item.children) {
+              return (
+                <ActionMenu
+                  key={item.key}
+                  item={item}
+                  prefixCls={prefixCls}
+                  dropdownProps={props.dropdownProps}
+                  onClick={handleMenuClick}
+                />
+              );
+            }
+            return renderSingleItem(item as SubItemType);
+          })}
+        </div>
       </div>
-    </div>
+    </ActionsContextProvider>
   );
 
   const name = motionName.value;

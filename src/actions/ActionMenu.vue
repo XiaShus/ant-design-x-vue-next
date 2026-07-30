@@ -4,6 +4,7 @@ import { Dropdown, type DropdownProps, type MenuProps } from 'ant-design-vue';
 import classnames from 'classnames';
 import { computed } from 'vue';
 import { useXProviderContext } from '../x-provider';
+import { useActionsContextInject } from './context';
 import type { ActionItem, ItemType } from './interface';
 
 defineOptions({ name: 'AXActionMenu' });
@@ -41,6 +42,7 @@ const findItem = (keyPath: string[], items: ActionItem[]): ActionItem | null => 
 
 const { getPrefixCls } = useXProviderContext();
 const prefixCls = getPrefixCls('actions', props.prefixCls);
+const actionsContext = useActionsContextInject();
 
 const icon = computed(() => props.item?.icon ?? <EllipsisOutlined />);
 const children = computed(() => props.item.children || []);
@@ -67,20 +69,38 @@ const menuProps = computed<MenuProps>(() => ({
 defineRender(() => {
   const {
     overlayClassName,
+    overlayStyle,
     arrow,
     trigger,
     ...restDropdownProps
   } = dropdownProps.value;
 
+  const itemClassName = actionsContext.value.classNames?.item;
+  const itemStyle = actionsContext.value.styles?.item;
+  const itemDropdownClassName = actionsContext.value.classNames?.itemDropdown;
+  const itemDropdownStyle = actionsContext.value.styles?.itemDropdown;
+
   return (
     <Dropdown
       {...restDropdownProps}
       menu={menuProps.value}
-      overlayClassName={classnames(`${prefixCls}-sub-item`, overlayClassName)}
+      overlayClassName={classnames(
+        `${prefixCls}-sub-item`,
+        `${prefixCls}-dropdown`,
+        itemDropdownClassName,
+        overlayClassName,
+      )}
+      overlayStyle={{
+        ...itemDropdownStyle,
+        ...(overlayStyle as object),
+      }}
       arrow={arrow ?? true}
       trigger={trigger ?? [triggerSubMenuAction.value]}
     >
-      <div class={`${prefixCls}-list-item`}>
+      <div
+        class={classnames(`${prefixCls}-list-item`, itemClassName)}
+        style={itemStyle}
+      >
         <div class={`${prefixCls}-list-item-icon`}>{icon.value}</div>
       </div>
     </Dropdown>
