@@ -7,6 +7,7 @@ import BubbleSystem from './BubbleSystem.vue';
 export type {
   BubbleProps,
   BubbleListProps,
+  BubbleListRef,
   EditableBubbleOption,
   SystemBubbleProps,
   DividerBubbleProps,

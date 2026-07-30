@@ -19,6 +19,15 @@ customClass: changelog-page
 
 ---
 
+## 1.55.0
+
+`2026-07-31`
+
+### ant-design-x-vue-next
+
+- 🆕 Bubble.List Ref：`scrollBoxNativeElement`；`scrollTo({ top: number | 'top' | 'bottom' })`（`offset` 兼容保留）；`nativeElement` 对齐为外层 root。
+- 🛠 发布 npm 包 [`ant-design-x-vue-next@1.55.0`](https://www.npmjs.com/package/ant-design-x-vue-next)。
+
 ## 1.54.0
 
 `2026-07-31`

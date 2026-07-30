@@ -152,9 +152,18 @@ export interface BubbleContextProps {
 }
 
 export interface BubbleListRef {
+  /** Outer list root (`.ant-bubble-list`). */
   nativeElement: HTMLDivElement;
+  /** Scrollable box (`.ant-bubble-list-scroll-box`). */
+  scrollBoxNativeElement: HTMLDivElement;
   scrollTo: (info: {
+    /**
+     * Scroll position. Prefer React-aligned `top`.
+     * @deprecated Use `top` instead.
+     */
     offset?: number;
+    /** Scroll offset, or visual `'top'` / `'bottom'`. */
+    top?: number | 'bottom' | 'top';
     key?: string | number;
     behavior?: ScrollBehavior;
     block?: ScrollLogicalPosition;

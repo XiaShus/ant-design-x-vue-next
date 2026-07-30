@@ -82,7 +82,8 @@ watch(
   },
 );
 
-const listRef = ref<HTMLDivElement>(null);
+const rootRef = ref<HTMLDivElement>(null);
+const scrollBoxRef = ref<HTMLDivElement>(null);
 const bubbleRefs = ref<Record<string, BubbleRef>>({});
 
 const { getPrefixCls } = useXProviderContext();
@@ -117,11 +118,11 @@ const onInternalScroll = (e: Event) => {
   onScroll?.(e);
 };
 
-watch([updateCount, listRef, scrollReachEnd], () => {
-  if (autoScroll && unref(listRef) && unref(scrollReachEnd)) {
+watch([updateCount, scrollBoxRef, scrollReachEnd], () => {
+  if (autoScroll && unref(scrollBoxRef) && unref(scrollReachEnd)) {
     nextTick(() => {
-      unref(listRef)?.scrollTo({
-        top: unref(listRef)!.scrollHeight,
+      unref(scrollBoxRef)?.scrollTo({
+        top: unref(scrollBoxRef)!.scrollHeight,
       });
     });
   }
@@ -133,10 +134,10 @@ watch(
     if (autoScroll) {
       const lastItemKey = unref(displayData)[unref(displayData).length - 2]?.key;
       const bubbleInst = unref(bubbleRefs)[lastItemKey!];
-      if (bubbleInst && unref(listRef)) {
+      if (bubbleInst && unref(scrollBoxRef)) {
         const { nativeElement } = bubbleInst;
         const { top = 0, bottom = 0 } = nativeElement?.getBoundingClientRect() ?? {};
-        const { top: listTop, bottom: listBottom } = unref(listRef)!.getBoundingClientRect();
+        const { top: listTop, bottom: listBottom } = unref(scrollBoxRef)!.getBoundingClientRect();
         const isVisible = top < listBottom && bottom > listTop;
         if (isVisible) {
           setUpdateCount(unref(updateCount) + 1);
@@ -183,11 +184,12 @@ defineRender(() => {
         {...domProps.value}
         class={mergedRootCls.value}
         style={mergedRootStyle.value as any}
+        ref={rootRef}
       >
         <div
           class={classnames(`${listPrefixCls}-scroll-box`, classNames.scroll)}
           style={(styles.scroll || {}) as any}
-          ref={listRef}
+          ref={scrollBoxRef}
           onScroll={onInternalScroll}
         >
           <div class={`${listPrefixCls}-scroll-content`}>
@@ -305,24 +307,38 @@ defineRender(() => {
 });
 
 defineExpose({
-  nativeElement: listRef,
+  nativeElement: rootRef,
+  scrollBoxNativeElement: scrollBoxRef,
   scrollTo: ({
     key,
+    top,
     offset,
     behavior = 'smooth',
     block,
   }: {
     offset?: number;
+    top?: number | 'bottom' | 'top';
     key?: string | number;
     behavior?: ScrollBehavior;
     block?: ScrollLogicalPosition;
   }) => {
-    if (typeof offset === 'number') {
-      unref(listRef)?.scrollTo({
-        top: offset,
-        behavior,
-      });
-    } else if (key !== undefined) {
+    const box = unref(scrollBoxRef);
+    if (!box) return;
+
+    const resolvedTop = top ?? offset;
+    if (typeof resolvedTop === 'number') {
+      box.scrollTo({ top: resolvedTop, behavior });
+      return;
+    }
+    if (resolvedTop === 'bottom') {
+      box.scrollTo({ top: box.scrollHeight, behavior });
+      return;
+    }
+    if (resolvedTop === 'top') {
+      box.scrollTo({ top: 0, behavior });
+      return;
+    }
+    if (key !== undefined) {
       const bubbleInst = unref(bubbleRefs)[key];
       if (bubbleInst) {
         const index = unref(displayData).findIndex((dataItem) => dataItem.key === key);
