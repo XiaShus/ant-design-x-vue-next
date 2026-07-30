@@ -9,6 +9,7 @@ import ActionButtonContextProvider from './components/ActionButton/context';
 import ClearButton from './components/ClearButton.vue';
 import LoadingButton from './components/LoadingButton.vue';
 import SendButton from './components/SendButton.vue';
+import SlotTextArea from './components/SlotTextArea.vue';
 import SpeechButton from './components/SpeechButton/index.vue';
 import useStyle from './style';
 import useSpeech from './useSpeech';
@@ -35,10 +36,25 @@ const sharedRenderComponents = {
 
 defineOptions({ name: 'AXSender' });
 
+const props = withDefaults(defineProps<SenderProps>(), {
+  submitType: 'enter',
+  autoSize: () => ({ maxRows: 8 }),
+  styles: () => ({}),
+  classNames: () => ({}),
+  disabled: undefined,
+  sendDisabled: undefined,
+  loading: undefined,
+  actions: undefined,
+});
+
+const emit = defineEmits<{
+  'update:value': [value: string];
+}>();
+
 const {
   prefixCls: customizePrefixCls,
-  styles = {},
-  classNames = {},
+  styles,
+  classNames,
   className,
   rootClassName,
   style,
@@ -46,30 +62,28 @@ const {
   value,
   placeholder,
   readOnly,
-  submitType = 'enter',
+  submitType,
   onSubmit,
   sendDisabled,
   loading,
   components,
   onCancel,
   onChange,
-  actions = undefined,
+  actions,
   onKeyPress,
   onKeyDown,
-  disabled = undefined,
+  disabled,
   allowSpeech,
   prefix,
   footer,
   header,
   onPaste,
   onPasteFile,
-  autoSize = { maxRows: 8 },
+  autoSize,
+  slotConfig,
+  skill,
   ...rest
-} = defineProps<SenderProps>();
-
-const emit = defineEmits<{
-  'update:value': [value: string];
-}>();
+} = props;
 
 const slots = defineSlots<{
   header?(): VNode;
@@ -106,6 +120,9 @@ const prefixCls = computed(() => {
 // ============================= Refs =============================
 const containerRef = ref<HTMLDivElement | null>(null);
 const inputRef = ref<InstanceType<typeof Input.TextArea> | null>(null);
+const slotRef = ref<InstanceType<typeof SlotTextArea> | null>(null);
+
+const isSlotMode = computed(() => !!(props.slotConfig?.length || props.skill));
 
 // ======================= Component Config =======================
 const contextConfig = useXComponentConfig('sender');
@@ -140,13 +157,17 @@ watch(() => value, () => {
   setInnerValue(value);
 });
 
-const triggerValueChange: SenderProps['onChange'] = (nextValue, event) => {
+const triggerValueChange: SenderProps['onChange'] = (nextValue, event, nextSlotConfig, nextSkill) => {
   setInnerValue(nextValue);
 
   emit('update:value', nextValue);
   if (onChange) {
-    onChange(nextValue, event);
+    onChange(nextValue, event, nextSlotConfig, nextSkill);
   }
+};
+
+const onSlotChange: SenderProps['onChange'] = (nextValue, event, nextSlotConfig, nextSkill) => {
+  triggerValueChange(nextValue, event, nextSlotConfig, nextSkill);
 };
 
 // ============================ Speech ============================
@@ -172,8 +193,20 @@ const inputProps = computed(() => {
 
 // ============================ Events ============================
 const triggerSend = () => {
-  const shouldSend = sendDisabled !== undefined 
-    ? !sendDisabled 
+  if (isSlotMode.value && slotRef.value) {
+    const slotValue = slotRef.value.getValue();
+    const shouldSend = sendDisabled !== undefined
+      ? !sendDisabled
+      : !!(slotValue.value || props.slotConfig?.length);
+    const isSend = shouldSend && !!onSubmit;
+    if (isSend) {
+      onSubmit(slotValue.value, slotValue.slotConfig, slotValue.skill);
+    }
+    return;
+  }
+
+  const shouldSend = sendDisabled !== undefined
+    ? !sendDisabled
     : !!(innerValue.value && !loading);
   const isSend = shouldSend && !!onSubmit;
   if (isSend) {
@@ -182,7 +215,24 @@ const triggerSend = () => {
 };
 
 const triggerClear = () => {
+  if (isSlotMode.value && slotRef.value) {
+    slotRef.value.clear();
+    return;
+  }
   triggerValueChange('');
+};
+
+const getSlotSendDisabled = () => {
+  if (sendDisabled !== undefined) {
+    return sendDisabled;
+  }
+  const slotValue = slotRef.value?.getValue?.();
+  return !(slotValue?.value || props.slotConfig?.length);
+};
+
+const getSlotClearDisabled = () => {
+  const slotValue = slotRef.value?.getValue?.();
+  return !slotValue?.value && !props.slotConfig?.length && !props.skill;
 };
 
 // ============================ Submit ============================
@@ -235,11 +285,13 @@ const onInternalPaste: ClipboardEventHandler = (e) => {
 
 // ============================ Focus =============================
 const onContentMouseDown: MouseEventHandler = (e) => {
-  // If input focused but click on the container,
-  // input will lose focus.
-  // We call `preventDefault` to prevent this behavior
   if (e.target !== containerRef.value?.querySelector(`.${inputCls.value}`)) {
     e.preventDefault();
+  }
+
+  if (isSlotMode.value) {
+    slotRef.value?.focus();
+    return;
   }
 
   // @ts-expect-error
@@ -285,9 +337,9 @@ const actionNode = computed(() => {
 const actionsButtonContextProps = computed(() => ({
   prefixCls: actionBtnCls.value,
   onSend: triggerSend,
-  onSendDisabled: sendDisabled!==undefined? sendDisabled : !innerValue.value,
+  onSendDisabled: isSlotMode.value ? getSlotSendDisabled() : (sendDisabled !== undefined ? sendDisabled : !innerValue.value),
   onClear: triggerClear,
-  onClearDisabled: !innerValue.value,
+  onClearDisabled: isSlotMode.value ? getSlotClearDisabled() : !innerValue.value,
   onCancel,
   onCancelDisabled: !loading,
   onSpeech: () => triggerSpeech(false),
@@ -355,30 +407,48 @@ defineRender(() => {
           )}
 
           {/* Input */}
-          <InputTextArea
-            {...inputProps.value}
-            disabled={disabled}
-            style={{ ...contextConfig.value.styles.input, ...styles.input }}
-            class={classnames(inputCls.value, contextConfig.value.classNames.input, classNames.input)}
-            autoSize={autoSize}
-            value={innerValue.value}
-            onChange={(event: Event) => {
-              triggerValueChange(
-                (event.target as HTMLTextAreaElement).value,
-                event as ChangeEvent,
-              );
-              triggerSpeech(true);
-            }}
-            onPressEnter={onInternalKeyPress}
-            onCompositionstart={onInternalCompositionStart}
-            onCompositionend={onInternalCompositionEnd}
-            onKeydown={onKeyDown}
-            placeholder={placeholder}
-            // @ts-expect-error
-            onPaste={onInternalPaste}
-            bordered={false}
-            readOnly={readOnly}
-          />
+          {isSlotMode.value ? (
+            <SlotTextArea
+              ref={slotRef}
+              prefixCls={prefixCls.value}
+              slotConfig={props.slotConfig}
+              skill={props.skill}
+              disabled={disabled}
+              readOnly={readOnly}
+              placeholder={placeholder as string}
+              submitType={submitType}
+              style={{ ...contextConfig.value.styles.input, ...styles.input }}
+              class={classnames(contextConfig.value.classNames.input, classNames.input)}
+              onChange={onSlotChange}
+              onKeyPress={onInternalKeyPress}
+              onKeyDown={onKeyDown}
+            />
+          ) : (
+            <InputTextArea
+              {...inputProps.value}
+              disabled={disabled}
+              style={{ ...contextConfig.value.styles.input, ...styles.input }}
+              class={classnames(inputCls.value, contextConfig.value.classNames.input, classNames.input)}
+              autoSize={autoSize}
+              value={innerValue.value}
+              onChange={(event: Event) => {
+                triggerValueChange(
+                  (event.target as HTMLTextAreaElement).value,
+                  event as ChangeEvent,
+                );
+                triggerSpeech(true);
+              }}
+              onPressEnter={onInternalKeyPress}
+              onCompositionstart={onInternalCompositionStart}
+              onCompositionend={onInternalCompositionEnd}
+              onKeydown={onKeyDown}
+              placeholder={placeholder}
+              // @ts-expect-error
+              onPaste={onInternalPaste}
+              bordered={false}
+              readOnly={readOnly}
+            />
+          )}
 
           {/* Action List */}
           {actionNode.value && (<div
@@ -413,10 +483,32 @@ defineRender(() => {
 });
 
 defineExpose({
-  nativeElement: containerRef.value,
-  // @ts-expect-error
-  focus: (opt: any) => inputRef.value?.focus(opt),
-  // @ts-expect-error
-  blur: () => inputRef.value?.blur(),
+  nativeElement: containerRef,
+  focus: (opt?: any) => {
+    if (isSlotMode.value) {
+      slotRef.value?.focus();
+      return;
+    }
+    // @ts-expect-error
+    inputRef.value?.focus(opt);
+  },
+  blur: () => {
+    if (isSlotMode.value) {
+      slotRef.value?.blur();
+      return;
+    }
+    // @ts-expect-error
+    inputRef.value?.blur();
+  },
+  insert: (...args: Parameters<NonNullable<InstanceType<typeof SlotTextArea>['insert']>>) =>
+    slotRef.value?.insert(...args),
+  clear: () => {
+    if (isSlotMode.value) {
+      slotRef.value?.clear();
+      return;
+    }
+    triggerClear();
+  },
+  getValue: () => slotRef.value?.getValue(),
 });
 </script>

@@ -11,7 +11,7 @@
 | 通用 | Notification | ✅ | ✅ | [文档](/component/notification) |
 | 唤醒 | Welcome | ✅ | ✅ | [文档](/component/welcome) |
 | 唤醒 | Prompts | ✅ | ✅ | [文档](/component/prompts) |
-| 表达 | Sender | ✅ | ✅（含 `Sender.Switch`） | [文档](/component/sender) |
+| 表达 | Sender | ✅ | ✅（含 `Sender.Switch`、词槽 `slotConfig` / `skill`） | [文档](/component/sender) |
 | 表达 | Attachments | ✅ | ✅ | [文档](/component/attachments) |
 | 表达 | Suggestion | ✅ | ✅ | [文档](/component/suggestion) |
 | 反馈 | Sources | ✅ | ✅ | [文档](/component/sources) |

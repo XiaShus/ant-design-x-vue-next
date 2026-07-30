@@ -1,5 +1,6 @@
 import { unit } from '../../_util/cssinjs';
 import { mergeToken } from '../../_util/cssinjs-utils';
+import { FastColor } from '@ant-design/fast-color';
 import type {
   FullToken,
   GenerateStyle,
@@ -9,12 +10,27 @@ import { genStyleHooks } from '../../theme/genStyleUtils';
 import { genTransitionCollapseStyle } from '../../transition-collapse';
 import genSenderHeaderStyle from './header';
 import genSenderSwitchStyle from './switch';
+import genSlotTextAreaStyle from './slot-textarea';
 
-// biome-ignore lint/suspicious/noEmptyInterface: ComponentToken need to be empty by default
-export interface ComponentToken {}
+export interface ComponentToken {
+  colorBgSlot?: string;
+  colorTextSlot?: string;
+  colorTextSlotPlaceholder?: string;
+  colorBorderSlot?: string;
+  colorBorderSlotHover?: string;
+  colorBgSkill?: string;
+  colorBgSkillHover?: string;
+}
 
 export interface SenderToken extends FullToken<'Sender'> {
   SenderContentMaxWidth: number | string;
+  colorBgSlot: string;
+  colorTextSlot: string;
+  colorTextSlotPlaceholder: string;
+  colorBorderSlot: string;
+  colorBorderSlotHover: string;
+  colorBgSkill: string;
+  colorBgSkillHover: string;
 }
 
 const genSenderStyle: GenerateStyle<SenderToken> = (token) => {
@@ -154,7 +170,26 @@ const genSenderStyle: GenerateStyle<SenderToken> = (token) => {
   };
 };
 
-export const prepareComponentToken: GetDefaultToken<'Sender'> = () => ({});
+export const prepareComponentToken: GetDefaultToken<'Sender'> = (token) => {
+  const { colorPrimary } = token;
+  const colorBgSlot = new FastColor(colorPrimary).setA(0.06).toRgbString();
+  const colorBgSkill = new FastColor(colorPrimary).setA(0.08).toRgbString();
+  const colorBgSkillHover = new FastColor(colorPrimary).setA(0.15).toRgbString();
+  const colorTextSlot = colorPrimary;
+  const colorTextSlotPlaceholder = new FastColor(colorPrimary).setA(0.25).toRgbString();
+  const colorBorderSlotHover = new FastColor(colorPrimary).setA(0.1).toRgbString();
+  const colorBorderSlot = colorBgSlot;
+
+  return {
+    colorBgSlot,
+    colorBgSkill,
+    colorBgSkillHover,
+    colorTextSlot,
+    colorTextSlotPlaceholder,
+    colorBorderSlotHover,
+    colorBorderSlot,
+  };
+};
 
 export default genStyleHooks<'Sender'>(
   'Sender',
@@ -169,6 +204,7 @@ export default genStyleHooks<'Sender'>(
       genSenderStyle(SenderToken),
       genSenderHeaderStyle(SenderToken),
       genSenderSwitchStyle(SenderToken),
+      genSlotTextAreaStyle(SenderToken),
       genTransitionCollapseStyle(SenderToken),
     ];
   },

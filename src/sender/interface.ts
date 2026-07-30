@@ -8,6 +8,9 @@ import SendButton from "./components/SendButton.vue";
 import ClearButton from "./components/ClearButton.vue";
 import LoadingButton from "./components/LoadingButton.vue";
 import SpeechButton from "./components/SpeechButton/index.vue";
+import type { SkillType, SlotConfigType, SlotTextAreaRef } from './slot-types';
+
+export type { SkillType, SlotConfigType, InsertPosition, SlotTextAreaRef } from './slot-types';
 
 export type SubmitType = 'enter' | 'shiftEnter' | false;
 
@@ -55,11 +58,14 @@ export interface SenderProps {
   submitType?: SubmitType;
   disabled?: boolean;
   sendDisabled?: boolean;
-  onSubmit?: (message: string) => void;
+  slotConfig?: Readonly<SlotConfigType[]>;
+  skill?: SkillType;
+  onSubmit?: (message: string, slotConfig?: SlotConfigType[], skill?: SkillType) => void;
   onChange?: (
     value: string,
     event?: ChangeEvent,
-    // event?: FormEvent | ChangeEvent,
+    slotConfig?: SlotConfigType[],
+    skill?: SkillType,
   ) => void;
   onCancel?: VoidFunction;
   onKeyDown?: KeyboardEventHandler;
@@ -96,6 +102,9 @@ export type SenderRef = {
   nativeElement: HTMLDivElement;
   focus: (options?: InputFocusOptions) => void;
   blur: () => void;
+  insert?: SlotTextAreaRef['insert'];
+  clear?: SlotTextAreaRef['clear'];
+  getValue?: SlotTextAreaRef['getValue'];
 };
 
 export interface SenderHeaderContextProps {

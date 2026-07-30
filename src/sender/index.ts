@@ -5,6 +5,12 @@ import SenderSwitch from './SenderSwitch.vue';
 
 export type { SenderProps } from './interface';
 export type { SenderSwitchProps } from './switch-types';
+export type {
+  SkillType,
+  SlotConfigType,
+  InsertPosition,
+  SlotTextAreaRef,
+} from './slot-types';
 
 const Sender = Object.assign(SenderComponent, {
   Header: SenderHeader,

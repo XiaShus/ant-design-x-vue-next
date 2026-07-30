@@ -88,6 +88,18 @@ sender/switch
 
 :::
 
+### 词槽填空
+
+<ClientOnly>
+
+:::demo 通过 `slotConfig` 与 `skill` 构建结构化输入；支持 `getValue` / `insert` / `clear` 与 `onSubmit(message, slotConfig, skill)`。
+
+sender/slot-filling
+
+:::
+
+</ClientOnly>
+
 ### 展开面板
 
 <ClientOnly>
@@ -187,8 +199,10 @@ sender/focus
 | styles         | 语义化定义样式                                                              | [见下](#semantic-dom)                                                  | -                       | -    |
 | submitType     | 提交模式                                                                    | SubmitType                                                             | `enter` \| `shiftEnter` | -    |
 | value(v-model) | 输入框值                                                                    | string                                                                 | -                       | -    |
-| onSubmit       | 点击发送按钮的回调                                                          | (message: string) => void                                              | -                       | -    |
-| onChange       | 输入框值改变的回调                                                          | (value: string, event?: FormEvent \| ChangeEvent ) => void             | -                       | -    |
+| slotConfig     | 词槽配置，设置后启用结构化 SlotTextArea 输入                                  | `SlotConfigType[]`                                                     | -                       | 1.22.0 |
+| skill          | 技能芯片，显示在词槽输入起始位置                                              | `SkillType`                                                            | -                       | 1.22.0 |
+| onSubmit       | 点击发送按钮的回调                                                          | (message: string, slotConfig?: SlotConfigType[], skill?: SkillType) => void | -                  | -    |
+| onChange       | 输入框值改变的回调                                                          | (value: string, event?: ChangeEvent, slotConfig?: SlotConfigType[], skill?: SkillType) => void | - | -    |
 | onCancel       | 点击取消按钮的回调                                                          | () => void                                                             | -                       | -    |
 | onPasteFile    | 黏贴文件的回调                                                              | (firstFile: File, files: FileList) => void                             | -                       | -    |
 | autoSize       | 自适应内容高度，可设置为 true \| false 或对象：\{ minRows: 2, maxRows: 6 \} | boolean \| \{ minRows?: number; maxRows?: number \}                    | \{ maxRows: 8 \}        | -    |
@@ -214,6 +228,23 @@ type ActionsComponents = {
 };
 ```
 
+```typescript | pure
+type SlotConfigType =
+  | { type: 'text'; value?: string; key?: string }
+  | { type: 'input'; key: string; props?: { defaultValue?: string; placeholder?: string } }
+  | { type: 'content'; key: string; props?: { defaultValue?: any; placeholder?: string } }
+  | { type: 'select'; key: string; props?: { defaultValue?: string; options: string[]; placeholder?: string } }
+  | { type: 'tag'; key: string; props?: { label: VNode; value?: string } }
+  | { type: 'custom'; key: string; props?: Record<string, any>; customRender?: (...args) => VNode; formatResult?: (value: any) => string };
+
+type SkillType = {
+  title?: VNode;
+  value: string;
+  toolTip?: TooltipProps;
+  closable?: boolean | { closeIcon?: VNode; onClose?: (e: MouseEvent) => void; disabled?: boolean };
+};
+```
+
 ### Sender Slots
 
 | 插槽名  | 说明     | 类型                                                                                                                                                                                                  |
@@ -230,6 +261,9 @@ type ActionsComponents = {
 | nativeElement | 外层容器 | `HTMLDivElement`                                                           | -      | -    |
 | focus         | 获取焦点 | (option?: { preventScroll?: boolean, cursor?: 'start' \| 'end' \| 'all' }) | -      | -    |
 | blur          | 取消焦点 | () => void                                                                 | -      | -    |
+| getValue      | 获取词槽合成值（slot 模式） | () => \{ value: string; slotConfig: SlotConfigType[]; skill?: SkillType \} | - | 1.22.0 |
+| insert        | 插入词槽（slot 模式） | (slotConfig: SlotConfigType[], position?: 'start' \| 'end' \| 'cursor') => void | - | 1.22.0 |
+| clear         | 清空输入（slot 模式重置插入项） | () => void | - | 1.22.0 |
 
 ### Sender.Header
 

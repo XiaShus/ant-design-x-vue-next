@@ -19,6 +19,16 @@ customClass: changelog-page
 
 ---
 
+## 1.22.0
+
+`2026-07-30`
+
+### ant-design-x-vue-next
+
+- 🆕 Sender `slotConfig` / `skill` / 结构化 `SlotTextArea`：词槽填空、`getValue` / `insert` / `clear`、扩展 `onSubmit` / `onChange`。
+- 📖 Sender 词槽填空演示；对齐进度更新。
+- 🛠 发布 npm 包 [`ant-design-x-vue-next@1.22.0`](https://www.npmjs.com/package/ant-design-x-vue-next)。
+
 ## 1.21.0
 
 `2026-07-30`
