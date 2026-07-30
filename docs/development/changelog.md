@@ -19,6 +19,15 @@ customClass: changelog-page
 
 ---
 
+## 1.64.0
+
+`2026-07-31`
+
+### ant-design-x-vue-next
+
+- 🆕 Bubble：`classNames` / `styles` 支持语义 `root` / `body`（内容区始终包一层 `.ant-bubble-body`）。
+- 🛠 发布 npm 包 [`ant-design-x-vue-next@1.64.0`](https://www.npmjs.com/package/ant-design-x-vue-next)。
+
 ## 1.63.0
 
 `2026-07-31`

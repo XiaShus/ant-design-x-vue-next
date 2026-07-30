@@ -8,6 +8,7 @@ export type {
   BubbleProps,
   BubbleListProps,
   BubbleListRef,
+  BubbleSemanticType,
   EditableBubbleOption,
   SystemBubbleProps,
   DividerBubbleProps,

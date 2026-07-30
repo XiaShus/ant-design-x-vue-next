@@ -40,7 +40,17 @@ export interface TypingOption {
   keepPrefix?: boolean;
 }
 
-export type SemanticType = 'avatar' | 'content' | 'header' | 'footer' | 'extra';
+/** Align React Bubble SemanticType. */
+export type SemanticType =
+  | 'root'
+  | 'body'
+  | 'avatar'
+  | 'content'
+  | 'header'
+  | 'footer'
+  | 'extra';
+
+export type BubbleSemanticType = SemanticType;
 
 export type BubbleContentType = VNode | string | AnyObject | number;
 

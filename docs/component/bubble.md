@@ -203,14 +203,14 @@ bubble/gpt-vis
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
 | avatar | 展示头像（支持 BubbleSlot） | `AvatarProps \| VNode \| (content, info: InfoType) => VNode` | - | 1.43.0（函数 BubbleSlot） |
-| classNames | 语义化结构 class | [Record<SemanticDOM, string>](#semantic-dom) | - |  |
+| classNames | 语义化结构 class（含 `root` / `body`） | Record<'root' \| 'body' \| 'avatar' \| 'content' \| 'header' \| 'footer' \| 'extra', string> | - | 1.64.0（`root`/`body`） |
 | content | 聊天内容 | ContentType | - |  |
 | footer | 底部内容 | VNode \| (content: ContentType, info: { key?: string \| number }) => VNode | - |  |
 | header | 头部内容 | VNode \| (content: ContentType, info: { key?: string \| number }) => VNode | - |  |
 | loading | 聊天内容加载状态 | boolean | - |  |
 | placement | 信息位置 | `start` \| `end` | `start` |  |
 | shape | 气泡形状 | `round` \| `corner` | - |  |
-| styles | 语义化结构 style | [Record<SemanticDOM, CSSProperties>](#semantic-dom) | - |  |
+| styles | 语义化结构 style（含 `root` / `body`） | Record<'root' \| 'body' \| 'avatar' \| 'content' \| 'header' \| 'footer' \| 'extra', CSSProperties> | - | 1.64.0（`root`/`body`） |
 | typing | 设置聊天内容打字动画；可为 `(content, info) => boolean \| TypingOption` | boolean \| TypingOption \| `((content, info) => boolean \| TypingOption)` | false | 1.40.0（函数形式） |
 | variant | 气泡样式变体 | `filled` \| `borderless` \| `outlined` \| `shadow` | `filled` |  |
 | loadingRender | 自定义渲染加载态内容 | () => VNode | - |  |

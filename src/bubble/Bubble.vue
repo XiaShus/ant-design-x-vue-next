@@ -157,6 +157,8 @@ const mergedCls = computed(() => [
   prefixCls,
   rootClassName,
   contextConfig.value.className,
+  (contextConfig.value.classNames as any)?.root,
+  classNames.root,
   hashId.value,
   cssVarCls,
   `${prefixCls}-${placement}`,
@@ -176,6 +178,13 @@ const mergedCls = computed(() => [
     [`${prefixCls}-fade-in`]: typingEnabled.value && typingEffect.value === 'fade-in',
   },
 ]);
+
+const mergedRootStyle = computed(() => ({
+  ...(typeof contextConfig.value.style === 'object' ? (contextConfig.value.style as object) : {}),
+  ...((contextConfig.value.styles as any)?.root || {}),
+  ...(typeof props.style === 'object' ? (props.style as object) : {}),
+  ...(styles.root || {}),
+}));
 
 const isVNodeArray = (val: any) => Array.isArray(val) && val.every(isVNode);
 
@@ -323,30 +332,38 @@ const fullContent = computed<VNode>(() => {
       : header;
   const _footerOuter = !isFooterInner.value ? renderFooterNode() : null;
 
-  if (_header || _footerOuter) {
-    return (
-      <div class={`${prefixCls}-content-wrapper`}>
-        {_header && (
-          <div
-            class={[
-              `${prefixCls}-header`,
-              contextConfig.value.classNames.header,
-              classNames.header,
-            ]}
-            style={{
-              ...contextConfig.value.styles.header,
-              ...styles.header,
-            }}
-          >
-            {_header}
-          </div>
-        )}
-        {_content}
-        {_footerOuter}
-      </div>
-    );
-  }
-  return _content;
+  return (
+    <div
+      class={[
+        `${prefixCls}-body`,
+        `${prefixCls}-content-wrapper`,
+        (contextConfig.value.classNames as any)?.body,
+        classNames.body,
+      ]}
+      style={{
+        ...((contextConfig.value.styles as any)?.body || {}),
+        ...(styles.body || {}),
+      }}
+    >
+      {_header && (
+        <div
+          class={[
+            `${prefixCls}-header`,
+            contextConfig.value.classNames.header,
+            classNames.header,
+          ]}
+          style={{
+            ...contextConfig.value.styles.header,
+            ...styles.header,
+          }}
+        >
+          {_header}
+        </div>
+      )}
+      {_content}
+      {_footerOuter}
+    </div>
+  );
 });
 
 const renderExtraNode = () => {
@@ -378,10 +395,7 @@ const renderExtraNode = () => {
 defineRender(() => {
   return wrapCSSVar(
     <div
-      style={{
-        ...(contextConfig.value.style as object),
-        // ...(style as object),
-      }}
+      style={mergedRootStyle.value as any}
       class={toValue(mergedCls)}
       {...otherHtmlProps}
       ref={divRef}
