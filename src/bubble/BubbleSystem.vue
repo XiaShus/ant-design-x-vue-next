@@ -1,10 +1,10 @@
 <script setup lang="tsx" generic="T extends BubbleContentType = string">
 import classnames from 'classnames';
-import { computed, useAttrs } from 'vue';
+import { computed, ref, useAttrs } from 'vue';
 import useXComponentConfig from '../_util/hooks/use-x-component-config';
 import { useXProviderContext } from '../x-provider';
 import Bubble from './Bubble.vue';
-import type { BubbleContentType, SystemBubbleProps } from './interface';
+import type { BubbleContentType, BubbleRef, SystemBubbleProps } from './interface';
 import useStyle from './style';
 
 defineOptions({ name: 'AXBubbleSystem', inheritAttrs: false });
@@ -17,10 +17,17 @@ const props = withDefaults(defineProps<SystemBubbleProps<T>>(), {
 });
 
 const attrs = useAttrs();
+const bubbleRef = ref<BubbleRef>();
 const contextConfig = useXComponentConfig('bubble');
 const { getPrefixCls } = useXProviderContext();
 const prefixCls = getPrefixCls('bubble', props.prefixCls);
 const [wrapCSSVar, hashId, cssVarCls] = useStyle(() => prefixCls);
+
+defineExpose({
+  get nativeElement() {
+    return bubbleRef.value?.nativeElement;
+  },
+});
 
 const rootMergedCls = computed(() =>
   classnames(
@@ -42,6 +49,7 @@ defineRender(() => {
     <Bubble
       {...restAttrs}
       {...(props as any)}
+      ref={bubbleRef}
       class={rootMergedCls.value}
       style={attrStyle}
       variant={props.variant}

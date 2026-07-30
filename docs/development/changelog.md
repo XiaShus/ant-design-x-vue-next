@@ -19,6 +19,15 @@ customClass: changelog-page
 
 ---
 
+## 1.77.0
+
+`2026-07-31`
+
+### ant-design-x-vue-next
+
+- 🆕 Bubble.System / Bubble.Divider Ref：暴露 `nativeElement`（对齐 React，供 List `scrollTo({ key })`）。
+- 🛠 发布 npm 包 [`ant-design-x-vue-next@1.77.0`](https://www.npmjs.com/package/ant-design-x-vue-next)。
+
 ## 1.76.0
 
 `2026-07-31`

@@ -2,11 +2,11 @@
 import { Divider } from 'ant-design-vue';
 import classnames from 'classnames';
 import type { CSSProperties } from 'vue';
-import { computed, useAttrs } from 'vue';
+import { computed, ref, useAttrs } from 'vue';
 import useXComponentConfig from '../_util/hooks/use-x-component-config';
 import { useXProviderContext } from '../x-provider';
 import Bubble from './Bubble.vue';
-import type { BubbleContentType, DividerBubbleProps } from './interface';
+import type { BubbleContentType, BubbleRef, DividerBubbleProps } from './interface';
 import useStyle from './style';
 
 defineOptions({ name: 'AXBubbleDivider', inheritAttrs: false });
@@ -20,10 +20,17 @@ const props = withDefaults(defineProps<DividerBubbleProps<T>>(), {
 });
 
 const attrs = useAttrs();
+const bubbleRef = ref<BubbleRef>();
 const contextConfig = useXComponentConfig('bubble');
 const { getPrefixCls } = useXProviderContext();
 const prefixCls = getPrefixCls('bubble', props.prefixCls);
 const [wrapCSSVar, hashId, cssVarCls] = useStyle(() => prefixCls);
+
+defineExpose({
+  get nativeElement() {
+    return bubbleRef.value?.nativeElement;
+  },
+});
 
 const rootMergedCls = computed(() =>
   classnames(
@@ -48,6 +55,7 @@ defineRender(() => {
   return wrapCSSVar(
     <Bubble
       {...restAttrs}
+      ref={bubbleRef}
       class={rootMergedCls.value}
       style={attrStyle as CSSProperties}
       styles={props.styles}

@@ -243,6 +243,12 @@ type InfoType = { key?: string | number; status?: MessageStatus; extraInfo?: obj
 | variant | 气泡样式变体 | `filled` \| `borderless` \| `outlined` \| `shadow` | `shadow` | 1.19.0 |
 | shape | 气泡形状 | `round` \| `corner` | - | 1.19.0 |
 
+#### Bubble.System / Bubble.Divider Ref
+
+| 名称 | 说明 | 类型 | 版本 |
+| --- | --- | --- | --- |
+| nativeElement | 根节点 DOM（转发自内部 Bubble，对齐 React） | HTMLElement | 1.77.0 |
+
 ### Bubble.Divider
 
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
