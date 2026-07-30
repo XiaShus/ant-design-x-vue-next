@@ -132,7 +132,7 @@ export default defineConfig({
             { text: 'Suggestion 快捷指令', link: '/component/suggestion' },
             { text: 'Folder 文件夹', link: '/component/folder' },
             { text: 'CodeHighlighter 代码高亮', link: '/component/code-highlighter' },
-            { text: 'Mermaid 图表渲染 ⏳', link: '/component/mermaid' },
+            { text: 'Mermaid 图表渲染', link: '/component/mermaid' },
           ]
         },
         {

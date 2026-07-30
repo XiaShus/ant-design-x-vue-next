@@ -40,6 +40,7 @@ const primitiveNames = new Set<string>([
   'FileCard',
   'Folder',
   'CodeHighlighter',
+  'Mermaid',
   'Welcome',
 ])
 

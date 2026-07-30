@@ -137,9 +137,9 @@ const allComponents: OverviewItem[] = [
     id: 'mermaid',
     category: '表达',
     title: 'Mermaid 图表渲染',
-    description: 'Mermaid 图表渲染（对齐官方，规划中）',
+    description: '交互式 Mermaid 图表，支持缩放、下载与代码视图',
     icon: <PartitionOutlined style={{ color: '#eb2f96' }} />,
-    status: 'planned',
+    status: 'ready',
   },
   {
     id: 'think',

@@ -13,4 +13,5 @@ export * from './sources';
 export * from './file-card';
 export * from './folder';
 export * from './code-highlighter';
+export * from './mermaid';
 export * from './notification';

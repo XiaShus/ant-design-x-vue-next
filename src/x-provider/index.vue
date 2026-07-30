@@ -21,6 +21,7 @@ const {
   fileCard,
   folder,
   codeHighlighter,
+  mermaid,
   welcome,
   ...antdConfProps
 } = defineProps<XProviderProps>();
@@ -43,6 +44,7 @@ const xProviderProps = computed(() => ({
   fileCard,
   folder,
   codeHighlighter,
+  mermaid,
   welcome,
 }));
 

@@ -14,6 +14,7 @@ import type { SourcesProps } from 'ant-design-x-vue/sources';
 import type { FileCardProps } from 'ant-design-x-vue/file-card';
 import type { FolderProps } from 'ant-design-x-vue/folder';
 import type { CodeHighlighterProps } from 'ant-design-x-vue/code-highlighter';
+import type { MermaidProps } from 'ant-design-x-vue/mermaid';
 import type { WelcomeProps } from 'ant-design-x-vue/welcome';
 
 // refer from the ConfigProviderProps of ant-design-vue
@@ -70,6 +71,7 @@ export interface XComponentsConfig {
   fileCard?: ComponentStyleConfig<FileCardProps>;
   folder?: ComponentStyleConfig<FolderProps>;
   codeHighlighter?: ComponentStyleConfig<CodeHighlighterProps>;
+  mermaid?: ComponentStyleConfig<MermaidProps>;
   attachments?: ComponentStyleConfig<AttachmentsProps>;
   welcome?: ComponentStyleConfig<WelcomeProps>;
 }
