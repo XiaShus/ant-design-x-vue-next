@@ -165,9 +165,12 @@ const genThoughtChainItemStatusStyle: GenerateThoughtChainItemStyle = (
   const itemCls = `${componentCls}-item`;
 
   const colors = {
-    [THOUGHT_CHAIN_ITEM_STATUS.PENDING]: token.colorPrimaryText,
+    [THOUGHT_CHAIN_ITEM_STATUS.LOADING]: token.colorPrimaryText,
     [THOUGHT_CHAIN_ITEM_STATUS.SUCCESS]: token.colorSuccessText,
     [THOUGHT_CHAIN_ITEM_STATUS.ERROR]: token.colorErrorText,
+    [THOUGHT_CHAIN_ITEM_STATUS.ABORT]: token.colorTextSecondary,
+    // deprecated alias of loading
+    [THOUGHT_CHAIN_ITEM_STATUS.PENDING]: token.colorPrimaryText,
   };
 
   const statuses = Object.keys(colors) as (keyof typeof colors)[];

@@ -211,6 +211,32 @@ describe('ThoughtChain Component', () => {
     expect(wrapper.find('.ant-thought-chain-item-content').exists()).toBe(true);
   });
 
+  it.each(['loading', 'success', 'error', 'abort'] as const)(
+    'applies %s status class on chain items',
+    (status) => {
+      const wrapper = mount(ThoughtChain, {
+        props: {
+          items: [{ key: '1', title: 'One', status }],
+        },
+      });
+      expect(
+        wrapper.find(`.ant-thought-chain-item-${status}-${status}`).exists() ||
+          wrapper.classes().some((c) => c.includes(`item-${status}`)) ||
+          wrapper.html().includes(`ant-thought-chain-item-${status}`),
+      ).toBe(true);
+    },
+  );
+
+  it('maps deprecated pending status to loading class', () => {
+    const wrapper = mount(ThoughtChain, {
+      props: {
+        items: [{ key: '1', title: 'One', status: 'pending' }],
+      },
+    });
+    expect(wrapper.html()).toContain('ant-thought-chain-item-loading');
+    expect(wrapper.html()).not.toContain('ant-thought-chain-item-pending');
+  });
+
   it('chain collapsible=true enables collapse for all items', async () => {
     const wrapper = mount(ThoughtChain, {
       props: {

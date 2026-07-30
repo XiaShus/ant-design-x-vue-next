@@ -113,9 +113,9 @@ defineRender(() => {
                   icon: <CheckCircleOutlined />,
                 },
                 {
-                  title: 'Pending...',
-                  status: 'pending',
-                  description: 'status: pending',
+                  title: 'Loading...',
+                  status: 'loading',
+                  description: 'status: loading',
                   icon: <LoadingOutlined />,
                 },
               ]}

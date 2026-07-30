@@ -19,6 +19,16 @@ customClass: changelog-page
 
 ---
 
+## 1.26.0
+
+`2026-07-30`
+
+### ant-design-x-vue-next
+
+- 🆕 ThoughtChain `items[]` status 对齐 React：`loading` / `success` / `error` / `abort`；`pending` 作为兼容别名映射为 `loading`。
+- 📖 ThoughtChain 节点状态演示更新；对齐进度更新。
+- 🛠 发布 npm 包 [`ant-design-x-vue-next@1.26.0`](https://www.npmjs.com/package/ant-design-x-vue-next)。
+
 ## 1.25.0
 
 `2026-07-30`

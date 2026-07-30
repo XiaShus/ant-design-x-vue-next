@@ -4,17 +4,30 @@ import type { ConfigProviderProps, TooltipProps } from 'ant-design-vue';
 
 export enum THOUGHT_CHAIN_ITEM_STATUS {
   /**
-   * @desc 等待状态
+   * @desc 加载中
+   * @descEN Loading
    */
-  PENDING = 'pending',
+  LOADING = 'loading',
   /**
    * @desc 成功状态
+   * @descEN Success
    */
   SUCCESS = 'success',
   /**
    * @desc 错误状态
+   * @descEN Error
    */
   ERROR = 'error',
+  /**
+   * @desc 中止状态
+   * @descEN Abort
+   */
+  ABORT = 'abort',
+  /**
+   * @deprecated Use `loading` instead. Kept for compatibility.
+   * @desc 等待状态（已废弃，等同 loading）
+   */
+  PENDING = 'pending',
 }
 
 export interface TooltipConfig {

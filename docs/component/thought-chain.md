@@ -121,7 +121,7 @@ thought-chain/simple
 | extra | 思维节点额外内容 | VNode \| string | - | - |
 | footer | 思维节点脚注 | VNode \| string | - | - |
 | icon | 思维节点图标 | VNode \| string \| number | - | - |
-| status | 思维节点状态 | 'pending' \| 'success' \| 'error' | - | - |
+| status | 思维节点状态（`pending` 为兼容别名，等同 `loading`） | `'loading' \| 'success' \| 'error' \| 'abort'` | - | 1.26.0 |
 | collapsible | 是否可折叠 | boolean | - | 1.25.0 |
 | blink | 闪动效果 | boolean | - | 1.25.0 |
 | destroyOnHidden | 隐藏时是否销毁内容节点 | boolean | `true` | 1.25.0 |

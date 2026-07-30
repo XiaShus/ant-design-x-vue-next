@@ -54,7 +54,7 @@ const items: ThoughtChainProps['items'] = [
   },
   {
     ...cloneCustomizationProps(customizationProps),
-    status: 'pending',
+    status: 'loading',
   },
 ];
 </script>

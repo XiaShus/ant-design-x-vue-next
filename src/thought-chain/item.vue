@@ -43,7 +43,11 @@ const title = computed(() => info.value.title);
 const extra = computed(() => info.value.extra);
 const content = computed(() => info.value.content);
 const footer = computed(() => info.value.footer);
-const status = computed(() => info.value.status);
+const normalizeStatus = (raw?: string) => (raw === 'pending' ? 'loading' : raw);
+
+/** Normalize deprecated `pending` → `loading` for class / line colors */
+const status = computed(() => normalizeStatus(info.value.status));
+const nextStatus = computed(() => normalizeStatus(props.nextStatus));
 const description = computed(() => info.value.description);
 const blink = computed(() => !!info.value.blink);
 const destroyOnHidden = computed(() => info.value.destroyOnHidden !== false);
@@ -112,7 +116,7 @@ defineRender(() => {
       class={classnames(
         itemCls.value,
         {
-          [`${itemCls.value}-${status.value}${props.nextStatus ? `-${props.nextStatus}` : ''}`]:
+          [`${itemCls.value}-${status.value}${nextStatus.value ? `-${nextStatus.value}` : ''}`]:
             status.value,
         },
         props.class,

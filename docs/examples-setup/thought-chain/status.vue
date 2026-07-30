@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import {
   CheckCircleOutlined,
-  InfoCircleOutlined,
+  CloseCircleOutlined,
   LoadingOutlined,
+  MinusCircleOutlined,
 } from '@ant-design/icons-vue';
 import { Button, Card } from 'ant-design-vue';
 import { ThoughtChain, type ThoughtChainItem } from 'ant-design-x-vue';
@@ -15,7 +16,10 @@ function getStatusIcon(status: ThoughtChainItem['status']) {
     case 'success':
       return h(CheckCircleOutlined);
     case 'error':
-      return h(InfoCircleOutlined);
+      return h(CloseCircleOutlined);
+    case 'abort':
+      return h(MinusCircleOutlined);
+    case 'loading':
     case 'pending':
       return h(LoadingOutlined);
     default:
@@ -50,20 +54,17 @@ const delay = (ms: number) => {
 function addChainItem() {
   mockServerResponseData.push({
     title: `Thought Chain Item - ${mockServerResponseData.length + 1}`,
-    status: 'pending',
-    icon: getStatusIcon('pending'),
-    description: 'status: pending',
+    status: 'loading',
+    icon: getStatusIcon('loading'),
+    description: 'status: loading',
   });
 }
 
 async function updateChainItem(status: ThoughtChainItem['status']) {
   await delay(800);
   mockServerResponseData[mockServerResponseData.length - 1].status = status;
-  mockServerResponseData[mockServerResponseData.length - 1].icon =
-    getStatusIcon(status);
-  mockServerResponseData[
-    mockServerResponseData.length - 1
-  ].description = `status: ${status}`;
+  mockServerResponseData[mockServerResponseData.length - 1].icon = getStatusIcon(status);
+  mockServerResponseData[mockServerResponseData.length - 1].description = `status: ${status}`;
 }
 
 const items = ref<ThoughtChainItem[]>(mockServerResponseData);
@@ -72,7 +73,9 @@ const loading = ref(false);
 const mockStatusChange = async () => {
   await updateChainItem('error');
   items.value = [...mockServerResponseData];
-  await updateChainItem('pending');
+  await updateChainItem('abort');
+  items.value = [...mockServerResponseData];
+  await updateChainItem('loading');
   items.value = [...mockServerResponseData];
   await updateChainItem('success');
   items.value = [...mockServerResponseData];
@@ -86,15 +89,11 @@ const onClick = async () => {
   loading.value = false;
 };
 </script>
+
 <template>
-  <Card :style="{ width: '500px' }">
-    <Button
-      :loading="loading"
-      :style="{ marginBottom: '16px' }"
-      @click="onClick"
-    >
-      <span v-if="loading">Running</span>
-      <span v-else>Run Next</span>
+  <Card style="width: 500px">
+    <Button :loading="loading" style="margin-bottom: 16px" @click="onClick">
+      {{ loading ? 'Running' : 'Run Next' }}
     </Button>
     <ThoughtChain :items="items" />
   </Card>

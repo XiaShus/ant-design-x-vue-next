@@ -1,5 +1,10 @@
 <script setup lang="tsx">
-import { CheckCircleOutlined, InfoCircleOutlined, LoadingOutlined } from '@ant-design/icons-vue';
+import {
+  CheckCircleOutlined,
+  CloseCircleOutlined,
+  LoadingOutlined,
+  MinusCircleOutlined,
+} from '@ant-design/icons-vue';
 import { Button, Card } from 'ant-design-vue';
 import { ThoughtChain, type ThoughtChainItem } from 'ant-design-x-vue';
 import { ref } from 'vue';
@@ -11,7 +16,10 @@ function getStatusIcon(status: ThoughtChainItem['status']) {
     case 'success':
       return <CheckCircleOutlined />;
     case 'error':
-      return <InfoCircleOutlined />;
+      return <CloseCircleOutlined />;
+    case 'abort':
+      return <MinusCircleOutlined />;
+    case 'loading':
     case 'pending':
       return <LoadingOutlined />;
     default:
@@ -46,9 +54,9 @@ const delay = (ms: number) => {
 function addChainItem() {
   mockServerResponseData.push({
     title: `Thought Chain Item - ${mockServerResponseData.length + 1}`,
-    status: 'pending',
-    icon: getStatusIcon('pending'),
-    description: 'status: pending',
+    status: 'loading',
+    icon: getStatusIcon('loading'),
+    description: 'status: loading',
   });
 }
 
@@ -65,7 +73,9 @@ const loading = ref(false);
 const mockStatusChange = async () => {
   await updateChainItem('error');
   items.value = [...mockServerResponseData];
-  await updateChainItem('pending');
+  await updateChainItem('abort');
+  items.value = [...mockServerResponseData];
+  await updateChainItem('loading');
   items.value = [...mockServerResponseData];
   await updateChainItem('success');
   items.value = [...mockServerResponseData];
@@ -87,6 +97,6 @@ defineRender(() => {
       </Button>
       <ThoughtChain items={items.value} />
     </Card>
-  )
+  );
 });
 </script>
