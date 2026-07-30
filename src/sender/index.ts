@@ -12,6 +12,7 @@ export type {
   SenderHeaderProps,
   SuffixRender,
   ActionsRender,
+  SubmitType,
 } from './interface';
 export type { SenderSwitchProps, SenderSwitchRef } from './switch-types';
 export type {

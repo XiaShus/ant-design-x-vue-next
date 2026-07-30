@@ -210,7 +210,7 @@ sender/focus
 | readOnly       | 是否让输入框只读                                                            | boolean                                                                | false                   | -    |
 | rootClassName  | 根元素样式类                                                                | string                                                                 | -                       | -    |
 | styles         | 语义化定义样式                                                              | [见下](#semantic-dom)                                                  | -                       | -    |
-| submitType     | 提交模式                                                                    | SubmitType                                                             | `enter` \| `shiftEnter` | -    |
+| submitType     | 提交模式；`false` 禁用回车提交                                              | SubmitType                                                             | `enter`                 | 1.98.0（类型导出） |
 | value(v-model) | 输入框值                                                                    | string                                                                 | -                       | -    |
 | slotConfig     | 词槽配置，设置后启用结构化 SlotTextArea（contentEditable）输入                | `SlotConfigType[]`                                                     | -                       | 1.22.0 |
 | skill          | 技能芯片，显示在词槽输入起始位置                                              | `SkillType`                                                            | -                       | 1.22.0 |
@@ -233,6 +233,7 @@ type SpeechConfig = {
 ```
 
 自 `1.83.0` 起可从包入口 `import type { SenderComponents, ActionsComponents }`（对齐 React Sender 模块导出）。
+自 `1.98.0` 起可从包入口 `import type { SubmitType }`（`'enter' | 'shiftEnter' | false`）。
 
 ```typescript | pure
 type ActionsComponents = {
