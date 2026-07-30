@@ -1,5 +1,9 @@
 import type { SimpleType } from '../use-x-chat';
-import AbstractChatProvider, { type TransformMessageInfo } from './AbstractChatProvider';
+import type { ManualXRequestOptions } from '../x-request/manual-x-request';
+import AbstractChatProvider, {
+  type ChatProviderConfig,
+  type TransformMessageInfo,
+} from './AbstractChatProvider';
 
 /**
  * Default chat provider (aligned with @ant-design/x-sdk DefaultChatProvider).
@@ -10,11 +14,20 @@ export class DefaultChatProvider<
   Input = ChatMessage,
   Output = ChatMessage,
 > extends AbstractChatProvider<ChatMessage, Input, Output> {
-  transformParams(requestParams: Partial<Input>): Input {
+  constructor(config: ChatProviderConfig<Input, Output, ChatMessage> = {}) {
+    super(config);
+  }
+
+  transformParams(
+    requestParams: Partial<Input>,
+    _history?: ChatMessage[],
+    options?: ManualXRequestOptions<Input, Output, ChatMessage>,
+  ): Input {
     if (requestParams !== null && typeof requestParams !== 'object') {
       throw new Error('requestParams must be an object');
     }
     return {
+      ...(options?.params || this.request?.options?.params || {}),
       ...(this.config.params || {}),
       ...(requestParams || {}),
     } as Input;

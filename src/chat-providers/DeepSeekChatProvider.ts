@@ -1,5 +1,8 @@
 import type { SSEOutput } from '../x-stream';
-import AbstractChatProvider, { type TransformMessageInfo } from './AbstractChatProvider';
+import AbstractChatProvider, {
+  type ChatProviderConfig,
+  type TransformMessageInfo,
+} from './AbstractChatProvider';
 import { toOpenAIMessages } from './openaiTransform';
 import { transformDeepSeekMessage } from './deepSeekTransform';
 import type { XModelMessage, XModelParams } from './types';
@@ -13,6 +16,10 @@ export class DeepSeekChatProvider<
   Input extends XModelParams = XModelParams,
   Output extends SSEOutput = SSEOutput,
 > extends AbstractChatProvider<ChatMessage, Input, Output> {
+  constructor(config: ChatProviderConfig<Input, Output, ChatMessage> = {}) {
+    super(config);
+  }
+
   transformLocalMessage(requestParams: Partial<Input>): ChatMessage | ChatMessage[] {
     const raw = requestParams as Partial<Input> & { message?: string | ChatMessage };
     if (raw.messages?.length) {
@@ -36,6 +43,7 @@ export class DeepSeekChatProvider<
       (hist.length ? hist : toOpenAIMessages([], userMsg));
 
     return {
+      ...(this.request?.options?.params || {}),
       ...(this.config.params || {}),
       ...requestParams,
       stream: requestParams.stream ?? true,

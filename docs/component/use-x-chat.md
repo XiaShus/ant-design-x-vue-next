@@ -104,18 +104,24 @@ import {
   DeepSeekChatProvider,
 } from 'ant-design-x-vue-next';
 
-const provider = new OpenAIChatProvider({ params: { model: 'gpt-4o-mini' } });
-// DeepSeek：reasoning_content → <think> 块，可配合 Think 组件
-// const provider = new DeepSeekChatProvider();
+// 方式 A：provider 自带 manual XRequest（对齐 @ant-design/x-sdk，无需 useXAgent）
+import { createManualXRequest, OpenAIChatProvider, useXChat } from 'ant-design-x-vue-next';
 
-const [agent] = useXAgent({ baseURL: '/api/chat', model: 'gpt-4o-mini' });
-const { onRequest, abort, messages } = useXChat({
-  agent: agent.value,
-  conversationKey: 'session-1',
-  // 推荐：直接传 provider（自动 injectGetMessages + transformMessage/Params）
-  provider,
-  // 或：transformMessage: provider.asTransformMessage(),
+const provider = new OpenAIChatProvider({
+  params: { model: 'gpt-4o-mini' },
+  request: createManualXRequest('/api/chat', {
+    manual: true,
+    headers: { Authorization: 'Bearer xxx' },
+  }),
 });
+const { onRequest, abort, messages } = useXChat({
+  provider,
+  conversationKey: 'session-1',
+});
+
+// 方式 B：继续使用 useXAgent + provider 做 transform
+// const [agent] = useXAgent({ baseURL: '/api/chat', model: 'gpt-4o-mini' });
+// useXChat({ agent: agent.value, provider });
 ```
 
 多会话列表请配合 [useXConversations](/component/use-x-conversations)。

@@ -4,6 +4,11 @@ import XRequest, {
   resetXRequestGlobalOptions,
   setXRequestGlobalOptions,
 } from './x-request';
+import {
+  AbstractXRequestClass,
+  ManualXRequestClass,
+  createManualXRequest,
+} from './manual-x-request';
 
 export type { XFetchMiddlewares, XFetchOptions, XFetchType } from './x-fetch';
 export type {
@@ -14,6 +19,10 @@ export type {
   XRequestCallbacks,
   XRequestFunction,
 } from './x-request';
+export type {
+  ManualXRequestOptions,
+  ManualXRequestCallbacks,
+} from './manual-x-request';
 
 export {
   XFetch,
@@ -21,6 +30,9 @@ export {
   setXRequestGlobalOptions,
   getXRequestGlobalOptions,
   resetXRequestGlobalOptions,
+  AbstractXRequestClass,
+  ManualXRequestClass,
+  createManualXRequest,
 };
 
 export default XRequest;

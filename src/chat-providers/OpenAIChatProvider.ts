@@ -1,5 +1,8 @@
 import type { SSEOutput } from '../x-stream';
-import AbstractChatProvider, { type TransformMessageInfo } from './AbstractChatProvider';
+import AbstractChatProvider, {
+  type ChatProviderConfig,
+  type TransformMessageInfo,
+} from './AbstractChatProvider';
 import { transformOpenAIMessage, toOpenAIMessages } from './openaiTransform';
 import type { XModelMessage, XModelParams } from './types';
 
@@ -12,6 +15,10 @@ export class OpenAIChatProvider<
   Input extends XModelParams = XModelParams,
   Output extends SSEOutput = SSEOutput,
 > extends AbstractChatProvider<ChatMessage, Input, Output> {
+  constructor(config: ChatProviderConfig<Input, Output, ChatMessage> = {}) {
+    super(config);
+  }
+
   /**
    * Vue useXChat usually passes `{ message }`; SDK-style callers may pass `{ messages }`.
    */
@@ -42,6 +49,7 @@ export class OpenAIChatProvider<
       (hist.length ? hist : toOpenAIMessages([], userMsg));
 
     return {
+      ...(this.request?.options?.params || {}),
       ...(this.config.params || {}),
       ...requestParams,
       stream: requestParams.stream ?? true,

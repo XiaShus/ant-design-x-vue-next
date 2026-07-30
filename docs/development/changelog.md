@@ -19,6 +19,17 @@ customClass: changelog-page
 
 ---
 
+## 1.15.0
+
+`2026-07-30`
+
+### ant-design-x-vue-next
+
+- 🆕 `createManualXRequest` / `AbstractXRequestClass`：SDK 风格 manual 请求，供 Provider 托管。
+- 🆕 `AbstractChatProvider` 支持 `request` + `injectRequest`；`useXChat` 可仅用 `provider` 发请求（无需 `useXAgent`）。
+- 📖 更新 useXChat / XRequest / 对齐进度文档。
+- 🛠 发布 npm 包 [`ant-design-x-vue-next@1.15.0`](https://www.npmjs.com/package/ant-design-x-vue-next)。
+
 ## 1.14.0
 
 `2026-07-30`

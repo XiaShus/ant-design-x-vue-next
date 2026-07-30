@@ -83,6 +83,23 @@ setXRequestGlobalOptions({
 });
 ```
 
+### createManualXRequest（SDK 风格）
+
+创建 `manual: true` 的请求实例，交给 `AbstractChatProvider` / `useXChat({ provider })` 驱动（对齐 `@ant-design/x-sdk` 的 `XRequest(baseURL, { manual: true })`）。
+
+```ts
+import { createManualXRequest, OpenAIChatProvider, useXChat } from 'ant-design-x-vue-next';
+
+const request = createManualXRequest('/api/chat', {
+  manual: true,
+  params: { model: 'gpt-4o-mini' },
+});
+const provider = new OpenAIChatProvider({ request });
+const { onRequest } = useXChat({ provider });
+```
+
+导出：`AbstractXRequestClass`、`ManualXRequestClass`、`createManualXRequest`。
+
 ### XRequestFunction
 
 ```ts

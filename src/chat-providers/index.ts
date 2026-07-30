@@ -14,6 +14,8 @@ export {
   type TransformMessageInfo,
   default as AbstractChatProviderDefault,
 } from './AbstractChatProvider';
+// re-export for convenience
+export { createManualXRequest, AbstractXRequestClass } from '../x-request/manual-x-request';
 export {
   DefaultChatProvider,
   default as DefaultChatProviderDefault,
