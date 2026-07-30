@@ -16,3 +16,4 @@ export * from './code-highlighter';
 export * from './mermaid';
 export * from './x-markdown';
 export * from './notification';
+export * from './x-card';
