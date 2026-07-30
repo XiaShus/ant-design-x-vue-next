@@ -97,6 +97,12 @@ prompts/fade-in
 | fadeInLeft | 挂载时从左淡入（与 `fadeIn` 同时设置时优先） | boolean | `false` | 1.34.0 |
 | onItemClick | 提示项被点击时的回调函数 | (info: { data: PromptProps }) => void | - | - |
 
+### Prompts Ref
+
+| 属性 | 说明 | 类型 | 版本 |
+| --- | --- | --- | --- |
+| nativeElement | 根节点 DOM | HTMLDivElement | 1.59.0 |
+
 #### SemanticType
 
 ```typescript | pure

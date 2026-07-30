@@ -49,6 +49,10 @@ export type SemanticType =
 
 export type PromptsSemanticType = SemanticType;
 
+export interface PromptsRef {
+  nativeElement: HTMLDivElement;
+}
+
 export interface PromptsProps
   extends Omit<HTMLAttributes, 'onClick' | 'title'> {
   /**

@@ -4,7 +4,7 @@ import useStyle from './style';
 import type { PromptsProps } from './interface';
 import { useXProviderContext } from '../x-provider';
 import useXComponentConfig from '../_util/hooks/use-x-component-config';
-import { computed, getCurrentInstance, Transition, type VNode } from 'vue';
+import { computed, getCurrentInstance, ref, Transition, type VNode } from 'vue';
 import { Typography } from 'ant-design-vue';
 
 defineOptions({ name: 'AXPrompts' });
@@ -25,6 +25,8 @@ const {
   fadeInLeft,
   ...htmlProps
 } = defineProps<PromptsProps>();
+
+const containerRef = ref<HTMLDivElement | null>(null);
 
 const slots = defineSlots<{
   title?(): VNode | string;
@@ -94,6 +96,7 @@ defineRender(() => {
   const rootNode = (
     <div
       {...htmlProps}
+      ref={containerRef}
       class={mergedCls.value}
       style={mergedRootStyle.value as any}
     >
@@ -196,5 +199,9 @@ defineRender(() => {
   );
 
   return wrapCSSVar(content);
+});
+
+defineExpose({
+  nativeElement: containerRef,
 });
 </script>
