@@ -18,6 +18,14 @@ conversations/basic
 
 :::
 
+### 新建对话
+
+:::demo `creation` / `Conversations.Creation` 新建会话入口。
+
+conversations/new-chat
+
+:::
+
 ### 会话操作
 
 <ClientOnly>
@@ -85,8 +93,19 @@ conversations/group-sort
 | onActiveChange | 选中变更回调 | (value: string) => void | - | - |
 | menu | 会话操作菜单 | MenuProps \| ((value: `Conversation`) => MenuProps) | - | - |
 | groupable | 是否支持分组, 开启后默认按 `Conversation.group` 字段分组 | boolean \| GroupableProps | - | - |
-| styles | 语义化结构 style | Record<'item', CSSProperties> | - | - |
-| classNames | 语义化结构 className | Record<'item', string> | - | - |
+| styles | 语义化结构 style | Record<'item' \| 'creation', CSSProperties> | - | - |
+| classNames | 语义化结构 className | Record<'item' \| 'creation', string> | - | - |
+| creation | 新建对话按钮配置（传入即显示） | `CreationProps` | - | 1.21.0 |
+
+### Conversations.Creation / CreationProps
+
+| 属性 | 说明 | 类型 | 默认值 | 版本 |
+| --- | --- | --- | --- | --- |
+| label | 按钮文案 | VNode \| `() => VNode` | `新建对话` | 1.21.0 |
+| icon | 图标 | VNode \| `() => VNode` | PlusOutlined | 1.21.0 |
+| align | 对齐 | `start` \| `center` \| `end` | `center` | 1.21.0 |
+| disabled | 禁用 | boolean | `false` | 1.21.0 |
+| onClick / `@click` | 点击回调 | `(e?: MouseEvent) => void` | - | 1.21.0 |
 
 ### Conversation
 

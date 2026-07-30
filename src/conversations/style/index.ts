@@ -1,12 +1,20 @@
+import { FastColor } from '@ant-design/fast-color';
 import { unit } from '../../_util/cssinjs';
 import type { FullToken, GenerateStyle, GetDefaultToken } from '../../theme/cssinjs-utils';
 import { genStyleHooks } from '../../theme/genStyleUtils';
 import { mergeToken } from '../../_util/cssinjs-utils';
 
-// biome-ignore lint/suspicious/noEmptyInterface: ComponentToken need to be empty by default
-export interface ComponentToken {}
+export interface ComponentToken {
+  creationBgColor?: string;
+  creationBorderColor?: string;
+  creationHoverColor?: string;
+}
 
-export interface ConversationsToken extends FullToken<'Conversations'> {}
+export interface ConversationsToken extends FullToken<'Conversations'> {
+  creationBgColor: string;
+  creationBorderColor: string;
+  creationHoverColor: string;
+}
 
 const genConversationsStyle: GenerateStyle<ConversationsToken> = (token) => {
   const { componentCls } = token;
@@ -18,9 +26,54 @@ const genConversationsStyle: GenerateStyle<ConversationsToken> = (token) => {
       gap: token.paddingXXS,
       overflowY: 'auto',
       padding: token.paddingSM,
+      margin: 0,
+      listStyle: 'none',
 
       [`&${componentCls}-rtl`]: {
         direction: 'rtl',
+      },
+
+      [`${componentCls}-creation`]: {
+        backgroundColor: token.creationBgColor,
+        color: token.colorPrimary,
+        border: 'none',
+        fontWeight: 500,
+        paddingBlock: token.paddingXS,
+        paddingInline: token.paddingSM,
+        fontSize: token.fontSize,
+        cursor: 'pointer',
+        display: 'flex',
+        touchAction: 'manipulation',
+        gap: token.paddingXS,
+        marginBlockEnd: token.marginSM,
+        lineHeight: token.lineHeight,
+        borderRadius: token.borderRadiusLG,
+        transition: `all ${token.motionDurationMid} ${token.motionEaseInOut}`,
+        width: '100%',
+        boxSizing: 'border-box',
+        alignItems: 'center',
+        [`&:not(${componentCls}-creation-disabled):hover`]: {
+          color: token.colorPrimary,
+          background: token.creationHoverColor,
+        },
+        [`&:not(${componentCls}-creation-disabled)`]: {
+          border: `${unit(token.lineWidth)} ${token.lineType} ${token.creationBorderColor}`,
+        },
+        '&-start': { justifyContent: 'flex-start' },
+        '&-center': { justifyContent: 'center' },
+        '&-end': { justifyContent: 'flex-end' },
+        '&-label': {
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        },
+        '&-disabled': {
+          cursor: 'not-allowed',
+          background: token.colorBgContainerDisabled,
+          [`& ${componentCls}-creation-label, ${componentCls}-creation-icon`]: {
+            color: token.colorTextDisabled,
+          },
+        },
       },
       // 会话列表
       [`& ${componentCls}-list`]: {
@@ -96,7 +149,16 @@ const genConversationsStyle: GenerateStyle<ConversationsToken> = (token) => {
   };
 };
 
-export const prepareComponentToken: GetDefaultToken<'Conversations'> = () => ({});
+export const prepareComponentToken: GetDefaultToken<'Conversations'> = (token) => {
+  const creationBgColor = new FastColor(token.colorPrimary).setA(0.15);
+  const creationBorderColor = new FastColor(token.colorPrimary).setA(0.22);
+  const creationHoverColor = new FastColor(token.colorPrimary).setA(0.25);
+  return {
+    creationBgColor: creationBgColor.toRgbString(),
+    creationBorderColor: creationBorderColor.toRgbString(),
+    creationHoverColor: creationHoverColor.toRgbString(),
+  };
+};
 
 export default genStyleHooks(
   'Conversations',

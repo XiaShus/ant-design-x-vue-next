@@ -3,6 +3,7 @@ import classnames from 'classnames';
 import pickAttrs from '../_util/pick-attrs';
 import type { Conversation, ConversationsItemProps, ConversationsProps } from './interface';
 import ConversationsItem from './ConversationsItem.vue';
+import Creation from './Creation.vue';
 import GroupTitle from './GroupTitle.vue';
 import { computed, ref, watch } from 'vue';
 import useMergedState from '../_util/hooks/useMergedState';
@@ -14,6 +15,7 @@ import GroupTitleContextProvider from './context';
 
 defineOptions({ name: 'AXConversations' });
 
+const props = defineProps<ConversationsProps>();
 const {
   prefixCls: customizePrefixCls,
   rootClassName,
@@ -27,8 +29,9 @@ const {
   groupable,
   class: className,
   style,
+  creation: _creation,
   ...restProps
-} = defineProps<ConversationsProps>();
+} = props;
 
 const activeKey = ref(activeKeyProp);
 
@@ -87,6 +90,7 @@ const onConversationItemClick: ConversationsItemProps['onClick'] = (info) => {
 };
 
 defineRender(() => {
+  const creation = props.creation;
   return wrapCSSVar(
     <ul
       {...domProps.value}
@@ -96,6 +100,20 @@ defineRender(() => {
       }}
       class={mergedCls.value}
     >
+      {!!creation && (
+        <Creation
+          className={classnames(
+            (contextConfig.value.classNames as any)?.creation,
+            classNames.creation,
+          )}
+          style={{
+            ...(contextConfig.value.styles as any)?.creation,
+            ...styles.creation,
+          }}
+          prefixCls={`${prefixCls.value}-creation`}
+          {...creation}
+        />
+      )}
       {groupSate.value.groupList.map((groupInfo, groupIndex) => {
         const convItems = groupInfo.data.map((convInfo: Conversation, convIndex: number) => (
           <ConversationsItem

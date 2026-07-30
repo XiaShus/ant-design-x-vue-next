@@ -4,6 +4,9 @@ import GroupTitle from './GroupTitle.vue';
 import type { ConfigProviderProps, DirectionType } from 'ant-design-vue/es/config-provider';
 import type { MenuProps } from 'ant-design-vue';
 import type { AvoidValidation } from '../type-utility';
+import type { CreationProps } from './creation-types';
+
+export type { CreationProps, CreationAlign } from './creation-types';
 
 type GroupType = string;
 
@@ -94,13 +97,13 @@ export interface ConversationsProps extends HTMLAttributes {
    * @desc 语义化结构 style
    * @descEN Semantic structure styles
    */
-  styles?: Partial<Record<'item', CSSProperties>>;
+  styles?: Partial<Record<'item' | 'creation', CSSProperties>>;
 
   /**
    * @desc 语义化结构 className
    * @descEN Semantic structure class names
    */
-  classNames?: Partial<Record<'item', string>>;
+  classNames?: Partial<Record<'item' | 'creation', string>>;
 
   /**
    * @desc 自定义前缀
@@ -113,6 +116,12 @@ export interface ConversationsProps extends HTMLAttributes {
    * @descEN Custom class name
    */
   rootClassName?: string;
+
+  /**
+   * @desc 新建对话按钮配置；传入即显示
+   * @descEN New chat button config
+   */
+  creation?: CreationProps;
 }
 
 export interface ConversationsItemProps extends /* @vue-ignore */ Omit<HTMLAttributes, 'onClick'> {
