@@ -66,7 +66,7 @@ import { Bubble, XProvider } from 'ant-design-x-vue-next';
 | Think | ✅（本仓库新增） | ✅ |
 | Sources | ✅（本仓库新增） | ✅ |
 | FileCard | ✅（本仓库新增） | ✅ |
-| Folder | ⏳ | ✅ |
+| Folder | ✅（本仓库新增） | ✅ |
 | CodeHighlighter / Mermaid / Notification | ⏳ | ✅ |
 | `@ant-design/x-markdown` / `x-sdk` / `x-card` | ⏳ | ✅ |
 

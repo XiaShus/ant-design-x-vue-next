@@ -38,6 +38,7 @@ const primitiveNames = new Set<string>([
   'ThoughtChain',
   'Sources',
   'FileCard',
+  'Folder',
   'Welcome',
 ])
 
