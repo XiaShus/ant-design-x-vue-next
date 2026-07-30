@@ -5,6 +5,7 @@ export type {
   MermaidProps,
   MermaidRef,
   MermaidSemanticType,
+  MermaidType,
   MermaidRenderType,
   MermaidActionsConfig,
 } from './interface';

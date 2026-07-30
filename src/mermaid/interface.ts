@@ -6,6 +6,9 @@ import type { AvoidValidation } from '../type-utility';
 
 export type MermaidSemanticType = 'root' | 'header' | 'graph' | 'code';
 
+/** Align React `@ant-design/x` export name for Mermaid Semantic DOM keys. */
+export type MermaidType = MermaidSemanticType;
+
 export type MermaidRenderType = 'code' | 'image';
 
 export type MermaidActionsConfig = {

@@ -18,7 +18,7 @@
 | 反馈 | FileCard | ✅ | ✅（含 `mask` / `videoProps` / `audioProps`、List `extension` 文档；java / javascript / python 预设图标、`spinProps`、List `item.key`、List `classNames`/`styles` root/card） | [文档](/component/file-card) |
 | 表达 | Folder | ✅ | ✅（含 `classNames`/`styles` root/directoryTree/directoryTitle/filePreview/previewTitle/previewRender） | [文档](/component/folder) |
 | 表达 | CodeHighlighter | ✅ | ✅ | [文档](/component/code-highlighter) |
-| 表达 | Mermaid | ✅ | ✅ | [文档](/component/mermaid) |
+| 表达 | Mermaid | ✅ | ✅（含导出 `MermaidType`） | [文档](/component/mermaid) |
 | 确认 | Think | ✅ | ✅（含 `blink` / `destroyOnHidden`、`classNames/styles`、`nativeElement` ref） | [文档](/component/think) |
 | 确认 | ThoughtChain | ✅ | ✅（含导出 `ThoughtChainItemType`；`ThoughtChain.Item`（含 `nativeElement` ref）；链级 `line` / expand；items `status`：`loading`/`abort`；`blink`·`collapsible`·`destroyOnHidden`；`classNames/styles` root/item/itemHeader/itemIcon/itemContent/itemFooter；链级 `nativeElement` ref） | [文档](/component/thought-chain) |
 | 反馈 | Actions | ✅ | ✅（含 Copy / Feedback / Item / Audio 预设 API 文档；`fadeIn`/`fadeInLeft`、`dropdownProps`、`outlined`/`filled`、`classNames/styles` root/item/itemDropdown、`nativeElement` ref） | [文档](/component/actions) |

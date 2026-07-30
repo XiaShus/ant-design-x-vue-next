@@ -45,7 +45,7 @@ mermaid/header-actions
 | config | Mermaid 配置项 | `MermaidConfig` | - |
 | actions | 操作栏配置 | `{ enableZoom?: boolean; enableDownload?: boolean; enableCopy?: boolean; customActions?: ActionItem[] }` | `{ enableZoom: true, enableDownload: true, enableCopy: true }` |
 | onRenderTypeChange | 渲染类型切换回调 | `(value: 'image' \| 'code') => void` | - |
-| classNames | 语义化结构 className | Record<'root' \| 'header' \| 'graph' \| 'code', string> | - |
+| classNames | 语义化结构 className（键类型亦导出为 `MermaidType`，对齐 React） | Record<'root' \| 'header' \| 'graph' \| 'code', string> | - | 1.89.0（`MermaidType` 导出） |
 | styles | 语义化结构 style | Record<'root' \| 'header' \| 'graph' \| 'code', CSSProperties> | - |
 
 ### MermaidSlots
