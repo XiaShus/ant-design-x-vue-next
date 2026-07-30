@@ -19,6 +19,17 @@ customClass: changelog-page
 
 ---
 
+## 1.33.0
+
+`2026-07-30`
+
+### ant-design-x-vue-next
+
+- 🆕 Sender `suffix` / `#suffix`（对齐 React 2.x；`actions` 保留兼容，`suffix` 优先）。
+- 🆕 `classNames.suffix` / `styles.suffix` 语义样式。
+- 📖 新增 suffix 演示。
+- 🛠 发布 npm 包 [`ant-design-x-vue-next@1.33.0`](https://www.npmjs.com/package/ant-design-x-vue-next)。
+
 ## 1.32.0
 
 `2026-07-30`

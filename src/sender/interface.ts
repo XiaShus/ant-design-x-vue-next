@@ -42,6 +42,9 @@ export type ActionsRender = (
   },
 ) => VNode;
 
+/** Alias of ActionsRender — aligned with React `@ant-design/x` `suffix`. */
+export type SuffixRender = ActionsRender;
+
 export type FooterRender = (info: { components: ActionsComponents }) => VNode;
 
 export interface SenderProps {
@@ -75,19 +78,30 @@ export interface SenderProps {
   styles?: {
     prefix?: CSSProperties;
     input?: CSSProperties;
+    /** @deprecated Use `suffix` — kept for backward compatibility */
     actions?: CSSProperties;
+    suffix?: CSSProperties;
     footer?: CSSProperties;
   };
   rootClassName?: string;
   classNames?: {
     prefix?: string;
     input?: string;
+    /** @deprecated Use `suffix` — kept for backward compatibility */
     actions?: string;
+    suffix?: string;
     footer?: string;
   };
   style?: CSSProperties;
   className?: string;
+  /**
+   * Custom action area (send / speech / loading). Set `false` to hide.
+   * Prefer `suffix` (React 2.x name); `actions` remains as alias.
+   * @deprecated Use `suffix`
+   */
   actions?: VNode | ActionsRender | false;
+  /** Custom action area — React `@ant-design/x` 2.x API name. */
+  suffix?: VNode | SuffixRender | false;
   allowSpeech?: AvoidValidation<AllowSpeech>;
   prefix?: VNode | (() => VNode);
   footer?: VNode | FooterRender;

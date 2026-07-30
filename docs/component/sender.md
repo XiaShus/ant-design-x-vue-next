@@ -68,11 +68,23 @@ sender/speechCustom
 
 </ClientOnly>
 
-### 自定义按钮
+### 自定义后缀 suffix
 
 <ClientOnly>
 
-:::demo 通过 `actions` 属性，可以自定义发送按钮的行为。
+:::demo 通过 `suffix` 自定义操作区（对齐 React 2.x；原 `actions` 仍可用）。
+
+sender/suffix
+
+:::
+
+</ClientOnly>
+
+### 自定义按钮（actions，兼容）
+
+<ClientOnly>
+
+:::demo `actions` 为历史 API，与 `suffix` 等价；同时设置时以 `suffix` 为准。
 
 sender/actions
 
@@ -184,7 +196,8 @@ sender/focus
 
 | 属性           | 说明                                                                        | 类型                                                                   | 默认值                  | 版本 |
 | -------------- | --------------------------------------------------------------------------- | ---------------------------------------------------------------------- | ----------------------- | ---- |
-| actions        | 自定义按钮，当不需要默认操作按钮时，可以设为 `actions={false}`              | VNode \| (oriNode, info: \{ components: ActionsComponents \}) => VNode | -                       | -    |
+| suffix         | 自定义操作区（React 2.x 主 API），设为 `false` 可隐藏                        | VNode \| (oriNode, info: \{ components: ActionsComponents \}) => VNode \| false | - | 1.33.0 |
+| actions        | 同 `suffix`（兼容旧名，已弃用）                                             | VNode \| (oriNode, info: \{ components: ActionsComponents \}) => VNode \| false | - | - |
 | allowSpeech    | 是否允许语音输入                                                            | boolean \| SpeechConfig                                                | false                   | -    |
 | classNames     | 样式类名                                                                    | [见下](#semantic-dom)                                                  | -                       | -    |
 | components     | 自定义组件，input默认为[Input.TextArea](https://www.antdv.com/components/input-cn#api)，确保在自定义输入组件时，按照 `Input.TextArea` 实现所有必要的 props，以避免功能不全。| Record<'input', ComponentType> | -   | -    |
@@ -251,7 +264,8 @@ type SkillType = {
 | ------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | header  | 头部面板 | -                                                                                                                                                                                                     |
 | prefix  | 前缀内容 | _                                                                                                                                                                                                     |
-| actions | 操作按钮 | \{ ori: VNode; info: \{ components: \{ SendButton: InstanceType\<Button\>; ClearButton: InstanceType\<Button\>; LoadingButton: InstanceType\<Button\>; SpeechButton: InstanceType\<Button\>; \} \} \} |
+| suffix  | 操作区（推荐） | \{ ori: VNode; info: \{ components: \{ SendButton: InstanceType\<Button\>; ClearButton: InstanceType\<Button\>; LoadingButton: InstanceType\<Button\>; SpeechButton: InstanceType\<Button\>; \} \} \} |
+| actions | 同 `suffix`（兼容） | 同上 |
 | footer  | 底部内容 | \{ info: \{ components: \{ SendButton: InstanceType\<Button\>; ClearButton: InstanceType\<Button\>; LoadingButton: InstanceType\<Button\>; SpeechButton: InstanceType\<Button\>; \} \} \}             |
 
 #### Sender Ref

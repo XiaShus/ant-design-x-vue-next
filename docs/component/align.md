@@ -11,7 +11,7 @@
 | 通用 | Notification | ✅ | ✅ | [文档](/component/notification) |
 | 唤醒 | Welcome | ✅ | ✅ | [文档](/component/welcome) |
 | 唤醒 | Prompts | ✅ | ✅ | [文档](/component/prompts) |
-| 表达 | Sender | ✅ | ✅（含 Switch / 词槽 contentEditable / `Sender` locale 停止与录音文案） | [文档](/component/sender) |
+| 表达 | Sender | ✅ | ✅（含 `suffix`/`actions`、Switch、词槽 contentEditable、locale） | [文档](/component/sender) |
 | 表达 | Attachments | ✅ | ✅ | [文档](/component/attachments) |
 | 表达 | Suggestion | ✅ | ✅（含 `icon`/`extra` 渲染、`onSelect` 第二参、`open` children prop） | [文档](/component/suggestion) |
 | 反馈 | Sources | ✅ | ✅ | [文档](/component/sources) |

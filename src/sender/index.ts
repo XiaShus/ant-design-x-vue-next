@@ -3,7 +3,7 @@ import SenderComponent from './Sender.vue';
 import SenderHeader from './SenderHeader.vue';
 import SenderSwitch from './SenderSwitch.vue';
 
-export type { SenderProps } from './interface';
+export type { SenderProps, SuffixRender, ActionsRender } from './interface';
 export type { SenderSwitchProps } from './switch-types';
 export type {
   SkillType,

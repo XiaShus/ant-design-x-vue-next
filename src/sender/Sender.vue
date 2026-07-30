@@ -45,6 +45,7 @@ const props = withDefaults(defineProps<SenderProps>(), {
   sendDisabled: undefined,
   loading: undefined,
   actions: undefined,
+  suffix: undefined,
 });
 
 const emit = defineEmits<{
@@ -70,6 +71,7 @@ const {
   onCancel,
   onChange,
   actions,
+  suffix,
   onKeyPress,
   onKeyDown,
   disabled,
@@ -89,6 +91,17 @@ const slots = defineSlots<{
   header?(): VNode;
   prefix?(): VNode;
   actions?(props: {
+    ori: VNode,
+    info: {
+      components: {
+        SendButton: typeof SendButton;
+        ClearButton: typeof ClearButton;
+        LoadingButton: typeof LoadingButton;
+        SpeechButton: typeof SpeechButton;
+      };
+    }
+  }): VNode;
+  suffix?(props: {
     ori: VNode,
     info: {
       components: {
@@ -322,8 +335,16 @@ const actionNode = computed(() => {
     components: sharedRenderComponents,
   }
 
-  // Custom actions
-  if (slots.actions) {
+  // Custom suffix (React 2.x) takes precedence over legacy actions
+  if (slots.suffix) {
+    _actionNode = slots.suffix({ ori: _actionNode, info });
+  } else if (suffix !== undefined) {
+    if (typeof suffix === 'function') {
+      _actionNode = suffix(_actionNode, info);
+    } else {
+      _actionNode = suffix;
+    }
+  } else if (slots.actions) {
     _actionNode = slots.actions({ ori: _actionNode, info });
   } else if (typeof actions === 'function') {
     _actionNode = actions(_actionNode, info);
@@ -450,14 +471,21 @@ defineRender(() => {
             />
           )}
 
-          {/* Action List */}
+          {/* Action List (semantic: suffix; BC: actions) */}
           {actionNode.value && (<div
             class={classnames(
               actionListCls.value,
+              contextConfig.value.classNames.suffix,
               contextConfig.value.classNames.actions,
+              classNames.suffix,
               classNames.actions,
             )}
-            style={{ ...contextConfig.value.styles.actions, ...styles.actions }}
+            style={{
+              ...contextConfig.value.styles.actions,
+              ...contextConfig.value.styles.suffix,
+              ...styles.actions,
+              ...styles.suffix,
+            }}
           >
             {actionNode.value}
           </div>)}
