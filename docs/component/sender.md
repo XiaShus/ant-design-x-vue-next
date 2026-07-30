@@ -206,7 +206,7 @@ sender/focus
 | loading        | 是否加载中                                                                  | boolean                                                                | false                   | -    |
 | header         | 头部面板                                                                    | VNode \| () => VNode                                                   | -                       | -    |
 | prefix         | 前缀内容                                                                    | VNode \| () => VNode                                                   | -                       | -    |
-| footer         | 底部内容                                                                    | ReactNode \| (info: \{ components: ActionsComponents \}) => ReactNode  | -                       | -    |
+| footer         | 底部内容                                                                    | VNode \| FooterRender                                                  | -                       | 1.102.0（`FooterRender` 导出） |
 | readOnly       | 是否让输入框只读                                                            | boolean                                                                | false                   | -    |
 | rootClassName  | 根元素样式类                                                                | string                                                                 | -                       | -    |
 | styles         | 语义化定义样式                                                              | [见下](#semantic-dom)                                                  | -                       | -    |
@@ -234,6 +234,7 @@ type SpeechConfig = {
 
 自 `1.83.0` 起可从包入口 `import type { SenderComponents, ActionsComponents }`（对齐 React Sender 模块导出）。
 自 `1.98.0` 起可从包入口 `import type { SubmitType }`（`'enter' | 'shiftEnter' | false`）。
+自 `1.102.0` 起可从包入口 `import type { FooterRender }`。
 
 ```typescript | pure
 type ActionsComponents = {
@@ -242,6 +243,7 @@ type ActionsComponents = {
   LoadingButton: InstanceType<ButtonProps>;
   SpeechButton: InstanceType<ButtonProps>;
 };
+type FooterRender = (info: { components: ActionsComponents }) => VNode;
 ```
 
 ```typescript | pure
