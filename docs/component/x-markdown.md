@@ -34,6 +34,14 @@ x-markdown/latex
 
 :::
 
+### 性能调试
+
+:::demo 设置 `debug` 显示 FPS / Memory 浮层，支持录制与图表回看。
+
+x-markdown/debug
+
+:::
+
 ## API
 
 ### XMarkdownProps
@@ -49,6 +57,7 @@ x-markdown/latex
 | escapeRawHtml | 转义 Markdown 中的原始 HTML（**不信任模型输出时请开启**） | `boolean` | `false` |
 | dompurifyConfig | DOMPurify 配置 | `Config` | - |
 | disableDefaultStyles | 关闭内置默认样式 | `boolean \| DefaultStyleTag[]` | - |
+| debug | 显示性能调试浮层（FPS / Memory / 录制） | `boolean` | `false` |
 
 ### Latex 插件
 
@@ -69,8 +78,8 @@ import { XMarkdown, Latex } from 'ant-design-x-vue-next';
 
 - 解析引擎：[`marked`](https://github.com/markedjs/marked)（与官方一致）。
 - 安全清洗：[`dompurify`](https://github.com/cure53/DOMPurify)（含 happy-dom 兼容补丁，失败时 fail-closed，绝不回退原始 HTML）。
-- 已覆盖常用渲染、链接、代码块、流式尾标、**增量 token 缓存**、**LaTeX/KaTeX** 与 **AnimationText**。
-- 仍在对齐：DebugPanel、独立包拆分。
+- 已覆盖常用渲染、链接、代码块、流式尾标、**增量 token 缓存**、**LaTeX/KaTeX**、**AnimationText** 与 **DebugPanel**。
+- 仍在对齐：独立包拆分。
 
 ## 贡献者
 

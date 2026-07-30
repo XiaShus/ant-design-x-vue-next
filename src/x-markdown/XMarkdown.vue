@@ -4,6 +4,7 @@ import { computed, defineComponent } from 'vue';
 import { CodeHighlighter } from '../code-highlighter';
 import { Mermaid } from '../mermaid';
 import { useStreaming } from './composables/useStreaming';
+import DebugPanel from './DebugPanel.vue';
 import { htmlToVNodes } from './htmlToVNodes';
 import type { XMarkdownProps, XMarkdownSlots } from './interface';
 import { parseMarkdown } from './parser';
@@ -16,6 +17,7 @@ const DEFAULT_TAIL = '|';
 const props = withDefaults(defineProps<XMarkdownProps>(), {
   openLinksInNewTab: false,
   escapeRawHtml: false,
+  debug: false,
 });
 
 const slots = defineSlots<XMarkdownSlots>();
@@ -149,18 +151,21 @@ defineRender(() => {
   }
 
   return (
-    <div
-      class={classnames(
-        'x-markdown',
-        disableStyleCls.value,
-        props.rootClassName,
-        props.className,
-        props.class,
-      )}
-      style={props.style}
-    >
-      {renderedNodes.value}
-    </div>
+    <>
+      <div
+        class={classnames(
+          'x-markdown',
+          disableStyleCls.value,
+          props.rootClassName,
+          props.className,
+          props.class,
+        )}
+        style={props.style}
+      >
+        {renderedNodes.value}
+      </div>
+      {props.debug ? <DebugPanel /> : null}
+    </>
   );
 });
 </script>

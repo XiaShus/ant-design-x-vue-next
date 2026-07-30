@@ -150,6 +150,12 @@ export interface XMarkdownProps {
    * @descEN Disable built-in default styles
    */
   disableDefaultStyles?: boolean | DefaultStyleTag[];
+  /**
+   * @desc 显示性能调试浮层（FPS / Memory / 录制）
+   * @descEN Show performance debug overlay (FPS / Memory / record)
+   * @default false
+   */
+  debug?: boolean;
 }
 
 export type XMarkdownSlots = {

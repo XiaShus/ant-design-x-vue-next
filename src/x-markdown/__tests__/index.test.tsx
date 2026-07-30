@@ -78,4 +78,18 @@ describe('XMarkdown', () => {
     await new Promise((r) => setTimeout(r, 80));
     expect(wrapper.text()).toContain('console.log');
   });
+
+  it('shows DebugPanel when debug is enabled', async () => {
+    const wrapper = mount(XMarkdown, {
+      props: {
+        content: '# Debug',
+        debug: true,
+      },
+      attachTo: document.body,
+    });
+    await nextTick();
+    expect(document.querySelector('.x-markdown-debug-panel')).toBeTruthy();
+    expect(document.querySelector('.x-markdown-debug-label')?.textContent).toContain('FPS');
+    wrapper.unmount();
+  });
 });
