@@ -1,4 +1,5 @@
 <script setup lang="tsx">
+import useLocale from '../../../locale/useLocale';
 import type { RecordingIconProps } from '../../interface';
 
 const SIZE = 1000;
@@ -11,9 +12,8 @@ const DURATION = 0.8;
 
 defineOptions({ name: 'AXSenderRecordingIcon' });
 
-const {
-  className
-} = defineProps<RecordingIconProps>();
+const props = defineProps<RecordingIconProps>();
+const [locale] = useLocale('Sender');
 
 defineRender(() => {
   return (
@@ -22,9 +22,9 @@ defineRender(() => {
       viewBox={`0 0 ${SIZE} ${SIZE}`}
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
-      class={className}
+      class={props.className}
     >
-      <title>Speech Recording</title>
+      <title>{locale.value.speechRecording}</title>
 
       {Array.from({ length: COUNT }).map((_, index) => {
         const dest = (SIZE - RECT_WIDTH * COUNT) / (COUNT - 1);

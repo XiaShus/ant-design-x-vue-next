@@ -1,7 +1,10 @@
 <script setup lang="tsx">
+import useLocale from '../locale/useLocale';
+
 defineOptions({ name: 'AXSenderStopLoading' });
 
 const props = defineProps<{ className: string }>();
+const [locale] = useLocale('Sender');
 
 defineRender(() => {
   return <svg
@@ -11,7 +14,7 @@ defineRender(() => {
     xmlnsXlink="http://www.w3.org/1999/xlink"
     class={props.className}
   >
-    <title>Stop Loading</title>
+    <title>{locale.value.stopLoading}</title>
     <rect fill="currentColor" height="250" rx="24" ry="24" width="250" x="375" y="375" />
 
     <circle

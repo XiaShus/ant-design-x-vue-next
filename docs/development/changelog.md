@@ -19,6 +19,16 @@ customClass: changelog-page
 
 ---
 
+## 1.28.0
+
+`2026-07-30`
+
+### ant-design-x-vue-next
+
+- 🆕 Sender 接入 `useLocale('Sender')`：停止加载 / 录音图标 SVG `<title>` 跟随 `stopLoading` / `speechRecording`。
+- 📖 对齐进度更新。
+- 🛠 发布 npm 包 [`ant-design-x-vue-next@1.28.0`](https://www.npmjs.com/package/ant-design-x-vue-next)。
+
 ## 1.27.0
 
 `2026-07-30`
