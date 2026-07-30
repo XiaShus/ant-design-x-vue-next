@@ -59,6 +59,7 @@ x-request/model
 | model | 模型名称，例如 'gpt-3.5-turbo' | string | - | - |
 | dangerouslyApiKey | **注意: 🔥 `dangerouslyApiKey` 存在安全风险，对此有详细的[说明](/#)。企业项目请走后端代理，不要把密钥放前端。** | string | - | - |
 | fetch | 可选的自定义 fetch 函数，用于发起请求 | fetch | - | - |
+| headers | 额外请求头（与全局默认合并） | `Record<string, string>` | - | 1.14.0 |
 | middlewares | 请求/响应中间件（鉴权头、审计、统一错误等） | `{ onRequest?; onResponse? }` | - | 1.9.1 |
 | timeout | 建连超时（ms），超时后 abort 并触发 `TimeoutError` | number | - | 1.9.1 |
 | streamTimeout | 流式空闲超时（ms），超时后 abort 并触发 `StreamTimeoutError` | number | - | 1.9.1 |
@@ -66,6 +67,21 @@ x-request/model
 | retryTimes | 最大重试次数（需配合 `retryInterval`） | number | - | 1.9.1 |
 
 实例方法：`abort()`、`isRequesting`、`isTimeout`、`isStreamTimeout`。
+
+### setXRequestGlobalOptions
+
+设置应用级默认（headers / timeout / middlewares / fetch…）。实例配置优先于全局。
+
+```ts
+import { setXRequestGlobalOptions } from 'ant-design-x-vue-next';
+
+setXRequestGlobalOptions({
+  headers: { 'X-App': 'copilot' },
+  timeout: 30_000,
+  retryInterval: 800,
+  retryTimes: 2,
+});
+```
 
 ### XRequestFunction
 

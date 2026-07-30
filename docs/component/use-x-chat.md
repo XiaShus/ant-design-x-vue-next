@@ -66,7 +66,7 @@ type useXChat<
 | --- | --- | --- | --- | --- |
 | agent | 通过 `useXAgent` 生成的 `agent`，当使用 `onRequest` 方法时, `agent` 参数是必需的。 | XAgent | - |  |
 | conversationKey | 多会话隔离 key，切换时自动持久化/恢复消息列表；可传 Ref（配合 useXConversations） | `MaybeRefOrGetter<string \| symbol>` | - |  |
-| defaultMessages | 默认展示信息 | { status, message }[] | - |  |
+| defaultMessages | 默认消息；支持同步数组 / 同步函数 / **异步**加载 | `DefaultMessageInfo[] \| (({ conversationKey }) => list \| Promise<list>)` | - |  |
 | parser | 将 AgentMessage 转换成消费使用的 ParsedMessage，不设置时则直接消费 AgentMessage。支持将一条 AgentMessage 转换成多条 ParsedMessage | (message: AgentMessage) => BubbleMessage \| BubbleMessage[] | - |  |
 | requestFallback | 请求失败的兜底信息，不提供则不会展示 | AgentMessage \| () => AgentMessage | - |  |
 | requestPlaceholder | 请求中的占位信息，不提供则不会展示 | AgentMessage \| () => AgentMessage | - |  |
@@ -81,13 +81,15 @@ type useXChat<
 | --- | --- | --- | --- |
 | messages | 当前管理的内容 | AgentMessages[] |  |
 | parsedMessages | 经过 `parser` 转译过的内容 | ParsedMessages[] |  |
-| onRequest | 添加一条 Message，并且触发请求，若无`key`为`message`的数据则会将整个数据做为消息处理 | (requestParams: AgentMessage \| RequestParams) => void |  |
-| onReload | 按 id 原地重新生成（不重复追加用户消息）；省略第二参时复用上一条 `local` 用户消息 | `(id, requestParams?) => void` |  |
+| onRequest | 添加一条 Message，并且触发请求；第二参可传 `extraInfo` | `(requestParams, opts?: { extraInfo? }) => void` |  |
+| onReload | 按 id 原地重新生成（不重复追加用户消息）；省略第二参时复用上一条 `local` 用户消息 | `(id, requestParams?, opts?) => void` |  |
+| queueRequest | 将请求排队到指定会话（历史异步加载中时常用），加载完成后自动发送 | `(conversationKey, requestParams, opts?) => void` |  |
 | abort | 中止当前进行中的请求；已流式输出的内容会保留，状态置为 `abort` | () => void |  |
 | setMessages | 直接修改 messages，不会触发请求 | (messages: { message, status }[]) => void |  |
 | setMessage | 按 id 合并更新单条消息（编辑内容 / 状态等） | `(id, patch) => boolean` |  |
 | removeMessage | 按 id 删除单条消息 | `(id) => boolean` |  |
 | isRequesting | 当前会话是否正在请求 | `ComputedRef<boolean>` |  |
+| isDefaultMessagesRequesting | 异步 `defaultMessages` 是否加载中 | `Ref<boolean>` |  |
 | conversationKey | 当前会话 key | `Ref<string \| symbol>` |  |
 
 `MessageStatus`：`local` | `loading` | `updating` | `success` | `error` | `abort`。

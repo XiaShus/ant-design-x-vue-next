@@ -50,8 +50,13 @@ jobs:
             echo "NPM_TOKEN secret is not set. Add it under Settings → Secrets and variables → Actions."
             exit 1
           fi
-          # Artifacts already built above; skip prepublishOnly re-run
-          npm publish --access public --ignore-scripts --registry https://registry.npmjs.org/
+          VERSION=$(node -p "require('./package.json').version")
+          # Skip when version was already published (e.g. local publish then tag push)
+          if npm view "ant-design-x-vue-next@${VERSION}" version --registry https://registry.npmjs.org/ >/dev/null 2>&1; then
+            echo "Version ${VERSION} already on npm — skip publish."
+          else
+            npm publish --access public --ignore-scripts --registry https://registry.npmjs.org/
+          fi
 
       - name: Create GitHub Release (tag pushes)
         if: startsWith(github.ref, 'refs/tags/v')

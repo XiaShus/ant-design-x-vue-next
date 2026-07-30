@@ -1,5 +1,8 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import XRequest from '../x-request';
+import XRequest, {
+  resetXRequestGlobalOptions,
+  setXRequestGlobalOptions,
+} from '../x-request';
 
 function sseResponse(body: string, init?: ResponseInit) {
   return new Response(body, {
@@ -12,6 +15,47 @@ function sseResponse(body: string, init?: ResponseInit) {
 describe('XRequest enterprise options', () => {
   afterEach(() => {
     vi.restoreAllMocks();
+    resetXRequestGlobalOptions();
+  });
+
+  it('applies setXRequestGlobalOptions headers and timeout', async () => {
+    setXRequestGlobalOptions({
+      headers: { 'X-Global': 'g1' },
+      timeout: 40,
+    });
+
+    const fetchMock = vi.fn(((_input: RequestInfo | URL, init?: RequestInit) => {
+      return new Promise<Response>((_resolve, reject) => {
+        init?.signal?.addEventListener('abort', () => {
+          reject(new DOMException('Aborted', 'AbortError'));
+        });
+      });
+    }) as typeof fetch);
+
+    const request = XRequest({
+      baseURL: 'https://example.com/v1/chat',
+      fetch: fetchMock,
+      headers: { 'X-Local': 'l1' },
+    }).value;
+
+    const onError = vi.fn();
+    const pending = request.create(
+      { messages: [{ role: 'user', content: 'hi' }], stream: true },
+      {
+        onUpdate: () => {},
+        onSuccess: () => {},
+        onError,
+      },
+    );
+
+    await Promise.resolve();
+    const init = fetchMock.mock.calls[0][1] as RequestInit;
+    const headers = init.headers as Record<string, string>;
+    expect(headers['X-Global']).toBe('g1');
+    expect(headers['X-Local']).toBe('l1');
+
+    await pending;
+    expect(onError.mock.calls.some((call) => call[0].name === 'TimeoutError')).toBe(true);
   });
 
   it('wires middlewares into fetch', async () => {

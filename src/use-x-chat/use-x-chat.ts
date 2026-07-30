@@ -45,7 +45,14 @@ export interface XChatConfig<
 > {
   agent?: XAgent<AgentMessage, Input, Output>;
 
-  defaultMessages?: DefaultMessageInfo<AgentMessage>[];
+  /**
+   * Initial messages: sync list, sync factory, or async loader (aligned with @ant-design/x-sdk).
+   */
+  defaultMessages?:
+    | DefaultMessageInfo<AgentMessage>[]
+    | ((info: {
+        conversationKey?: ConversationKey;
+      }) => DefaultMessageInfo<AgentMessage>[] | Promise<DefaultMessageInfo<AgentMessage>[]>);
 
   /**
    * Isolate message list by conversation key (multi-conversation enterprise chat).
@@ -72,6 +79,8 @@ export interface MessageInfo<Message extends SimpleType> {
   id: number | string;
   message: Message;
   status: MessageStatus;
+  /** Arbitrary metadata (feedback, citations, etc.) */
+  extraInfo?: AnyObject;
 }
 
 export type DefaultMessageInfo<Message extends SimpleType> = Pick<MessageInfo<Message>, 'message'> &
@@ -125,6 +134,13 @@ export default function useXChat<
 
   const idRef = ref(0);
   const abortControllerRef = ref<AbortController | null>(null);
+  const isDefaultMessagesRequesting = ref(false);
+  type QueuedRequest = {
+    requestParams: RequestParams<AgentMessage> | Input | SimpleType;
+    opts?: { extraInfo?: AnyObject };
+  };
+  /** Plain Map — avoid Vue unwrap of generic Input in Ref */
+  const messageQueue = new Map<ConversationKey, QueuedRequest[]>();
   const fallbackConversationKey = Symbol('ConversationKey');
   const resolveConversationKey = (): ConversationKey => {
     if (conversationKeyProp === undefined) return fallbackConversationKey;
@@ -132,17 +148,30 @@ export default function useXChat<
   };
   const activeConversationKey = ref<ConversationKey>(resolveConversationKey());
 
-  const buildDefaultMessages = (): MessageInfo<AgentMessage>[] =>
-    (defaultMessages || []).map((info, index) => ({
+  const mapDefaultMessages = (
+    list: DefaultMessageInfo<AgentMessage>[] | undefined,
+  ): MessageInfo<AgentMessage>[] =>
+    (list || []).map((info, index) => ({
       id: `default_${index}`,
       status: 'local' as const,
       ...info,
     }));
 
+  const buildSyncDefaultMessages = (key: ConversationKey): MessageInfo<AgentMessage>[] => {
+    if (typeof defaultMessages === 'function') {
+      const result = defaultMessages({ conversationKey: key });
+      if (result && typeof (result as Promise<unknown>).then === 'function') {
+        return [];
+      }
+      return mapDefaultMessages(result as DefaultMessageInfo<AgentMessage>[]);
+    }
+    return mapDefaultMessages(defaultMessages);
+  };
+
   const resolveInitialMessages = (key: ConversationKey): MessageInfo<AgentMessage>[] => {
     const stored = getConversationMessages<AgentMessage>(key);
     if (stored.length > 0) return stored;
-    return buildDefaultMessages();
+    return buildSyncDefaultMessages(key);
   };
 
   const [messages, setMessagesInner] = useSyncState<MessageInfo<AgentMessage>[]>(
@@ -162,23 +191,105 @@ export default function useXChat<
     });
   };
 
+  let dispatchRequest: (
+    requestParams: RequestParams<AgentMessage> | Input | SimpleType,
+    opts?: { updatingId?: string | number; reload?: boolean; extraInfo?: AnyObject },
+  ) => void = () => {};
+
+  const processMessageQueue = (key: ConversationKey) => {
+    const queued = messageQueue.get(key);
+    if (!queued?.length) return;
+    messageQueue.delete(key);
+    queued.forEach(({ requestParams, opts }) => {
+      dispatchRequest(requestParams, opts);
+    });
+  };
+
+  const loadDefaultMessagesForKey = async (key: ConversationKey) => {
+    const stored = getConversationMessages<AgentMessage>(key);
+    if (stored.length > 0) {
+      setMessagesInner(stored);
+      processMessageQueue(key);
+      return;
+    }
+
+    if (typeof defaultMessages !== 'function') {
+      const sync = mapDefaultMessages(defaultMessages);
+      setMessagesInner(sync);
+      setConversationMessages(key, sync);
+      processMessageQueue(key);
+      return;
+    }
+
+    const maybe = defaultMessages({ conversationKey: key });
+    if (!maybe || typeof (maybe as Promise<unknown>).then !== 'function') {
+      const sync = mapDefaultMessages(maybe as DefaultMessageInfo<AgentMessage>[]);
+      setMessagesInner(sync);
+      setConversationMessages(key, sync);
+      processMessageQueue(key);
+      return;
+    }
+
+    isDefaultMessagesRequesting.value = true;
+    try {
+      const list = await maybe;
+      if (activeConversationKey.value !== key) return;
+      const next = mapDefaultMessages(list);
+      setMessagesInner(next);
+      setConversationMessages(key, next);
+    } catch (error) {
+      console.error('[useXChat] defaultMessages load failed', error);
+      if (activeConversationKey.value === key) {
+        setMessagesInner([]);
+      }
+    } finally {
+      if (activeConversationKey.value === key) {
+        isDefaultMessagesRequesting.value = false;
+        processMessageQueue(key);
+      }
+    }
+  };
+
+  // Kick off async defaultMessages for the initial conversation when needed
+  if (
+    typeof defaultMessages === 'function' &&
+    getConversationMessages(activeConversationKey.value).length === 0
+  ) {
+    const maybe = defaultMessages({ conversationKey: activeConversationKey.value });
+    if (maybe && typeof (maybe as Promise<unknown>).then === 'function') {
+      void loadDefaultMessagesForKey(activeConversationKey.value);
+    }
+  }
+
   watch(
     () => (conversationKeyProp === undefined ? undefined : toValue(conversationKeyProp)),
     (key) => {
       if (key === undefined || key === activeConversationKey.value) return;
-      // Persist current before switch
       setConversationMessages(activeConversationKey.value, messages.value);
       activeConversationKey.value = key;
-      setMessagesInner(resolveInitialMessages(key));
+      const stored = getConversationMessages<AgentMessage>(key);
+      if (stored.length > 0) {
+        setMessagesInner(stored);
+        processMessageQueue(key);
+        return;
+      }
+      void loadDefaultMessagesForKey(key);
     },
   );
 
-  const createMessage = (message: AgentMessage, status: MessageStatus) => {
+  const createMessage = (
+    message: AgentMessage,
+    status: MessageStatus,
+    extraInfo?: AnyObject,
+  ) => {
     const msg: MessageInfo<AgentMessage> = {
       id: `msg_${idRef.value}`,
       message,
       status,
     };
+    if (extraInfo) {
+      msg.extraInfo = extraInfo;
+    }
     idRef.value += 1;
     return msg;
   };
@@ -198,6 +309,7 @@ export default function useXChat<
           id: key,
           message: bubbleMsg,
           status: agentMsg.status,
+          extraInfo: agentMsg.extraInfo,
         });
       });
     });
@@ -265,14 +377,14 @@ export default function useXChat<
 
   const innerOnRequest = (
     requestParams: RequestParams<AgentMessage> | Input | SimpleType,
-    opts?: { updatingId?: string | number; reload?: boolean },
+    opts?: { updatingId?: string | number; reload?: boolean; extraInfo?: AnyObject },
   ) => {
     if (!agent)
       throw new Error(
         'The agent parameter is required when using the onRequest method in an agent generated by useXAgent.',
       );
 
-    const { updatingId, reload } = opts || {};
+    const { updatingId, reload, extraInfo } = opts || {};
     let loadingMsgId: number | string | null = null;
     let message: AgentMessage;
     let otherRequestParams: AnyObject = {};
@@ -311,14 +423,23 @@ export default function useXChat<
                     messages: getFilteredMessages(ori),
                   })
                 : requestPlaceholder;
-            return { ...info, status: 'loading' as const, message: placeholderMsg };
+            return {
+              ...info,
+              status: 'loading' as const,
+              message: placeholderMsg,
+              ...(extraInfo ? { extraInfo } : {}),
+            };
           }
-          return { ...info, status: 'loading' as const };
+          return {
+            ...info,
+            status: 'loading' as const,
+            ...(extraInfo ? { extraInfo } : {}),
+          };
         }),
       );
     } else {
       persistAndSetMessages((ori) => {
-        let nextMessages = [...ori, createMessage(message, 'local')];
+        let nextMessages = [...ori, createMessage(message, 'local', extraInfo)];
         if (requestPlaceholder) {
           let placeholderMsg: AgentMessage;
           if (typeof requestPlaceholder === 'function') {
@@ -462,10 +583,17 @@ export default function useXChat<
   };
 
   const onRequest = useEventCallback(
-    (requestParams: RequestParams<AgentMessage> | Input | SimpleType) => {
-      innerOnRequest(requestParams);
+    (
+      requestParams: RequestParams<AgentMessage> | Input | SimpleType,
+      opts?: { extraInfo?: AnyObject },
+    ) => {
+      innerOnRequest(requestParams, opts);
     },
   );
+
+  dispatchRequest = (requestParams, opts) => {
+    innerOnRequest(requestParams, opts);
+  };
 
   /**
    * Regenerate an existing message in place (aligned with @ant-design/x-sdk onReload).
@@ -474,6 +602,7 @@ export default function useXChat<
   const onReload = (
     id: string | number,
     requestParams?: RequestParams<AgentMessage> | Input | SimpleType,
+    opts?: { extraInfo?: AnyObject },
   ) => {
     if (!agent)
       throw new Error(
@@ -496,7 +625,27 @@ export default function useXChat<
       params = prevLocal.message;
     }
 
-    innerOnRequest(params, { updatingId: id, reload: true });
+    innerOnRequest(params, { updatingId: id, reload: true, extraInfo: opts?.extraInfo });
+  };
+
+  /**
+   * Queue a request for a conversation (e.g. while switching / loading history).
+   * Flushed when defaultMessages loading finishes for that key.
+   */
+  const queueRequest = (
+    conversationKey: ConversationKey,
+    requestParams: RequestParams<AgentMessage> | Input | SimpleType,
+    opts?: { extraInfo?: AnyObject },
+  ) => {
+    const queue = messageQueue.get(conversationKey) || [];
+    queue.push({ requestParams, opts });
+    messageQueue.set(conversationKey, queue);
+    if (
+      conversationKey === activeConversationKey.value &&
+      !isDefaultMessagesRequesting.value
+    ) {
+      processMessageQueue(conversationKey);
+    }
   };
 
   return {
@@ -510,5 +659,7 @@ export default function useXChat<
     removeMessage,
     conversationKey: activeConversationKey,
     isRequesting,
+    isDefaultMessagesRequesting,
+    queueRequest,
   } as const;
 }

@@ -144,7 +144,7 @@ watch(() => unref(displayData).length, () => {
 
 // =========================== Context ============================
 // When bubble content update, we try to trigger `autoScroll` for sync
-const onBubbleUpdate = useEventCallback<void>(() => {
+const onBubbleUpdate = useEventCallback(() => {
   if (autoScroll) {
     setUpdateCount(unref(updateCount) + 1);
   }

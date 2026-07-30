@@ -33,6 +33,10 @@ export interface XRequestBaseOptions {
 
 interface XRequestCustomOptions {
   /**
+   * @description Extra headers merged into every request
+   */
+  headers?: Record<string, string>;
+  /**
    * @description Custom fetch
    */
   fetch?: XFetchOptions['fetch'];
@@ -71,6 +75,48 @@ interface XRequestCustomOptions {
 }
 
 export type XRequestOptions = XRequestBaseOptions & XRequestCustomOptions;
+
+/** Global defaults applied to every XRequest instance (aligned with @ant-design/x-sdk). */
+export type XRequestGlobalOptions = Pick<
+  XRequestOptions,
+  | 'headers'
+  | 'timeout'
+  | 'streamTimeout'
+  | 'middlewares'
+  | 'fetch'
+  | 'retryInterval'
+  | 'retryTimes'
+  | 'streamSeparator'
+  | 'partSeparator'
+  | 'kvSeparator'
+>;
+
+const globalOptions: XRequestGlobalOptions = {
+  headers: {
+    'Content-Type': 'application/json',
+  },
+};
+
+/**
+ * Set app-wide XRequest defaults (headers / timeout / middlewares / fetch…).
+ * Instance options override global ones.
+ */
+export function setXRequestGlobalOptions(options: XRequestGlobalOptions) {
+  Object.assign(globalOptions, options);
+}
+
+/** Test / debug helper */
+export function getXRequestGlobalOptions(): Readonly<XRequestGlobalOptions> {
+  return globalOptions;
+}
+
+/** Reset globals (tests) */
+export function resetXRequestGlobalOptions() {
+  for (const key of Object.keys(globalOptions) as (keyof XRequestGlobalOptions)[]) {
+    delete globalOptions[key];
+  }
+  globalOptions.headers = { 'Content-Type': 'application/json' };
+}
 
 type XRequestMessageContent = string | AnyObject;
 
@@ -158,6 +204,7 @@ class XRequestClass {
       baseURL,
       model,
       dangerouslyApiKey,
+      headers,
       fetch: customFetch,
       middlewares,
       timeout,
@@ -172,21 +219,24 @@ class XRequestClass {
     this.baseURL = baseURL;
     this.model = model;
     this.defaultHeaders = {
+      ...(globalOptions.headers || {}),
       'Content-Type': 'application/json',
+      ...(headers || {}),
       ...(dangerouslyApiKey && {
         Authorization: dangerouslyApiKey,
       }),
     };
     this.customOptions = {
-      fetch: customFetch,
-      middlewares,
-      timeout,
-      streamTimeout,
-      retryInterval,
-      retryTimes,
-      streamSeparator,
-      partSeparator,
-      kvSeparator,
+      headers,
+      fetch: customFetch ?? globalOptions.fetch,
+      middlewares: middlewares ?? globalOptions.middlewares,
+      timeout: timeout ?? globalOptions.timeout,
+      streamTimeout: streamTimeout ?? globalOptions.streamTimeout,
+      retryInterval: retryInterval ?? globalOptions.retryInterval,
+      retryTimes: retryTimes ?? globalOptions.retryTimes,
+      streamSeparator: streamSeparator ?? globalOptions.streamSeparator,
+      partSeparator: partSeparator ?? globalOptions.partSeparator,
+      kvSeparator: kvSeparator ?? globalOptions.kvSeparator,
     };
   }
 

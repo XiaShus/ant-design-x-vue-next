@@ -19,6 +19,18 @@ customClass: changelog-page
 
 ---
 
+## 1.14.0
+
+`2026-07-30`
+
+### ant-design-x-vue-next
+
+- 🆕 `setXRequestGlobalOptions`：应用级 headers / timeout / middlewares / fetch 默认值。
+- 🆕 `useXChat`：异步 `defaultMessages`、`isDefaultMessagesRequesting`、`queueRequest`、`MessageInfo.extraInfo`。
+- 🛠 GitHub Release 流水线：npm 版本已存在时跳过 publish，避免本地发版后再推 tag 导致 E403。
+- 🛠 补建此前失败的 `v1.12.0` / `v1.13.0` GitHub Release。
+- 🛠 发布 npm 包 [`ant-design-x-vue-next@1.14.0`](https://www.npmjs.com/package/ant-design-x-vue-next)。
+
 ## 1.13.0
 
 `2026-07-30`
