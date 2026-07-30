@@ -19,6 +19,15 @@ customClass: changelog-page
 
 ---
 
+## 1.86.0
+
+`2026-07-31`
+
+### ant-design-x-vue-next
+
+- 📖 Folder：补齐 `classNames` / `styles`（root/directoryTree/directoryTitle/filePreview/previewTitle/previewRender）文档与单测（对齐 React Semantic DOM）。
+- 🛠 发布 npm 包 [`ant-design-x-vue-next@1.86.0`](https://www.npmjs.com/package/ant-design-x-vue-next)。
+
 ## 1.85.0
 
 `2026-07-31`

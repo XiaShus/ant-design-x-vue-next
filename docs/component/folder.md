@@ -42,6 +42,19 @@ folder/basic
 | onFileClick | 点击文件 | `(path, content?) => void` | - |
 | onFolderClick | 点击文件夹 | `(path) => void` | - |
 | onRightClick | 右键点击节点回调 | `(info: \{ event: MouseEvent; node: any \}) => void` | - |
+| classNames | 语义化 className | Record<'root' \| 'directoryTree' \| 'directoryTitle' \| 'filePreview' \| 'previewTitle' \| 'previewRender', string> | - | 1.86.0（文档/单测） |
+| styles | 语义化 style | Record<'root' \| 'directoryTree' \| 'directoryTitle' \| 'filePreview' \| 'previewTitle' \| 'previewRender', CSSProperties> | - | 1.86.0（文档/单测） |
+
+### Semantic DOM
+
+| 名称 | 说明 |
+| --- | --- |
+| root | 根容器 |
+| directoryTree | 左侧目录树区域 |
+| directoryTitle | 目录区标题 |
+| filePreview | 右侧预览区域 |
+| previewTitle | 预览区标题 |
+| previewRender | 预览内容区 |
 
 ### FolderTreeData
 
