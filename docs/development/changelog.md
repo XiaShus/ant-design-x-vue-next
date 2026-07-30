@@ -19,6 +19,12 @@ customClass: changelog-page
 
 ---
 
+## Unreleased
+
+### ant-design-x-vue-next
+
+- 🆕 新增内置 `XMarkdown`（MVP）：`marked` + `DOMPurify`，支持流式尾标、自定义组件映射；代码块默认对接 `CodeHighlighter` / `Mermaid`。
+
 ## 1.8.0
 
 `2026-07-30`

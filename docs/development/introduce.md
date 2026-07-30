@@ -137,6 +137,7 @@ const messages = [{ content: 'Hello, Ant Design X Vue Next!', role: 'user' }];
 - **表达**: `Sender`、`Attachments`、`Suggestion`、`Folder`、`CodeHighlighter`、`Mermaid`
 - **确认**: `Think`、`ThoughtChain`
 - **反馈**: `Actions`、`Sources`、`FileCard`
+- **工具**: `XMarkdown`（MVP）、`useXAgent` / `useXChat` / `XStream` / `XRequest`、`XProvider`
 
 完整对照见 [与 Ant Design X 对齐](/component/align)。
 

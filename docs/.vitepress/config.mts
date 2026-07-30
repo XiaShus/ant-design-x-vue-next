@@ -153,6 +153,7 @@ export default defineConfig({
         {
           text: '工具',
           items: [
+            { text: 'XMarkdown Markdown 渲染', link: '/component/x-markdown' },
             { text: 'useXAgent 模型调度', link: '/component/use-x-agent' },
             { text: 'useXChat 数据管理', link: '/component/use-x-chat' },
             { text: 'XStream 流', link: '/component/x-stream' },

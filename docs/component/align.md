@@ -31,11 +31,12 @@ React 2.x 已拆出独立包，Vue Next 尚未拆分：
 | 包 | React | Vue Next |
 | --- | --- | --- |
 | `@ant-design/x-sdk`（含 XRequest / XStream / Chat 能力） | ✅ | 仍以内置 `useXChat` / `XRequest` / `XStream` 提供 |
-| `@ant-design/x-markdown` | ✅ | ⏳ |
+| `@ant-design/x-markdown` | ✅ | ✅ MVP（内置 `XMarkdown`，未拆独立包） |
 | `@ant-design/x-card` | ✅ | ⏳ |
 
 本仓库工具类文档：
 
+- [XMarkdown](/component/x-markdown)
 - [useXAgent](/component/use-x-agent)
 - [useXChat](/component/use-x-chat)
 - [XStream](/component/x-stream)
@@ -48,6 +49,7 @@ React 2.x 已拆出独立包，Vue Next 尚未拆分：
 3. ~~Notification~~ ✅
 4. ~~CodeHighlighter~~ ✅
 5. ~~Mermaid~~ ✅
-6. Markdown / SDK 能力对齐（独立包，非本仓库 RICH 组件）
+6. ~~XMarkdown MVP~~ ✅（继续对齐流式 token 缓存 / 独立包）
+7. `x-card` / SDK 能力细化
 
 参考源码：[`ant-design/x`](https://github.com/ant-design/x)

@@ -182,6 +182,14 @@ const allComponents: OverviewItem[] = [
     status: 'ready',
   },
   {
+    id: 'x-markdown',
+    category: '工具',
+    title: 'XMarkdown Markdown 渲染',
+    description: '流式友好的 Markdown 渲染（MVP）',
+    icon: <CodeOutlined style={{ color: '#1677ff' }} />,
+    status: 'ready',
+  },
+  {
     id: 'use-x-agent',
     category: '工具',
     title: 'useXAgent',
@@ -263,6 +271,7 @@ const componentRoutes: Record<string, string> = {
   actions: '/component/actions',
   sources: '/component/sources',
   'file-card': '/component/file-card',
+  'x-markdown': '/component/x-markdown',
   'use-x-agent': '/component/use-x-agent',
   'use-x-chat': '/component/use-x-chat',
   'x-stream': '/component/x-stream',
