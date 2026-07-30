@@ -276,7 +276,7 @@ type SkillType = {
 | focus         | 获取焦点 | (option?: { preventScroll?: boolean, cursor?: 'start' \| 'end' \| 'all' \| 'slot', key?: string }) | - | - |
 | blur          | 取消焦点 | () => void                                                                 | -      | -    |
 | getValue      | 获取词槽合成值（slot 模式） | () => \{ value: string; slotConfig: SlotConfigType[]; skill?: SkillType \} | - | 1.22.0 |
-| insert        | 插入文本或词槽；普通模式支持 `insert(string)`，slot 模式支持字符串或 `SlotConfigType[]` | `((value: string) => void) & ((slotConfig: SlotConfigType[], position?: 'start' \| 'end' \| 'cursor', replaceCharacters?: string, preventScroll?: boolean) => void)` | - | 1.41.0（字符串重载） |
+| insert        | 插入文本或词槽；`position: 'cursor'` 按选区插入，`replaceCharacters` 可删除光标前触发符（如 `/`） | `((value: string) => void) & ((slotConfig: SlotConfigType[], position?: 'start' \| 'end' \| 'cursor', replaceCharacters?: string, preventScroll?: boolean) => void)` | - | 1.41.0（字符串）；1.42.0（cursor / replaceCharacters） |
 | clear         | 清空输入（slot 模式重置插入项） | () => void | - | 1.22.0 |
 
 ### Sender.Header

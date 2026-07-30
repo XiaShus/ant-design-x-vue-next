@@ -19,6 +19,16 @@ customClass: changelog-page
 
 ---
 
+## 1.42.0
+
+`2026-07-31`
+
+### ant-design-x-vue-next
+
+- 🆕 SlotTextArea `insert(..., 'cursor')` 按选区插入并拆分文本词槽（对齐 React）。
+- 🆕 `replaceCharacters` / `preventScroll`；失焦后仍可用上次选区插入。
+- 🛠 发布 npm 包 [`ant-design-x-vue-next@1.42.0`](https://www.npmjs.com/package/ant-design-x-vue-next)。
+
 ## 1.41.0
 
 `2026-07-31`

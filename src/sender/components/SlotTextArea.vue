@@ -49,6 +49,8 @@ const props = defineProps<{
 const containerRef = ref<HTMLDivElement | null>(null);
 const normalizedConfig = ref<SlotConfigType[]>([]);
 const insertedSlots = ref<SlotConfigType[]>([]);
+/** Full list override after mid-list cursor inserts (null = config + insertedSlots). */
+const runtimeSlots = ref<SlotConfigType[] | null>(null);
 const runtimeKeys = ref<Set<string>>(new Set());
 const slotValues = ref<Record<string, any>>({});
 const textContents = ref<Record<string, string>>({});
@@ -56,6 +58,8 @@ const currentSkill = ref<SkillType | undefined>(props.skill);
 const isCompositionRef = ref(false);
 const editableDomMap = new Map<string, HTMLElement>();
 let savedSelectionRange: Range | null = null;
+/** Persists across blur so insert(..., 'cursor') still works. */
+let lastSelectionRange: Range | null = null;
 let textKeySeq = 0;
 
 const slotCls = computed(() => `${props.prefixCls}-slot`);
@@ -102,7 +106,55 @@ const buildTextContents = (config: readonly SlotConfigType[]): Record<string, st
     return acc;
   }, {});
 
-const mergedSlots = computed(() => [...normalizedConfig.value, ...insertedSlots.value]);
+const mergedSlots = computed(
+  () => runtimeSlots.value ?? [...normalizedConfig.value, ...insertedSlots.value],
+);
+
+const persistSelection = () => {
+  const root = containerRef.value;
+  const selection = window.getSelection();
+  if (
+    root &&
+    selection &&
+    selection.rangeCount > 0 &&
+    selection.anchorNode &&
+    root.contains(selection.anchorNode)
+  ) {
+    try {
+      lastSelectionRange = selection.getRangeAt(0).cloneRange();
+    } catch {
+      // ignore
+    }
+  }
+};
+
+const getActiveRange = (): Range | null => {
+  const root = containerRef.value;
+  const selection = window.getSelection();
+  if (
+    root &&
+    selection &&
+    selection.rangeCount > 0 &&
+    selection.anchorNode &&
+    root.contains(selection.anchorNode)
+  ) {
+    try {
+      return selection.getRangeAt(0).cloneRange();
+    } catch {
+      // fall through
+    }
+  }
+  if (lastSelectionRange && root) {
+    try {
+      // Stale ranges may throw when accessed after DOM updates
+      void lastSelectionRange.startContainer;
+      return lastSelectionRange.cloneRange();
+    } catch {
+      return null;
+    }
+  }
+  return null;
+};
 
 const syncEditableDomFromState = () => {
   editableDomMap.forEach((el, mapKey) => {
@@ -159,6 +211,7 @@ const syncStateFromEditableDom = () => {
 watch(
   () => props.slotConfig,
   (config) => {
+    runtimeSlots.value = null;
     normalizedConfig.value = ensureSlotKeys(config ?? [], 'cfg');
     const nextValues = buildSlotValues(normalizedConfig.value);
     runtimeKeys.value.forEach((key) => {
@@ -300,10 +353,51 @@ const getValue = () => ({
   skill: currentSkill.value,
 });
 
+const applyMergedList = (next: SlotConfigType[], extraValues: Record<string, any>, extraTexts: Record<string, string>) => {
+  const keyed = ensureSlotKeys(next, `rt_${++textKeySeq}`);
+  keyed.forEach((node) => {
+    if (node.key) {
+      runtimeKeys.value.add(node.key);
+    }
+  });
+  runtimeSlots.value = keyed;
+  insertedSlots.value = [];
+  slotValues.value = { ...slotValues.value, ...buildSlotValues(keyed), ...extraValues };
+  textContents.value = { ...buildTextContents(keyed), ...extraTexts };
+};
+
+const getCursorSlotContext = (range: Range) => {
+  const root = containerRef.value;
+  if (!root) return null;
+  const startNode = range.startContainer;
+  const el =
+    (startNode.nodeType === Node.ELEMENT_NODE
+      ? (startNode as HTMLElement)
+      : startNode.parentElement)?.closest('[data-slot-key]') as HTMLElement | null;
+  if (!el || !root.contains(el)) {
+    return null;
+  }
+  const key = el.getAttribute('data-slot-key') || '';
+  const slotType = el.getAttribute('data-slot-type') || '';
+  const index = mergedSlots.value.findIndex(
+    (item) => item.key === key || getTextKey(item) === key,
+  );
+  if (index < 0) {
+    return null;
+  }
+  let textOffset = 0;
+  if (startNode.nodeType === Node.TEXT_NODE) {
+    textOffset = range.startOffset;
+  } else if (slotType === 'text' || slotType === 'content') {
+    textOffset = (el.textContent ?? '').length;
+  }
+  return { index, key, slotType, textOffset, el };
+};
+
 const insertSlots = (
   slots: SlotConfigType[],
   position: InsertPosition = 'end',
-  _replaceCharacters?: string,
+  replaceCharacters?: string,
   preventScroll?: boolean,
 ) => {
   const keyedSlots = ensureSlotKeys(slots, `ins_${++textKeySeq}`);
@@ -315,15 +409,117 @@ const insertSlots = (
     }
   });
 
+  syncStateFromEditableDom();
+
   if (position === 'start') {
-    insertedSlots.value = [...keyedSlots, ...insertedSlots.value];
+    if (runtimeSlots.value) {
+      applyMergedList([...keyedSlots, ...runtimeSlots.value], newValues, newTexts);
+    } else {
+      insertedSlots.value = [...keyedSlots, ...insertedSlots.value];
+      slotValues.value = { ...slotValues.value, ...newValues };
+      textContents.value = { ...textContents.value, ...newTexts };
+    }
+  } else if (position === 'cursor') {
+    const range = getActiveRange();
+    const ctx = range ? getCursorSlotContext(range) : null;
+    if (!ctx) {
+      // Fallback: end
+      if (runtimeSlots.value) {
+        applyMergedList([...runtimeSlots.value, ...keyedSlots], newValues, newTexts);
+      } else {
+        insertedSlots.value = [...insertedSlots.value, ...keyedSlots];
+        slotValues.value = { ...slotValues.value, ...newValues };
+        textContents.value = { ...textContents.value, ...newTexts };
+      }
+    } else {
+      const current = [...mergedSlots.value];
+      const target = current[ctx.index];
+      let offset = ctx.textOffset;
+      const isTextLike = target.type === 'text' || target.type === 'content';
+
+      if (isTextLike) {
+        const full =
+          target.type === 'text'
+            ? (textContents.value[getTextKey(target)] ?? target.value ?? '')
+            : String(slotValues.value[target.key!] ?? '');
+        let replaceLen = 0;
+        if (
+          replaceCharacters &&
+          replaceCharacters.length > 0 &&
+          offset >= replaceCharacters.length &&
+          full.slice(0, offset).endsWith(replaceCharacters)
+        ) {
+          replaceLen = replaceCharacters.length;
+        }
+        const beforeText = full.slice(0, offset - replaceLen);
+        // Drop replaced trigger chars between before and after (React deletes the range).
+        const afterText = full.slice(offset);
+        const beforePart: SlotConfigType[] = current.slice(0, ctx.index);
+        const afterPart: SlotConfigType[] = current.slice(ctx.index + 1);
+        const splitBefore: SlotConfigType | null =
+          beforeText.length > 0
+            ? target.type === 'text'
+              ? { type: 'text', key: `${getTextKey(target)}_b_${textKeySeq}`, value: beforeText }
+              : {
+                  ...target,
+                  key: `${target.key}_b_${textKeySeq}`,
+                  props: { ...target.props, defaultValue: beforeText },
+                }
+            : null;
+        const splitAfter: SlotConfigType | null =
+          afterText.length > 0
+            ? target.type === 'text'
+              ? { type: 'text', key: `${getTextKey(target)}_a_${textKeySeq}`, value: afterText }
+              : {
+                  ...target,
+                  key: `${target.key}_a_${textKeySeq}`,
+                  props: { ...target.props, defaultValue: afterText },
+                }
+            : null;
+
+        const next: SlotConfigType[] = [
+          ...beforePart,
+          ...(splitBefore ? [splitBefore] : []),
+          ...keyedSlots,
+          ...(splitAfter ? [splitAfter] : []),
+          ...afterPart,
+        ];
+        const extraTexts: Record<string, string> = { ...newTexts };
+        const extraValues: Record<string, any> = { ...newValues };
+        if (splitBefore?.type === 'text' && splitBefore.key) {
+          extraTexts[splitBefore.key] = beforeText;
+        }
+        if (splitAfter?.type === 'text' && splitAfter.key) {
+          extraTexts[splitAfter.key] = afterText;
+        }
+        if (splitBefore?.type === 'content' && splitBefore.key) {
+          extraValues[splitBefore.key] = beforeText;
+        }
+        if (splitAfter?.type === 'content' && splitAfter.key) {
+          extraValues[splitAfter.key] = afterText;
+        }
+        applyMergedList(next, extraValues, extraTexts);
+      } else {
+        // Non-text slot: insert after it
+        const next = [
+          ...current.slice(0, ctx.index + 1),
+          ...keyedSlots,
+          ...current.slice(ctx.index + 1),
+        ];
+        applyMergedList(next, newValues, newTexts);
+      }
+    }
   } else {
-    // 'cursor' falls back to end for this MVP (full cursor insert is React-parity gap)
-    insertedSlots.value = [...insertedSlots.value, ...keyedSlots];
+    // end
+    if (runtimeSlots.value) {
+      applyMergedList([...runtimeSlots.value, ...keyedSlots], newValues, newTexts);
+    } else {
+      insertedSlots.value = [...insertedSlots.value, ...keyedSlots];
+      slotValues.value = { ...slotValues.value, ...newValues };
+      textContents.value = { ...textContents.value, ...newTexts };
+    }
   }
 
-  slotValues.value = { ...slotValues.value, ...newValues };
-  textContents.value = { ...textContents.value, ...newTexts };
   nextTick(() => {
     syncEditableDomFromState();
     emitChange();
@@ -340,15 +536,22 @@ const insert: SlotTextAreaRef['insert'] = ((
   preventScroll?: boolean,
 ) => {
   if (typeof valueOrSlots === 'string') {
-    insertSlots([{ type: 'text', value: valueOrSlots }], 'end', undefined, preventScroll);
+    insertSlots(
+      [{ type: 'text', value: valueOrSlots }],
+      position ?? 'end',
+      replaceCharacters,
+      preventScroll,
+    );
     return;
   }
   insertSlots(valueOrSlots, position ?? 'end', replaceCharacters, preventScroll);
 }) as SlotTextAreaRef['insert'];
 
 const clear = () => {
+  runtimeSlots.value = null;
   insertedSlots.value = [];
   runtimeKeys.value.clear();
+  lastSelectionRange = null;
   slotValues.value = buildSlotValues(normalizedConfig.value);
   textContents.value = buildTextContents(normalizedConfig.value);
   currentSkill.value = props.skill;
@@ -668,6 +871,10 @@ defineRender(() => {
       spellcheck={false}
       onKeydown={onInternalKeyDown}
       onKeypress={onInternalKeyPress}
+      onKeyup={persistSelection}
+      onMouseup={persistSelection}
+      onSelect={persistSelection}
+      onBlur={persistSelection}
       onCompositionstart={onInternalCompositionStart}
       onCompositionend={onInternalCompositionEnd}
       onInput={onInternalInput}

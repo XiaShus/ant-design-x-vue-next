@@ -270,4 +270,62 @@ describe('Sender slot filling', () => {
     expect(wrapper.find('[contenteditable="true"]').exists()).toBe(false);
     expect(wrapper.find('[contenteditable="false"]').exists()).toBe(true);
   });
+
+  it('insert at cursor splits text slot', async () => {
+    const wrapper = mount(Sender, {
+      props: {
+        slotConfig: [{ type: 'text', value: 'HelloWorld' }],
+      },
+      attachTo: document.body,
+    });
+    await nextTick();
+
+    const textEl = wrapper.find('[data-slot-type="text"]').element as HTMLElement;
+    // Ensure DOM text is hydrated
+    expect(textEl.textContent).toBe('HelloWorld');
+    const textNode = textEl.firstChild as Text;
+    const selection = window.getSelection();
+    const range = document.createRange();
+    range.setStart(textNode, 5);
+    range.collapse(true);
+    selection?.removeAllRanges();
+    selection?.addRange(range);
+
+    (wrapper.vm as any).insert?.([{ type: 'text', value: '_' }], 'cursor');
+    await nextTick();
+
+    expect((wrapper.vm as any).getValue?.().value).toBe('Hello_World');
+    wrapper.unmount();
+  });
+
+  it('insert cursor replaceCharacters removes trigger suffix', async () => {
+    const wrapper = mount(Sender, {
+      props: {
+        slotConfig: [{ type: 'text', value: 'Say /' }],
+      },
+      attachTo: document.body,
+    });
+    await nextTick();
+
+    const textEl = wrapper.find('[data-slot-type="text"]').element as HTMLElement;
+    const textNode = textEl.firstChild as Text;
+    const selection = window.getSelection();
+    const range = document.createRange();
+    range.setStart(textNode, textNode.length);
+    range.collapse(true);
+    selection?.removeAllRanges();
+    selection?.addRange(range);
+
+    (wrapper.vm as any).insert?.(
+      [{ type: 'tag', key: 'cmd', props: { label: 'help', value: 'help' } }],
+      'cursor',
+      '/',
+    );
+    await nextTick();
+
+    const val = (wrapper.vm as any).getValue?.();
+    expect(val?.value).toBe('Say help');
+    expect(val?.value).not.toContain('/');
+    wrapper.unmount();
+  });
 });
