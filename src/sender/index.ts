@@ -19,6 +19,12 @@ export type { SenderSwitchProps, SenderSwitchRef } from './switch-types';
 export type {
   SkillType,
   SlotConfigType,
+  SlotConfigTextType,
+  SlotConfigContentType,
+  SlotConfigInputType,
+  SlotConfigSelectType,
+  SlotConfigTagType,
+  SlotConfigCustomType,
   InsertPosition,
   SlotTextAreaRef,
   SlotTextAreaFocusOptions,

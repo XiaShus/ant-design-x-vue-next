@@ -246,14 +246,16 @@ type ActionsComponents = {
 type FooterRender = (info: { components: ActionsComponents }) => VNode;
 ```
 
+自 `1.104.0` 起可从包入口 `import type { SlotConfigTextType, SlotConfigInputType, SlotConfigSelectType, SlotConfigTagType, SlotConfigCustomType, SlotConfigContentType }`（`SlotConfigType` 联合成员）。
+
 ```typescript | pure
 type SlotConfigType =
-  | { type: 'text'; value?: string; key?: string }
-  | { type: 'input'; key: string; props?: { defaultValue?: string; placeholder?: string } }
-  | { type: 'content'; key: string; props?: { defaultValue?: any; placeholder?: string } }
-  | { type: 'select'; key: string; props?: { defaultValue?: string; options: string[]; placeholder?: string } }
-  | { type: 'tag'; key: string; props?: { label: VNode; value?: string } }
-  | { type: 'custom'; key: string; props?: Record<string, any>; customRender?: (...args) => VNode; formatResult?: (value: any) => string };
+  | SlotConfigTextType
+  | SlotConfigInputType
+  | SlotConfigSelectType
+  | SlotConfigTagType
+  | SlotConfigCustomType
+  | SlotConfigContentType;
 
 type SkillType = {
   title?: VNode;

@@ -19,6 +19,15 @@ customClass: changelog-page
 
 ---
 
+## 1.104.0
+
+`2026-07-31`
+
+### ant-design-x-vue-next
+
+- 🆕 导出 Sender 词槽成员类型 `SlotConfigTextType` / `SlotConfigInputType` / `SlotConfigSelectType` / `SlotConfigTagType` / `SlotConfigCustomType` / `SlotConfigContentType`。
+- 🛠 发布 npm 包 [`ant-design-x-vue-next@1.104.0`](https://www.npmjs.com/package/ant-design-x-vue-next)。
+
 ## 1.103.0
 
 `2026-07-31`

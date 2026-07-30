@@ -2,6 +2,15 @@
 
 > Vue Next 文档站时间线版见 [更新日志](https://ant-design-x-vue-next-524.netlify.app/development/changelog.html)。
 
+## 1.104.0
+
+`2026-07-31`
+
+### ant-design-x-vue-next
+
+- 🆕 导出 Sender 词槽成员类型 `SlotConfigTextType` / `SlotConfigInputType` / `SlotConfigSelectType` / `SlotConfigTagType` / `SlotConfigCustomType` / `SlotConfigContentType`
+- 🛠 发布 npm `ant-design-x-vue-next@1.104.0`
+
 ## 1.103.0
 
 `2026-07-31`
