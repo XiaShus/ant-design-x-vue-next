@@ -1,22 +1,18 @@
 <script setup lang="ts">
 import { BulbOutlined, DownOutlined, LoadingOutlined, UpOutlined, UserOutlined } from '@ant-design/icons-vue';
-import { Button, Space, Typography } from 'ant-design-vue';
-import { Bubble, type BubbleProps } from 'ant-design-x-vue';
-import markdownit from 'markdown-it';
+import { Button, Space } from 'ant-design-vue';
+import { Bubble, XMarkdown, type BubbleProps } from 'ant-design-x-vue';
 import { h, ref } from 'vue';
 
 defineOptions({ name: 'AXBubbleWithThinkSetup' });
-
-const md = markdownit({ html: true, breaks: true });
 
 const think = ref(false);
 const collapse = ref(false);
 const thinkContent = ref('');
 const answerContent = ref('');
 
-const renderMarkdown: BubbleProps['messageRender'] = (content) => {
-  return h(Typography, null, () => h('div', { innerHTML: md.render(content) }));
-};
+const renderMarkdown: BubbleProps['messageRender'] = (content) =>
+  h(XMarkdown, { content, openLinksInNewTab: true });
 </script>
 
 <template>

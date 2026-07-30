@@ -25,6 +25,14 @@ use-x-chat/stream
 
 :::
 
+### 重新生成
+
+:::demo 助手气泡底部用 `Actions` 接 `onReload`（原地重试）与复制，不重复追加用户消息。
+
+use-x-chat/reload
+
+:::
+
 ### 多项建议
 
 :::demo 通过定制能力，返回多个推荐内容。

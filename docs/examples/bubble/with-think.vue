@@ -1,13 +1,10 @@
 <script setup lang="tsx">
 import { BulbOutlined, DownOutlined, LoadingOutlined, UpOutlined, UserOutlined } from '@ant-design/icons-vue';
-import { Button, Space, Typography } from 'ant-design-vue';
-import { Bubble, type BubbleProps } from 'ant-design-x-vue';
-import markdownit from 'markdown-it';
+import { Button, Space } from 'ant-design-vue';
+import { Bubble, XMarkdown, type BubbleProps } from 'ant-design-x-vue';
 import { ref } from 'vue';
 
 defineOptions({ name: 'AXBubbleWithThink' });
-
-const md = markdownit({ html: true, breaks: true });
 
 const think = ref(false);
 const collapse = ref(false);
@@ -15,9 +12,7 @@ const thinkContent = ref('');
 const answerContent = ref('');
 
 const renderMarkdown: BubbleProps['messageRender'] = (content) => (
-  <Typography>
-    <div v-html={md.render(content)} />
-  </Typography>
+  <XMarkdown content={content} openLinksInNewTab />
 );
 
 defineRender(() => {
