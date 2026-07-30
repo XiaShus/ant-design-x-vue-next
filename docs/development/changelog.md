@@ -19,6 +19,15 @@ customClass: changelog-page
 
 ---
 
+## 1.72.0
+
+`2026-07-31`
+
+### ant-design-x-vue-next
+
+- 🆕 FileCard：支持 `spinProps` 图片加载层（对齐 React；含 `showText` / `icon` / `percent: 'auto'`）。
+- 🛠 发布 npm 包 [`ant-design-x-vue-next@1.72.0`](https://www.npmjs.com/package/ant-design-x-vue-next)。
+
 ## 1.71.0
 
 `2026-07-31`

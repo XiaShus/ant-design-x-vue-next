@@ -57,6 +57,22 @@ describe('FileCard', () => {
     });
     expect(byPreset.find('[aria-label="python"]').exists()).toBe(true);
   });
+
+  it('supports spinProps on image loading overlay', () => {
+    const wrapper = mount(FileCard, {
+      props: {
+        name: 'photo.png',
+        type: 'image',
+        loading: true,
+        spinProps: { size: 'small', showText: true },
+      },
+    });
+
+    expect(wrapper.find('.ant-file-card-image-loading').exists()).toBe(true);
+    expect(wrapper.find('.ant-file-card-image-spin-small').exists()).toBe(true);
+    expect(wrapper.find('.ant-file-card-image-spin-text').exists()).toBe(true);
+    expect(wrapper.find('.ant-spin').exists()).toBe(true);
+  });
 });
 
 describe('FileCard.List', () => {

@@ -11,10 +11,11 @@ import {
   FileWordFilled,
   FileZipFilled,
 } from '@ant-design/icons-vue';
-import { Image, Spin } from 'ant-design-vue';
+import { Image } from 'ant-design-vue';
 import pickAttrs from '../_util/pick-attrs';
 import useXComponentConfig from '../_util/hooks/use-x-component-config';
 import { useXProviderContext } from '../x-provider';
+import ImageLoading from './components/ImageLoading.vue';
 import AudioIcon from './icons/AudioIcon.vue';
 import JavaIcon from './icons/JavaIcon.vue';
 import JavaScriptIcon from './icons/JavaScriptIcon.vue';
@@ -178,9 +179,11 @@ defineRender(() => {
           {...(props.imageProps as any)}
         />
         {props.loading && (
-          <div class={`${prefixCls.value}-image-loading`} style={props.styles.file}>
-            <Spin />
-          </div>
+          <ImageLoading
+            prefixCls={prefixCls.value}
+            style={props.styles.file}
+            spinProps={props.spinProps}
+          />
         )}
       </div>
     );

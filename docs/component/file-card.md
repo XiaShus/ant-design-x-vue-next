@@ -38,6 +38,8 @@ file-card/list
 | type | 文件类型 | `'file' \| 'image' \| 'audio' \| 'video'` | - |
 | src | 资源地址 | string | - |
 | icon | 自定义图标；预设含 `java` / `javascript` / `python`（对齐 React） | VNode \| PresetIcons | - | 1.69.0（语言图标） |
+| imageProps | 图片属性，同 ant-design-vue Image | ImageProps | - | - |
+| spinProps | 图片加载中 Spin 配置；含 `showText` / `icon` / `percent`（`'auto'`） | SpinProps & \{ showText?: boolean; icon?: VNode; percent?: number \| 'auto' \} | - | 1.72.0 |
 | onClick | 点击回调 | `(info, event) => void` | - |
 
 ### FileCard.List

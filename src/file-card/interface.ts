@@ -1,6 +1,16 @@
 import type { CSSProperties, HTMLAttributes, VNode } from 'vue';
-import type { ImageProps } from 'ant-design-vue';
+import type { ImageProps, SpinProps } from 'ant-design-vue';
 import type { AvoidValidation } from '../type-utility';
+
+/** Align React FileCard spinProps (Spin + showText / icon / percent). */
+export type FileCardSpinProps = SpinProps & {
+  showText?: boolean;
+  icon?: AvoidValidation<VNode>;
+  /** Progress percent; `'auto'` simulates progress text (Vue Spin has no percent ring). */
+  percent?: number | 'auto';
+  /** Accept React `middle` as alias of Vue `default`. */
+  size?: SpinProps['size'] | 'middle' | 'medium';
+};
 
 export type FileCardSemanticType = 'root' | 'file' | 'icon' | 'name' | 'description';
 
@@ -51,6 +61,8 @@ export interface FileCardProps extends /* @vue-ignore */ Omit<HTMLAttributes, 'o
   icon?: AvoidValidation<VNode | PresetIcons>;
   type?: CardType;
   imageProps?: ImageProps;
+  /** Align React: image loading Spin / progress overlay props. */
+  spinProps?: FileCardSpinProps;
   videoProps?: Record<string, any>;
   audioProps?: Record<string, any>;
   onClick?: (info: CardInfo, event: MouseEvent) => void;
