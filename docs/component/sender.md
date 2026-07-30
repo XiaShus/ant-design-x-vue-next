@@ -80,6 +80,14 @@ sender/actions
 
 </ClientOnly>
 
+### 模式开关 Switch
+
+:::demo `Sender.Switch`：思考 / 搜索等模式切换（受控与非受控）。
+
+sender/switch
+
+:::
+
 ### 展开面板
 
 <ClientOnly>
@@ -233,6 +241,19 @@ type ActionsComponents = {
 | open         | 是否展开                                    | boolean                 | -      | -    |
 | title        | 标题                                        | VNode                   | -      | -    |
 | onOpenChange | 展开状态改变的回调                          | (open: boolean) => void | -      | -    |
+
+### Sender.Switch
+
+| 属性 | 说明 | 类型 | 默认值 | 版本 |
+| --- | --- | --- | --- | --- |
+| value | 受控选中状态 | boolean | - | 1.18.0 |
+| defaultValue | 非受控默认选中 | boolean | `false` | 1.18.0 |
+| icon | 图标 | VNode | - | 1.18.0 |
+| checkedChildren | 选中时文案 | VNode | - | 1.18.0 |
+| unCheckedChildren | 未选中时文案 | VNode | - | 1.18.0 |
+| loading | 加载中 | boolean | `false` | 1.18.0 |
+| disabled | 禁用 | boolean | `false` | 1.18.0 |
+| onChange / `@change` | 状态变化回调 | `(checked: boolean) => void` | - | 1.18.0 |
 
 ## Semantic DOM
 

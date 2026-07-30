@@ -8,6 +8,7 @@ import type {
 import { genStyleHooks } from '../../theme/genStyleUtils';
 import { genTransitionCollapseStyle } from '../../transition-collapse';
 import genSenderHeaderStyle from './header';
+import genSenderSwitchStyle from './switch';
 
 // biome-ignore lint/suspicious/noEmptyInterface: ComponentToken need to be empty by default
 export interface ComponentToken {}
@@ -167,6 +168,7 @@ export default genStyleHooks<'Sender'>(
     return [
       genSenderStyle(SenderToken),
       genSenderHeaderStyle(SenderToken),
+      genSenderSwitchStyle(SenderToken),
       genTransitionCollapseStyle(SenderToken),
     ];
   },

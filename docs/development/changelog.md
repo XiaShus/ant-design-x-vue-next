@@ -19,6 +19,16 @@ customClass: changelog-page
 
 ---
 
+## 1.18.0
+
+`2026-07-30`
+
+### ant-design-x-vue-next
+
+- 🆕 `Sender.Switch`：工具栏模式开关（受控 / 非受控、loading、disabled、checkedChildren）。
+- 📖 Sender 文档新增 Switch 演示；对齐进度更新。
+- 🛠 发布 npm 包 [`ant-design-x-vue-next@1.18.0`](https://www.npmjs.com/package/ant-design-x-vue-next)。
+
 ## 1.17.0
 
 `2026-07-30`
