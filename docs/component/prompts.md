@@ -85,11 +85,11 @@ prompts/fade-in
 
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
-| classNames | 自定义样式类名，用于各个提示项的不同部分 | Record<SemanticType, string> | - | 1.56.0 起含 `root` |
+| classNames | 自定义样式类名，用于各个提示项的不同部分 | Record<PromptsSemanticType, string> | - | 1.56.0 起含 `root`；1.111.0（类型导出文档） |
 | items | 包含多个提示项的列表（类型亦导出为 `PromptsItemType`，对齐 React） | PromptProps[] | - | 1.79.0（类型导出） |
 | prefixCls | 样式类名的前缀 | string | - | - |
 | rootClassName | 根节点的样式类名 | string | - | - |
-| styles | 自定义样式，用于各个提示项的不同部分 | Record<SemanticType, CSSProperties> | - | 1.56.0 起含 `root` |
+| styles | 自定义样式，用于各个提示项的不同部分 | Record<PromptsSemanticType, CSSProperties> | - | 1.56.0 起含 `root`；1.111.0（类型导出文档） |
 | title | 显示在提示列表顶部的标题 | VNode \| string \| (() => VNode \| string) | - | - |
 | vertical | 设置为 `true` 时, 提示列表将垂直排列 | boolean | `false` | - |
 | wrap | 设置为 `true` 时, 提示列表将自动换行 | boolean | `false` | - |
@@ -103,10 +103,12 @@ prompts/fade-in
 | --- | --- | --- | --- |
 | nativeElement | 根节点 DOM | HTMLDivElement | 1.59.0 |
 
-#### SemanticType
+#### PromptsSemanticType
+
+自 `1.111.0` 起可从包入口 `import type { PromptsSemanticType }`（对齐 React prompts 模块 `SemanticType` 键集；Vue 使用带前缀导出名以免与其它组件冲突）。
 
 ```typescript | pure
-type SemanticType =
+type PromptsSemanticType =
   | 'root'
   | 'list'
   | 'item'
