@@ -58,4 +58,14 @@ describe('Sender.Switch', () => {
     await wrapper.find('button').trigger('click');
     expect(onChange).not.toHaveBeenCalled();
   });
+
+  it('exposes nativeElement root', async () => {
+    const wrapper = mount(SenderSwitch, {
+      slots: { default: () => 'Deep Search' },
+    });
+    await nextTick();
+    const api = wrapper.vm as unknown as { nativeElement: HTMLDivElement };
+    expect(api.nativeElement).toBeInstanceOf(HTMLDivElement);
+    expect(api.nativeElement.className).toContain('ant-sender-switch');
+  });
 });

@@ -304,6 +304,12 @@ type SkillType = {
 | disabled | 禁用 | boolean | `false` | 1.18.0 |
 | onChange / `@change` | 状态变化回调 | `(checked: boolean) => void` | - | 1.18.0 |
 
+#### Sender.Switch Ref
+
+| 名称 | 说明 | 类型 | 默认值 | 版本 |
+| --- | --- | --- | --- | --- |
+| nativeElement | 外层容器 | `HTMLDivElement` | - | 1.70.0 |
+
 ## Semantic DOM
 
 <vp-semantic component="Sender"></vp-semantic>

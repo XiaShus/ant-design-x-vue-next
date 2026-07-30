@@ -15,3 +15,8 @@ export interface SenderSwitchProps {
   classNames?: Partial<Record<SemanticType, string>>;
   styles?: Partial<Record<SemanticType, CSSProperties>>;
 }
+
+/** Align React Sender.Switch ref. */
+export interface SenderSwitchRef {
+  nativeElement: HTMLDivElement;
+}

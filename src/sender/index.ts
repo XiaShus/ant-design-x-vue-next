@@ -10,7 +10,7 @@ export type {
   SuffixRender,
   ActionsRender,
 } from './interface';
-export type { SenderSwitchProps } from './switch-types';
+export type { SenderSwitchProps, SenderSwitchRef } from './switch-types';
 export type {
   SkillType,
   SlotConfigType,

@@ -10,6 +10,8 @@ import type { SenderSwitchProps } from './switch-types';
 
 defineOptions({ name: 'AXSenderSwitch', inheritAttrs: false });
 
+const containerRef = ref<HTMLDivElement>();
+
 const props = withDefaults(defineProps<SenderSwitchProps>(), {
   prefixCls: undefined,
   rootClassName: '',
@@ -78,11 +80,16 @@ const onToggle = () => {
   emit('change', next);
 };
 
+defineExpose({
+  nativeElement: containerRef,
+});
+
 defineRender(() => {
   const { class: _c, style: attrStyle, ...restAttrs } = attrs as Record<string, any>;
   return wrapCSSVar(
     <div
       {...restAttrs}
+      ref={containerRef}
       class={mergedCls.value}
       style={{
         ...(attrStyle as CSSProperties),
