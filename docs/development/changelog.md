@@ -19,6 +19,15 @@ customClass: changelog-page
 
 ---
 
+## 1.85.0
+
+`2026-07-31`
+
+### ant-design-x-vue-next
+
+- 📖 FileCard：补齐 `mask` / `videoProps` / `audioProps` 与 List `extension` 文档（对齐 React）。
+- 🛠 发布 npm 包 [`ant-design-x-vue-next@1.85.0`](https://www.npmjs.com/package/ant-design-x-vue-next)。
+
 ## 1.84.0
 
 `2026-07-31`
