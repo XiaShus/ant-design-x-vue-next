@@ -92,7 +92,7 @@ sender/switch
 
 <ClientOnly>
 
-:::demo 通过 `slotConfig` 与 `skill` 构建结构化输入；支持 `getValue` / `insert` / `clear` 与 `onSubmit(message, slotConfig, skill)`。
+:::demo 通过 `slotConfig` 与 `skill` 构建结构化输入；SlotTextArea 已对齐 React 的 contentEditable 根编辑区（text/content 可编辑，input/select/tag/custom 为非编辑嵌入节点）；支持 `getValue` / `insert` / `clear`、纯文本粘贴与 `onSubmit(message, slotConfig, skill)`。
 
 sender/slot-filling
 
@@ -199,7 +199,7 @@ sender/focus
 | styles         | 语义化定义样式                                                              | [见下](#semantic-dom)                                                  | -                       | -    |
 | submitType     | 提交模式                                                                    | SubmitType                                                             | `enter` \| `shiftEnter` | -    |
 | value(v-model) | 输入框值                                                                    | string                                                                 | -                       | -    |
-| slotConfig     | 词槽配置，设置后启用结构化 SlotTextArea 输入                                  | `SlotConfigType[]`                                                     | -                       | 1.22.0 |
+| slotConfig     | 词槽配置，设置后启用结构化 SlotTextArea（contentEditable）输入                | `SlotConfigType[]`                                                     | -                       | 1.22.0 |
 | skill          | 技能芯片，显示在词槽输入起始位置                                              | `SkillType`                                                            | -                       | 1.22.0 |
 | onSubmit       | 点击发送按钮的回调                                                          | (message: string, slotConfig?: SlotConfigType[], skill?: SkillType) => void | -                  | -    |
 | onChange       | 输入框值改变的回调                                                          | (value: string, event?: ChangeEvent, slotConfig?: SlotConfigType[], skill?: SkillType) => void | - | -    |
@@ -259,7 +259,7 @@ type SkillType = {
 | 属性          | 说明     | 类型                                                                       | 默认值 | 版本 |
 | ------------- | -------- | -------------------------------------------------------------------------- | ------ | ---- |
 | nativeElement | 外层容器 | `HTMLDivElement`                                                           | -      | -    |
-| focus         | 获取焦点 | (option?: { preventScroll?: boolean, cursor?: 'start' \| 'end' \| 'all' }) | -      | -    |
+| focus         | 获取焦点 | (option?: { preventScroll?: boolean, cursor?: 'start' \| 'end' \| 'all' \| 'slot', key?: string }) | - | - |
 | blur          | 取消焦点 | () => void                                                                 | -      | -    |
 | getValue      | 获取词槽合成值（slot 模式） | () => \{ value: string; slotConfig: SlotConfigType[]; skill?: SkillType \} | - | 1.22.0 |
 | insert        | 插入词槽（slot 模式） | (slotConfig: SlotConfigType[], position?: 'start' \| 'end' \| 'cursor') => void | - | 1.22.0 |

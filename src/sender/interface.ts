@@ -96,7 +96,8 @@ export interface SenderProps {
 }
 
 export interface InputFocusOptions extends FocusOptions {
-  cursor?: 'start' | 'end' | 'all';
+  cursor?: 'start' | 'end' | 'all' | 'slot';
+  key?: string;
 }
 export type SenderRef = {
   nativeElement: HTMLDivElement;

@@ -2,13 +2,22 @@
 import { CaretDownOutlined } from '@ant-design/icons-vue';
 import { Dropdown, Input, Menu } from 'ant-design-vue';
 import classnames from 'classnames';
-import { computed, ref, watch, type CSSProperties } from 'vue';
+import {
+  computed,
+  nextTick,
+  onBeforeUpdate,
+  onUpdated,
+  ref,
+  watch,
+  type CSSProperties,
+} from 'vue';
 import Skill from './Skill.vue';
 import type {
   InsertPosition,
   SkillType,
   SlotConfigType,
   SlotConfigWithValue,
+  SlotTextAreaFocusOptions,
 } from '../slot-types';
 import type { ChangeEvent, KeyboardEventHandler } from '../interface';
 
@@ -37,11 +46,16 @@ const props = defineProps<{
 }>();
 
 const containerRef = ref<HTMLDivElement | null>(null);
+const normalizedConfig = ref<SlotConfigType[]>([]);
 const insertedSlots = ref<SlotConfigType[]>([]);
 const runtimeKeys = ref<Set<string>>(new Set());
 const slotValues = ref<Record<string, any>>({});
+const textContents = ref<Record<string, string>>({});
 const currentSkill = ref<SkillType | undefined>(props.skill);
 const isCompositionRef = ref(false);
+const editableDomMap = new Map<string, HTMLElement>();
+let savedSelectionRange: Range | null = null;
+let textKeySeq = 0;
 
 const slotCls = computed(() => `${props.prefixCls}-slot`);
 const slotInputCls = computed(() => `${props.prefixCls}-slot-input`);
@@ -49,6 +63,18 @@ const slotSelectCls = computed(() => `${props.prefixCls}-slot-select`);
 const slotTagCls = computed(() => `${props.prefixCls}-slot-tag`);
 const slotContentCls = computed(() => `${props.prefixCls}-slot-content`);
 const inputCls = computed(() => `${props.prefixCls}-input`);
+
+const isEditable = computed(() => !props.disabled && !props.readOnly);
+
+const getTextKey = (item: SlotConfigType) => item.key || '';
+
+const ensureSlotKeys = (slots: readonly SlotConfigType[], prefix: string): SlotConfigType[] =>
+  slots.map((slot, index) => {
+    if (slot.type === 'text' && !slot.key) {
+      return { ...slot, key: `${prefix}_${index}` };
+    }
+    return slot;
+  });
 
 const buildSlotValues = (config: readonly SlotConfigType[]): Record<string, any> =>
   config.reduce<Record<string, any>>((acc, node) => {
@@ -64,21 +90,93 @@ const buildSlotValues = (config: readonly SlotConfigType[]): Record<string, any>
     return acc;
   }, {});
 
-const mergedSlots = computed(() => [...(props.slotConfig ?? []), ...insertedSlots.value]);
+const buildTextContents = (config: readonly SlotConfigType[]): Record<string, string> =>
+  config.reduce<Record<string, string>>((acc, node) => {
+    if (node.type === 'text') {
+      const key = getTextKey(node);
+      if (key) {
+        acc[key] = node.value ?? '';
+      }
+    }
+    return acc;
+  }, {});
+
+const mergedSlots = computed(() => [...normalizedConfig.value, ...insertedSlots.value]);
+
+const syncEditableDomFromState = () => {
+  editableDomMap.forEach((el, mapKey) => {
+    if (document.activeElement === el) {
+      return;
+    }
+    const [type, key] = mapKey.split('::');
+    const next =
+      type === 'text'
+        ? (textContents.value[key] ?? '')
+        : String(slotValues.value[key] ?? '');
+    if (el.textContent !== next) {
+      el.textContent = next;
+    }
+  });
+};
+
+const registerEditableDom = (mapKey: string, el: HTMLElement | null) => {
+  if (!el) {
+    editableDomMap.delete(mapKey);
+    return;
+  }
+  editableDomMap.set(mapKey, el);
+  const [type, key] = mapKey.split('::');
+  const next =
+    type === 'text'
+      ? (textContents.value[key] ?? '')
+      : String(slotValues.value[key] ?? '');
+  if (document.activeElement !== el && el.textContent !== next) {
+    el.textContent = next;
+  }
+};
+
+const syncStateFromEditableDom = () => {
+  let changed = false;
+  editableDomMap.forEach((el, mapKey) => {
+    const [type, key] = mapKey.split('::');
+    const text = el.textContent ?? '';
+    if (type === 'text') {
+      if (textContents.value[key] !== text) {
+        textContents.value = { ...textContents.value, [key]: text };
+        changed = true;
+      }
+      return;
+    }
+    if (slotValues.value[key] !== text) {
+      slotValues.value = { ...slotValues.value, [key]: text };
+      changed = true;
+    }
+  });
+  return changed;
+};
 
 watch(
   () => props.slotConfig,
   (config) => {
-    if (!config) {
-      return;
-    }
-    const nextValues = buildSlotValues(config);
+    normalizedConfig.value = ensureSlotKeys(config ?? [], 'cfg');
+    const nextValues = buildSlotValues(normalizedConfig.value);
     runtimeKeys.value.forEach((key) => {
       if (key in slotValues.value) {
         nextValues[key] = slotValues.value[key];
       }
     });
     slotValues.value = nextValues;
+
+    const baseText = buildTextContents(normalizedConfig.value);
+    const insertedText = buildTextContents(insertedSlots.value);
+    textContents.value = {
+      ...baseText,
+      ...insertedText,
+      ...Object.fromEntries(
+        Object.entries(textContents.value).filter(([key]) => runtimeKeys.value.has(key)),
+      ),
+    };
+    nextTick(syncEditableDomFromState);
   },
   { immediate: true, deep: true },
 );
@@ -91,12 +189,70 @@ watch(
   { immediate: true },
 );
 
+watch([slotValues, textContents], () => {
+  nextTick(syncEditableDomFromState);
+});
+
+onBeforeUpdate(() => {
+  const root = containerRef.value;
+  const selection = window.getSelection();
+  if (
+    root &&
+    selection &&
+    selection.rangeCount > 0 &&
+    selection.anchorNode &&
+    root.contains(selection.anchorNode)
+  ) {
+    try {
+      savedSelectionRange = selection.getRangeAt(0).cloneRange();
+    } catch {
+      savedSelectionRange = null;
+    }
+  } else {
+    savedSelectionRange = null;
+  }
+});
+
+onUpdated(() => {
+  syncEditableDomFromState();
+  if (!savedSelectionRange) {
+    return;
+  }
+  const selection = window.getSelection();
+  const root = containerRef.value;
+  if (!selection || !root) {
+    savedSelectionRange = null;
+    return;
+  }
+  try {
+    selection.removeAllRanges();
+    selection.addRange(savedSelectionRange);
+  } catch {
+    // Range may be stale after structural slot changes
+  }
+  savedSelectionRange = null;
+});
+
 const getSlotValue = (item: SlotConfigType): any => {
   if (item.type === 'text') {
-    return item.value ?? '';
+    const key = getTextKey(item);
+    const dom = key ? editableDomMap.get(`text::${key}`) : undefined;
+    const stateVal = key ? textContents.value[key] : undefined;
+    // Prefer hydrated state when DOM node exists but has not been filled yet
+    if (dom && !(dom.textContent === '' && stateVal)) {
+      return dom.textContent ?? '';
+    }
+    return stateVal ?? item.value ?? '';
   }
   if (item.type === 'tag') {
     return item.props?.value ?? item.props?.label ?? '';
+  }
+  if (item.type === 'content' && item.key) {
+    const dom = editableDomMap.get(`content::${item.key}`);
+    const stateVal = slotValues.value[item.key];
+    if (dom && !(dom.textContent === '' && stateVal)) {
+      return dom.textContent ?? '';
+    }
   }
   if (item.key) {
     return slotValues.value[item.key] ?? '';
@@ -119,9 +275,7 @@ const formatSlotValue = (item: SlotConfigType, rawValue: any): string => {
 };
 
 const buildMessage = (): string =>
-  mergedSlots.value
-    .map((item) => formatSlotValue(item, getSlotValue(item)))
-    .join('');
+  mergedSlots.value.map((item) => formatSlotValue(item, getSlotValue(item))).join('');
 
 const buildSlotConfigWithValues = (): SlotConfigWithValue[] =>
   mergedSlots.value.map((item) => ({
@@ -129,9 +283,9 @@ const buildSlotConfigWithValues = (): SlotConfigWithValue[] =>
     value: formatSlotValue(item, getSlotValue(item)),
   }));
 
-const emitChange = () => {
+const emitChange = (event?: ChangeEvent) => {
   const value = buildMessage();
-  props.onChange?.(value, undefined, buildSlotConfigWithValues(), currentSkill.value);
+  props.onChange?.(value, event, buildSlotConfigWithValues(), currentSkill.value);
 };
 
 const setSlotValue = (key: string, value: any) => {
@@ -146,33 +300,85 @@ const getValue = () => ({
 });
 
 const insert = (slots: SlotConfigType[], position: InsertPosition = 'end') => {
-  const newValues = buildSlotValues(slots);
-  slots.forEach((node) => {
+  const keyedSlots = ensureSlotKeys(slots, `ins_${++textKeySeq}`);
+  const newValues = buildSlotValues(keyedSlots);
+  const newTexts = buildTextContents(keyedSlots);
+  keyedSlots.forEach((node) => {
     if (node.key) {
       runtimeKeys.value.add(node.key);
     }
   });
 
   if (position === 'start') {
-    insertedSlots.value = [...slots, ...insertedSlots.value];
+    insertedSlots.value = [...keyedSlots, ...insertedSlots.value];
   } else {
-    insertedSlots.value = [...insertedSlots.value, ...slots];
+    // 'cursor' falls back to end for this MVP (full cursor insert is React-parity gap)
+    insertedSlots.value = [...insertedSlots.value, ...keyedSlots];
   }
 
   slotValues.value = { ...slotValues.value, ...newValues };
-  emitChange();
+  textContents.value = { ...textContents.value, ...newTexts };
+  nextTick(() => {
+    syncEditableDomFromState();
+    emitChange();
+  });
 };
 
 const clear = () => {
   insertedSlots.value = [];
   runtimeKeys.value.clear();
-  slotValues.value = buildSlotValues(props.slotConfig ?? []);
+  slotValues.value = buildSlotValues(normalizedConfig.value);
+  textContents.value = buildTextContents(normalizedConfig.value);
   currentSkill.value = props.skill;
-  emitChange();
+  nextTick(() => {
+    syncEditableDomFromState();
+    emitChange();
+  });
 };
 
-const focus = () => {
-  containerRef.value?.focus();
+const focus = (options?: SlotTextAreaFocusOptions) => {
+  const el = containerRef.value;
+  if (!el) {
+    return;
+  }
+
+  const preventScroll = options?.preventScroll ?? false;
+  const cursor = options?.cursor ?? 'end';
+  el.focus({ preventScroll });
+
+  const selection = window.getSelection();
+  if (!selection) {
+    return;
+  }
+
+  const range = document.createRange();
+
+  if (cursor === 'slot') {
+    const key = options && 'key' in options ? options.key : undefined;
+    const slotEl = key
+      ? (el.querySelector(`[data-slot-key="${key}"]`) as HTMLElement | null)
+      : null;
+    if (slotEl) {
+      range.selectNodeContents(slotEl);
+      range.collapse(false);
+      selection.removeAllRanges();
+      selection.addRange(range);
+      return;
+    }
+  }
+
+  if (cursor === 'start') {
+    range.selectNodeContents(el);
+    range.collapse(true);
+  } else if (cursor === 'all') {
+    range.selectNodeContents(el);
+  } else {
+    range.selectNodeContents(el);
+    range.collapse(false);
+  }
+
+  selection.removeAllRanges();
+  selection.addRange(range);
 };
 
 const blur = () => {
@@ -190,6 +396,8 @@ const onInternalCompositionStart = () => {
 
 const onInternalCompositionEnd = () => {
   isCompositionRef.value = false;
+  syncStateFromEditableDom();
+  emitChange();
 };
 
 const onInternalKeyDown: KeyboardEventHandler = (e) => {
@@ -214,6 +422,77 @@ const onInternalKeyDown: KeyboardEventHandler = (e) => {
 
 const onInternalKeyPress: KeyboardEventHandler = (e) => {
   props.onKeyPress?.(e);
+};
+
+const onInternalInput = () => {
+  if (isCompositionRef.value) {
+    return;
+  }
+  syncStateFromEditableDom();
+  emitChange();
+};
+
+const getCleanedText = (text: string) => text.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+
+const appendPlainTextToActiveEditable = (text: string): boolean => {
+  const selection = window.getSelection();
+  const root = containerRef.value;
+  if (!selection || selection.rangeCount === 0 || !root) {
+    return false;
+  }
+  const anchor = selection.anchorNode;
+  if (!anchor || !root.contains(anchor)) {
+    return false;
+  }
+  const editableEl =
+    (anchor.nodeType === Node.ELEMENT_NODE
+      ? (anchor as HTMLElement)
+      : anchor.parentElement)?.closest('[data-slot-type="text"], [data-slot-type="content"]') ||
+    null;
+  if (!editableEl || !root.contains(editableEl)) {
+    return false;
+  }
+  const range = selection.getRangeAt(0);
+  range.deleteContents();
+  const textNode = document.createTextNode(text);
+  range.insertNode(textNode);
+  range.setStartAfter(textNode);
+  range.collapse(true);
+  selection.removeAllRanges();
+  selection.addRange(range);
+  syncStateFromEditableDom();
+  emitChange();
+  return true;
+};
+
+const onInternalPaste = (e: ClipboardEvent) => {
+  if (!isEditable.value) {
+    return;
+  }
+  e.preventDefault();
+  const text = e.clipboardData?.getData('text/plain');
+  if (!text) {
+    return;
+  }
+  const cleanedText = getCleanedText(text);
+  let success = false;
+  if (typeof document.execCommand === 'function') {
+    try {
+      success = document.execCommand('insertText', false, cleanedText);
+    } catch {
+      success = false;
+    }
+  }
+  if (success) {
+    syncStateFromEditableDom();
+    emitChange();
+    return;
+  }
+  if (appendPlainTextToActiveEditable(cleanedText)) {
+    return;
+  }
+  // Last resort: append a text slot so pasted content is reflected in getValue
+  insert([{ type: 'text', value: cleanedText }], 'end');
 };
 
 const renderSelect = (item: SlotConfigType & { type: 'select' }) => {
@@ -246,6 +525,7 @@ const renderSelect = (item: SlotConfigType & { type: 'select' }) => {
               placeholder: isPlaceholder,
             })}
             data-slot-key={key}
+            contenteditable="false"
           >
             <span
               class={`${slotSelectCls.value}-value`}
@@ -263,59 +543,72 @@ const renderSelect = (item: SlotConfigType & { type: 'select' }) => {
   );
 };
 
-const renderSlot = (item: SlotConfigType, index: number) => {
+const renderSlot = (item: SlotConfigType) => {
   switch (item.type) {
-    case 'text':
+    case 'text': {
+      const key = getTextKey(item);
       return (
-        <span key={item.key ?? `text-${index}`} class={slotCls.value}>
-          {item.value}
-        </span>
+        <span
+          key={key}
+          ref={(el: any) => registerEditableDom(`text::${key}`, el)}
+          class={slotCls.value}
+          data-slot-key={key}
+          data-slot-type="text"
+        />
       );
+    }
     case 'input':
       return (
-        <Input
-          key={item.key}
-          bordered={false}
-          disabled={props.disabled}
-          readonly={props.readOnly}
-          class={classnames(slotInputCls.value, slotCls.value)}
-          placeholder={item.props?.placeholder}
-          value={slotValues.value[item.key] ?? ''}
-          onUpdate:value={(val: string) => setSlotValue(item.key, val)}
-          onCompositionstart={onInternalCompositionStart}
-          onCompositionend={onInternalCompositionEnd}
-        />
+        <span key={item.key} contenteditable="false" data-slot-key={item.key}>
+          <Input
+            bordered={false}
+            disabled={props.disabled}
+            readonly={props.readOnly}
+            class={classnames(slotInputCls.value, slotCls.value)}
+            placeholder={item.props?.placeholder}
+            value={slotValues.value[item.key] ?? ''}
+            onUpdate:value={(val: string) => setSlotValue(item.key, val)}
+            onCompositionstart={onInternalCompositionStart}
+            onCompositionend={onInternalCompositionEnd}
+          />
+        </span>
       );
     case 'content':
       return (
-        <Input
+        <span
           key={item.key}
-          bordered={false}
-          disabled={props.disabled}
-          readonly={props.readOnly}
+          ref={(el: any) => registerEditableDom(`content::${item.key}`, el)}
           class={classnames(slotContentCls.value, slotCls.value)}
-          placeholder={item.props?.placeholder}
-          value={slotValues.value[item.key] ?? ''}
-          onUpdate:value={(val: string) => setSlotValue(item.key, val)}
-          onCompositionstart={onInternalCompositionStart}
-          onCompositionend={onInternalCompositionEnd}
+          data-slot-key={item.key}
+          data-slot-type="content"
+          data-placeholder={item.props?.placeholder}
         />
       );
     case 'select':
-      return renderSelect(item);
+      return (
+        <span key={item.key} contenteditable="false">
+          {renderSelect(item)}
+        </span>
+      );
     case 'tag':
       return (
         <span
           key={item.key}
           class={classnames(slotTagCls.value, slotCls.value)}
           data-slot-key={item.key}
+          contenteditable="false"
         >
           {item.props?.label}
         </span>
       );
     case 'custom':
       return (
-        <span key={item.key} class={slotCls.value} data-slot-key={item.key}>
+        <span
+          key={item.key}
+          class={slotCls.value}
+          data-slot-key={item.key}
+          contenteditable="false"
+        >
           {item.customRender?.(
             slotValues.value[item.key],
             (val) => setSlotValue(item.key, val),
@@ -344,26 +637,30 @@ defineRender(() => {
   return (
     <div
       ref={containerRef}
+      role="textbox"
       class={classnames(inputCls.value, `${inputCls.value}-slot`, props.class)}
-      style={{
-        display: 'flex',
-        flexWrap: 'wrap',
-        alignItems: 'center',
-        ...props.style,
-      }}
+      style={props.style}
       tabindex={0}
       data-placeholder={showPlaceholder ? props.placeholder : undefined}
+      contenteditable={isEditable.value ? 'true' : 'false'}
+      spellcheck={false}
       onKeydown={onInternalKeyDown}
       onKeypress={onInternalKeyPress}
+      onCompositionstart={onInternalCompositionStart}
+      onCompositionend={onInternalCompositionEnd}
+      onInput={onInternalInput}
+      onPaste={onInternalPaste}
     >
       {currentSkill.value && (
-        <Skill
-          {...currentSkill.value}
-          prefixCls={props.prefixCls}
-          removeSkill={removeSkill}
-        />
+        <span contenteditable="false">
+          <Skill
+            {...currentSkill.value}
+            prefixCls={props.prefixCls}
+            removeSkill={removeSkill}
+          />
+        </span>
       )}
-      {mergedSlots.value.map((item, index) => renderSlot(item, index))}
+      {mergedSlots.value.map((item) => renderSlot(item))}
     </div>
   );
 });

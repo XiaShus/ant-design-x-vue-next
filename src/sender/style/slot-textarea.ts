@@ -124,6 +124,15 @@ const genSlotTextAreaStyle: GenerateStyle<SenderToken> = (token) => {
         display: 'inline-block',
         position: 'relative',
         cursor: 'text',
+        '&:empty': {
+          width: 'fit-content',
+          '&::after': {
+            display: 'inline-block',
+            height: 'inherit',
+            content: 'attr(data-placeholder)',
+            color: token.colorTextSlotPlaceholder,
+          },
+        },
       },
       [skillCls]: {
         display: 'inline-block',

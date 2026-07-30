@@ -2,6 +2,16 @@
 
 > Vue Next 文档站时间线版见 [更新日志](https://ant-design-x-vue-next-524.netlify.app/development/changelog.html)。
 
+## 1.27.0
+
+`2026-07-30`
+
+### ant-design-x-vue-next
+
+- 🆕 Sender SlotTextArea contentEditable：text/content 可编辑根区，input/select/tag/custom 非编辑嵌入；纯文本粘贴；`focus({ cursor: 'start'|'end'|'slot' })`
+- 📖 Sender / 对齐进度文档更新
+- 🛠 发布 npm `ant-design-x-vue-next@1.27.0`
+
 ## 1.26.1
 
 `2026-07-30`

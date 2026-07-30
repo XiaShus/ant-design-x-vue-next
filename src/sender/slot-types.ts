@@ -96,8 +96,15 @@ export interface InputFocusOptions extends FocusOptions {
   cursor?: 'start' | 'end' | 'all';
 }
 
+export interface SlotFocusOptions extends FocusOptions {
+  cursor?: 'slot';
+  key?: string;
+}
+
+export type SlotTextAreaFocusOptions = InputFocusOptions | SlotFocusOptions;
+
 export interface SlotTextAreaRef {
-  focus: (options?: InputFocusOptions) => void;
+  focus: (options?: SlotTextAreaFocusOptions) => void;
   blur: () => void;
   nativeElement: HTMLDivElement;
   insert: (

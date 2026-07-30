@@ -140,4 +140,134 @@ describe('Sender slot filling', () => {
     expect(slotConfig?.length).toBe(2);
     expect(submittedSkill?.value).toBe('skill-1');
   });
+
+  it('SlotTextArea root is contentEditable', async () => {
+    const wrapper = mount(Sender, {
+      props: {
+        slotConfig: baseSlotConfig,
+      },
+      attachTo: document.body,
+    });
+
+    await nextTick();
+    const editable = wrapper.find('[contenteditable="true"]');
+    expect(editable.exists()).toBe(true);
+    expect(editable.classes().some((cls) => cls.includes('input-slot'))).toBe(true);
+
+    wrapper.unmount();
+  });
+
+  it('content slot renders editable region (not Input)', async () => {
+    const wrapper = mount(Sender, {
+      props: {
+        slotConfig: [
+          { type: 'text', value: 'Go to ' },
+          {
+            type: 'content',
+            key: 'city',
+            props: { defaultValue: 'Beijing', placeholder: '[city]' },
+          },
+        ],
+      },
+      attachTo: document.body,
+    });
+
+    await nextTick();
+    const content = wrapper.find('[data-slot-type="content"][data-slot-key="city"]');
+    expect(content.exists()).toBe(true);
+    expect(content.text()).toBe('Beijing');
+    expect(wrapper.find('.ant-input').exists()).toBe(false);
+
+    const val = (wrapper.vm as any).getValue?.();
+    expect(val?.value).toBe('Go to Beijing');
+
+    wrapper.unmount();
+  });
+
+  it('paste plain text into editable root', async () => {
+    const onChange = vi.fn();
+    const wrapper = mount(Sender, {
+      props: {
+        slotConfig: [{ type: 'text', value: 'Hi' }],
+        onChange,
+      },
+      attachTo: document.body,
+    });
+
+    await nextTick();
+    const editable = wrapper.find('[contenteditable="true"]').element as HTMLDivElement;
+    editable.focus();
+
+    const selection = window.getSelection();
+    const range = document.createRange();
+    range.selectNodeContents(editable);
+    range.collapse(false);
+    selection?.removeAllRanges();
+    selection?.addRange(range);
+
+    const clipboardData = {
+      getData: (type: string) => (type === 'text/plain' ? ' pasted' : ''),
+    };
+
+    const event = new Event('paste', { bubbles: true, cancelable: true }) as ClipboardEvent;
+    Object.defineProperty(event, 'clipboardData', { value: clipboardData });
+    editable.dispatchEvent(event);
+
+    await nextTick();
+    // Falls back to insert([{ type: 'text' }]) when cursor insert is unavailable in jsdom,
+    // or inserts at caret via Selection API — either path should surface pasted plain text.
+    const val = (wrapper.vm as any).getValue?.();
+    expect(val?.value).toContain('pasted');
+    wrapper.unmount();
+  });
+
+  it('focus supports cursor start/end/slot', async () => {
+    const wrapper = mount(Sender, {
+      props: {
+        slotConfig: [
+          { type: 'text', value: 'A' },
+          {
+            type: 'content',
+            key: 'city',
+            props: { defaultValue: 'X' },
+          },
+          { type: 'text', value: 'B' },
+        ],
+      },
+      attachTo: document.body,
+    });
+
+    await nextTick();
+    const editable = wrapper.find('[contenteditable="true"]').element as HTMLDivElement;
+
+    (wrapper.vm as any).focus?.({ cursor: 'end' });
+    expect(document.activeElement).toBe(editable);
+
+    (wrapper.vm as any).focus?.({ cursor: 'start' });
+    expect(document.activeElement).toBe(editable);
+
+    (wrapper.vm as any).focus?.({ cursor: 'slot', key: 'city' });
+    expect(document.activeElement).toBe(editable);
+    const selection = window.getSelection();
+    expect(selection?.rangeCount).toBeGreaterThan(0);
+    const slotEl = wrapper.find('[data-slot-key="city"]').element;
+    expect(slotEl.contains(selection?.anchorNode as Node) || selection?.anchorNode === slotEl).toBe(
+      true,
+    );
+
+    wrapper.unmount();
+  });
+
+  it('readOnly disables contentEditable', async () => {
+    const wrapper = mount(Sender, {
+      props: {
+        slotConfig: baseSlotConfig,
+        readOnly: true,
+      },
+    });
+
+    await nextTick();
+    expect(wrapper.find('[contenteditable="true"]').exists()).toBe(false);
+    expect(wrapper.find('[contenteditable="false"]').exists()).toBe(true);
+  });
 });

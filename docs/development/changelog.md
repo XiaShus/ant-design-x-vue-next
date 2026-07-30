@@ -19,6 +19,16 @@ customClass: changelog-page
 
 ---
 
+## 1.27.0
+
+`2026-07-30`
+
+### ant-design-x-vue-next
+
+- 🆕 Sender `SlotTextArea` 向 React contentEditable 运行时加深：根编辑区 `contentEditable`，`text` / `content` 槽可直接编辑；`input` / `select` / `tag` / `custom` 保持为非编辑嵌入节点；支持纯文本粘贴与 `focus({ cursor: 'start' \| 'end' \| 'slot', key? })`。
+- 📖 Sender 词槽文档与对齐进度更新。
+- 🛠 发布 npm 包 [`ant-design-x-vue-next@1.27.0`](https://www.npmjs.com/package/ant-design-x-vue-next)。
+
 ## 1.26.1
 
 `2026-07-30`

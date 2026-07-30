@@ -10,6 +10,9 @@ export type {
   SlotConfigType,
   InsertPosition,
   SlotTextAreaRef,
+  SlotTextAreaFocusOptions,
+  InputFocusOptions,
+  SlotFocusOptions,
 } from './slot-types';
 
 const Sender = Object.assign(SenderComponent, {

@@ -290,7 +290,7 @@ const onContentMouseDown: MouseEventHandler = (e) => {
   }
 
   if (isSlotMode.value) {
-    slotRef.value?.focus();
+    slotRef.value?.focus({ cursor: 'end' });
     return;
   }
 
@@ -486,7 +486,7 @@ defineExpose({
   nativeElement: containerRef,
   focus: (opt?: any) => {
     if (isSlotMode.value) {
-      slotRef.value?.focus();
+      slotRef.value?.focus(opt);
       return;
     }
     // @ts-expect-error
