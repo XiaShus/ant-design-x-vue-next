@@ -1,3 +1,4 @@
+import type { CascaderProps } from 'ant-design-vue';
 import type { CSSProperties, VNode } from 'vue';
 
 /** Align React Suggestion SemanticType. */
@@ -20,7 +21,37 @@ export interface RenderChildrenProps<T> {
   open: boolean;
 }
 
-export interface SuggestionProps<T = any> {
+/** Cascader keys Suggestion owns / overrides (align React Omit list). */
+type SuggestionOmittedCascaderKeys =
+  | 'children'
+  | 'onChange'
+  | 'optionRender'
+  | 'value'
+  | 'options'
+  | 'multiple'
+  | 'showSearch'
+  | 'defaultValue'
+  | 'fieldNames'
+  | 'onOpenChange'
+  | 'onDropdownVisibleChange'
+  | 'dropdownMatchSelectWidth'
+  | 'popupMatchSelectWidth'
+  | 'open'
+  | 'rootClassName'
+  | 'placement'
+  | 'styles'
+  | 'classNames';
+
+/**
+ * Align React Suggestion: Cascader props are forwarded via `...otherProps`
+ * except controlled/internal keys listed above.
+ */
+export type SuggestionCascaderPassthrough = /* @vue-ignore */ Omit<
+  CascaderProps,
+  SuggestionOmittedCascaderKeys
+>;
+
+export interface SuggestionProps<T = any> extends SuggestionCascaderPassthrough {
   prefixCls?: string;
   className?: string;
   rootClassName?: string;

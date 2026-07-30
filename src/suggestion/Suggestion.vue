@@ -4,13 +4,13 @@ import type { RenderChildrenProps, SuggestionItem, SuggestionProps } from './int
 import { useXProviderContext } from '../x-provider';
 import useXComponentConfig from '../_util/hooks/use-x-component-config';
 import useStyle from './style';
-import { computed, type VNode, ref, watch } from 'vue';
+import { computed, type VNode, ref, useAttrs, watch } from 'vue';
 import useState from '../_util/hooks/use-state';
 import { Cascader, Flex, type CascaderProps } from 'ant-design-vue';
 import useActive from './useActive';
 import { useElementSize } from '@vueuse/core';
 
-defineOptions({ name: 'AXSuggestion' });
+defineOptions({ name: 'AXSuggestion', inheritAttrs: false });
 
 const {
   prefixCls: customizePrefixCls,
@@ -26,7 +26,11 @@ const {
   styles = {},
   classNames = {},
   getPopupContainer,
+  // Align React `...otherProps`: remaining Cascader-compatible fields.
+  ...otherProps
 } = defineProps<SuggestionProps<T>>();
+
+const attrs = useAttrs();
 
 const slots = defineSlots<{
   default?(props?: RenderChildrenProps<T>): VNode;
@@ -198,9 +202,32 @@ const childNode = computed(() => {
   return children?.(renderProps);
 });
 
+const cascaderPassthrough = computed(() => {
+  const fromAttrs = attrs as Record<string, unknown>;
+  const {
+    class: _class,
+    style: _style,
+    open: _open,
+    options: _options,
+    value: _value,
+    multiple: _multiple,
+    onChange: _onChange,
+    onDropdownVisibleChange: _onDropdownVisibleChange,
+    onOpenChange: _onOpenChange,
+    placement: _placement,
+    getPopupContainer: _getPopupContainer,
+    ...attrRest
+  } = fromAttrs;
+  return {
+    ...attrRest,
+    ...(otherProps as Record<string, unknown>),
+  };
+});
+
 defineRender(() => {
   return wrapCSSVar(
     <Cascader
+      {...cascaderPassthrough.value}
       options={cascaderOptions.value}
       open={mergedOpen.value}
       value={activePath.value}

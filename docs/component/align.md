@@ -13,7 +13,7 @@
 | 唤醒 | Prompts | ✅ | ✅（含 `fadeIn` / `fadeInLeft`、`classNames/styles` 含 `root`、`nativeElement` ref） | [文档](/component/prompts) |
 | 表达 | Sender | ✅ | ✅（含 `suffix`/`actions`、Switch（含 `nativeElement` ref）、词槽 contentEditable、`insert`+cursor/`replaceCharacters`、`classNames/styles` root/content、`inputElement`、locale） | [文档](/component/sender) |
 | 表达 | Attachments | ✅ | ✅（含 `select` / `fileNativeElement`、默认插槽触发、`#upload` + `maxCount` 隐藏） | [文档](/component/attachments) |
-| 表达 | Suggestion | ✅ | ✅（含 `icon`/`extra` 渲染、`onSelect` 第二参、`open` children prop、`classNames/styles` root/content/popup、`getPopupContainer`） | [文档](/component/suggestion) |
+| 表达 | Suggestion | ✅ | ✅（含 `icon`/`extra` 渲染、`onSelect` 第二参、`open` children prop、`classNames/styles` root/content/popup、`getPopupContainer`、Cascader `otherProps` 透传） | [文档](/component/suggestion) |
 | 反馈 | Sources | ✅ | ✅（含 `nativeElement` ref） | [文档](/component/sources) |
 | 反馈 | FileCard | ✅ | ✅（含 java / javascript / python 预设图标、`spinProps` 图片加载） | [文档](/component/file-card) |
 | 表达 | Folder | ✅ | ✅ | [文档](/component/folder) |
