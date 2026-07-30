@@ -6,3 +6,4 @@ export * from './use-x-conversations';
 export * from './chat-providers';
 export * from './x-mcp-client';
 export { useNotification } from './notification';
+export { useMobile } from './_util/hooks/use-mobile';

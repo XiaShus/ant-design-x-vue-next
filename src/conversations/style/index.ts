@@ -124,6 +124,12 @@ const genConversationsStyle: GenerateStyle<ConversationsToken> = (token) => {
             opacity: 1,
           },
         },
+        // 移动端始终显示菜单图标（对齐 React useMobile）
+        '&-menu-always': {
+          [`& ${componentCls}-menu-icon`]: {
+            opacity: 1,
+          },
+        },
       },
       // 会话名
       [`& ${componentCls}-label`]: {

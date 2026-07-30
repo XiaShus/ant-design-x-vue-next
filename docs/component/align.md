@@ -7,7 +7,7 @@
 | 分组 | 组件 | React `@ant-design/x` | Vue Next | 文档 |
 | --- | --- | --- | --- | --- |
 | 通用 | Bubble | ✅ | ✅（含 System / Divider / editable / streaming / footerPlacement / `typing.keepPrefix` / `onTyping`） | [文档](/component/bubble) |
-| 通用 | Conversations | ✅ | ✅（含 `creation` / `Conversations.Creation`） | [文档](/component/conversations) |
+| 通用 | Conversations | ✅ | ✅（含 `creation` / `Conversations.Creation`；移动端菜单常显） | [文档](/component/conversations) |
 | 通用 | Notification | ✅ | ✅ | [文档](/component/notification) |
 | 唤醒 | Welcome | ✅ | ✅ | [文档](/component/welcome) |
 | 唤醒 | Prompts | ✅ | ✅ | [文档](/component/prompts) |
@@ -23,6 +23,7 @@
 | 确认 | ThoughtChain | ✅ | ✅（含 `ThoughtChain.Item`；链级 `line` / expand；items `status`：`loading`/`abort`；`blink`·`collapsible`·`destroyOnHidden`） | [文档](/component/thought-chain) |
 | 反馈 | Actions | ✅ | ✅（含 Copy / Feedback / Item / Audio 预设 + `actionRender`） | [文档](/component/actions) |
 | 工具 | XProvider | ✅ | ✅（含 X locale pack / `useLocale`） | [文档](/component/x-provider) |
+| 工具 | useMobile | ✅ | ✅ | [文档](/component/use-mobile) |
 
 ## 独立包（React monorepo）
 
@@ -42,6 +43,7 @@ React 2.x 已拆出独立包，Vue Next 尚未拆分：
 - [useXAgent](/component/use-x-agent)
 - [useXChat](/component/use-x-chat)
 - [useXConversations](/component/use-x-conversations)
+- [useMobile](/component/use-mobile)
 - [XStream](/component/x-stream)
 - [XRequest](/component/x-request)
 

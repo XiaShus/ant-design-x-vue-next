@@ -1,57 +1,46 @@
 <script setup lang="tsx">
-import classnames from 'classnames';
-import type { EventHandler, MouseEventHandler } from 'ant-design-vue/es/_util/EventInterface';
-import type { Conversation, ConversationsItemProps } from './interface';
-import pickAttrs from '../_util/pick-attrs';
-import { computed } from 'vue';
-import { Dropdown, Menu, Tooltip, Typography } from 'ant-design-vue';
 import { EllipsisOutlined } from '@ant-design/icons-vue';
+import type { EventHandler, MouseEventHandler } from 'ant-design-vue/es/_util/EventInterface';
+import { Dropdown, Menu, Tooltip, Typography } from 'ant-design-vue';
+import classnames from 'classnames';
+import { computed } from 'vue';
+import pickAttrs from '../_util/pick-attrs';
 import useState from '../_util/hooks/use-state';
+import { useMobile } from '../_util/hooks/use-mobile';
+import type { Conversation, ConversationsItemProps } from './interface';
 
 defineOptions({ name: 'AXConversationsItem' });
 
-const {
-  prefixCls,
-  info,
-  class: className,
-  direction,
-  onClick,
-  active,
-  menu,
-  ...restProps
-} = defineProps<ConversationsItemProps>();
+const props = defineProps<ConversationsItemProps>();
+const isMobile = useMobile();
 
-const domProps = computed(() => pickAttrs(restProps, {
-  aria: true,
-  data: true,
-  attr: true,
-}));
+const domProps = computed(() =>
+  pickAttrs(props as Record<string, unknown>, {
+    aria: true,
+    data: true,
+    attr: true,
+  }),
+);
 
 const stopPropagation: EventHandler = (e) => {
   e.stopPropagation();
 };
 
-// ============================= MISC =============================
-const disabled = computed(() => info.disabled);
-
-// =========================== Ellipsis ===========================
+const disabled = computed(() => props.info.disabled);
 const [inEllipsis, onEllipsis] = useState(false);
-
-// =========================== Tooltip ============================
 const [opened, setOpened] = useState(false);
 
-// ============================ Style =============================
-const mergedCls = computed(() => classnames(
-  className,
-  `${prefixCls}-item`,
-  { [`${prefixCls}-item-active`]: active && !disabled.value },
-  { [`${prefixCls}-item-disabled`]: disabled.value },
-));
+const mergedCls = computed(() =>
+  classnames(props.class, `${props.prefixCls}-item`, {
+    [`${props.prefixCls}-item-active`]: props.active && !disabled.value,
+    [`${props.prefixCls}-item-disabled`]: disabled.value,
+    [`${props.prefixCls}-item-menu-always`]: isMobile.value && !!props.menu,
+  }),
+);
 
-// ============================ Events ============================
 const onInternalClick: MouseEventHandler = () => {
-  if (!disabled.value && onClick) {
-    onClick(info);
+  if (!disabled.value && props.onClick) {
+    props.onClick(props.info);
   }
 };
 
@@ -61,18 +50,17 @@ const onOpenChange = (open: boolean) => {
   }
 };
 
-// ============================ Menu ============================
-const trigger = computed(() => menu?.trigger);
+const trigger = computed(() => props.menu?.trigger);
 const dropdownMenu = computed(() => {
-  const { trigger, ...dropdownMenu } = menu || {};
-  return dropdownMenu;
+  const { trigger: _t, ...rest } = props.menu || {};
+  return rest;
 });
 
 const getPopupContainer = computed(() => dropdownMenu.value?.getPopupContainer);
 
 const renderMenuTrigger = (conversation: Conversation) => {
   const originTriggerNode = (
-    <EllipsisOutlined onClick={stopPropagation} class={`${prefixCls}-menu-icon`} />
+    <EllipsisOutlined onClick={stopPropagation} class={`${props.prefixCls}-menu-icon`} />
   );
   if (trigger.value) {
     return typeof trigger.value === 'function'
@@ -85,35 +73,38 @@ const renderMenuTrigger = (conversation: Conversation) => {
 defineRender(() => {
   return (
     <Tooltip
-      title={info.label}
+      title={props.info.label}
       open={inEllipsis.value && opened.value}
       onOpenChange={setOpened}
-      placement={direction === 'rtl' ? 'left' : 'right'}
+      placement={props.direction === 'rtl' ? 'left' : 'right'}
     >
       <li {...domProps.value} class={mergedCls.value} onClick={onInternalClick}>
-        {info.icon && <div class={`${prefixCls}-icon`}>{info.icon}</div>}
+        {props.info.icon && <div class={`${props.prefixCls}-icon`}>{props.info.icon}</div>}
         <Typography.Text
           // @ts-expect-error
-          class={`${prefixCls}-label`}
+          class={`${props.prefixCls}-label`}
           ellipsis={{
             onEllipsis,
           }}
-        >{info.label}</Typography.Text>
-        {!disabled.value && menu && (
+        >
+          {props.info.label}
+        </Typography.Text>
+        {!disabled.value && props.menu && (
           <Dropdown
-            placement={direction === 'rtl' ? 'bottomLeft' : 'bottomRight'}
+            placement={props.direction === 'rtl' ? 'bottomLeft' : 'bottomRight'}
             trigger={['click']}
             disabled={disabled.value}
             onOpenChange={onOpenChange}
             getPopupContainer={getPopupContainer.value}
-          >{{
-            default: () => renderMenuTrigger(info),
-            overlay: () => <Menu {...dropdownMenu.value} />
-          }}
+          >
+            {{
+              default: () => renderMenuTrigger(props.info),
+              overlay: () => <Menu {...dropdownMenu.value} />,
+            }}
           </Dropdown>
         )}
       </li>
     </Tooltip>
-  )
+  );
 });
 </script>

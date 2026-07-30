@@ -170,6 +170,7 @@ export default defineConfig({
             { text: 'useXAgent 模型调度', link: '/component/use-x-agent' },
             { text: 'useXChat 数据管理', link: '/component/use-x-chat' },
             { text: 'useXConversations 多会话', link: '/component/use-x-conversations' },
+            { text: 'useMobile 移动端检测', link: '/component/use-mobile' },
             { text: 'XStream 流', link: '/component/x-stream' },
             { text: 'XRequest 请求', link: '/component/x-request' },
             { text: 'XProvider 全局化配置', link: '/component/x-provider' }

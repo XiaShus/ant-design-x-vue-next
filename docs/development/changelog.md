@@ -19,6 +19,17 @@ customClass: changelog-page
 
 ---
 
+## 1.31.0
+
+`2026-07-30`
+
+### ant-design-x-vue-next
+
+- 🆕 公开导出 `useMobile`（默认 `(pointer: coarse)`），SSR 安全。
+- 🆕 Conversations 在移动端始终显示菜单图标（`item-menu-always`）。
+- 📖 新增 useMobile 文档与演示。
+- 🛠 发布 npm 包 [`ant-design-x-vue-next@1.31.0`](https://www.npmjs.com/package/ant-design-x-vue-next)。
+
 ## 1.30.0
 
 `2026-07-30`
