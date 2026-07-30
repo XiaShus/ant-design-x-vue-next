@@ -4,7 +4,7 @@ import useXComponentConfig from '../_util/hooks/use-x-component-config';
 import { useXProviderContext } from '../x-provider';
 import useTypedEffect from './hooks/useTypedEffect';
 import useTypingConfig from './hooks/useTypingConfig';
-import type { BubbleContentType, BubbleProps, EditableBubbleOption, SlotInfoType } from './interface';
+import type { BubbleContentType, BubbleProps, EditableBubbleOption, InfoType } from './interface';
 import EditableContent from './EditableContent.vue';
 import Loading from './loading.vue';
 import useStyle from './style';
@@ -28,6 +28,7 @@ const {
   loadingRender,
   typing,
   content: contentProp = '',
+  contentRender,
   messageRender,
   variant = 'filled',
   shape,
@@ -39,6 +40,8 @@ const {
   editable: _editable,
   streaming: _streaming,
   footerPlacement: _footerPlacement,
+  status: statusProp,
+  extraInfo: extraInfoProp,
   _key,
   ...otherHtmlProps
 } = props;
@@ -47,15 +50,20 @@ const slots = defineSlots<{
   avatar?(): VNode;
   header?(props: {
     content: T;
-    info: SlotInfoType;
+    info: InfoType;
   }): VNode | string;
   footer?(props: {
     content: T;
-    info: SlotInfoType;
+    info: InfoType;
   }): VNode | string;
   loading?(): VNode;
+  content?(props: {
+    content: T;
+    info: InfoType;
+  }): VNode | string;
   message?(props: {
     content: T;
+    info?: InfoType;
   }): VNode | string;
 }>();
 
@@ -68,7 +76,16 @@ watch(
   },
 );
 
-const { onUpdate } = unref(useBubbleContextInject());
+const bubbleContextRef = useBubbleContextInject();
+
+const renderInfo = computed<InfoType>(() => {
+  const ctx = unref(bubbleContextRef) || {};
+  return {
+    key: _key ?? ctx.key,
+    status: statusProp ?? ctx.status,
+    extraInfo: extraInfoProp ?? ctx.extraInfo,
+  };
+});
 
 // TODO: useTemplateRef will trigger warning when expose: [Vue warn] Set operation on key "value" failed: target is readonly.
 // const divRef = useTemplateRef<HTMLDivElement>('div');
@@ -97,7 +114,7 @@ const [typedContent, isTyping] = useTypedEffect(
 const triggerTypingCompleteRef = ref(false);
 
 watch(typedContent, (next) => {
-  onUpdate?.();
+  unref(bubbleContextRef)?.onUpdate?.();
   if (typeof next === 'string' && typeof content.value === 'string') {
     props.onTyping?.(next, content.value);
   }
@@ -138,7 +155,9 @@ const mergedCls = computed(() => [
     [`${prefixCls}-typing`]:
       isTyping.value &&
       !loading &&
+      !contentRender &&
       !messageRender &&
+      !slots.content &&
       !slots.message &&
       !typingSuffix.value &&
       typingEffect.value === 'typing',
@@ -167,12 +186,21 @@ const isEditing = computed(() => {
 
 // =========================== Content ============================
 const mergedContent = computed(() => {
-  if (slots.message) {
-    return slots.message({ content: typedContent.value as any });
+  const info = renderInfo.value;
+  const typed = typedContent.value as any;
+  if (contentRender) {
+    return contentRender(typed, info);
   }
-  const rendered = messageRender
-    ? messageRender(typedContent.value as any)
-    : typedContent.value;
+  if (messageRender) {
+    return messageRender(typed, info);
+  }
+  if (slots.content) {
+    return slots.content({ content: typed, info });
+  }
+  if (slots.message) {
+    return slots.message({ content: typed, info });
+  }
+  const rendered = typed;
   // fade-in：对当前可见字符串包一层动画节点
   if (
     typingEnabled.value &&
@@ -187,10 +215,11 @@ const mergedContent = computed(() => {
 
 const renderFooterNode = () => {
   if (isEditing.value) return null;
+  const info = renderInfo.value;
   const node = slots.footer
-    ? slots.footer({ content: typedContent.value as T, info: { key: _key } })
+    ? slots.footer({ content: typedContent.value as T, info })
     : typeof footer === 'function'
-      ? footer(typedContent.value as T, { key: _key })
+      ? footer(typedContent.value as T, info)
       : footer;
   if (!node) return null;
   return (
@@ -272,10 +301,11 @@ const fullContent = computed<VNode>(() => {
       {toValue(contentNode)}
     </div>
   );
+  const info = renderInfo.value;
   const _header = slots.header
-    ? slots.header({ content: typedContent.value as T, info: { key: _key } })
+    ? slots.header({ content: typedContent.value as T, info })
     : typeof header === 'function'
-      ? header(typedContent.value as T, { key: _key })
+      ? header(typedContent.value as T, info)
       : header;
   const _footerOuter = !isFooterInner.value ? renderFooterNode() : null;
 

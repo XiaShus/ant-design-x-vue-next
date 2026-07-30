@@ -166,15 +166,17 @@ defineRender(() => {
         onScroll={onInternalScroll}
       >
         <Bubble
-          v-for={({ key, onTypingComplete: onTypingCompleteBubble, ...bubble }) in unref(displayData)}
+          v-for={({ key, status, extraInfo, role: _role, onTypingComplete: onTypingCompleteBubble, ...bubble }) in unref(displayData)}
           {...bubble}
-          avatar={slots.avatar ? () => slots.avatar?.({ item: { key, ...bubble } }) : bubble.avatar}
-          header={slots.header?.({ item: { key, ...bubble } }) ?? bubble.header}
-          footer={slots.footer?.({ item: { key, ...bubble } }) ?? bubble.footer}
-          loadingRender={slots.loading ? () => slots.loading({ item: { key, ...bubble } }) : bubble.loadingRender}
-          content={slots.message?.({ item: { key, ...bubble } }) ?? bubble.content}
+          avatar={slots.avatar ? () => slots.avatar?.({ item: { key, status, extraInfo, ...bubble } }) : bubble.avatar}
+          header={slots.header?.({ item: { key, status, extraInfo, ...bubble } }) ?? bubble.header}
+          footer={slots.footer?.({ item: { key, status, extraInfo, ...bubble } }) ?? bubble.footer}
+          loadingRender={slots.loading ? () => slots.loading({ item: { key, status, extraInfo, ...bubble } }) : bubble.loadingRender}
+          content={slots.message?.({ item: { key, status, extraInfo, ...bubble } }) ?? bubble.content}
           key={key}
           _key={key}
+          status={status}
+          extraInfo={extraInfo}
           // 用于更新滚动的ref
           ref={(node) => {
             if (node) {

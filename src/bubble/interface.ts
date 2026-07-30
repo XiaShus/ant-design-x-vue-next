@@ -2,6 +2,7 @@ import type { AvatarProps, DividerProps } from 'ant-design-vue';
 import type { AvoidValidation } from '../type-utility';
 import type { CSSProperties, HTMLAttributes, VNode, VNodeChild } from 'vue';
 import { AnyObject } from '../_util/type';
+import type { MessageStatus } from '../use-x-chat/use-x-chat';
 
 export interface EditableBubbleOption {
   editing?: boolean;
@@ -42,9 +43,14 @@ export type SemanticType = 'avatar' | 'content' | 'header' | 'footer';
 
 export type BubbleContentType = VNode | string | AnyObject | number;
 
-export type SlotInfoType = {
+export type InfoType = {
   key?: string | number;
+  status?: MessageStatus;
+  extraInfo?: AnyObject;
 };
+
+/** @deprecated Prefer `InfoType` */
+export type SlotInfoType = InfoType;
 
 export interface _AvatarProps extends AvatarProps {
   class: string;
@@ -66,8 +72,19 @@ export interface BubbleProps<ContentType extends BubbleContentType = string> ext
    */
   streaming?: boolean;
   content?: ContentType;
-  messageRender?: (content: ContentType) => VNode | string;
+  /**
+   * Custom content renderer (React 2.x API).
+   */
+  contentRender?: (content: ContentType, info: InfoType) => VNode | string;
+  /**
+   * @deprecated Prefer `contentRender`
+   */
+  messageRender?: (content: ContentType, info?: InfoType) => VNode | string;
   loadingRender?: () => VNode;
+  /** Message status — used by list / contentRender info (not a DOM attr). */
+  status?: MessageStatus;
+  /** Extra metadata for contentRender info (not a DOM attr). */
+  extraInfo?: AnyObject;
   variant?: 'filled' | 'borderless' | 'outlined' | 'shadow';
   shape?: 'round' | 'corner';
   _key?: number | string;
@@ -76,8 +93,8 @@ export interface BubbleProps<ContentType extends BubbleContentType = string> ext
    */
   onTyping?: (rendererContent: string, currentContent: string) => void;
   onTypingComplete?: VoidFunction;
-  header?: AvoidValidation<VNode | string | ((content: ContentType, info: SlotInfoType) => VNode | string)>;
-  footer?: AvoidValidation<VNode | string | ((content: ContentType, info: SlotInfoType) => VNode | string)>;
+  header?: AvoidValidation<VNode | string | ((content: ContentType, info: InfoType) => VNode | string)>;
+  footer?: AvoidValidation<VNode | string | ((content: ContentType, info: InfoType) => VNode | string)>;
   /**
    * footer 渲染位置
    * @default placement===start ? 'outer-start' : 'outer-end'
@@ -111,6 +128,9 @@ export interface BubbleRef {
 
 export interface BubbleContextProps {
   onUpdate?: VoidFunction;
+  key?: string | number;
+  status?: MessageStatus;
+  extraInfo?: AnyObject;
 }
 
 export interface BubbleListRef {
@@ -126,6 +146,8 @@ export interface BubbleListRef {
 export type BubbleDataType = BubbleProps<any> & {
   key?: string | number;
   role?: string;
+  status?: MessageStatus;
+  extraInfo?: AnyObject;
 };
 
 export type RoleType = Partial<Omit<BubbleProps<any>, 'content'>>;

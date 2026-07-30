@@ -10,7 +10,10 @@ export type {
   EditableBubbleOption,
   SystemBubbleProps,
   DividerBubbleProps,
+  InfoType,
+  BubbleDataType,
 } from './interface';
+// MessageStatus lives in use-x-chat — re-export would clash at package root
 
 const Bubble = Object.assign(BubbleComponent, {
   List: BubbleList,

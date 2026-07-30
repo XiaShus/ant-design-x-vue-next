@@ -19,6 +19,16 @@ customClass: changelog-page
 
 ---
 
+## 1.36.0
+
+`2026-07-31`
+
+### ant-design-x-vue-next
+
+- 🆕 Bubble `contentRender(content, info)`（对齐 React 2.x；`messageRender` 兼容）。
+- 🆕 Bubble / Bubble.List `status`、`extraInfo` 进入 `InfoType`（不泄漏为 DOM 属性）。
+- 🛠 发布 npm 包 [`ant-design-x-vue-next@1.36.0`](https://www.npmjs.com/package/ant-design-x-vue-next)。
+
 ## 1.35.0
 
 `2026-07-30`

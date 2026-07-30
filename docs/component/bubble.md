@@ -206,7 +206,10 @@ bubble/gpt-vis
 | typing | 设置聊天内容打字动画 | boolean \| \{ step?: number, interval?: number \} | false |  |
 | variant | 气泡样式变体 | `filled` \| `borderless` \| `outlined` \| `shadow` | `filled` |  |
 | loadingRender | 自定义渲染加载态内容 | () => VNode | - |  |
-| messageRender | 自定义渲染内容 | <ContentType extends [BubbleContentType](https://github.com/wzc520pyfm/ant-design-x-vue/blob/main/src/bubble/interface.ts#L23) = string>(content?: ContentType) => VNode | - |  |
+| contentRender | 自定义渲染内容（React 2.x 主 API） | `(content: ContentType, info: InfoType) => VNode \| string` | - | 1.36.0 |
+| messageRender | 同 `contentRender`（兼容旧名，已弃用；同时设置时以 `contentRender` 为准） | `(content: ContentType, info?: InfoType) => VNode \| string` | - | - |
+| status | 消息状态（供 `contentRender` 的 `info`，非 DOM 属性） | `MessageStatus` | - | 1.36.0 |
+| extraInfo | 额外元数据（供 `contentRender` 的 `info`，非 DOM 属性） | `object` | - | 1.36.0 |
 | onTyping | 打字过程回调 | (rendererContent: string, currentContent: string) => void | - | 1.30.0 |
 | onTypingComplete | 打字效果完成时的回调，如果没有设置 typing 将在渲染时立刻触发 | () => void | - |  |
 | editable | 是否可编辑（content 需为 string） | `boolean \| { editing?: boolean; okText?; cancelText? }` | `false` | 1.19.0 |
@@ -216,6 +219,11 @@ bubble/gpt-vis
 | footerPlacement | footer 位置 | `outer-start` \| `outer-end` \| `inner-start` \| `inner-end` | 随 placement | 1.20.0 |
 | typing.effect | 打字效果 | `typing` \| `fade-in` | `typing` | 1.20.0 |
 | typing.keepPrefix | 内容变化时是否保留公共前缀续打（流式场景） | boolean | `true` | 1.29.0 |
+
+```ts
+type MessageStatus = 'local' | 'loading' | 'updating' | 'success' | 'error' | 'abort';
+type InfoType = { key?: string | number; status?: MessageStatus; extraInfo?: object };
+```
 
 ### Bubble.System
 
