@@ -1,22 +1,19 @@
 import { Marked, type MarkedExtension, type Tokens } from 'marked';
+import { escapeHtml } from './escapeHtml';
 
 export type ParseMarkdownOptions = {
   markedConfig?: MarkedExtension;
   openLinksInNewTab?: boolean;
   injectTail?: boolean;
   tailContent?: string;
+  /**
+   * Escape raw HTML tokens in markdown source (recommended for untrusted LLM output).
+   * @default false
+   */
+  escapeRawHtml?: boolean;
 };
 
 const DEFAULT_TAIL = '|';
-
-function escapeHtml(html: string): string {
-  return html
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
-}
 
 export function parseMarkdown(source: string, options: ParseMarkdownOptions = {}): string {
   if (!source) {
@@ -42,6 +39,16 @@ export function parseMarkdown(source: string, options: ParseMarkdownOptions = {}
       },
     },
   });
+
+  if (options.escapeRawHtml) {
+    markdown.use({
+      renderer: {
+        html({ raw, text }: Tokens.HTML | Tokens.Tag) {
+          return escapeHtml(raw || text || '', true);
+        },
+      },
+    });
+  }
 
   if (options.markedConfig) {
     markdown.use(options.markedConfig);

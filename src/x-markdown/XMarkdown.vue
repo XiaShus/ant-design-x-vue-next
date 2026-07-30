@@ -14,6 +14,7 @@ const DEFAULT_TAIL = '|';
 
 const props = withDefaults(defineProps<XMarkdownProps>(), {
   openLinksInNewTab: false,
+  escapeRawHtml: false,
 });
 
 const slots = defineSlots<XMarkdownSlots>();
@@ -121,6 +122,7 @@ const renderedNodes = computed(() => {
     openLinksInNewTab: props.openLinksInNewTab,
     injectTail: shouldShowTail.value,
     tailContent: tailContent.value,
+    escapeRawHtml: props.escapeRawHtml,
   });
 
   return htmlToVNodes(html, {

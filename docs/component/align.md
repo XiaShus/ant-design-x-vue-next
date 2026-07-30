@@ -30,9 +30,10 @@ React 2.x 已拆出独立包，Vue Next 尚未拆分：
 
 | 包 | React | Vue Next |
 | --- | --- | --- |
-| `@ant-design/x-sdk`（含 XRequest / XStream / Chat 能力） | ✅ | 仍以内置 `useXChat` / `XRequest` / `XStream` 提供 |
-| `@ant-design/x-markdown` | ✅ | ✅ MVP（内置 `XMarkdown`，未拆独立包） |
+| `@ant-design/x-sdk`（含 XRequest / XStream / Chat 能力） | ✅ | 内置增强：`timeout` / `streamTimeout` / `retry` / `middlewares` / `abort`；尚未拆 Provider / MCP |
+| `@ant-design/x-markdown` | ✅ | ✅ 内置（安全清洗 + `escapeRawHtml`；流式 token 缓存 / LaTeX 继续对齐） |
 | `@ant-design/x-card` | ✅ | ⏳ |
+| `@ant-design/x-skill` | ✅ | ⏳（非运行时 UI） |
 
 本仓库工具类文档：
 
@@ -49,7 +50,8 @@ React 2.x 已拆出独立包，Vue Next 尚未拆分：
 3. ~~Notification~~ ✅
 4. ~~CodeHighlighter~~ ✅
 5. ~~Mermaid~~ ✅
-6. ~~XMarkdown MVP~~ ✅（继续对齐流式 token 缓存 / 独立包）
-7. `x-card` / SDK 能力细化
+6. ~~XMarkdown MVP + 安全加固~~ ✅（继续对齐流式 token 缓存 / LaTeX / 独立包）
+7. ~~SDK 稳定性（abort / timeout / retry / middleware）~~ ✅（继续对齐 Provider / MCP / conversation store）
+8. `x-card`（A2UI）
 
 参考源码：[`ant-design/x`](https://github.com/ant-design/x)

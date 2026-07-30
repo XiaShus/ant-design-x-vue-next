@@ -38,14 +38,21 @@ x-markdown/streaming
 | streaming | 流式配置 | `{ hasNextChunk?: boolean; tail?: boolean \| { content?: string } }` | - |
 | config | Marked.js 扩展配置 | `MarkedExtension` | - |
 | openLinksInNewTab | 链接新标签打开 | `boolean` | `false` |
+| escapeRawHtml | 转义 Markdown 中的原始 HTML（**不信任模型输出时请开启**） | `boolean` | `false` |
 | dompurifyConfig | DOMPurify 配置 | `Config` | - |
 | disableDefaultStyles | 关闭内置默认样式 | `boolean \| DefaultStyleTag[]` | - |
+
+## 企业使用建议
+
+- 对大模型输出务必开启 `escapeRawHtml`，并按需收紧 `dompurifyConfig`。
+- 自定义组件标签会自动合并进 DOMPurify `ADD_TAGS`；不要手动关闭消毒。
+- 链接新开页请配合 `openLinksInNewTab`（自动带 `rel="noopener noreferrer"`）。
 
 ## 说明
 
 - 解析引擎：[`marked`](https://github.com/markedjs/marked)（与官方一致）。
-- 安全清洗：[`dompurify`](https://github.com/cure53/DOMPurify)。
-- 当前为 **MVP**：已覆盖常用渲染、链接、代码块组件映射与流式尾标；尚未完整移植官方增量 token 缓存与 DebugPanel。后续会继续对齐。
+- 安全清洗：[`dompurify`](https://github.com/cure53/DOMPurify)（含 happy-dom 兼容补丁，失败时 fail-closed，绝不回退原始 HTML）。
+- 已覆盖常用渲染、链接、代码块组件映射与流式尾标；增量 token 缓存 / LaTeX / DebugPanel 仍在对齐中。
 
 ## 贡献者
 

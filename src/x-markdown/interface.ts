@@ -96,6 +96,12 @@ export interface XMarkdownProps {
    */
   dompurifyConfig?: DOMPurifyConfig;
   /**
+   * @desc 转义 Markdown 中的原始 HTML（不信任模型输出时务必开启）
+   * @descEN Escape raw HTML tokens in markdown (enable for untrusted LLM output)
+   * @default false
+   */
+  escapeRawHtml?: boolean;
+  /**
    * @desc 关闭内置默认样式（全部或指定标签）
    * @descEN Disable built-in default styles
    */

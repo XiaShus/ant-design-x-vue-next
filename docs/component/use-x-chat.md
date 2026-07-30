@@ -72,7 +72,10 @@ type useXChat<
 | messages | 当前管理的内容 | AgentMessages[] |  |
 | parsedMessages | 经过 `parser` 转译过的内容 | ParsedMessages[] |  |
 | onRequest | 添加一条 Message，并且触发请求，若无`key`为`message`的数据则会将整个数据做为消息处理 | (requestParams: AgentMessage \| RequestParams) => void |  |
+| abort | 中止当前进行中的请求；已流式输出的内容会保留，状态置为 `abort` | () => void |  |
 | setMessages | 直接修改 messages，不会触发请求 | (messages: { message, status }[]) => void |  |
+
+`MessageStatus`：`local` | `loading` | `success` | `error` | `abort`。
 
 ### RequestParams
 

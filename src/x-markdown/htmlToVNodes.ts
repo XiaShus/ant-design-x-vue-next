@@ -1,7 +1,7 @@
 import type { Config as DOMPurifyConfig } from 'dompurify';
-import DOMPurify from 'dompurify';
 import { h, type VNode, type VNodeChild } from 'vue';
 import type { StreamStatus, XMarkdownComponents } from './interface';
+import { sanitizeMarkdownHtml } from './sanitize';
 
 const VOID_TAGS = new Set([
   'area',
@@ -20,26 +20,6 @@ const VOID_TAGS = new Set([
   'wbr',
 ]);
 
-function sanitizeHtml(html: string, config?: DOMPurifyConfig): string {
-  if (typeof window === 'undefined') {
-    return html;
-  }
-  // happy-dom exposes this marker; DOMPurify 3.x drops headings there
-  if ((window as any).happyDOM) {
-    return html;
-  }
-  const clean = DOMPurify.sanitize(html, {
-    ADD_TAGS: ['xmd-tail'],
-    ADD_ATTR: ['target', 'rel', 'data-language', 'class', 'style'],
-    ...config,
-  });
-  // Guard against environments that incorrectly strip common markdown tags
-  if (/<h[1-6][\s>]/i.test(html) && !/<h[1-6][\s>]/i.test(clean)) {
-    return html;
-  }
-  return clean;
-}
-
 function attrsToProps(el: Element): Record<string, unknown> {
   const props: Record<string, unknown> = {};
   for (const attr of Array.from(el.attributes)) {
@@ -49,6 +29,7 @@ function attrsToProps(el: Element): Record<string, unknown> {
     } else if (name === 'style') {
       props.style = attr.value;
     } else if (name.startsWith('on')) {
+      // Block inline event handlers even if they somehow survive sanitization
       continue;
     } else {
       props[name] = attr.value;
@@ -70,7 +51,6 @@ function convertNode(
   }
 
   const el = node as Element;
-  // happy-dom may return empty tagName for nodes from DOMParser documents
   const rawTag = el.localName || el.tagName || el.nodeName || '';
   const tag =
     rawTag.toLowerCase() ||
@@ -103,7 +83,6 @@ function convertNode(
         ''
       ).toLowerCase();
       props.block = parentTag === 'pre';
-      // Pass plain text to avoid slot-tracking issues inside computed VNodes
       props.content = el.textContent || '';
     }
     props.streamStatus = streamStatus;
@@ -135,14 +114,17 @@ export function htmlToVNodes(
     return [];
   }
 
-  const clean = sanitizeHtml(html, options.dompurifyConfig);
+  const componentTags = Object.keys(options.components || {}).filter((tag) => tag !== 'code');
+  const clean = sanitizeMarkdownHtml(html, {
+    dompurifyConfig: options.dompurifyConfig,
+    componentTags,
+  });
 
   if (typeof document === 'undefined') {
-    return [h('div', { innerHTML: clean })];
+    // Fail closed: never inject unsanitized HTML via innerHTML
+    return clean ? [h('div', null, clean)] : [];
   }
 
-  // Prefer innerHTML on a div created in the current document (avoids
-  // happy-dom DOMParser owner-document tagName issues).
   const root = document.createElement('div');
   root.innerHTML = clean;
 

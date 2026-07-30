@@ -19,3 +19,6 @@ XMarkdown.install = function (app: App) {
 export default XMarkdown;
 
 export { XMarkdown };
+export { parseMarkdown } from './parser';
+export { sanitizeMarkdownHtml } from './sanitize';
+export { escapeHtml } from './escapeHtml';
