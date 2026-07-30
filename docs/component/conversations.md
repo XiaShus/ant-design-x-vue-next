@@ -62,6 +62,14 @@ conversations/controlled-mode
 
 :::
 
+### 分割线
+
+:::demo `items` 支持 `{ type: 'divider' }` 插入分割线（可设 `dashed`）。
+
+conversations/divider
+
+:::
+
 ### 分组展示
 
 :::demo 使用 `groupable` 属性开启分组，开启后默认按 [Conversation.group](#) 字段分组
@@ -98,8 +106,8 @@ conversations/group-sort
 | --- | --- | --- | --- | --- |
 | activeKey | 当前选中的值 | string | - | - |
 | defaultActiveKey | 默认选中值 | string | - | - |
-| items | 会话列表数据源 | `Conversation`[] | - | - |
-| onActiveChange | 选中变更回调；第二参为对应会话项 | (value: string, item?: Conversation) => void | - | 1.48.0 |
+| items | 会话列表数据源（可含 divider） | `ConversationsItems`[] | - | 1.49.0 |
+| onActiveChange | 选中变更回调；第二参为对应会话项 | (value: string, item?: ConversationsItems) => void | - | 1.48.0 |
 | menu | 会话操作菜单 | MenuProps \| ((value: `Conversation`) => MenuProps) | - | - |
 | groupable | 是否支持分组, 开启后默认按 `Conversation.group` 字段分组 | boolean \| GroupableProps | - | - |
 | styles | 语义化结构 style | Record<'item' \| 'creation', CSSProperties> | - | - |
@@ -130,6 +138,16 @@ conversations/group-sort
 | group | 会话分组类型，与 `ConversationsProps.groupable` 联动 | string | - | - |
 | icon | 会话图标 | VNode \| string | - | - |
 | disabled | 是否禁用 | boolean | - | - |
+
+### DividerItemType
+
+| 属性 | 说明 | 类型 | 默认值 | 版本 |
+| --- | --- | --- | --- | --- |
+| type | 固定为 `divider` | `'divider'` | - | 1.49.0 |
+| key | 可选唯一标识 | string | - | 1.49.0 |
+| dashed | 是否虚线 | boolean | - | 1.49.0 |
+
+`ConversationsItems = Conversation \| DividerItemType`（`ConversationItemType` 为 Conversation 别名；根导出不用 `ItemType`，以免与 Actions 冲突）。
 
 ### GroupableProps
 

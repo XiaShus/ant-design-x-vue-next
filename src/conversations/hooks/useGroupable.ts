@@ -1,17 +1,26 @@
 import { computed, MaybeRefOrGetter, toValue } from 'vue';
-import type { Conversation, Groupable, ConversationsProps, GroupCollapsible } from '../interface';
+import type {
+  Conversation,
+  Groupable,
+  ConversationsProps,
+  GroupCollapsible,
+  ItemType,
+} from '../interface';
+import { isDividerItem } from '../interface';
 
 /**
  * 🔥 Only for handling ungrouped data. Do not use it for any other purpose! 🔥
  */
 const __UNGROUPED = '__ungrouped';
 
-type GroupListItem = {
-  data: Conversation[];
+export type GroupListItem = {
+  data: ItemType[];
   name?: string;
   title?: Groupable['title'];
   label?: Groupable['label'];
   collapsible?: boolean;
+  /** When false, render items flat without GroupTitle (dividers / ungrouped). */
+  enableGroup?: boolean;
 };
 
 type GroupMap = Record<string, Conversation[]>;
@@ -26,7 +35,7 @@ const resolveCollapsible = (
 
 const useGroupable = (
   groupable?: MaybeRefOrGetter<ConversationsProps['groupable']>,
-  items: MaybeRefOrGetter<Conversation[]> = [],
+  items: MaybeRefOrGetter<ItemType[]> = [],
 ) => {
   const state = computed(() => {
     if (!toValue(groupable)) {
@@ -71,14 +80,17 @@ const useGroupable = (
   });
 
   return computed(() => {
+    const rawItems = toValue(items) || [];
+
     if (!state.value.enableGroup) {
       const groupList: GroupListItem[] = [
         {
           name: __UNGROUPED,
-          data: toValue(items),
+          data: rawItems,
           title: undefined,
           label: undefined,
           collapsible: false,
+          enableGroup: false,
         },
       ];
 
@@ -90,12 +102,57 @@ const useGroupable = (
       };
     }
 
-    const groupMap = toValue(items).reduce<GroupMap>((acc, item) => {
-      const group = item.group || __UNGROUPED;
+    const hasDivider = rawItems.some((item) => isDividerItem(item));
+
+    // With dividers: preserve encounter order (React-aligned reduce).
+    if (hasDivider) {
+      const groupList = rawItems.reduce<GroupListItem[]>((currentGroupList, item) => {
+        if (isDividerItem(item) || !(item as Conversation).group) {
+          currentGroupList.push({
+            data: [item],
+            name: undefined,
+            title: undefined,
+            label: undefined,
+            enableGroup: false,
+            collapsible: false,
+          });
+          return currentGroupList;
+        }
+
+        const baseItem = item as Conversation;
+        const existed = currentGroupList.find((group) => group.name === baseItem.group);
+        if (existed) {
+          existed.data.push(baseItem);
+          return currentGroupList;
+        }
+
+        currentGroupList.push({
+          data: [baseItem],
+          name: baseItem.group,
+          title: state.value.title,
+          label: state.value.label,
+          enableGroup: true,
+          collapsible: resolveCollapsible(state.value.collapsibleHandle, baseItem.group),
+        });
+        return currentGroupList;
+      }, []);
+
+      return {
+        groupList,
+        enableGroup: true,
+        collapsibleOptions: state.value.collapsibleOptions,
+        hasCollapsible: !!state.value.collapsibleHandle,
+      };
+    }
+
+    // Legacy path (no dividers): bucket by group + optional sort.
+    const groupMap = rawItems.reduce<GroupMap>((acc, item) => {
+      const conv = item as Conversation;
+      const group = conv.group || __UNGROUPED;
       if (!acc[group]) {
         acc[group] = [];
       }
-      acc[group].push(item);
+      acc[group].push(conv);
       return acc;
     }, {});
 
@@ -110,6 +167,7 @@ const useGroupable = (
         title: state.value.title,
         label: state.value.label,
         data: groupMap[group],
+        enableGroup: true,
         collapsible: resolveCollapsible(state.value.collapsibleHandle, name),
       };
     });

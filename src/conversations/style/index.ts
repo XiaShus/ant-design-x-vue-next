@@ -110,6 +110,9 @@ const genConversationsStyle: GenerateStyle<ConversationsToken> = (token) => {
           color: token.colorTextDescription,
         },
       },
+      [`& ${componentCls}-divider`]: {
+        marginBlock: token.marginXXS,
+      },
       // 会话列表项
       [`& ${componentCls}-item`]: {
         display: 'flex',

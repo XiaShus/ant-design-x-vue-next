@@ -53,7 +53,35 @@ export interface Conversation extends AnyObject {
    * @descEN Whether to disable
    */
   disabled?: boolean;
+
+  /** Present only on divider items; conversation items must omit this. */
+  type?: undefined;
 }
+
+/** Align React `ConversationItemType`. */
+export type ConversationItemType = Conversation;
+
+/**
+ * @desc 分割线项（对齐 React）
+ * @descEN Divider item type
+ */
+export interface DividerItemType {
+  type: 'divider';
+  key?: string;
+  dashed?: boolean;
+}
+
+/**
+ * Align React conversations `ItemType`.
+ * Not re-exported from package root (conflicts with Actions `ItemType`).
+ */
+export type ItemType = ConversationItemType | DividerItemType;
+
+/** Public alias for the conversations items union (avoids Actions.ItemType clash). */
+export type ConversationsItems = ItemType;
+
+export const isDividerItem = (item: ItemType): item is DividerItemType =>
+  !!item && (item as DividerItemType).type === 'divider';
 
 /**
  * @desc 会话列表组件参数
@@ -61,10 +89,10 @@ export interface Conversation extends AnyObject {
  */
 export interface ConversationsProps extends HTMLAttributes {
   /**
-   * @desc 会话列表数据源
-   * @descEN Data source for the conversation list
+   * @desc 会话列表数据源（可含 divider）
+   * @descEN Data source for the conversation list (may include dividers)
    */
-  items?: Conversation[];
+  items?: ConversationsItems[];
 
   /**
    * @desc 当前选中的值
@@ -82,7 +110,7 @@ export interface ConversationsProps extends HTMLAttributes {
    * @desc 选中变更回调（第二参为对应会话项，对齐 React）
    * @descEN Callback for selection change; second arg is the matched item
    */
-  onActiveChange?: (value: Conversation['key'], item?: Conversation) => void;
+  onActiveChange?: (value: Conversation['key'], item?: ConversationsItems) => void;
 
   /**
    * @desc 会话操作菜单
@@ -167,7 +195,10 @@ export type GroupCollapsible = boolean | ((group: string) => boolean);
 export type GroupLabel =
   | VNode
   | string
-  | ((group: string, info: { groupInfo: { name?: string; data: Conversation[] } }) => VNode | string)
+  | ((
+      group: string,
+      info: { groupInfo: { name?: string; data: ConversationsItems[] } },
+    ) => VNode | string)
   | undefined;
 
 export interface Groupable {

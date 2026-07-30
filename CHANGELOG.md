@@ -2,6 +2,15 @@
 
 > Vue Next 文档站时间线版见 [更新日志](https://ant-design-x-vue-next-524.netlify.app/development/changelog.html)。
 
+## 1.49.0
+
+`2026-07-31`
+
+### ant-design-x-vue-next
+
+- 🆕 Conversations `items` 支持 `{ type: 'divider' }`；导出 `ConversationsItems` / `DividerItemType`
+- 🛠 发布 npm `ant-design-x-vue-next@1.49.0`
+
 ## 1.48.0
 
 `2026-07-31`

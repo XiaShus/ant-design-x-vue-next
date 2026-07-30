@@ -1,7 +1,13 @@
 <script setup lang="tsx">
 import classnames from 'classnames';
 import pickAttrs from '../_util/pick-attrs';
-import type { Conversation, ConversationsItemProps, ConversationsProps } from './interface';
+import type {
+  Conversation,
+  ConversationsItemProps,
+  ConversationsProps,
+  ItemType,
+} from './interface';
+import { isDividerItem } from './interface';
 import ConversationsItem from './ConversationsItem.vue';
 import Creation from './Creation.vue';
 import GroupTitle from './GroupTitle.vue';
@@ -16,6 +22,7 @@ import useStyle from './style';
 import GroupTitleContextProvider from './context';
 import type { GroupLabel } from './interface';
 import { TransitionCollapse } from '../transition-collapse';
+import { Divider } from 'ant-design-vue';
 
 defineOptions({ name: 'AXConversations' });
 
@@ -108,14 +115,16 @@ const mergedCls = computed(() => classnames(
 // ============================ Events ============================
 const onConversationItemClick: ConversationsItemProps['onClick'] = (info) => {
   setMergedActiveKey(info.key);
-  onActiveChange?.(
-    info.key,
-    (props.items || []).find((item) => item.key === info.key),
+  const matched = (props.items || []).find(
+    (item) => !isDividerItem(item) && item.key === info.key,
   );
+  onActiveChange?.(info.key, matched);
 };
 
-// Flat item list for shortcut index (Ctrl+1…9 / arrow list)
-const keyList = computed(() => (props.items || []).filter((item) => item && item.key));
+// Flat item list for shortcut index (Ctrl+1…9 / arrow list); skip dividers
+const keyList = computed(() =>
+  (props.items || []).filter((item): item is Conversation => !isDividerItem(item) && !!item?.key),
+);
 
 // ============================ Shortcut Keys =====================
 const { shortcutKeysInfo, subscribe } = useShortcutKeys(
@@ -183,22 +192,39 @@ defineRender(() => {
         />
       )}
       {groupSate.value.groupList.map((groupInfo, groupIndex) => {
-        const convItems = groupInfo.data.map((convInfo: Conversation, convIndex: number) => (
-          <ConversationsItem
-            key={convInfo.key || `key-${convIndex}`}
-            info={convInfo}
-            prefixCls={prefixCls.value}
-            direction={direction.value}
-            class={classnames(classNames.item, contextConfig.value.classNames.item)}
-            style={{ ...contextConfig.value.styles.item, ...styles.item }}
-            menu={typeof menu === 'function' ? menu(convInfo) : menu}
-            active={mergedActiveKey.value === convInfo.key}
-            onClick={onConversationItemClick}
-          />
-        ));
+        const renderItems = (itemData: ItemType[]) =>
+          itemData.map((itemInfo: ItemType, itemIndex: number) => {
+            if (isDividerItem(itemInfo)) {
+              return (
+                <Divider
+                  key={itemInfo.key || `key-divider-${groupIndex}-${itemIndex}`}
+                  class={`${prefixCls.value}-divider`}
+                  dashed={itemInfo.dashed}
+                />
+              );
+            }
+            const convInfo = itemInfo as Conversation;
+            return (
+              <ConversationsItem
+                key={convInfo.key || `key-${groupIndex}-${itemIndex}`}
+                info={convInfo}
+                prefixCls={prefixCls.value}
+                direction={direction.value}
+                class={classnames(classNames.item, contextConfig.value.classNames.item)}
+                style={{ ...contextConfig.value.styles.item, ...styles.item }}
+                menu={typeof menu === 'function' ? menu(convInfo) : menu}
+                active={mergedActiveKey.value === convInfo.key}
+                onClick={onConversationItemClick}
+              />
+            );
+          });
+
+        const convItems = renderItems(groupInfo.data);
+        const showGroupTitle =
+          groupSate.value.enableGroup && groupInfo.enableGroup !== false && !!groupInfo.name;
 
         // With group to show the title
-        if (groupSate.value.enableGroup) {
+        if (showGroupTitle) {
           const groupKey = groupInfo.name || `key-${groupIndex}`;
           const groupCollapsible = !!(enableCollapse.value && groupInfo.collapsible && groupInfo.name);
           const groupOpen = !groupCollapsible || expandedKeys.value.includes(groupInfo.name!);
