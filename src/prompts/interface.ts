@@ -37,7 +37,17 @@ export interface PromptProps extends BasePromptItem {
   children?: BasePromptItem[];
 }
 
-export type SemanticType = 'list' | 'item' | 'itemContent' | 'title' | 'subList' | 'subItem';
+/** Align React Prompts SemanticType. */
+export type SemanticType =
+  | 'root'
+  | 'list'
+  | 'item'
+  | 'itemContent'
+  | 'title'
+  | 'subList'
+  | 'subItem';
+
+export type PromptsSemanticType = SemanticType;
 
 export interface PromptsProps
   extends Omit<HTMLAttributes, 'onClick' | 'title'> {

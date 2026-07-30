@@ -52,6 +52,8 @@ const mergedCls = computed(() =>
     contextConfig.value.className,
     className,
     rootClassName,
+    (contextConfig.value.classNames as any)?.root,
+    classNames.root,
     hashId.value,
     cssVarCls,
     {
@@ -59,6 +61,13 @@ const mergedCls = computed(() =>
     },
   ),
 );
+
+const mergedRootStyle = computed(() => ({
+  ...(typeof style === 'object' ? style : {}),
+  ...(typeof contextConfig.value.style === 'object' ? contextConfig.value.style : {}),
+  ...((contextConfig.value.styles as any)?.root || {}),
+  ...(styles.root || {}),
+}));
 
 const mergedListCls = computed(() =>
   classnames(
@@ -86,11 +95,7 @@ defineRender(() => {
     <div
       {...htmlProps}
       class={mergedCls.value}
-      // @ts-expect-error
-      style={{
-        ...(typeof style === 'object' ? style : {}),
-        ...(typeof contextConfig.value.style === 'object' ? contextConfig.value.style : {}),
-      }}
+      style={mergedRootStyle.value as any}
     >
       {/* Title */}
       {titleNode.value && (
