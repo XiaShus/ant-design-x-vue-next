@@ -28,24 +28,34 @@ sources/expand
 
 ### SourcesProps
 
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| title | 标题内容 | VNode \| string | - |
-| items | 来源内容 | SourcesItem[] | - |
-| expandIconPosition | 折叠图标位置 | `'start' \| 'end'` | `'start'` |
-| defaultExpanded | 默认是否展开 | boolean | true |
-| expanded | 是否展开 | boolean | - |
-| onExpand | 展开事件 | `(expand: boolean) => void` | - |
-| onClick | 点击事件 | `(item: SourcesItem) => void` | - |
-| inline | 行内模式 | boolean | false |
-| activeKey | 行内模式激活 key | string \| number | - |
-| popoverOverlayWidth | 弹出层宽度 | number \| string | 300 |
+| 属性 | 说明 | 类型 | 默认值 | 版本 |
+| --- | --- | --- | --- | --- |
+| classNames | 语义化结构 className | Record<'root' \| 'title' \| 'content', string> | - | 1.75.0（文档） |
+| styles | 语义化结构 style | Record<'root' \| 'title' \| 'content', CSSProperties> | - | 1.75.0（文档） |
+| title | 标题内容 | VNode \| string | - | - |
+| items | 来源内容 | SourcesItem[] | - | - |
+| expandIconPosition | 折叠图标位置 | `'start' \| 'end'` | `'start'` | - |
+| defaultExpanded | 默认是否展开 | boolean | true | - |
+| expanded | 是否展开 | boolean | - | - |
+| onExpand | 展开事件 | `(expand: boolean) => void` | - | - |
+| onClick | 点击事件 | `(item: SourcesItem) => void` | - | - |
+| inline | 行内模式 | boolean | false | - |
+| activeKey | 行内模式激活 key | string \| number | - | - |
+| popoverOverlayWidth | 弹出层宽度 | number \| string | 300 | - |
 
 ### Sources Ref
 
 | 属性 | 说明 | 类型 | 版本 |
 | --- | --- | --- | --- |
 | nativeElement | 根节点 DOM | HTMLElement | 1.66.0 |
+
+#### Semantic DOM
+
+| 名称 | 说明 |
+| --- | --- |
+| root | 根节点 |
+| title | 标题区域 |
+| content | 内容区域（列表 / 行内浮层） |
 
 ```ts
 interface SourcesItem {

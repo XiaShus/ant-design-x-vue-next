@@ -41,6 +41,7 @@ folder/basic
 | onExpandedPathsChange | 展开路径变化 | `(paths) => void` | - |
 | onFileClick | 点击文件 | `(path, content?) => void` | - |
 | onFolderClick | 点击文件夹 | `(path) => void` | - |
+| onRightClick | 右键点击节点回调 | `(info: \{ event: MouseEvent; node: any \}) => void` | - |
 
 ### FolderTreeData
 
