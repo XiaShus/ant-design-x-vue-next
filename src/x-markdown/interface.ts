@@ -4,6 +4,21 @@ import type { Component, CSSProperties, HTMLAttributes } from 'vue';
 
 export type StreamStatus = 'loading' | 'done';
 
+export interface AnimationConfig {
+  /**
+   * @desc 淡入动画时长（毫秒）
+   * @descEN Fade-in animation duration in milliseconds
+   * @default 200
+   */
+  fadeDuration?: number;
+  /**
+   * @desc 动画缓动函数
+   * @descEN Animation easing function
+   * @default 'ease-in-out'
+   */
+  easing?: string;
+}
+
 export enum StreamCacheTokenType {
   Text = 'text',
   Link = 'link',
@@ -71,6 +86,17 @@ export type StreamingOption = {
   incompleteMarkdownComponentMap?: Partial<
     Record<Exclude<StreamCacheTokenType, StreamCacheTokenType.Text>, string>
   >;
+  /**
+   * @desc 为块级文本启用淡入动画
+   * @descEN Enable fade-in animation for block text nodes
+   * @default false
+   */
+  enableAnimation?: boolean;
+  /**
+   * @desc 文字出现动画配置
+   * @descEN Text appearance animation config
+   */
+  animationConfig?: AnimationConfig;
 };
 
 export interface XMarkdownProps {

@@ -43,7 +43,7 @@ x-markdown/latex
 | content | Markdown 内容 | `string` | - |
 | children | Markdown 内容（content 别名 / 默认插槽） | `string` | - |
 | components | 自定义标签组件映射 | `Record<string, Component>` | 默认 `code` → CodeHighlighter/Mermaid |
-| streaming | 流式配置（`hasNextChunk: true` 启用增量 token 缓存） | `{ hasNextChunk?: boolean; tail?: boolean \| { content?: string }; incompleteMarkdownComponentMap?: object }` | - |
+| streaming | 流式配置（`hasNextChunk` 增量缓存；`enableAnimation` 淡入） | `{ hasNextChunk?; tail?; enableAnimation?; animationConfig?; incompleteMarkdownComponentMap? }` | - |
 | config | Marked.js 扩展配置 | `MarkedExtension` | - |
 | openLinksInNewTab | 链接新标签打开 | `boolean` | `false` |
 | escapeRawHtml | 转义 Markdown 中的原始 HTML（**不信任模型输出时请开启**） | `boolean` | `false` |
@@ -69,8 +69,8 @@ import { XMarkdown, Latex } from 'ant-design-x-vue-next';
 
 - 解析引擎：[`marked`](https://github.com/markedjs/marked)（与官方一致）。
 - 安全清洗：[`dompurify`](https://github.com/cure53/DOMPurify)（含 happy-dom 兼容补丁，失败时 fail-closed，绝不回退原始 HTML）。
-- 已覆盖常用渲染、链接、代码块、流式尾标、**增量 token 缓存**与 **LaTeX/KaTeX**。
-- 仍在对齐：AnimationText、DebugPanel、独立包拆分。
+- 已覆盖常用渲染、链接、代码块、流式尾标、**增量 token 缓存**、**LaTeX/KaTeX** 与 **AnimationText**。
+- 仍在对齐：DebugPanel、独立包拆分。
 
 ## 贡献者
 

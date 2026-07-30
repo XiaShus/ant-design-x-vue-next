@@ -1,6 +1,7 @@
 import type { Config as DOMPurifyConfig } from 'dompurify';
 import { h, type VNode, type VNodeChild } from 'vue';
-import type { StreamStatus, XMarkdownComponents } from './interface';
+import AnimationText from './AnimationText.vue';
+import type { AnimationConfig, StreamStatus, XMarkdownComponents } from './interface';
 import { sanitizeMarkdownHtml } from './sanitize';
 
 const VOID_TAGS = new Set([
@@ -20,6 +21,8 @@ const VOID_TAGS = new Set([
   'wbr',
 ]);
 
+const ANIMATABLE_PARENTS = new Set(['p', 'li', 'h1', 'h2', 'h3', 'h4', 'td', 'th', 'blockquote']);
+
 function attrsToProps(el: Element): Record<string, unknown> {
   const props: Record<string, unknown> = {};
   for (const attr of Array.from(el.attributes)) {
@@ -29,7 +32,6 @@ function attrsToProps(el: Element): Record<string, unknown> {
     } else if (name === 'style') {
       props.style = attr.value;
     } else if (name.startsWith('on')) {
-      // Block inline event handlers even if they somehow survive sanitization
       continue;
     } else {
       props[name] = attr.value;
@@ -40,11 +42,36 @@ function attrsToProps(el: Element): Record<string, unknown> {
 
 function convertNode(
   node: ChildNode,
-  components: XMarkdownComponents | undefined,
-  streamStatus: StreamStatus,
+  options: {
+    components?: XMarkdownComponents;
+    streamStatus: StreamStatus;
+    enableAnimation?: boolean;
+    animationConfig?: AnimationConfig;
+    parentTag?: string;
+    parentIsCustom?: boolean;
+  },
 ): VNodeChild {
+  const {
+    components,
+    streamStatus,
+    enableAnimation,
+    animationConfig,
+    parentTag,
+    parentIsCustom,
+  } = options;
+
   if (node.nodeType === Node.TEXT_NODE) {
-    return node.textContent;
+    const text = node.textContent || '';
+    if (
+      enableAnimation &&
+      text.trim() &&
+      !parentIsCustom &&
+      parentTag &&
+      ANIMATABLE_PARENTS.has(parentTag)
+    ) {
+      return h(AnimationText, { text, animationConfig });
+    }
+    return text;
   }
   if (node.nodeType !== Node.ELEMENT_NODE) {
     return null;
@@ -60,8 +87,13 @@ function convertNode(
     return el.textContent;
   }
 
+  const isCustom = Boolean(components?.[tag]);
   const children = Array.from(el.childNodes).map((child) =>
-    convertNode(child, components, streamStatus),
+    convertNode(child, {
+      ...options,
+      parentTag: tag,
+      parentIsCustom: isCustom || parentIsCustom,
+    }),
   );
   const props = attrsToProps(el);
   const flatChildren = children.filter((child) => child !== null && child !== undefined);
@@ -77,12 +109,12 @@ function convertNode(
         el.parentElement?.getAttribute('data-language') ||
         undefined;
       props.lang = language;
-      const parentTag = (
+      const parentElTag = (
         el.parentElement?.localName ||
         el.parentElement?.tagName ||
         ''
       ).toLowerCase();
-      props.block = parentTag === 'pre';
+      props.block = parentElTag === 'pre';
       props.content = el.textContent || '';
     }
     props.streamStatus = streamStatus;
@@ -95,7 +127,7 @@ function convertNode(
   if (tag === 'pre' && components?.code) {
     const codeEl = el.querySelector(':scope > code');
     if (codeEl) {
-      return convertNode(codeEl, components, streamStatus);
+      return convertNode(codeEl, options);
     }
   }
 
@@ -108,6 +140,8 @@ export function htmlToVNodes(
     components?: XMarkdownComponents;
     dompurifyConfig?: DOMPurifyConfig;
     streamStatus?: StreamStatus;
+    enableAnimation?: boolean;
+    animationConfig?: AnimationConfig;
   } = {},
 ): VNode[] {
   if (!html) {
@@ -121,7 +155,6 @@ export function htmlToVNodes(
   });
 
   if (typeof document === 'undefined') {
-    // Fail closed: never inject unsanitized HTML via innerHTML
     return clean ? [h('div', null, clean)] : [];
   }
 
@@ -130,7 +163,14 @@ export function htmlToVNodes(
 
   const streamStatus = options.streamStatus ?? 'done';
   return Array.from(root.childNodes)
-    .map((node) => convertNode(node, options.components, streamStatus))
+    .map((node) =>
+      convertNode(node, {
+        components: options.components,
+        streamStatus,
+        enableAnimation: options.enableAnimation,
+        animationConfig: options.animationConfig,
+      }),
+    )
     .filter((node): node is VNode | string => node !== null && node !== undefined)
     .map((node) => (typeof node === 'string' ? h('span', null, node) : (node as VNode)));
 }

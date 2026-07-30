@@ -138,6 +138,8 @@ const renderedNodes = computed(() => {
     components: mergedComponents.value,
     dompurifyConfig: props.dompurifyConfig,
     streamStatus: streamStatus.value,
+    enableAnimation: props.streaming?.enableAnimation,
+    animationConfig: props.streaming?.animationConfig,
   });
 });
 

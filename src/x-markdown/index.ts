@@ -20,6 +20,7 @@ XMarkdown.install = function (app: App) {
 export default XMarkdown;
 
 export { XMarkdown };
+export { default as AnimationText } from './AnimationText.vue';
 export { parseMarkdown } from './parser';
 export { sanitizeMarkdownHtml } from './sanitize';
 export { escapeHtml } from './escapeHtml';
@@ -27,3 +28,4 @@ export { useStreaming } from './composables/useStreaming';
 export { processStreamingText, getInitialCache } from './streamCache';
 export { Latex, plugins as xMarkdownPlugins } from './plugins';
 export type { LatexOption } from './plugins';
+export type { AnimationConfig } from './interface';
