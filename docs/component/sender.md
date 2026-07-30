@@ -232,6 +232,8 @@ type SpeechConfig = {
 };
 ```
 
+自 `1.83.0` 起可从包入口 `import type { SenderComponents, ActionsComponents }`（对齐 React Sender 模块导出）。
+
 ```typescript | pure
 type ActionsComponents = {
   SendButton: InstanceType<ButtonProps>;

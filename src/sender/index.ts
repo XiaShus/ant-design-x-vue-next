@@ -7,6 +7,8 @@ export type {
   SenderProps,
   SenderRef,
   SenderSemanticType,
+  SenderComponents,
+  ActionsComponents,
   SuffixRender,
   ActionsRender,
 } from './interface';
