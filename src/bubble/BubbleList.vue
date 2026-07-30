@@ -40,6 +40,9 @@ const slots = defineSlots<{
   footer?(props: {
     item: BubbleListProps['items'][number];
   }): VNode | string;
+  extra?(props: {
+    item: BubbleListProps['items'][number];
+  }): VNode | string;
   loading?(props: {
     item: BubbleListProps['items'][number];
   }): VNode;
@@ -171,6 +174,7 @@ defineRender(() => {
           avatar={slots.avatar ? () => slots.avatar?.({ item: { key, status, extraInfo, ...bubble } }) : bubble.avatar}
           header={slots.header?.({ item: { key, status, extraInfo, ...bubble } }) ?? bubble.header}
           footer={slots.footer?.({ item: { key, status, extraInfo, ...bubble } }) ?? bubble.footer}
+          extra={slots.extra?.({ item: { key, status, extraInfo, ...bubble } }) ?? bubble.extra}
           loadingRender={slots.loading ? () => slots.loading({ item: { key, status, extraInfo, ...bubble } }) : bubble.loadingRender}
           content={slots.message?.({ item: { key, status, extraInfo, ...bubble } }) ?? bubble.content}
           key={key}

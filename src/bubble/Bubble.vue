@@ -35,6 +35,7 @@ const {
   onTypingComplete,
   header,
   footer,
+  extra,
   onEditConfirm,
   onEditCancel,
   editable: _editable,
@@ -53,6 +54,10 @@ const slots = defineSlots<{
     info: InfoType;
   }): VNode | string;
   footer?(props: {
+    content: T;
+    info: InfoType;
+  }): VNode | string;
+  extra?(props: {
     content: T;
     info: InfoType;
   }): VNode | string;
@@ -335,6 +340,32 @@ const fullContent = computed<VNode>(() => {
   return _content;
 });
 
+const renderExtraNode = () => {
+  if (loading || isEditing.value) return null;
+  const info = renderInfo.value;
+  const node = slots.extra
+    ? slots.extra({ content: typedContent.value as T, info })
+    : typeof extra === 'function'
+      ? extra(typedContent.value as T, info)
+      : extra;
+  if (!node) return null;
+  return (
+    <div
+      class={[
+        `${prefixCls}-extra`,
+        contextConfig.value.classNames.extra,
+        classNames.extra,
+      ]}
+      style={{
+        ...contextConfig.value.styles.extra,
+        ...styles.extra,
+      }}
+    >
+      {node}
+    </div>
+  );
+};
+
 defineRender(() => {
   return wrapCSSVar(
     <div
@@ -365,6 +396,9 @@ defineRender(() => {
 
       {/* Content */}
       {toValue(fullContent)}
+
+      {/* Extra — sibling of content (React BubbleSlot parity) */}
+      {renderExtraNode()}
     </div>,
   );
 });

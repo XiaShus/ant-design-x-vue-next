@@ -126,6 +126,17 @@ const genBubbleStyle: GenerateStyle<BubbleToken> = (token) => {
         },
       },
 
+      // ============================ Extra ==============================
+      [`& ${componentCls}-extra`]: {
+        alignSelf: 'flex-start',
+        display: 'inline-flex',
+        alignItems: 'center',
+        flex: 'none',
+        fontSize: fontSize,
+        lineHeight: lineHeight,
+        color: token.colorTextDescription,
+      },
+
       [`& ${componentCls}-content-with-footer`]: {
         display: 'flex',
         flexDirection: 'column',

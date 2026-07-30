@@ -19,6 +19,17 @@ customClass: changelog-page
 
 ---
 
+## 1.37.0
+
+`2026-07-31`
+
+### ant-design-x-vue-next
+
+- 🆕 Bubble `extra` 插槽 / 属性（气泡旁侧 UI，对齐 React `BubbleSlot`）。
+- 🆕 Bubble.List 转发 `extra` / `#extra`。
+- 📖 新增 extra 演示；区分 `extra`（UI）与 `extraInfo`（元数据）。
+- 🛠 发布 npm 包 [`ant-design-x-vue-next@1.37.0`](https://www.npmjs.com/package/ant-design-x-vue-next)。
+
 ## 1.36.0
 
 `2026-07-31`

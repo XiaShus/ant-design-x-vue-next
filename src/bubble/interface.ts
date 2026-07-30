@@ -39,7 +39,7 @@ export interface TypingOption {
   keepPrefix?: boolean;
 }
 
-export type SemanticType = 'avatar' | 'content' | 'header' | 'footer';
+export type SemanticType = 'avatar' | 'content' | 'header' | 'footer' | 'extra';
 
 export type BubbleContentType = VNode | string | AnyObject | number;
 
@@ -95,6 +95,10 @@ export interface BubbleProps<ContentType extends BubbleContentType = string> ext
   onTypingComplete?: VoidFunction;
   header?: AvoidValidation<VNode | string | ((content: ContentType, info: InfoType) => VNode | string)>;
   footer?: AvoidValidation<VNode | string | ((content: ContentType, info: InfoType) => VNode | string)>;
+  /**
+   * Side UI beside the bubble body (timestamp / Actions). Distinct from `extraInfo` metadata.
+   */
+  extra?: AvoidValidation<VNode | string | ((content: ContentType, info: InfoType) => VNode | string)>;
   /**
    * footer 渲染位置
    * @default placement===start ? 'outer-start' : 'outer-end'

@@ -61,6 +61,14 @@ bubble/footer-placement
 
 :::
 
+### 旁侧 Extra
+
+:::demo `extra` 渲染在气泡旁侧（时间戳等）；与 `extraInfo`（`contentRender` 元数据）不同。
+
+bubble/extra
+
+:::
+
 ### 支持位置和头像
 
 :::demo 通过 `avatar` 设置自定义头像，通过 `placement` 设置位置，提供了 `start`、`end` 两个选项。
@@ -210,6 +218,7 @@ bubble/gpt-vis
 | messageRender | 同 `contentRender`（兼容旧名，已弃用；同时设置时以 `contentRender` 为准） | `(content: ContentType, info?: InfoType) => VNode \| string` | - | - |
 | status | 消息状态（供 `contentRender` 的 `info`，非 DOM 属性） | `MessageStatus` | - | 1.36.0 |
 | extraInfo | 额外元数据（供 `contentRender` 的 `info`，非 DOM 属性） | `object` | - | 1.36.0 |
+| extra | 气泡旁侧 UI（时间戳 / Actions 等；非 `extraInfo`） | `VNode \| string \| (content, info: InfoType) => VNode \| string` | - | 1.37.0 |
 | onTyping | 打字过程回调 | (rendererContent: string, currentContent: string) => void | - | 1.30.0 |
 | onTypingComplete | 打字效果完成时的回调，如果没有设置 typing 将在渲染时立刻触发 | () => void | - |  |
 | editable | 是否可编辑（content 需为 string） | `boolean \| { editing?: boolean; okText?; cancelText? }` | `false` | 1.19.0 |
@@ -245,8 +254,9 @@ type InfoType = { key?: string | number; status?: MessageStatus; extraInfo?: obj
 | 插槽名 | 说明 | 类型 |
 | --- | --- | --- |
 | avatar | 头像 | - |
-| header | 头部面板 | \{ content: ContentType, info: \{ key?: string \| number \} \} |
-| footer | 底部内容 | \{ content: ContentType, info: \{ key?: string \| number \} \} |
+| header | 头部面板 | \{ content: ContentType, info: InfoType \} |
+| footer | 底部内容 | \{ content: ContentType, info: InfoType \} |
+| extra | 旁侧内容 | \{ content: ContentType, info: InfoType \} |
 | loading | loading占位 | - |
 | message | 消息内容 | \{ content: ContentType \} |
 
