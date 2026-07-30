@@ -86,7 +86,7 @@ prompts/fade-in
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
 | classNames | 自定义样式类名，用于各个提示项的不同部分 | Record<SemanticType, string> | - | 1.56.0 起含 `root` |
-| items | 包含多个提示项的列表 | PromptProps[] | - | - |
+| items | 包含多个提示项的列表（类型亦导出为 `PromptsItemType`，对齐 React） | PromptProps[] | - | 1.79.0（类型导出） |
 | prefixCls | 样式类名的前缀 | string | - | - |
 | rootClassName | 根节点的样式类名 | string | - | - |
 | styles | 自定义样式，用于各个提示项的不同部分 | Record<SemanticType, CSSProperties> | - | 1.56.0 起含 `root` |
@@ -123,6 +123,8 @@ type SemanticType =
 | title | 显示在提示列表顶部的标题 |
 
 ### PromptProps
+
+自 `1.79.0` 起可从包入口 `import type { PromptProps, PromptsItemType }`（`PromptsItemType` 为 React 同名别名）。
 
 | 属性        | 说明                         | 类型            | 默认值  | 版本 |
 | ----------- | ---------------------------- | --------------- | ------- | ---- |

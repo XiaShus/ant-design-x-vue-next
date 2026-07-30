@@ -37,6 +37,12 @@ export interface PromptProps extends BasePromptItem {
   children?: BasePromptItem[];
 }
 
+/** Align React `@ant-design/x` export name for prompt list items. */
+export type PromptsItemType = PromptProps;
+
+/** Align React `BasePromptsItemType` naming. */
+export type BasePromptsItemType = BasePromptItem;
+
 /** Align React Prompts SemanticType. */
 export type SemanticType =
   | 'root'
