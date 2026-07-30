@@ -1,14 +1,19 @@
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { XAgent } from '../use-x-agent';
 import useSyncState from './useSyncState';
 import { useEventCallback } from '../_util/hooks/use-event-callback';
 import { type SSEOutput, XStreamOptions } from '../x-stream';
 import { XRequestParams } from '../x-request';
 import type { AnyObject } from '../_util/type';
+import {
+  type ConversationKey,
+  getConversationMessages,
+  setConversationMessages,
+} from './conversationStore';
 
 export type SimpleType = string | number | boolean | object;
 
-export type MessageStatus = 'local' | 'loading' | 'success' | 'error' | 'abort';
+export type MessageStatus = 'local' | 'loading' | 'success' | 'error' | 'abort' | 'updating';
 
 type RequestPlaceholderFn<Message extends SimpleType> = (
   message: Message,
@@ -40,6 +45,11 @@ export interface XChatConfig<
   agent?: XAgent<AgentMessage, Input, Output>;
 
   defaultMessages?: DefaultMessageInfo<AgentMessage>[];
+
+  /**
+   * Isolate message list by conversation key (multi-conversation enterprise chat).
+   */
+  conversationKey?: ConversationKey;
 
   /** Convert agent message to bubble usage message type */
   parser?: (message: AgentMessage) => BubbleMessage | BubbleMessage[];
@@ -85,6 +95,8 @@ function isAbortLikeError(error: Error) {
   );
 }
 
+const requestingMap = new Map<ConversationKey, boolean>();
+
 export default function useXChat<
   AgentMessage extends SimpleType = string,
   ParsedMessage extends SimpleType = AgentMessage,
@@ -100,22 +112,54 @@ export default function useXChat<
     transformMessage,
     transformStream,
     resolveAbortController,
+    conversationKey: conversationKeyProp,
   } = config;
 
-  // ========================= Agent Messages =========================
   const idRef = ref(0);
   const abortControllerRef = ref<AbortController | null>(null);
+  const activeConversationKey = ref<ConversationKey>(
+    conversationKeyProp ?? Symbol('ConversationKey'),
+  );
 
-  const defaultMessage = computed<MessageInfo<AgentMessage>[]>(() =>
+  const buildDefaultMessages = (): MessageInfo<AgentMessage>[] =>
     (defaultMessages || []).map((info, index) => ({
       id: `default_${index}`,
       status: 'local' as const,
       ...info,
-    })),
-  );
-  const [messages, setMessages] = useSyncState<MessageInfo<AgentMessage>[]>(
-    defaultMessage.value,
+    }));
+
+  const resolveInitialMessages = (key: ConversationKey): MessageInfo<AgentMessage>[] => {
+    const stored = getConversationMessages<AgentMessage>(key);
+    if (stored.length > 0) return stored;
+    return buildDefaultMessages();
+  };
+
+  const [messages, setMessagesInner] = useSyncState<MessageInfo<AgentMessage>[]>(
+    resolveInitialMessages(activeConversationKey.value),
     () => {},
+  );
+
+  const persistAndSetMessages = (
+    updater:
+      | MessageInfo<AgentMessage>[]
+      | ((prev: MessageInfo<AgentMessage>[]) => MessageInfo<AgentMessage>[]),
+  ) => {
+    setMessagesInner((prev) => {
+      const next = typeof updater === 'function' ? updater(prev) : updater;
+      setConversationMessages(activeConversationKey.value, next);
+      return next;
+    });
+  };
+
+  watch(
+    () => conversationKeyProp,
+    (key) => {
+      if (key === undefined || key === activeConversationKey.value) return;
+      // Persist current before switch
+      setConversationMessages(activeConversationKey.value, messages.value);
+      activeConversationKey.value = key;
+      setMessagesInner(resolveInitialMessages(key));
+    },
   );
 
   const createMessage = (message: AgentMessage, status: MessageStatus) => {
@@ -124,13 +168,10 @@ export default function useXChat<
       message,
       status,
     };
-
     idRef.value += 1;
-
     return msg;
   };
 
-  // ========================= BubbleMessages =========================
   const parsedMessages = computed(() => {
     const list: MessageInfo<ParsedMessage>[] = [];
     messages.value.forEach((agentMsg) => {
@@ -142,7 +183,6 @@ export default function useXChat<
         if (bubbleMsgs.length > 1) {
           key = `${key}_${bubbleMsgIndex}`;
         }
-
         list.push({
           id: key,
           message: bubbleMsg,
@@ -150,11 +190,9 @@ export default function useXChat<
         });
       });
     });
-
     return list;
   });
 
-  // ============================ Request =============================
   const getFilteredMessages = (msgs: MessageInfo<AgentMessage>[]) =>
     msgs
       .filter((info) => info.status !== 'loading' && info.status !== 'error')
@@ -167,18 +205,19 @@ export default function useXChat<
     if (typeof transformMessage === 'function') {
       return transformMessage(params);
     }
-
     if (chunk) {
       return chunk as unknown as AgentMessage;
     }
-
     if (Array.isArray(chunks)) {
       const last = chunks?.length > 0 ? chunks?.[chunks?.length - 1] : undefined;
       return originMessage ? originMessage : (last as unknown as AgentMessage);
     }
-
     return chunks as unknown as AgentMessage;
   };
+
+  const isRequesting = computed(
+    () => requestingMap.get(activeConversationKey.value) === true,
+  );
 
   const abort = useEventCallback(() => {
     abortControllerRef.value?.abort();
@@ -204,11 +243,10 @@ export default function useXChat<
         message = requestParams as AgentMessage;
       }
 
-      setMessages((ori) => {
+      persistAndSetMessages((ori) => {
         let nextMessages = [...ori, createMessage(message, 'local')];
         if (requestPlaceholder) {
           let placeholderMsg: AgentMessage;
-
           if (typeof requestPlaceholder === 'function') {
             placeholderMsg = (requestPlaceholder as RequestPlaceholderFn<AgentMessage>)(message, {
               messages: getFilteredMessages(nextMessages),
@@ -218,27 +256,26 @@ export default function useXChat<
           }
           const loadingMsg = createMessage(placeholderMsg, 'loading');
           loadingMsgId = loadingMsg.id;
-
           nextMessages = [...nextMessages, loadingMsg];
         }
-
         return nextMessages;
       });
 
       let updatingMsgId: number | string | null = null;
+      requestingMap.set(activeConversationKey.value, true);
 
       const updateMessage = (status: MessageStatus, chunk: Output, chunks: Output[]) => {
         let msg = messages.value.find((info) => info.id === updatingMsgId);
         if (!msg) {
           const transformData = getTransformMessage({ chunk, status, chunks });
           msg = createMessage(transformData, status);
-          setMessages((ori) => {
+          persistAndSetMessages((ori) => {
             const oriWithoutPending = ori.filter((info) => info.id !== loadingMsgId);
             return [...oriWithoutPending, msg!];
           });
           updatingMsgId = msg.id;
         } else {
-          setMessages((ori) => {
+          persistAndSetMessages((ori) => {
             return ori.map((info) => {
               if (info.id === updatingMsgId) {
                 const transformData = getTransformMessage({
@@ -257,7 +294,6 @@ export default function useXChat<
             });
           });
         }
-
         return msg;
       };
 
@@ -269,19 +305,20 @@ export default function useXChat<
         } as Input,
         {
           onUpdate: (chunk) => {
-            updateMessage('loading', chunk, []);
+            updateMessage('updating', chunk, []);
           },
           onSuccess: (chunks) => {
             updateMessage('success', undefined as Output, chunks);
+            requestingMap.set(activeConversationKey.value, false);
             abortControllerRef.value = null;
           },
           onError: async (error: Error) => {
             const lid = loadingMsgId;
             const uid = updatingMsgId;
+            requestingMap.set(activeConversationKey.value, false);
 
             if (isAbortLikeError(error)) {
-              // Keep streamed partial content with abort status; drop unused placeholder
-              setMessages((ori) => {
+              persistAndSetMessages((ori) => {
                 if (uid != null) {
                   return ori
                     .filter((info) => info.id !== lid)
@@ -297,7 +334,6 @@ export default function useXChat<
 
             if (requestFallback) {
               let fallbackMsg: AgentMessage;
-
               if (typeof requestFallback === 'function') {
                 fallbackMsg = await (requestFallback as RequestFallbackFn<AgentMessage>)(message, {
                   error,
@@ -306,15 +342,14 @@ export default function useXChat<
               } else {
                 fallbackMsg = requestFallback;
               }
-
-              setMessages((ori) => [
+              persistAndSetMessages((ori) => [
                 ...ori.filter((info) => info.id !== lid && info.id !== uid),
                 createMessage(fallbackMsg, 'error'),
               ]);
             } else {
-              setMessages((ori) => {
-                return ori.filter((info) => info.id !== lid && info.id !== uid);
-              });
+              persistAndSetMessages((ori) =>
+                ori.filter((info) => info.id !== lid && info.id !== uid),
+              );
             }
             abortControllerRef.value = null;
           },
@@ -333,6 +368,8 @@ export default function useXChat<
     abort,
     messages,
     parsedMessages,
-    setMessages,
+    setMessages: persistAndSetMessages,
+    conversationKey: activeConversationKey,
+    isRequesting,
   } as const;
 }

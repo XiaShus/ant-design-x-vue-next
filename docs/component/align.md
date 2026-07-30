@@ -30,7 +30,7 @@ React 2.x 已拆出独立包，Vue Next 尚未拆分：
 
 | 包 | React | Vue Next |
 | --- | --- | --- |
-| `@ant-design/x-sdk`（含 XRequest / XStream / Chat 能力） | ✅ | 内置增强：`timeout` / `streamTimeout` / `retry` / `middlewares` / `abort`；尚未拆 Provider / MCP |
+| `@ant-design/x-sdk`（含 XRequest / XStream / Chat 能力） | ✅ | 内置增强：`timeout` / retry / abort + `OpenAIChatProvider` + `conversationKey`；MCP 待对齐 |
 | `@ant-design/x-markdown` | ✅ | ✅ 内置（安全清洗 + `escapeRawHtml` + 流式 token 缓存 + LaTeX；Animation 继续对齐） |
 | `@ant-design/x-card` | ✅ | ⏳ |
 | `@ant-design/x-skill` | ✅ | ⏳（非运行时 UI） |

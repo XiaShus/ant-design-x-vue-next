@@ -57,6 +57,7 @@ type useXChat<
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
 | agent | 通过 `useXAgent` 生成的 `agent`，当使用 `onRequest` 方法时, `agent` 参数是必需的。 | XAgent | - |  |
+| conversationKey | 多会话隔离 key，切换时自动持久化/恢复消息列表 | `string \| symbol` | - |  |
 | defaultMessages | 默认展示信息 | { status, message }[] | - |  |
 | parser | 将 AgentMessage 转换成消费使用的 ParsedMessage，不设置时则直接消费 AgentMessage。支持将一条 AgentMessage 转换成多条 ParsedMessage | (message: AgentMessage) => BubbleMessage \| BubbleMessage[] | - |  |
 | requestFallback | 请求失败的兜底信息，不提供则不会展示 | AgentMessage \| () => AgentMessage | - |  |
@@ -74,8 +75,24 @@ type useXChat<
 | onRequest | 添加一条 Message，并且触发请求，若无`key`为`message`的数据则会将整个数据做为消息处理 | (requestParams: AgentMessage \| RequestParams) => void |  |
 | abort | 中止当前进行中的请求；已流式输出的内容会保留，状态置为 `abort` | () => void |  |
 | setMessages | 直接修改 messages，不会触发请求 | (messages: { message, status }[]) => void |  |
+| isRequesting | 当前会话是否正在请求 | `ComputedRef<boolean>` |  |
+| conversationKey | 当前会话 key | `Ref<string \| symbol>` |  |
 
-`MessageStatus`：`local` | `loading` | `success` | `error` | `abort`。
+`MessageStatus`：`local` | `loading` | `updating` | `success` | `error` | `abort`。
+
+### OpenAI Provider
+
+```ts
+import { useXChat, useXAgent, OpenAIChatProvider } from 'ant-design-x-vue-next';
+
+const provider = new OpenAIChatProvider();
+const [agent] = useXAgent({ baseURL: '/api/chat', model: 'gpt-4o-mini' });
+const { onRequest, abort, messages } = useXChat({
+  agent: agent.value,
+  conversationKey: 'session-1',
+  transformMessage: provider.asTransformMessage(),
+});
+```
 
 ### RequestParams
 
