@@ -97,11 +97,13 @@ prompts/fade-in
 | fadeInLeft | 挂载时从左淡入（与 `fadeIn` 同时设置时优先） | boolean | `false` | 1.34.0 |
 | onItemClick | 提示项被点击时的回调函数 | (info: { data: PromptProps }) => void | - | - |
 
+自 `1.144.0` 起可从包入口 `import type { PromptsProps, PromptsRef }`（对齐 React Prompts 包入口 Props / Ref 类型）。
+
 ### Prompts Ref
 
 | 属性 | 说明 | 类型 | 版本 |
 | --- | --- | --- | --- |
-| nativeElement | 根节点 DOM | HTMLDivElement | 1.59.0 |
+| nativeElement | 根节点 DOM（类型亦导出为 `PromptsRef`） | HTMLDivElement | 1.59.0；1.144.0（类型导出文档） |
 
 #### PromptsSemanticType
 
