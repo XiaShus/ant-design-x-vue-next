@@ -116,6 +116,8 @@ attachments/files-custom
 | imageProps       | 图片属性，同 antdv [Image](https://www.antdv.com/components/image-cn) 属性 | ImageProps                                                         | -      | -    |
 | maxCount         | 限制附件数量；达到上限后隐藏 FileList 继续上传入口（对齐 React）         | number                                                             | -      | 1.46.0 |
 
+自 `1.147.0` 起可从包入口 `import type { AttachmentsProps, AttachmentsRef, Attachment }`（对齐 React Attachments 包入口 Props / Ref / 附件项类型）。
+
 自 `1.97.0` 起可从包入口 `import type { AttachmentsSemanticType, PlaceholderType }`（对齐 React）。
 自 `1.101.0` 起可从包入口 `import type { PlaceholderConfig }`（`PlaceholderType` 的对象形态）。
 
@@ -147,9 +149,11 @@ type Attachment = UploadFile & {
 
 ### Attachments Expose
 
+自 `1.147.0` 起可从包入口 `import type { AttachmentsRef }`（expose API 类型）。
+
 | 属性              | 说明                                       | 类型                                                             | 版本   |
 | ----------------- | ------------------------------------------ | ---------------------------------------------------------------- | ------ |
-| nativeElement     | 获取根节点                                 | HTMLElement \| null                                              | -      |
+| nativeElement     | 获取根节点（类型亦导出为 `AttachmentsRef`） | HTMLElement \| null                                              | 1.147.0（类型导出文档） |
 | fileNativeElement | 获取文件选择 input                         | HTMLInputElement \| null                                         | 1.38.0 |
 | upload            | 手工注入文件并触发上传                     | (file: File \| File[] \| FileList) => void                       | -      |
 | select            | 打开原生文件选择器（可覆盖 accept/multiple） | (options?: \{ accept?: string; multiple?: boolean \}) => void   | 1.38.0 |
