@@ -203,14 +203,14 @@ bubble/gpt-vis
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
 | avatar | 展示头像（支持 BubbleSlot） | `AvatarProps \| VNode \| (content, info: InfoType) => VNode` | - | 1.43.0（函数 BubbleSlot） |
-| classNames | 语义化结构 class（含 `root` / `body`） | Record<'root' \| 'body' \| 'avatar' \| 'content' \| 'header' \| 'footer' \| 'extra', string> | - | 1.64.0（`root`/`body`） |
+| classNames | 语义化结构 class（含 `root` / `body`） | Record<BubbleSemanticType, string> | - | 1.64.0（`root`/`body`）；1.125.0（类型导出文档） |
 | content | 聊天内容 | ContentType | - |  |
 | footer | 底部内容 | VNode \| (content: ContentType, info: { key?: string \| number }) => VNode | - |  |
 | header | 头部内容 | VNode \| (content: ContentType, info: { key?: string \| number }) => VNode | - |  |
 | loading | 聊天内容加载状态 | boolean | - |  |
 | placement | 信息位置 | `start` \| `end` | `start` |  |
 | shape | 气泡形状 | `round` \| `corner` | - |  |
-| styles | 语义化结构 style（含 `root` / `body`） | Record<'root' \| 'body' \| 'avatar' \| 'content' \| 'header' \| 'footer' \| 'extra', CSSProperties> | - | 1.64.0（`root`/`body`） |
+| styles | 语义化结构 style（含 `root` / `body`） | Record<BubbleSemanticType, CSSProperties> | - | 1.64.0（`root`/`body`）；1.125.0（类型导出文档） |
 | typing | 设置聊天内容打字动画；可为 `(content, info) => boolean \| TypingOption` | boolean \| TypingOption \| `((content, info) => boolean \| TypingOption)` | false | 1.40.0（函数形式） |
 | variant | 气泡样式变体 | `filled` \| `borderless` \| `outlined` \| `shadow` | `filled` |  |
 | loadingRender | 自定义渲染加载态内容 | () => VNode | - |  |
@@ -229,6 +229,19 @@ bubble/gpt-vis
 | typing.effect | 打字效果 | BubbleTypingEffect | `typing` | 1.20.0；1.99.0（类型导出） |
 | typing.step | 每次前进字符数；数组为闭区间随机步长 | `number \| [number, number]` | `1` | 1.43.0（区间） |
 | typing.keepPrefix | 内容变化时是否保留公共前缀续打（流式场景） | boolean | `true` | 1.29.0 |
+
+自 `1.125.0` 起可从包入口 `import type { BubbleSemanticType }`（对齐 React Bubble `SemanticType` 键集）。
+
+```typescript | pure
+type BubbleSemanticType =
+  | 'root'
+  | 'body'
+  | 'avatar'
+  | 'content'
+  | 'header'
+  | 'footer'
+  | 'extra';
+```
 
 自 `1.99.0` 起可从包入口 `import type { TypingOption, BubbleTypingEffect, FooterPlacement }`。
 自 `1.103.0` 起可从包入口 `import type { BubbleContentType, SlotInfoType }`（`SlotInfoType` 为 `InfoType` 别名）。
@@ -320,9 +333,21 @@ const MyBubble = Bubble<CustomContentType>;
 | items | 气泡数据列表；`role: 'system' \| 'divider'` 渲染对应子组件（类型亦导出为 `BubbleItemType`，对齐 React） | BubbleItemType[] / BubbleDataType[] | - | 1.81.0（`BubbleItemType` 导出） |
 | roles | 设置气泡默认属性，`items` 中的 `role` 会进行自动对应（与 `role` 等价；同时传入时优先 `roles`） | Record<string, BubbleProps> \| (bubble, index) => BubbleProps | - |  |
 | role | 对齐 React：同 `roles` | Record<string, BubbleProps> \| (bubble, index) => BubbleProps | - | 1.68.0 |
-| classNames | 语义化 className | Record<'root' \| 'scroll' \| 'bubble' \| 'system' \| 'divider' \| …, string> | - | 1.53.0 |
-| styles | 语义化 style | Record<'root' \| 'scroll' \| 'bubble' \| 'system' \| 'divider' \| …, CSSProperties> | - | 1.53.0 |
+| classNames | 语义化 className（含气泡语义键与列表键） | Record<ListSemanticType, string> | - | 1.53.0；1.125.0（类型导出文档） |
+| styles | 语义化 style（同上） | Record<ListSemanticType, CSSProperties> | - | 1.53.0；1.125.0（类型导出文档） |
 | onScroll | 监听 `Bubble.List` 滚动（scroll-box） | (e: Event) => void | - | 1.5.0 |
+
+自 `1.125.0` 起文档明确包入口 `import type { ListSemanticType }`（`Bubble.List` 语义键；含 `BubbleSemanticType` 与 `root` / `scroll` / `bubble` / `system` / `divider`）。
+
+```typescript | pure
+type ListSemanticType =
+  | BubbleSemanticType
+  | 'root'
+  | 'scroll'
+  | 'bubble'
+  | 'system'
+  | 'divider';
+```
 
 ### Bubble.List Ref
 
