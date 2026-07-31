@@ -94,6 +94,8 @@ type ActionsSemanticType = 'root' | 'item' | 'itemDropdown';
 
 ### ItemType
 
+自 `1.141.0` 起可从包入口 `import type { ActionItem, ItemType, SubItemType }`（`items` 项类型；`ActionItem = ItemType | SubItemType`）。
+
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
 | key | 自定义操作的唯一标识 | string | - | - |
@@ -169,6 +171,8 @@ type ActionsSemanticType = 'root' | 'item' | 'itemDropdown';
 | styles | 语义化 style | Record<'root' \| 'default' \| 'running' \| 'error' \| 'loading', CSSProperties> | - | 1.96.0 |
 
 ### ActionItem
+
+自 `1.141.0` 起可从包入口 `import type { ActionItem }`（与 `ItemType` / `SubItemType` 一并导出）。
 
 ```typescript | pure
 type ActionItem = ItemType | SubItemType;
