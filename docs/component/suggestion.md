@@ -46,12 +46,18 @@ suggestion/trigger
 | items | 建议项列表 | SuggestionItem[] \| ((info: T) => SuggestionItem[]) | - | - |
 | open | 受控打开面板 | boolean | - | - |
 | rootClassName | 根元素样式类名 | string | - | - |
-| classNames | 语义化结构 className | Record<root \| content \| popup, string> | - | 1.54.0 |
-| styles | 语义化结构 style | Record<root \| content \| popup, CSSProperties> | - | 1.54.0 |
+| classNames | 语义化结构 className | Record<SuggestionSemanticType, string> | - | 1.54.0；1.117.0（类型导出文档） |
+| styles | 语义化结构 style | Record<SuggestionSemanticType, CSSProperties> | - | 1.54.0；1.117.0（类型导出文档） |
 | onSelect | 选中建议项回调 | (value: string, selectedOptions: SuggestionItem[]) => void | - | 1.32.0 |
 | onOpenChange | 面板打开状态变化回调 | (open: boolean) => void | - | - |
 | getPopupContainer | 菜单渲染父节点；默认渲染到 `body` | `(triggerNode: HTMLElement) => HTMLElement` | `() => document.body` | 1.67.0 |
 | ...CascaderProps | 透传 ant-design-vue Cascader 其余属性（对齐 React `otherProps`，如 `expandTrigger` / `disabled`） | - | - | 1.73.0 |
+
+自 `1.117.0` 起可从包入口 `import type { SuggestionSemanticType }`（对齐 React Suggestion `SemanticType` 键集）。
+
+```typescript | pure
+type SuggestionSemanticType = 'root' | 'content' | 'popup';
+```
 
 #### Semantic DOM
 

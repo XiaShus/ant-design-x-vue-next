@@ -19,6 +19,15 @@ customClass: changelog-page
 
 ---
 
+## 1.117.0
+
+`2026-07-31`
+
+### ant-design-x-vue-next
+
+- 🆕 文档补齐 Suggestion `SuggestionSemanticType` 包入口导出说明（对齐 React Suggestion `SemanticType` 键集）。
+- 🛠 发布 npm 包 [`ant-design-x-vue-next@1.117.0`](https://www.npmjs.com/package/ant-design-x-vue-next)。
+
 ## 1.116.0
 
 `2026-07-31`
