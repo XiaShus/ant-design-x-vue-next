@@ -35,9 +35,9 @@ file-card/list
 | size | 卡片大小 | `'small' \| 'default'` | `'default'` | - |
 | description | 文件描述 | VNode \| string \| function | - | - |
 | loading | 是否加载中 | boolean | false | - |
-| type | 文件类型 | `'file' \| 'image' \| 'audio' \| 'video'` | - | - |
+| type | 文件类型 | CardType | - | 1.131.0（类型导出文档） |
 | src | 资源地址 | string | - | - |
-| icon | 自定义图标；预设含 `java` / `javascript` / `python`（对齐 React） | VNode \| PresetIcons | - | 1.69.0（语言图标） |
+| icon | 自定义图标；预设含 `java` / `javascript` / `python`（对齐 React） | VNode \| PresetIcons | - | 1.69.0（语言图标）；1.131.0（`PresetIcons` 类型导出文档） |
 | imageProps | 图片属性，同 ant-design-vue Image | ImageProps | - | - |
 | videoProps | 视频属性（透传 `<video>`） | Record<string, any> | - | 1.85.0（文档） |
 | audioProps | 音频属性（透传 `<audio>`） | Record<string, any> | - | 1.85.0（文档） |
@@ -56,6 +56,27 @@ type FileCardSpinProps = SpinProps & {
   percent?: number | 'auto';
   size?: SpinProps['size'] | 'middle' | 'medium';
 };
+```
+
+自 `1.131.0` 起可从包入口 `import type { CardType, PresetIcons }`。
+
+```typescript | pure
+type CardType = 'file' | 'image' | 'audio' | 'video';
+
+type PresetIcons =
+  | 'default'
+  | 'excel'
+  | 'image'
+  | 'markdown'
+  | 'pdf'
+  | 'ppt'
+  | 'word'
+  | 'zip'
+  | 'video'
+  | 'audio'
+  | 'java'
+  | 'javascript'
+  | 'python';
 ```
 
 自 `1.120.0` 起可从包入口 `import type { FileCardSemanticType }`（对齐 React FileCard `SemanticType` 键集）。
