@@ -53,6 +53,8 @@ suggestion/trigger
 | getPopupContainer | 菜单渲染父节点；默认渲染到 `body` | `(triggerNode: HTMLElement) => HTMLElement` | `() => document.body` | 1.67.0 |
 | ...CascaderProps | 透传 ant-design-vue Cascader 其余属性（对齐 React `otherProps`，如 `expandTrigger` / `disabled`） | - | - | 1.73.0 |
 
+自 `1.145.0` 起可从包入口 `import type { SuggestionProps, SuggestionItem }`（对齐 React Suggestion 包入口 Props / 建议项类型；文档小节 `SuggestionsProps` 同 `SuggestionProps`）。
+
 自 `1.117.0` 起可从包入口 `import type { SuggestionSemanticType }`（对齐 React Suggestion `SemanticType` 键集）。
 
 ```typescript | pure
@@ -82,6 +84,8 @@ Suggestion 接受泛型以自定义传递给 `items` renderProps 的参数类型
 | default | 用于自定义输入框 | \{ onTrigger, onKeyDown, open \} |
 
 ### SuggestionItem
+
+自 `1.145.0` 起可从包入口 `import type { SuggestionItem }`（与 `SuggestionProps` 一并导出）。
 
 | 属性     | 说明           | 类型             | 默认值 | 版本 |
 | -------- | -------------- | ---------------- | ------ | ---- |

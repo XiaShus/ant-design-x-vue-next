@@ -1,2 +1,2 @@
-﻿export default '1.144.0';
+﻿export default '1.145.0';
 
