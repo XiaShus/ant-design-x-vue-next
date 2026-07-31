@@ -38,8 +38,8 @@ think/expand
 
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
-| classNames | 样式类名 | Record<'root' \| 'status' \| 'content', string> | - | - |
-| styles | 样式 style | Record<'root' \| 'status' \| 'content', CSSProperties> | - | - |
+| classNames | 样式类名 | Record<ThinkSemanticType, string> | - | 1.113.0（类型导出文档） |
+| styles | 样式 style | Record<ThinkSemanticType, CSSProperties> | - | 1.113.0（类型导出文档） |
 | title | 状态文本 | VNode \| string \| (() => VNode \| string) | - | - |
 | icon | 状态图标 | VNode \| (() => VNode) | - | - |
 | loading | 加载中 | boolean \| VNode \| (() => VNode) | false | - |
@@ -48,6 +48,12 @@ think/expand
 | onExpand | 展开事件 | (expand: boolean) => void | - | - |
 | blink | 闪动模式 | boolean | - | - |
 | destroyOnHidden | 隐藏时是否销毁内容节点 | boolean | true | - |
+
+自 `1.113.0` 起可从包入口 `import type { ThinkSemanticType }`（对齐 React Think `SemanticType` 键集）。
+
+```typescript | pure
+type ThinkSemanticType = 'root' | 'status' | 'content';
+```
 
 ### Think Ref
 
