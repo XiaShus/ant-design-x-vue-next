@@ -39,11 +39,13 @@ code-highlighter/custom-header
 | classNames | 语义化结构 className | Record<CodeHighlighterSemanticType, string> | - | 1.115.0（类型导出文档） |
 | styles | 语义化结构 style | Record<CodeHighlighterSemanticType, CSSProperties> | - | 1.115.0（类型导出文档） |
 
+自 `1.149.0` 起可从包入口 `import type { CodeHighlighterProps, CodeHighlighterRef }`（对齐 React CodeHighlighter 包入口 Props / Ref 类型）。
+
 ### CodeHighlighterRef
 
-| 属性 | 说明 | 类型 |
-| --- | --- | --- |
-| nativeElement | 获取原生 DOM 节点 | `HTMLDivElement \| null` |
+| 属性 | 说明 | 类型 | 版本 |
+| --- | --- | --- | --- |
+| nativeElement | 获取原生 DOM 节点（类型亦导出为 `CodeHighlighterRef`） | `HTMLDivElement \| null` | 1.149.0（类型导出文档） |
 
 自 `1.115.0` 起可从包入口 `import type { CodeHighlighterSemanticType }`（对齐 React CodeHighlighter `SemanticType` 键集）。
 
