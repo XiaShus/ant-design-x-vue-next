@@ -199,7 +199,7 @@ sender/focus
 | suffix         | 自定义操作区（React 2.x 主 API），设为 `false` 可隐藏                        | VNode \| (oriNode, info: \{ components: ActionsComponents \}) => VNode \| false | - | 1.33.0 |
 | actions        | 同 `suffix`（兼容旧名，已弃用）                                             | VNode \| (oriNode, info: \{ components: ActionsComponents \}) => VNode \| false | - | - |
 | allowSpeech    | 是否允许语音输入                                                            | AllowSpeech                                                            | false                   | 1.109.0（类型导出） |
-| classNames     | 样式类名                                                                    | [见下](#semantic-dom)                                                  | -                       | -    |
+| classNames     | 样式类名                                                                    | Record<SenderSemanticType, string>（见 [Semantic DOM](#semantic-dom)） | -                       | 1.124.0（类型导出文档） |
 | components     | 自定义组件，input默认为[Input.TextArea](https://www.antdv.com/components/input-cn#api)，确保在自定义输入组件时，按照 `Input.TextArea` 实现所有必要的 props，以避免功能不全。| Record<'input', ComponentType> | -   | -    |
 | defaultValue   | 输入框默认值                                                                | string                                                                 | -                       | -    |
 | disabled       | 是否禁用                                                                    | boolean                                                                | false                   | -    |
@@ -209,7 +209,7 @@ sender/focus
 | footer         | 底部内容                                                                    | VNode \| FooterRender                                                  | -                       | 1.102.0（`FooterRender` 导出） |
 | readOnly       | 是否让输入框只读                                                            | boolean                                                                | false                   | -    |
 | rootClassName  | 根元素样式类                                                                | string                                                                 | -                       | -    |
-| styles         | 语义化定义样式                                                              | [见下](#semantic-dom)                                                  | -                       | -    |
+| styles         | 语义化定义样式                                                              | Record<SenderSemanticType, CSSProperties>（见 [Semantic DOM](#semantic-dom)） | -                       | 1.124.0（类型导出文档） |
 | submitType     | 提交模式；`false` 禁用回车提交                                              | SubmitType                                                             | `enter`                 | 1.98.0（类型导出） |
 | value(v-model) | 输入框值                                                                    | string                                                                 | -                       | -    |
 | slotConfig     | 词槽配置，设置后启用结构化 SlotTextArea（contentEditable）输入                | `SlotConfigType[]`                                                     | -                       | 1.22.0 |
@@ -219,6 +219,19 @@ sender/focus
 | onCancel       | 点击取消按钮的回调                                                          | () => void                                                             | -                       | -    |
 | onPasteFile    | 黏贴文件的回调                                                              | (firstFile: File, files: FileList) => void                             | -                       | -    |
 | autoSize       | 自适应内容高度，可设置为 true \| false 或对象：\{ minRows: 2, maxRows: 6 \} | boolean \| \{ minRows?: number; maxRows?: number \}                    | \{ maxRows: 8 \}        | -    |
+
+自 `1.124.0` 起可从包入口 `import type { SenderSemanticType }`（对齐 React Sender `SemanticType` 键集）。
+
+```typescript | pure
+type SenderSemanticType =
+  | 'root'
+  | 'prefix'
+  | 'input'
+  | 'suffix'
+  | 'footer'
+  | 'switch'
+  | 'content';
+```
 
 自 `1.109.0` 起可从包入口 `import type { AllowSpeech, ControlledSpeechConfig, SpeechConfig }`（`SpeechConfig` 为 `ControlledSpeechConfig` 别名）。
 
