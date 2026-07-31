@@ -163,15 +163,20 @@ type ConversationsSemanticType = 'root' | 'creation' | 'group' | 'item';
 | icon | 会话图标 | VNode \| string | - | - |
 | disabled | 是否禁用 | boolean | - | - |
 
+自 `1.134.0` 起可从包入口 `import type { Conversation, ConversationItemType, ConversationsItems, DividerItemType }`（对齐 React Conversations 会话项类型；`ConversationItemType` 为 `Conversation` 别名；根导出不用 `ItemType`，以免与 Actions 冲突）。
+
+```typescript | pure
+type ConversationsItems = Conversation | DividerItemType;
+type ConversationItemType = Conversation;
+```
+
 ### DividerItemType
 
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
-| type | 固定为 `divider` | `'divider'` | - | 1.49.0 |
+| type | 固定为 `divider` | `'divider'` | - | 1.49.0；1.134.0（类型导出文档） |
 | key | 可选唯一标识 | string | - | 1.49.0 |
 | dashed | 是否虚线 | boolean | - | 1.49.0 |
-
-`ConversationsItems = Conversation \| DividerItemType`（`ConversationItemType` 为 Conversation 别名；根导出不用 `ItemType`，以免与 Actions 冲突）。
 
 ### GroupableProps
 
