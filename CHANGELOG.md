@@ -2,6 +2,15 @@
 
 > Vue Next 文档站时间线版见 [更新日志](https://ant-design-x-vue-next-524.netlify.app/development/changelog.html)。
 
+## 1.120.0
+
+`2026-07-31`
+
+### ant-design-x-vue-next
+
+- 🆕 文档补齐 FileCard `FileCardSemanticType` / `FileCardListSemanticType` 包入口导出说明
+- 🛠 发布 npm `ant-design-x-vue-next@1.120.0`
+
 ## 1.119.0
 
 `2026-07-31`
