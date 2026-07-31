@@ -230,6 +230,8 @@ bubble/gpt-vis
 | typing.step | 每次前进字符数；数组为闭区间随机步长 | `number \| [number, number]` | `1` | 1.43.0（区间） |
 | typing.keepPrefix | 内容变化时是否保留公共前缀续打（流式场景） | boolean | `true` | 1.29.0 |
 
+自 `1.138.0` 起可从包入口 `import type { BubbleProps, BubbleRef }`（对齐 React Bubble 包入口 Props / Ref 类型；`BubbleRef` 自 `1.78.0` 已导出）。
+
 自 `1.125.0` 起可从包入口 `import type { BubbleSemanticType }`（对齐 React Bubble `SemanticType` 键集）。
 
 ```typescript | pure
@@ -264,11 +266,11 @@ type TypingOption = {
 
 ### Bubble Ref
 
-可通过模板 `ref` 获取（类型 `BubbleRef`，自 `1.78.0` 从包入口导出）：
+可通过模板 `ref` 获取（类型 `BubbleRef`，自 `1.78.0` 从包入口导出；`1.138.0` 起与 `BubbleProps` 一并在文档中标明）：
 
 | 名称 | 说明 | 类型 | 版本 |
 | --- | --- | --- | --- |
-| nativeElement | 气泡根节点 DOM | HTMLElement | - |
+| nativeElement | 气泡根节点 DOM（类型亦导出为 `BubbleRef`） | HTMLElement | 1.78.0；1.138.0（类型导出文档） |
 
 ### Bubble.System
 
