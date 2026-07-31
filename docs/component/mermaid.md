@@ -48,6 +48,8 @@ mermaid/header-actions
 | classNames | 语义化结构 className | Record<MermaidSemanticType, string> | - | 1.89.0（`MermaidType` 导出）；1.118.0（`MermaidSemanticType` 文档） |
 | styles | 语义化结构 style | Record<MermaidSemanticType, CSSProperties> | - | 1.118.0（`MermaidSemanticType` 文档） |
 
+自 `1.148.0` 起可从包入口 `import type { MermaidProps, MermaidRef }`（对齐 React Mermaid 包入口 Props / Ref 类型）。
+
 自 `1.110.0` 起可从包入口 `import type { MermaidConfig }`（重导出自 `mermaid`，无需再从 `mermaid` 单独 import 类型）。
 
 自 `1.118.0` 起文档明确包入口 `import type { MermaidSemanticType }`（与 `MermaidType` 同义；`MermaidType` 自 `1.89.0` 导出以对齐 React 导出名）。
@@ -65,6 +67,12 @@ type MermaidType = MermaidSemanticType;
 | header | 头部区域 |
 | graph | 图表渲染区域 |
 | code | 代码视图区域 |
+
+### Mermaid Ref
+
+| 属性 | 说明 | 类型 | 版本 |
+| --- | --- | --- | --- |
+| nativeElement | 根节点 DOM（类型亦导出为 `MermaidRef`） | HTMLDivElement \| null | 1.148.0（类型导出文档） |
 
 ### MermaidSlots
 
