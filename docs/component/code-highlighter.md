@@ -36,14 +36,29 @@ code-highlighter/custom-header
 | header | 头部内容；为 `false` / `null` 时不显示头部 | `VNode \| string \| (() => VNode \| string \| false \| null) \| false \| null` | - | - |
 | highlightProps | 透传到 `pre` 的额外属性 | `object` | - | - |
 | prismLightMode | 是否使用 Prism 轻量模式，按 `lang` 按需加载语言 | `boolean` | `true` | - |
-| classNames | 语义化结构 className | Record<'root' \| 'header' \| 'headerTitle' \| 'code', string> | - | - |
-| styles | 语义化结构 style | Record<'root' \| 'header' \| 'headerTitle' \| 'code', CSSProperties> | - | - |
+| classNames | 语义化结构 className | Record<CodeHighlighterSemanticType, string> | - | 1.115.0（类型导出文档） |
+| styles | 语义化结构 style | Record<CodeHighlighterSemanticType, CSSProperties> | - | 1.115.0（类型导出文档） |
 
 ### CodeHighlighterRef
 
 | 属性 | 说明 | 类型 |
 | --- | --- | --- |
 | nativeElement | 获取原生 DOM 节点 | `HTMLDivElement \| null` |
+
+自 `1.115.0` 起可从包入口 `import type { CodeHighlighterSemanticType }`（对齐 React CodeHighlighter `SemanticType` 键集）。
+
+```typescript | pure
+type CodeHighlighterSemanticType = 'root' | 'header' | 'headerTitle' | 'code';
+```
+
+#### Semantic DOM
+
+| 名称 | 说明 |
+| --- | --- |
+| root | 根节点 |
+| header | 头部区域 |
+| headerTitle | 头部标题 / 语言信息 |
+| code | 代码高亮区域 |
 
 ### CodeHighlighterSlots
 
