@@ -39,12 +39,38 @@ x-card/v0-8
 
 ### XCard.Box
 
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| commands | 命令队列（追加式）；可混用 v0.8 / v0.9 | `(A2UICommand_v0_8 \| A2UICommand_v0_9)[]` | `[]` |
-| components | 已注册的 Vue 组件映射（组件名需大写开头） | `Record<string, Component>` | `{}` |
-| allowedCatalogIds | 远程 catalog 白名单；未列出则拒绝 fetch（安全） | `string[]` | - |
-| onAction | 组件触发 action 时回调 | `(payload: ActionPayload) => void` | - |
+| 属性 | 说明 | 类型 | 默认值 | 版本 |
+| --- | --- | --- | --- | --- |
+| commands | 命令队列（追加式）；可混用 v0.8 / v0.9 | `(A2UICommand_v0_8 \| A2UICommand_v0_9)[]` | `[]` | - |
+| components | 已注册的 Vue 组件映射（组件名需大写开头） | `Record<string, Component>` | `{}` | - |
+| allowedCatalogIds | 远程 catalog 白名单；未列出则拒绝 fetch（安全） | `string[]` | - | - |
+| onAction | 组件触发 action 时回调 | `(payload: ActionPayload) => void` | - | 1.127.0（`ActionPayload` 类型导出文档） |
+
+自 `1.127.0` 起可从包入口 `import type { ActionPayload, BoxProps, Catalog, CatalogComponent }`。
+
+```typescript | pure
+interface ActionPayload {
+  name: string;
+  surfaceId: string;
+  context: Record<string, any>;
+}
+
+interface CatalogComponent {
+  type: 'object';
+  properties?: Record<string, any>;
+  required?: string[];
+  [key: string]: any;
+}
+
+interface Catalog {
+  $schema?: string;
+  $id?: string;
+  title?: string;
+  catalogId?: string;
+  components?: Record<string, CatalogComponent>;
+  [key: string]: any;
+}
+```
 
 ### XCard.Card
 
@@ -72,11 +98,13 @@ const { catalogId, components } = registerBasicCatalog();
 
 ```ts
 import { registerCatalog } from 'ant-design-x-vue-next';
+import type { Catalog } from 'ant-design-x-vue-next';
 
-registerCatalog({
+const catalog: Catalog = {
   $id: 'local://demo',
   components: { Text: { type: 'object' }, Button: { type: 'object' } },
-});
+};
+registerCatalog(catalog);
 ```
 
 ## 协议版本
