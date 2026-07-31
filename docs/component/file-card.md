@@ -47,6 +47,8 @@ file-card/list
 | styles | 语义化结构 style | Record<FileCardSemanticType, CSSProperties> | - | 1.120.0（类型导出文档） |
 | onClick | 点击回调 | `(info, event) => void` | - | - |
 
+自 `1.143.0` 起可从包入口 `import type { FileCardProps, FileCardListProps }`（对齐 React FileCard / FileCard.List 包入口 Props 类型）。
+
 自 `1.130.0` 起可从包入口 `import type { FileCardSpinProps }`（对齐 React FileCard `spinProps` 扩展字段）。
 
 ```typescript | pure
@@ -108,6 +110,7 @@ type FileCardSemanticType = 'root' | 'file' | 'icon' | 'name' | 'description';
 | classNames | 语义化 class（`root`/`card` 为列表语义；亦可透传 `FileCardSemanticType` 键到单卡） | Partial<Record<FileCardListSemanticType \| FileCardSemanticType, string>> | - | 1.78.0（文档/单测）；1.120.0（类型导出文档） |
 | styles | 语义化 style（同上） | Partial<Record<FileCardListSemanticType \| FileCardSemanticType, CSSProperties>> | - | 1.78.0（文档/单测）；1.120.0（类型导出文档） |
 
+自 `1.143.0` 起可从包入口 `import type { FileCardListProps }`（与 `FileCardProps` 一并导出）。
 自 `1.120.0` 起可从包入口 `import type { FileCardListSemanticType }`。
 
 ```typescript | pure
