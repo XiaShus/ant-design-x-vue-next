@@ -104,11 +104,34 @@ thought-chain/simple
 | onExpand | 展开节点变化回调 | (expandedKeys: string[]) => void | - | 1.25.0 |
 | collapsible | 是否可折叠（兼容旧 API，可与顶层 expand 合并） | boolean \| CollapsibleOptions | - | - |
 | line | 线条样式，为 `false` 时不展示线条 | boolean \| 'solid' \| 'dashed' \| 'dotted' | `true` | 1.25.0 |
-| classNames | 语义化结构的类名 | Record<'root' \| 'item' \| 'itemHeader' \| 'itemIcon' \| 'itemContent' \| 'itemFooter', string> | - | 1.58.0 起含 `root` / `itemIcon` |
+| classNames | 语义化结构的类名 | Record<ThoughtChainSemanticType, string> | - | 1.58.0 起含 `root` / `itemIcon`；1.119.0（类型导出文档） |
 | prefixCls | 自定义前缀 | string | - | - |
 | rootClassName | 自定义根类名 | string | - | - |
 | size | 尺寸 | 'large' \| 'middle' \| 'small' | 'middle' | - |
-| styles | 语义化结构的样式 | Record<'root' \| 'item' \| 'itemHeader' \| 'itemIcon' \| 'itemContent' \| 'itemFooter', CSSProperties> | - | 1.58.0 起含 `root` / `itemIcon` |
+| styles | 语义化结构的样式 | Record<ThoughtChainSemanticType, CSSProperties> | - | 1.58.0 起含 `root` / `itemIcon`；1.119.0（类型导出文档） |
+
+自 `1.119.0` 起可从包入口 `import type { ThoughtChainSemanticType }`（对齐 React ThoughtChain `SemanticType` 键集；Vue 使用带前缀导出名以免与其它组件冲突）。
+
+```typescript | pure
+type ThoughtChainSemanticType =
+  | 'root'
+  | 'item'
+  | 'itemHeader'
+  | 'itemIcon'
+  | 'itemContent'
+  | 'itemFooter';
+```
+
+#### Semantic DOM
+
+| 名称 | 说明 |
+| --- | --- |
+| root | 根节点 |
+| item | 单个思维节点 |
+| itemHeader | 节点头部 |
+| itemIcon | 节点图标 |
+| itemContent | 节点内容区 |
+| itemFooter | 节点脚注区 |
 
 ### ThoughtChain Ref
 
