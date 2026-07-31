@@ -339,6 +339,8 @@ const MyBubble = Bubble<CustomContentType>;
 | styles | 语义化 style（同上） | Record<ListSemanticType, CSSProperties> | - | 1.53.0；1.125.0（类型导出文档） |
 | onScroll | 监听 `Bubble.List` 滚动（scroll-box） | (e: Event) => void | - | 1.5.0 |
 
+自 `1.140.0` 起可从包入口 `import type { BubbleListProps, BubbleListRef }`（对齐 React Bubble.List 包入口 Props / Ref 类型）。
+
 自 `1.125.0` 起文档明确包入口 `import type { ListSemanticType }`（`Bubble.List` 语义键；含 `BubbleSemanticType` 与 `root` / `scroll` / `bubble` / `system` / `divider`）。
 
 ```typescript | pure
@@ -355,7 +357,7 @@ type ListSemanticType =
 
 | 属性 | 说明 | 类型 | 版本 |
 | --- | --- | --- | --- |
-| nativeElement | 外层列表根节点 | HTMLDivElement | 1.55.0（指向 root；此前为 scroll-box） |
+| nativeElement | 外层列表根节点（类型亦导出为 `BubbleListRef`） | HTMLDivElement | 1.55.0（指向 root；此前为 scroll-box）；1.140.0（类型导出文档） |
 | scrollBoxNativeElement | 可滚动容器 | HTMLDivElement | 1.55.0 |
 | scrollTo | 滚动到指定位置或气泡 | `(options: { top?: number \| 'top' \| 'bottom'; offset?: number; key?: string \| number; behavior?: ScrollBehavior; block?: ScrollLogicalPosition }) => void` | 1.55.0（`top`；`offset` 兼容旧用法） |
 
