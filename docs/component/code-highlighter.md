@@ -34,12 +34,14 @@ code-highlighter/custom-header
 | lang | 代码语言类型 | `string` | - | - |
 | children | 代码内容（也可通过默认插槽传入） | `string` | - | - |
 | header | 头部内容；为 `false` / `null` 时不显示头部 | `VNode \| string \| (() => VNode \| string \| false \| null) \| false \| null` | - | - |
-| highlightProps | 透传到 `pre` 的额外属性 | `object` | - | - |
+| highlightProps | 透传到 `pre` 的额外属性 | `CodeHighlighterHighlightProps` | - | 1.152.0（类型导出文档） |
 | prismLightMode | 是否使用 Prism 轻量模式，按 `lang` 按需加载语言 | `boolean` | `true` | - |
 | classNames | 语义化结构 className | Record<CodeHighlighterSemanticType, string> | - | 1.115.0（类型导出文档） |
 | styles | 语义化结构 style | Record<CodeHighlighterSemanticType, CSSProperties> | - | 1.115.0（类型导出文档） |
 
 自 `1.149.0` 起可从包入口 `import type { CodeHighlighterProps, CodeHighlighterRef }`（对齐 React CodeHighlighter 包入口 Props / Ref 类型）。
+
+自 `1.152.0` 起可从包入口 `import type { CodeHighlighterHighlightProps }`（`highlightProps` 透传属性；对齐 React CodeHighlighter 高亮透传类型）。
 
 ### CodeHighlighterRef
 
@@ -51,6 +53,15 @@ code-highlighter/custom-header
 
 ```typescript | pure
 type CodeHighlighterSemanticType = 'root' | 'header' | 'headerTitle' | 'code';
+
+type CodeHighlighterHighlightProps = {
+  className?: string;
+  class?: string;
+  style?: CSSProperties;
+  showLineNumbers?: boolean;
+  startingLineNumber?: number;
+  [key: string]: unknown;
+};
 ```
 
 #### Semantic DOM
