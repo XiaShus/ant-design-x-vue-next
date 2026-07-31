@@ -42,8 +42,20 @@ folder/basic
 | onFileClick | 点击文件 | `(path, content?) => void` | - |
 | onFolderClick | 点击文件夹 | `(path) => void` | - |
 | onRightClick | 右键点击节点回调 | `(info: \{ event: MouseEvent; node: any \}) => void` | - |
-| classNames | 语义化 className | Record<'root' \| 'directoryTree' \| 'directoryTitle' \| 'filePreview' \| 'previewTitle' \| 'previewRender', string> | - | 1.86.0（文档/单测） |
-| styles | 语义化 style | Record<'root' \| 'directoryTree' \| 'directoryTitle' \| 'filePreview' \| 'previewTitle' \| 'previewRender', CSSProperties> | - | 1.86.0（文档/单测） |
+| classNames | 语义化 className | Record<FolderSemanticType, string> | - | 1.86.0（文档/单测）；1.116.0（类型导出文档） |
+| styles | 语义化 style | Record<FolderSemanticType, CSSProperties> | - | 1.86.0（文档/单测）；1.116.0（类型导出文档） |
+
+自 `1.116.0` 起可从包入口 `import type { FolderSemanticType }`（对齐 React Folder `SemanticType` 键集）。
+
+```typescript | pure
+type FolderSemanticType =
+  | 'root'
+  | 'directoryTree'
+  | 'directoryTitle'
+  | 'filePreview'
+  | 'previewTitle'
+  | 'previewRender';
+```
 
 ### Semantic DOM
 
