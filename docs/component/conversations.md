@@ -112,10 +112,16 @@ conversations/group-sort
 | groupable | 是否支持分组, 开启后默认按 `Conversation.group` 字段分组 | boolean \| GroupableProps | - | - |
 | styles | 语义化结构 style | Record<ConversationsSemanticType, CSSProperties> | - | 1.50.0；1.122.0（类型导出文档） |
 | classNames | 语义化结构 className | Record<ConversationsSemanticType, string> | - | 1.50.0；1.122.0（类型导出文档） |
-| creation | 新建对话按钮配置（传入即显示） | `CreationProps` | - | 1.21.0 |
-| shortcutKeys | 快捷键：`creation` 触发新建；`items` 按索引/数字键切换会话 | `{ creation?: ShortcutKeys; items?: ShortcutKeys \| ShortcutKeys[] }` | - | 1.44.0 |
+| creation | 新建对话按钮配置（传入即显示） | `CreationProps` | - | 1.21.0；1.135.0（类型导出文档） |
+| shortcutKeys | 快捷键：`creation` 触发新建；`items` 按索引/数字键切换会话 | `{ creation?: ShortcutKeys; items?: ShortcutKeys \| ShortcutKeys[] }` | - | 1.44.0；1.135.0（类型导出文档） |
 
-`ShortcutKeys` 为修饰键元组，例如 `['Ctrl', ShortcutKeyCode.N]`、`['Ctrl', 'number']`（Ctrl+1…9）。可从包导出 `ShortcutKeyCode`。
+自 `1.135.0` 起可从包入口 `import type { CreationProps, ShortcutKeys }`（并导出运行时 `ShortcutKeyCode`）。`ShortcutKeys` 为修饰键元组，例如 `['Ctrl', ShortcutKeyCode.N]`、`['Ctrl', 'number']`（Ctrl+1…9）。
+
+```typescript | pure
+type ShortcutKeys<CustomKey = number | 'number'> =
+  | ['Ctrl' | 'Alt' | 'Meta' | 'Shift', 'Ctrl' | 'Alt' | 'Meta' | 'Shift', CustomKey]
+  | ['Ctrl' | 'Alt' | 'Meta' | 'Shift', CustomKey];
+```
 
 自 `1.132.0` 起可从包入口 `import type { ConversationsProps, ConversationsRef }`（对齐 React Conversations 包入口 Props / Ref 类型）。
 
@@ -150,6 +156,7 @@ type ConversationsSemanticType = 'root' | 'creation' | 'group' | 'item';
 | disabled | 禁用 | boolean | `false` | 1.21.0 |
 | onClick / `@click` | 点击回调 | `(e?: MouseEvent) => void` | - | 1.21.0 |
 
+自 `1.135.0` 起可从包入口 `import type { CreationProps }`（`Conversations.Creation` / `creation` 配置类型）。
 自 `1.105.0` 起可从包入口 `import type { CreationAlign }`（`'start' | 'center' | 'end'`）。
 
 ### Conversation
