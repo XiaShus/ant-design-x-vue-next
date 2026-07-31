@@ -33,7 +33,7 @@ React 2.x 已拆出独立包，Vue Next 尚未拆分：
 | --- | --- | --- |
 | `@ant-design/x-sdk`（含 XRequest / XStream / Chat 能力） | ✅ | 内置：timeout/retry/abort + `setXRequestGlobalOptions` + `createManualXRequest` / `AbstractXRequestClass` + `AbstractChatProvider` 可托管 request + OpenAI / DeepSeek + `useXConversations` + async defaults / queue / extraInfo + `XMCPClient`（未拆独立包） |
 | `@ant-design/x-markdown` | ✅ | ✅ 内置（安全清洗 + 流式缓存 + LaTeX + AnimationText + DebugPanel） |
-| `@ant-design/x-card` | ✅ | ✅ A2UI v0.9 + v0.8 + `registerBasicCatalog`；导出 `ActionPayload` / `Catalog` / `CatalogComponent` / `BoxProps` |
+| `@ant-design/x-card` | ✅ | ✅ A2UI v0.9 + v0.8 + `registerBasicCatalog`；导出 `A2UICommand` / `A2UICommand_v0_8` / `A2UICommand_v0_9` / `ActionPayload` / `Catalog` / `CatalogComponent` / `BoxProps` |
 | `@ant-design/x-skill` | ✅ | ⏳（非运行时 UI） |
 
 本仓库工具类文档：

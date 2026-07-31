@@ -41,14 +41,18 @@ x-card/v0-8
 
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
-| commands | 命令队列（追加式）；可混用 v0.8 / v0.9 | `(A2UICommand_v0_8 \| A2UICommand_v0_9)[]` | `[]` | - |
+| commands | 命令队列（追加式）；可混用 v0.8 / v0.9 | `A2UICommand[]`（`A2UICommand_v0_8 \| A2UICommand_v0_9`） | `[]` | 1.128.0（`A2UICommand*` 类型导出文档） |
 | components | 已注册的 Vue 组件映射（组件名需大写开头） | `Record<string, Component>` | `{}` | - |
 | allowedCatalogIds | 远程 catalog 白名单；未列出则拒绝 fetch（安全） | `string[]` | - | - |
 | onAction | 组件触发 action 时回调 | `(payload: ActionPayload) => void` | - | 1.127.0（`ActionPayload` 类型导出文档） |
 
 自 `1.127.0` 起可从包入口 `import type { ActionPayload, BoxProps, Catalog, CatalogComponent }`。
 
+自 `1.128.0` 起可从包入口 `import type { A2UICommand, A2UICommand_v0_8, A2UICommand_v0_9 }`（亦导出别名 `XAgentCommand_v0_8` / `XAgentCommand_v0_9`）。
+
 ```typescript | pure
+type A2UICommand = A2UICommand_v0_8 | A2UICommand_v0_9;
+
 interface ActionPayload {
   name: string;
   surfaceId: string;

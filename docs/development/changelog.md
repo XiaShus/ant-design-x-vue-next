@@ -19,6 +19,15 @@ customClass: changelog-page
 
 ---
 
+## 1.128.0
+
+`2026-07-31`
+
+### ant-design-x-vue-next
+
+- 🆕 文档补齐 XCard `A2UICommand` / `A2UICommand_v0_8` / `A2UICommand_v0_9` 包入口导出说明。
+- 🛠 发布 npm 包 [`ant-design-x-vue-next@1.128.0`](https://www.npmjs.com/package/ant-design-x-vue-next)。
+
 ## 1.127.0
 
 `2026-07-31`
