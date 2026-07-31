@@ -16,7 +16,7 @@
 | 表达 | Suggestion | ✅ | ✅（含导出 `SuggestionProps` / `SuggestionItem` / `SuggestionSemanticType` / `RenderChildrenProps`；`icon`/`extra` 渲染、`onSelect` 第二参、`open` children prop、`classNames/styles` root/content/popup、`getPopupContainer`、Cascader `otherProps` 透传） | [文档](/component/suggestion) |
 | 反馈 | Sources | ✅ | ✅（含导出 `SourcesSemanticType`；`classNames/styles` root/title/content、`nativeElement` ref） | [文档](/component/sources) |
 | 反馈 | FileCard | ✅ | ✅（含导出 `FileCardProps` / `FileCardListProps` / `CardType` / `PresetIcons` / `FileCardSpinProps` / `FileCardSemanticType` / `FileCardListSemanticType`；`mask` / `videoProps` / `audioProps`、List `extension`；java / javascript / python 预设图标、`spinProps`、List `item.key`、`classNames`/`styles`） | [文档](/component/file-card) |
-| 表达 | Folder | ✅ | ✅（含导出 `FolderSemanticType`；`classNames`/`styles` root/directoryTree/directoryTitle/filePreview/previewTitle/previewRender） | [文档](/component/folder) |
+| 表达 | Folder | ✅ | ✅（含导出 `FolderProps` / `FolderRef` / `FolderTreeData` / `FolderSemanticType`；`classNames`/`styles` root/directoryTree/directoryTitle/filePreview/previewTitle/previewRender） | [文档](/component/folder) |
 | 表达 | CodeHighlighter | ✅ | ✅（含导出 `CodeHighlighterSemanticType`；`classNames/styles` root/header/headerTitle/code） | [文档](/component/code-highlighter) |
 | 表达 | Mermaid | ✅ | ✅（含导出 `MermaidSemanticType` / `MermaidType` / `MermaidConfig`；`classNames/styles` root/header/graph/code） | [文档](/component/mermaid) |
 | 确认 | Think | ✅ | ✅（含导出 `ThinkSemanticType`；`blink` / `destroyOnHidden`、`classNames/styles`、`nativeElement` ref） | [文档](/component/think) |

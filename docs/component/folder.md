@@ -45,6 +45,8 @@ folder/basic
 | classNames | 语义化 className | Record<FolderSemanticType, string> | - | 1.86.0（文档/单测）；1.116.0（类型导出文档） |
 | styles | 语义化 style | Record<FolderSemanticType, CSSProperties> | - | 1.86.0（文档/单测）；1.116.0（类型导出文档） |
 
+自 `1.146.0` 起可从包入口 `import type { FolderProps, FolderRef, FolderTreeData }`（对齐 React Folder 包入口 Props / Ref / 树节点类型）。
+
 自 `1.116.0` 起可从包入口 `import type { FolderSemanticType }`（对齐 React Folder `SemanticType` 键集）。
 
 ```typescript | pure
@@ -70,6 +72,8 @@ type FolderSemanticType =
 
 ### FolderTreeData
 
+自 `1.146.0` 起可从包入口 `import type { FolderTreeData }`（与 `FolderProps` / `FolderRef` 一并导出）。
+
 | 属性 | 说明 | 类型 |
 | --- | --- | --- |
 | title | 展示标题 | `VNode \| string` |
@@ -80,13 +84,15 @@ type FolderSemanticType =
 
 ### FolderRef
 
-| 方法 | 说明 |
-| --- | --- |
-| nativeElement | 根 DOM |
-| getNode(path) | 按路径获取节点 |
-| updateNode(path, data) | 不可变更新，返回新 treeData |
-| deleteNode(path) | 不可变删除 |
-| addNode(parentPath, node) | 不可变新增子节点 |
+自 `1.146.0` 起可从包入口 `import type { FolderRef }`（类型亦导出为 `FolderRef`）。
+
+| 方法 | 说明 | 版本 |
+| --- | --- | --- |
+| nativeElement | 根 DOM | 1.146.0（类型导出文档） |
+| getNode(path) | 按路径获取节点 | - |
+| updateNode(path, data) | 不可变更新，返回新 treeData | - |
+| deleteNode(path) | 不可变删除 | - |
+| addNode(parentPath, node) | 不可变新增子节点 | - |
 
 ## 贡献者
 
