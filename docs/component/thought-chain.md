@@ -103,12 +103,18 @@ thought-chain/simple
 | expandedKeys | 当前展开的节点 | string[] | - | 1.25.0 |
 | onExpand | 展开节点变化回调 | (expandedKeys: string[]) => void | - | 1.25.0 |
 | collapsible | 是否可折叠（兼容旧 API，可与顶层 expand 合并） | boolean \| CollapsibleOptions | - | - |
-| line | 线条样式，为 `false` 时不展示线条 | boolean \| 'solid' \| 'dashed' \| 'dotted' | `true` | 1.25.0 |
+| line | 线条样式，为 `false` 时不展示线条 | ThoughtChainLine | `true` | 1.25.0；1.129.0（类型导出文档） |
 | classNames | 语义化结构的类名 | Record<ThoughtChainSemanticType, string> | - | 1.58.0 起含 `root` / `itemIcon`；1.119.0（类型导出文档） |
 | prefixCls | 自定义前缀 | string | - | - |
 | rootClassName | 自定义根类名 | string | - | - |
 | size | 尺寸 | 'large' \| 'middle' \| 'small' | 'middle' | - |
 | styles | 语义化结构的样式 | Record<ThoughtChainSemanticType, CSSProperties> | - | 1.58.0 起含 `root` / `itemIcon`；1.119.0（类型导出文档） |
+
+自 `1.129.0` 起可从包入口 `import type { ThoughtChainLine }`（`line` 属性类型）。
+
+```typescript | pure
+type ThoughtChainLine = boolean | 'solid' | 'dashed' | 'dotted';
+```
 
 自 `1.119.0` 起可从包入口 `import type { ThoughtChainSemanticType }`（对齐 React ThoughtChain `SemanticType` 键集；Vue 使用带前缀导出名以免与其它组件冲突）。
 

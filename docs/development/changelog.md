@@ -19,6 +19,15 @@ customClass: changelog-page
 
 ---
 
+## 1.129.0
+
+`2026-07-31`
+
+### ant-design-x-vue-next
+
+- 🆕 文档补齐 ThoughtChain `ThoughtChainLine` 包入口导出说明（`line` 属性类型）。
+- 🛠 发布 npm 包 [`ant-design-x-vue-next@1.129.0`](https://www.npmjs.com/package/ant-design-x-vue-next)。
+
 ## 1.128.0
 
 `2026-07-31`
