@@ -70,6 +70,8 @@ actions/fade-in
 | fadeInLeft | 挂载时从左淡入（与 `fadeIn` 同时设置时优先） | boolean | `false` | 1.35.0 |
 | dropdownProps | 透传给子菜单 Dropdown | `DropdownProps` | - | 1.35.0 |
 
+自 `1.137.0` 起可从包入口 `import type { ActionsProps, ActionsRef }`（对齐 React Actions 包入口 Props / Ref 类型）。
+
 自 `1.123.0` 起可从包入口 `import type { ActionsSemanticType }`（对齐 React Actions `SemanticType` 键集；预设项另有 `Actions*SemanticType`，见 `1.96.0`）。
 
 ```typescript | pure
@@ -88,7 +90,7 @@ type ActionsSemanticType = 'root' | 'item' | 'itemDropdown';
 
 | 属性 | 说明 | 类型 | 版本 |
 | --- | --- | --- | --- |
-| nativeElement | 根节点 DOM | HTMLDivElement | 1.61.0 |
+| nativeElement | 根节点 DOM（类型亦导出为 `ActionsRef`） | HTMLDivElement | 1.61.0；1.137.0（类型导出文档） |
 
 ### ItemType
 
