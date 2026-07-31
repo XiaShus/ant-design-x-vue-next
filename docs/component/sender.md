@@ -220,6 +220,8 @@ sender/focus
 | onPasteFile    | 黏贴文件的回调                                                              | (firstFile: File, files: FileList) => void                             | -                       | -    |
 | autoSize       | 自适应内容高度，可设置为 true \| false 或对象：\{ minRows: 2, maxRows: 6 \} | boolean \| \{ minRows?: number; maxRows?: number \}                    | \{ maxRows: 8 \}        | -    |
 
+自 `1.139.0` 起可从包入口 `import type { SenderProps, SenderRef }`（对齐 React Sender 包入口 Props / Ref 类型）。
+
 自 `1.124.0` 起可从包入口 `import type { SenderSemanticType }`（对齐 React Sender `SemanticType` 键集）。
 
 ```typescript | pure
@@ -299,7 +301,7 @@ type SkillType = {
 
 | 属性          | 说明     | 类型                                                                       | 默认值 | 版本 |
 | ------------- | -------- | -------------------------------------------------------------------------- | ------ | ---- |
-| nativeElement | 外层容器 | `HTMLDivElement`                                                           | -      | -    |
+| nativeElement | 外层容器（类型亦导出为 `SenderRef`） | `HTMLDivElement`                                                           | -      | 1.139.0（类型导出文档） |
 | inputElement  | 输入元素（纯文本为 textarea；词槽模式为 SlotTextArea 根节点） | `HTMLElement \| null` | - | 1.52.0 |
 | focus         | 获取焦点 | (option?: { preventScroll?: boolean, cursor?: 'start' \| 'end' \| 'all' \| 'slot', key?: string }) | - | - |
 | blur          | 取消焦点 | () => void                                                                 | -      | -    |
