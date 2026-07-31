@@ -117,6 +117,8 @@ conversations/group-sort
 
 `ShortcutKeys` 为修饰键元组，例如 `['Ctrl', ShortcutKeyCode.N]`、`['Ctrl', 'number']`（Ctrl+1…9）。可从包导出 `ShortcutKeyCode`。
 
+自 `1.132.0` 起可从包入口 `import type { ConversationsProps, ConversationsRef }`（对齐 React Conversations 包入口 Props / Ref 类型）。
+
 自 `1.122.0` 起可从包入口 `import type { ConversationsSemanticType }`（对齐 React Conversations `SemanticType` 键集）。
 
 ```typescript | pure
@@ -136,7 +138,7 @@ type ConversationsSemanticType = 'root' | 'creation' | 'group' | 'item';
 
 | 属性 | 说明 | 类型 | 版本 |
 | --- | --- | --- | --- |
-| nativeElement | 根节点 DOM（`<ul>`） | HTMLUListElement | 1.62.0 |
+| nativeElement | 根节点 DOM（`<ul>`；类型亦导出为 `ConversationsRef`） | HTMLUListElement | 1.62.0；1.132.0（类型导出文档） |
 
 ### Conversations.Creation / CreationProps
 
