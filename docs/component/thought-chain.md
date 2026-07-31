@@ -110,6 +110,8 @@ thought-chain/simple
 | size | 尺寸 | 'large' \| 'middle' \| 'small' | 'middle' | - |
 | styles | 语义化结构的样式 | Record<ThoughtChainSemanticType, CSSProperties> | - | 1.58.0 起含 `root` / `itemIcon`；1.119.0（类型导出文档） |
 
+自 `1.133.0` 起可从包入口 `import type { ThoughtChainProps, ThoughtChainRef }`（对齐 React ThoughtChain 包入口 Props / Ref 类型）。
+
 自 `1.129.0` 起可从包入口 `import type { ThoughtChainLine }`（`line` 属性类型）。
 
 ```typescript | pure
@@ -143,7 +145,7 @@ type ThoughtChainSemanticType =
 
 | 属性 | 说明 | 类型 | 版本 |
 | --- | --- | --- | --- |
-| nativeElement | 根节点 DOM | HTMLDivElement | 1.60.0 |
+| nativeElement | 根节点 DOM（类型亦导出为 `ThoughtChainRef`） | HTMLDivElement | 1.60.0；1.133.0（类型导出文档） |
 
 ### ThoughtChainItem（items[] 节点）
 
