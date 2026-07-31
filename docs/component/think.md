@@ -49,6 +49,8 @@ think/expand
 | blink | 闪动模式 | boolean | - | - |
 | destroyOnHidden | 隐藏时是否销毁内容节点 | boolean | true | - |
 
+自 `1.150.0` 起可从包入口 `import type { ThinkProps, ThinkRef }`（对齐 React Think 包入口 Props / Ref 类型）。
+
 自 `1.113.0` 起可从包入口 `import type { ThinkSemanticType }`（对齐 React Think `SemanticType` 键集）。
 
 ```typescript | pure
@@ -59,7 +61,7 @@ type ThinkSemanticType = 'root' | 'status' | 'content';
 
 | 属性 | 说明 | 类型 | 版本 |
 | --- | --- | --- | --- |
-| nativeElement | 根节点 DOM | HTMLElement | 1.65.0 |
+| nativeElement | 根节点 DOM（类型亦导出为 `ThinkRef`） | HTMLElement | 1.65.0；1.150.0（类型导出文档） |
 
 ### Think Slots
 
