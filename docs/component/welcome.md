@@ -50,6 +50,8 @@ welcome/background
 | title | 显示在提示列表顶部的标题。 | VNode \| string \| (() => VNode \| string) | - | - |
 | variant | 变体类型。 | 'filled' \| 'borderless' | 'filled' | - |
 
+自 `1.142.0` 起可从包入口 `import type { WelcomeProps, WelcomeRef }`（对齐 React Welcome 包入口 Props / Ref 类型）。
+
 自 `1.112.0` 起可从包入口 `import type { WelcomeSemanticType }`（对齐 React Welcome `SemanticType` 键集）。
 
 ```typescript | pure
@@ -60,7 +62,7 @@ type WelcomeSemanticType = 'root' | 'title' | 'description' | 'icon' | 'extra';
 
 | 属性 | 说明 | 类型 | 版本 |
 | --- | --- | --- | --- |
-| nativeElement | 根节点 DOM | HTMLDivElement | 1.63.0 |
+| nativeElement | 根节点 DOM（类型亦导出为 `WelcomeRef`） | HTMLDivElement | 1.63.0；1.142.0（类型导出文档） |
 
 ### Welcome Slots
 
