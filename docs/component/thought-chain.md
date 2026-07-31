@@ -168,13 +168,20 @@ type ThoughtChainSemanticType =
 | icon | 思维链图标 | VNode \| string | - | 1.24.0 |
 | title | 思维链标题 | VNode \| string | - | 1.24.0 |
 | description | 思维链描述 | VNode \| string | - | 1.24.0 |
-| status | 思维链状态 | `'loading' \| 'success' \| 'error' \| 'abort'` | - | 1.24.0 |
-| variant | 变体配置 | `'solid' \| 'outlined' \| 'text'` | `solid` | 1.24.0 |
+| status | 思维链状态 | ThoughtChainItemStatus | - | 1.24.0；1.126.0（类型导出文档） |
+| variant | 变体配置 | ThoughtChainItemVariant | `solid` | 1.24.0；1.126.0（类型导出文档） |
 | blink | 闪动效果 | boolean | `false` | 1.24.0 |
 | disabled | 是否禁用 | boolean | `false` | 1.24.0 |
 | classNames | 语义化类名 | Record<ThoughtChainItemSemanticType, string> | - | 1.24.0；1.121.0（类型导出文档） |
 | styles | 语义化样式 | Record<ThoughtChainItemSemanticType, CSSProperties> | - | 1.24.0；1.121.0（类型导出文档） |
 | rootClassName | 根元素样式类名 | string | - | 1.24.0 |
+
+自 `1.126.0` 起可从包入口 `import type { ThoughtChainItemProps, ThoughtChainItemStatus, ThoughtChainItemVariant, ThoughtChainItemRef }`（对齐 React `ThoughtChain.Item` 包入口类型）。
+
+```typescript | pure
+type ThoughtChainItemStatus = 'loading' | 'success' | 'error' | 'abort';
+type ThoughtChainItemVariant = 'solid' | 'outlined' | 'text';
+```
 
 自 `1.121.0` 起可从包入口 `import type { ThoughtChainItemSemanticType }`（`ThoughtChain.Item` 语义键集）。
 
@@ -195,7 +202,7 @@ type ThoughtChainItemSemanticType = 'root' | 'icon' | 'title' | 'description';
 
 | 名称 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
-| nativeElement | 根节点 DOM | HTMLElement | - | 1.71.0 |
+| nativeElement | 根节点 DOM（类型亦导出为 `ThoughtChainItemRef`） | HTMLElement | - | 1.71.0；1.126.0（类型导出文档） |
 
 ### CollapsibleOptions
 
