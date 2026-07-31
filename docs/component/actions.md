@@ -59,8 +59,8 @@ actions/fade-in
 | --- | --- | --- | --- | --- |
 | items | 包含多个操作项的列表 | ActionItem[] | - | - |
 | rootClassName | 根节点样式类 | string | - | - |
-| classNames | 语义化结构 className | Record<'root' \| 'item' \| 'itemDropdown', string> | - | 1.51.0 |
-| styles | 语义化结构 style | Record<'root' \| 'item' \| 'itemDropdown', CSSProperties> | - | 1.51.0 |
+| classNames | 语义化结构 className | Record<ActionsSemanticType, string> | - | 1.51.0；1.123.0（类型导出文档） |
+| styles | 语义化结构 style | Record<ActionsSemanticType, CSSProperties> | - | 1.51.0；1.123.0（类型导出文档） |
 | block | 子操作项是否占据一行 | boolean | false | - |
 | onClick | Item 操作项被点击时的回调函数 | `function({ item, key, keyPath, domEvent })` | - | - |
 | style | 根节点样式 | CSSProperties | - | - |
@@ -69,6 +69,20 @@ actions/fade-in
 | fadeIn | 挂载时淡入 | boolean | `false` | 1.35.0 |
 | fadeInLeft | 挂载时从左淡入（与 `fadeIn` 同时设置时优先） | boolean | `false` | 1.35.0 |
 | dropdownProps | 透传给子菜单 Dropdown | `DropdownProps` | - | 1.35.0 |
+
+自 `1.123.0` 起可从包入口 `import type { ActionsSemanticType }`（对齐 React Actions `SemanticType` 键集；预设项另有 `Actions*SemanticType`，见 `1.96.0`）。
+
+```typescript | pure
+type ActionsSemanticType = 'root' | 'item' | 'itemDropdown';
+```
+
+#### Semantic DOM
+
+| 名称 | 说明 |
+| --- | --- |
+| root | 根节点 |
+| item | 操作项 |
+| itemDropdown | 带下拉的操作项触发器 |
 
 ### Actions Ref
 
