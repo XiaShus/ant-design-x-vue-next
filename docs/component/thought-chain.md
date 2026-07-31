@@ -172,9 +172,24 @@ type ThoughtChainSemanticType =
 | variant | 变体配置 | `'solid' \| 'outlined' \| 'text'` | `solid` | 1.24.0 |
 | blink | 闪动效果 | boolean | `false` | 1.24.0 |
 | disabled | 是否禁用 | boolean | `false` | 1.24.0 |
-| classNames | 语义化类名 | Record<'root' \| 'icon' \| 'title' \| 'description', string> | - | 1.24.0 |
-| styles | 语义化样式 | Record<'root' \| 'icon' \| 'title' \| 'description', CSSProperties> | - | 1.24.0 |
+| classNames | 语义化类名 | Record<ThoughtChainItemSemanticType, string> | - | 1.24.0；1.121.0（类型导出文档） |
+| styles | 语义化样式 | Record<ThoughtChainItemSemanticType, CSSProperties> | - | 1.24.0；1.121.0（类型导出文档） |
 | rootClassName | 根元素样式类名 | string | - | 1.24.0 |
+
+自 `1.121.0` 起可从包入口 `import type { ThoughtChainItemSemanticType }`（`ThoughtChain.Item` 语义键集）。
+
+```typescript | pure
+type ThoughtChainItemSemanticType = 'root' | 'icon' | 'title' | 'description';
+```
+
+#### ThoughtChain.Item Semantic DOM
+
+| 名称 | 说明 |
+| --- | --- |
+| root | 复合 Item 根节点 |
+| icon | 图标区域 |
+| title | 标题 |
+| description | 描述 |
 
 #### ThoughtChain.Item Ref
 
