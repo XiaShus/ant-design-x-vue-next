@@ -30,8 +30,8 @@ sources/expand
 
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
-| classNames | 语义化结构 className | Record<'root' \| 'title' \| 'content', string> | - | 1.75.0（文档） |
-| styles | 语义化结构 style | Record<'root' \| 'title' \| 'content', CSSProperties> | - | 1.75.0（文档） |
+| classNames | 语义化结构 className | Record<SourcesSemanticType, string> | - | 1.75.0（文档）；1.114.0（类型导出文档） |
+| styles | 语义化结构 style | Record<SourcesSemanticType, CSSProperties> | - | 1.75.0（文档）；1.114.0（类型导出文档） |
 | title | 标题内容 | VNode \| string | - | - |
 | items | 来源内容 | SourcesItem[] | - | - |
 | expandIconPosition | 折叠图标位置 | `'start' \| 'end'` | `'start'` | - |
@@ -48,6 +48,12 @@ sources/expand
 | 属性 | 说明 | 类型 | 版本 |
 | --- | --- | --- | --- |
 | nativeElement | 根节点 DOM | HTMLElement | 1.66.0 |
+
+自 `1.114.0` 起可从包入口 `import type { SourcesSemanticType }`（对齐 React Sources `SemanticType` 键集）。
+
+```typescript | pure
+type SourcesSemanticType = 'root' | 'title' | 'content';
+```
 
 #### Semantic DOM
 

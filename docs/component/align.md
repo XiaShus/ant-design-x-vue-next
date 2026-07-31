@@ -14,7 +14,7 @@
 | 表达 | Sender | ✅ | ✅（含导出 `AllowSpeech` / `SpeechConfig` / `SlotConfigWithValue` / `SlotConfig*Type` / `FooterRender` / `SubmitType` / `SenderHeaderProps` / `SenderComponents` / `ActionsComponents`；`suffix`/`actions`、Switch（含 `nativeElement` ref）、词槽 contentEditable、`insert`+cursor/`replaceCharacters`、`classNames/styles` root/content、`inputElement`、locale） | [文档](/component/sender) |
 | 表达 | Attachments | ✅ | ✅（含导出 `AttachmentsSemanticType` / `PlaceholderType` / `PlaceholderConfig`；`items[].cardType`→FileCard `type`、`select` / `fileNativeElement`、默认插槽触发、`#upload` + `maxCount` 隐藏、java/js/python 预设图标） | [文档](/component/attachments) |
 | 表达 | Suggestion | ✅ | ✅（含导出 `RenderChildrenProps`；`icon`/`extra` 渲染、`onSelect` 第二参、`open` children prop、`classNames/styles` root/content/popup、`getPopupContainer`、Cascader `otherProps` 透传） | [文档](/component/suggestion) |
-| 反馈 | Sources | ✅ | ✅（含 `classNames/styles` root/title/content、`nativeElement` ref） | [文档](/component/sources) |
+| 反馈 | Sources | ✅ | ✅（含导出 `SourcesSemanticType`；`classNames/styles` root/title/content、`nativeElement` ref） | [文档](/component/sources) |
 | 反馈 | FileCard | ✅ | ✅（含 `mask` / `videoProps` / `audioProps`、List `extension` 文档；java / javascript / python 预设图标、`spinProps`、List `item.key`、List `classNames`/`styles` root/card） | [文档](/component/file-card) |
 | 表达 | Folder | ✅ | ✅（含 `classNames`/`styles` root/directoryTree/directoryTitle/filePreview/previewTitle/previewRender） | [文档](/component/folder) |
 | 表达 | CodeHighlighter | ✅ | ✅ | [文档](/component/code-highlighter) |
