@@ -326,6 +326,8 @@ type SkillType = {
 
 ### Sender.Switch
 
+自 `1.151.0` 起可从包入口 `import type { SenderSwitchProps, SenderSwitchRef }`（对齐 React Sender.Switch 包入口 Props / Ref 类型）。
+
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
 | value | 受控选中状态 | boolean | - | 1.18.0 |
@@ -341,7 +343,7 @@ type SkillType = {
 
 | 名称 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
-| nativeElement | 外层容器 | `HTMLDivElement` | - | 1.70.0 |
+| nativeElement | 外层容器（类型亦导出为 `SenderSwitchRef`） | `HTMLDivElement` | - | 1.70.0；1.151.0（类型导出文档） |
 
 ## Semantic DOM
 
