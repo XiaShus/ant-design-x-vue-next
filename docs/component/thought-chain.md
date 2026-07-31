@@ -102,7 +102,7 @@ thought-chain/simple
 | defaultExpandedKeys | 初始化展开的节点 | string[] | - | 1.25.0 |
 | expandedKeys | 当前展开的节点 | string[] | - | 1.25.0 |
 | onExpand | 展开节点变化回调 | (expandedKeys: string[]) => void | - | 1.25.0 |
-| collapsible | 是否可折叠（兼容旧 API，可与顶层 expand 合并） | boolean \| CollapsibleOptions | - | - |
+| collapsible | 是否可折叠（兼容旧 API，可与顶层 expand 合并） | Collapsible（`boolean \| CollapsibleOptions`） | - | 1.136.0（类型导出文档） |
 | line | 线条样式，为 `false` 时不展示线条 | ThoughtChainLine | `true` | 1.25.0；1.129.0（类型导出文档） |
 | classNames | 语义化结构的类名 | Record<ThoughtChainSemanticType, string> | - | 1.58.0 起含 `root` / `itemIcon`；1.119.0（类型导出文档） |
 | prefixCls | 自定义前缀 | string | - | - |
@@ -213,6 +213,17 @@ type ThoughtChainItemSemanticType = 'root' | 'icon' | 'title' | 'description';
 | nativeElement | 根节点 DOM（类型亦导出为 `ThoughtChainItemRef`） | HTMLElement | - | 1.71.0；1.126.0（类型导出文档） |
 
 ### CollapsibleOptions
+
+自 `1.136.0` 起可从包入口 `import type { Collapsible, CollapsibleOptions }`（`collapsible` 属性类型；`Collapsible = boolean | CollapsibleOptions`）。
+
+```typescript | pure
+type Collapsible = boolean | CollapsibleOptions;
+type CollapsibleOptions = {
+  defaultExpandedKeys?: string[];
+  expandedKeys?: string[];
+  onExpand?: (expandedKeys: string[]) => void;
+};
+```
 
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |

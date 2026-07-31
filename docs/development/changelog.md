@@ -19,6 +19,15 @@ customClass: changelog-page
 
 ---
 
+## 1.136.0
+
+`2026-07-31`
+
+### ant-design-x-vue-next
+
+- 🆕 文档补齐 ThoughtChain `Collapsible` / `CollapsibleOptions` 包入口导出说明（对齐 React）。
+- 🛠 发布 npm 包 [`ant-design-x-vue-next@1.136.0`](https://www.npmjs.com/package/ant-design-x-vue-next)。
+
 ## 1.135.0
 
 `2026-07-31`
