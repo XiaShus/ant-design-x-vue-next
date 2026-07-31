@@ -45,10 +45,26 @@ mermaid/header-actions
 | config | Mermaid 配置项 | MermaidConfig | - | 1.110.0（类型重导出） |
 | actions | 操作栏配置 | `{ enableZoom?: boolean; enableDownload?: boolean; enableCopy?: boolean; customActions?: ActionItem[] }` | `{ enableZoom: true, enableDownload: true, enableCopy: true }` | - |
 | onRenderTypeChange | 渲染类型切换回调 | `(value: 'image' \| 'code') => void` | - | - |
-| classNames | 语义化结构 className（键类型亦导出为 `MermaidType`，对齐 React） | Record<'root' \| 'header' \| 'graph' \| 'code', string> | - | 1.89.0（`MermaidType` 导出） |
-| styles | 语义化结构 style | Record<'root' \| 'header' \| 'graph' \| 'code', CSSProperties> | - | - |
+| classNames | 语义化结构 className | Record<MermaidSemanticType, string> | - | 1.89.0（`MermaidType` 导出）；1.118.0（`MermaidSemanticType` 文档） |
+| styles | 语义化结构 style | Record<MermaidSemanticType, CSSProperties> | - | 1.118.0（`MermaidSemanticType` 文档） |
 
 自 `1.110.0` 起可从包入口 `import type { MermaidConfig }`（重导出自 `mermaid`，无需再从 `mermaid` 单独 import 类型）。
+
+自 `1.118.0` 起文档明确包入口 `import type { MermaidSemanticType }`（与 `MermaidType` 同义；`MermaidType` 自 `1.89.0` 导出以对齐 React 导出名）。
+
+```typescript | pure
+type MermaidSemanticType = 'root' | 'header' | 'graph' | 'code';
+type MermaidType = MermaidSemanticType;
+```
+
+#### Semantic DOM
+
+| 名称 | 说明 |
+| --- | --- |
+| root | 根节点 |
+| header | 头部区域 |
+| graph | 图表渲染区域 |
+| code | 代码视图区域 |
 
 ### MermaidSlots
 
