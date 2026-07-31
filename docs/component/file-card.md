@@ -42,10 +42,21 @@ file-card/list
 | videoProps | 视频属性（透传 `<video>`） | Record<string, any> | - | 1.85.0（文档） |
 | audioProps | 音频属性（透传 `<audio>`） | Record<string, any> | - | 1.85.0（文档） |
 | mask | 遮罩内容；函数可拿到 size/icon/name 等上下文。`type="image"` 请用 `imageProps.preview.mask` | VNode \| string \| ((info) => VNode \| string) | - | 1.85.0（文档） |
-| spinProps | 图片加载中 Spin 配置；含 `showText` / `icon` / `percent`（`'auto'`） | SpinProps & \{ showText?: boolean; icon?: VNode; percent?: number \| 'auto' \} | - | 1.72.0 |
+| spinProps | 图片加载中 Spin 配置；含 `showText` / `icon` / `percent`（`'auto'`） | FileCardSpinProps | - | 1.72.0；1.130.0（类型导出文档） |
 | classNames | 语义化结构 className | Record<FileCardSemanticType, string> | - | 1.120.0（类型导出文档） |
 | styles | 语义化结构 style | Record<FileCardSemanticType, CSSProperties> | - | 1.120.0（类型导出文档） |
 | onClick | 点击回调 | `(info, event) => void` | - | - |
+
+自 `1.130.0` 起可从包入口 `import type { FileCardSpinProps }`（对齐 React FileCard `spinProps` 扩展字段）。
+
+```typescript | pure
+type FileCardSpinProps = SpinProps & {
+  showText?: boolean;
+  icon?: VNode;
+  percent?: number | 'auto';
+  size?: SpinProps['size'] | 'middle' | 'medium';
+};
+```
 
 自 `1.120.0` 起可从包入口 `import type { FileCardSemanticType }`（对齐 React FileCard `SemanticType` 键集）。
 
